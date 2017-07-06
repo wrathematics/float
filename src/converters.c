@@ -26,10 +26,14 @@ SEXP R_mat2spm(SEXP x)
       for (int j=0; j<n; j++)
       {
         for (int i=0; i<m; i++)
-        DATA(ret)[i + m*j] = (float) INTEGER (x)[i + m*j];
+        DATA(ret)[i + m*j] = (float) INTEGER(x)[i + m*j];
       }
       
       break;
+    
+    
+    default:
+      error("");
   }
   
   newRptr(ret, ret_ptr, matfin);

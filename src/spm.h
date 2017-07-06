@@ -21,6 +21,7 @@ static inline void matfin(SEXP ptr)
   x = (matrix_t*) R_ExternalPtrAddr(ptr);
   free(DATA(x));
   free(x);
+  x = NULL;
   R_ClearExternalPtr(ptr);
 }
 
