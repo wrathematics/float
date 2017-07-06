@@ -1,0 +1,17 @@
+Package: spm
+Type: Package
+Title: Single Precision Matrices
+Version: 0.1-0
+Description: TODO
+License: BSD 2-clause License + file LICENSE
+Depends:
+    R (>= 3.1.0),
+    methods
+ByteCompile: yes
+URL: https://github.com/wrathematics/spm
+BugReports: https://github.com/wrathematics/spm/issues
+Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre", "cph"),
+    email="wrathematics@gmail.com"),
+    person("ORNL", role="cph"))
+Maintainer: Drew Schmidt <wrathematics@gmail.com>
+RoxygenNote: 6.0.1
