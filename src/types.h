@@ -52,5 +52,24 @@ static inline matrix_t *newmat(const len_t m, const len_t n)
   return ret;
 }
 
+static inline void d2s(const int m, const int n, const double *const restrict x, float *const restrict y)
+{
+  for (int j=0; j<n; j++)
+  {
+    for (int i=0; i<m; i++)
+      y[i + m*j] = (float) x[i + m*j];
+  }
+}
+
+static inline void s2d(const int m, const int n, const float *const restrict x, double *const restrict y)
+{
+  for (int j=0; j<n; j++)
+  {
+    for (int i=0; i<m; i++)
+      y[i + m*j] = (double) x[i + m*j];
+  }
+}
+
+
 
 #endif

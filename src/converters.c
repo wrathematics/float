@@ -56,11 +56,7 @@ SEXP R_spm2mat(SEXP x_ptr)
   else
     PROTECT(ret = allocMatrix(REALSXP, m, n));
   
-  for (int j=0; j<n; j++)
-  {
-    for (int i=0; i<m; i++)
-      REAL(ret)[i + m*j] = (double) DATA(x)[i + m*j];
-  }
+  s2d(m, n, DATA(x), REAL(ret));
   
   UNPROTECT(1);
   return ret;
