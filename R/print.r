@@ -1,4 +1,34 @@
-print_spm = function(x)
+print_spm_vec = function(x)
+{
+  n = nrow(x)
+  
+  cat(paste0("# An spv (single precision vector): ", n, "\n"))
+  
+  top = min(5, n)
+  if (top == 0)
+  {
+    cat("# [no elements to display]\n")
+    return(invisible())
+  }
+  
+  if (top == n)
+    submat = spm2mat(x)
+  else
+    submat = spm2mat(x[1:top, ])
+  
+  dim(submat) = NULL
+  
+  if (top < n)
+    cat(capture.output(submat), " ... \n")
+  else
+    print(submat) # NOTE intentional
+  
+  invisible()
+}
+
+
+
+print_spm_mat = function(x)
 {
   m = nrow(x)
   n = ncol(x)
@@ -18,12 +48,24 @@ print_spm = function(x)
   else
     submat = spm2mat(x[1:toprow, 1:topcol])
   
+  dim(submat) = c(toprow, topcol)
+  
   print(submat) # NOTE intentional
   
-  if (toprow < nrow(x) || topcol < ncol(x))
+  if (toprow < m || topcol < n)
     cat("# ...\n\n")
   
   invisible()
+}
+
+
+
+print_spm = function(x)
+{
+  if (isavec(x))
+    print_spm_vec(x)
+  else
+    print_spm_mat(x)
 }
 
 
