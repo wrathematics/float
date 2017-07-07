@@ -31,3 +31,16 @@ SEXP R_dim_spm(SEXP x_ptr)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+// for my eyes only
+SEXP R_isavec_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  PROTECT(ret = allocVector(LGLSXP, 1));
+  LOGICAL(ret)[0] = ISAVEC(x);
+  UNPROTECT(1);
+  return ret;
+}
