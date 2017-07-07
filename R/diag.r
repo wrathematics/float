@@ -1,6 +1,7 @@
 diag.spm = function(x, nrow, ncol)
 {
-  .Call(R_diag_spm, x@ptr)
+  ptr = .Call(R_diag_spm, x@ptr)
+  new("spm", ptr=ptr)
 }
 
 
