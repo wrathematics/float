@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "cdefs.h"
 
 #define NROWS(x) ((x)->nrows)
 #define NCOLS(x) ((x)->ncols)
@@ -32,7 +33,8 @@ static inline matrix_t *newmat(const len_t m, const len_t n)
   if (ret == NULL)
     error("OOM");
   
-  DATA(ret) = malloc((size_t)m*n*sizeof(float));
+  size_t len = MAX((size_t)m*n, 1);
+  DATA(ret) = malloc(len * sizeof(float));
   if (DATA(ret) == NULL)
   {
     free(ret);
