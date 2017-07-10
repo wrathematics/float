@@ -1,10 +1,10 @@
 #include "spm.h"
 #include "matmult.h"
 
+
 void ssyrk_(const char *uplo, const char *trans, const int *n, const int *k,
   const float *restrict alpha, const float *restrict a, const int *lda,
   const float *restrict beta, float *restrict c, const int *ldc);
-
 
 
 // // lower triangle of t(x) %*% x

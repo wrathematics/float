@@ -1,7 +1,7 @@
 #include "spm.h"
 
-#define INT(x,i) INTEGER(x)[i]
 
+#define INT(x,i) INTEGER(x)[i]
 
 // assume positive integer indices for now
 SEXP R_bracket_spm(SEXP x_ptr, SEXP I, SEXP J)

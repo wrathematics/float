@@ -1,5 +1,5 @@
 #include "spm.h"
-#include <stdbool.h>
+
 
 #define BLOCKSIZE 16
 #define EPS 1000*FLT_EPSILON
