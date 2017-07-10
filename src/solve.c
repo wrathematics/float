@@ -126,6 +126,9 @@ SEXP R_solve_spmspm(SEXP x_ptr, SEXP y_ptr)
     error("'b' (%d x %d) must be compatible with 'a' (%d x %d)\n", NROWS(y), nrhs, m, n);
   
   matrix_t *ret = newmat(n, nrhs);
+  ISAVEC(ret) = ISAVEC(y);
+    
+  
   
   float *tmp = malloc((size_t)n*n*sizeof(*tmp));
   if (tmp == NULL)

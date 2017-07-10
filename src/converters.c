@@ -1,14 +1,27 @@
 #include "spm.h"
 
+
 SEXP R_mat2spm(SEXP x)
 {
   SEXP ret_ptr;
   matrix_t *ret;
+  int m, n;
   
-  const int m = nrows(x);
-  const int n = ncols(x);
+  if (!isMatrix(x))
+  {
+    m = LENGTH(x);
+    n = 1;
+    ret = newmat(m, n);
+    ISAVEC(ret) = true;
+  }
+  else
+  {
+    m = nrows(x);
+    n = ncols(x);
+    ret = newmat(m, n);
+    ISAVEC(ret) = false;
+  }
   
-  ret = newmat(m, n);
   
   switch (TYPEOF(x))
   {
@@ -16,7 +29,7 @@ SEXP R_mat2spm(SEXP x)
       for (int j=0; j<n; j++)
       {
         for (int i=0; i<m; i++)
-        DATA(ret)[i + m*j] = (float) REAL(x)[i + m*j];
+          DATA(ret)[i + m*j] = (float) REAL(x)[i + m*j];
       }
       
       break;
@@ -26,7 +39,7 @@ SEXP R_mat2spm(SEXP x)
       for (int j=0; j<n; j++)
       {
         for (int i=0; i<m; i++)
-        DATA(ret)[i + m*j] = (float) INTEGER(x)[i + m*j];
+          DATA(ret)[i + m*j] = (float) INTEGER(x)[i + m*j];
       }
       
       break;
@@ -51,7 +64,7 @@ SEXP R_spm2mat(SEXP x_ptr)
   const int m = NROWS(x);
   const int n = NCOLS(x);
   
-  if (n == 1)
+  if (n == 1 && ISAVEC(x))
     PROTECT(ret = allocVector(REALSXP, m));
   else
     PROTECT(ret = allocMatrix(REALSXP, m, n));

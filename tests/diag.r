@@ -9,11 +9,11 @@ ys = mat2spm(y)
 zs = mat2spm(z)
 
 
-test = diag(xs)
+test = spm2mat(diag(xs))
 stopifnot(all.equal(test, diag(x)))
 
-test = diag(ys)
+test = spm2mat(diag(ys))
 stopifnot(all.equal(test, diag(y)))
 
-test = diag(zs)
+test = spm2mat(diag(zs))
 stopifnot(all.equal(test, diag(z)))

@@ -13,6 +13,7 @@ SEXP R_bracket_spm(SEXP x_ptr, SEXP I, SEXP J)
   const int m = LENGTH(I);
   const int n = LENGTH(J);
   matrix_t *ret = newmat(m, n);
+  ISAVEC(ret) = ISAVEC(x);
   
   for (int j=0; j<n; j++)
   {
