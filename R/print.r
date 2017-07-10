@@ -14,12 +14,12 @@ print_spm_vec = function(x)
   if (top == n)
     submat = spm2mat(x)
   else
-    submat = spm2mat(x[1:top, ])
+    submat = spm2mat(x[1:top, 1L])
   
   dim(submat) = NULL
   
   if (top < n)
-    cat(capture.output(submat), " ... \n")
+    cat(capture.output(submat), "... \n")
   else
     print(submat) # NOTE intentional
   
