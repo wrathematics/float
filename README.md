@@ -8,7 +8,7 @@
 
 **spm** is a single precision matrix framework for R.  The package is nearly feature complete with base R's matrix operations, which is probably good enough for most everyone.
 
-Type promotion always defaults to the higher precision.  So if a float matrix operates with an integer matrix, the integer matrix will be cast to a float first. Likewise if a float matrix operates with a double matrix, the float will be cast to a double first.  Similarly, any float matrix that is explicitly converted to a "regular" matrix will be stored in double precision.  Finally, vectors will be converted to numeric vectors (e.g. in `diag()` and `svd()`).
+Type promotion always defaults to the higher precision.  So if a float matrix operates with an integer matrix, the integer matrix will be cast to a float first. Likewise if a float matrix operates with a double matrix, the float will be cast to a double first.  Similarly, any float matrix that is explicitly converted to a "regular" matrix will be stored in double precision.
 
 
 
@@ -64,4 +64,4 @@ t1[3] / t2[3]
 ## 1.859433 
 ```
 
-So it's actually almost 2 times faster to do the crossproduct in this case with floats, even counting the cost of conversion both ways.
+So it's almost 2 times faster to do the crossproduct in this case with floats, even counting the cost of conversion both ways. Which makes sense.
