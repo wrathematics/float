@@ -48,7 +48,7 @@ print_spm_mat = function(x)
   else
     submat = spm2mat(x[1:toprow, 1:topcol])
   
-  dim(submat) = c(toprow, topcol)
+  submat = submat[1:toprow, 1:topcol, drop=FALSE]
   
   print(submat) # NOTE intentional
   
