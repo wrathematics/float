@@ -51,9 +51,9 @@ t1
 ## 5.076   0.672   1.508 
 
 t2 = system.time({
-  xs = mat2spm(x)
+  xs = fl(x)
   cp = crossprod(xs)
-  spm2mat(cp)
+  dbl(cp)
 })
 t2
 ##  user  system elapsed 
