@@ -33,6 +33,57 @@ remotes::install_github("wrathematics/spm")
 
 
 
+## Methods
+
+The goal of the package is to recreate the matrix algebra facilities of the base package, but with floats.  So we do not include higher statistical methods (like `lm()` and `prcomp()`), or more "basic" methods like sorts and so on.
+
+Basic utilities:
+
+| Method | Status |
+|---|---|
+| `[` | positive integer indices for `i` and `j` only |
+| `is.spm()` | done |
+| `nrow()`, `ncol()`, `dim()` | done |
+
+Casters:
+
+| Method | Status |
+|---|---|
+| `mat2spm()` / `fl()` | done |
+| `spm2mat()` / `dbl()` | done |
+
+
+Linear algebra:
+
+| Method | Status |
+|---|---|
+| `chol()` | done |
+| `crossprod()` and `tcrossprod()` | done | 
+| `isSymmetric()` | done |
+| `%*%` | done |
+| `object.size()` | done |
+| `print()` | done |
+| `solve()` | done | 
+| `t()` | done |
+
+In progress:
+
+* `svd()` and `La.svd()`
+* The QR family of functions (`qr()`, `qr.Q()`, ...)
+* `eigen()`
+
+Future plans:
+
+* Accept more general `i`/`j` in `[`
+* `norm()`, `rcond()`, and `kappa()`
+* Basic random generation interface.
+* A (low-level) reader, like `scan()`.
+* Documentation ;_;
+
+Something missing?  Please [let me know](https://github.com/wrathematics/spm/issues).
+
+
+
 ## Package Use
 
 The memory consumption is roughly half when using floats:
