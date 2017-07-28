@@ -1,6 +1,5 @@
 #include "spm.h"
 
-
 #define INT(x,i) INTEGER(x)[i]
 
 // assume positive integer indices for now
