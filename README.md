@@ -6,9 +6,7 @@
 * **Author:** Drew Schmidt
 
 
-**spm** is a single precision (aka float) matrix framework for R.  Base R has no single precision type.  Its "numeric" vectors/matrices are double precision.  The package is nearly feature complete with base R's matrix operations, which is probably good enough for most everyone.
-
-Floats have half the precision of double precision data, for a performance vs accuracy tradeoff.  A matrix of floats should use about half as much memory as a matrix of doubles, and your favorite matrix routines will generally compute about twice as fast on them as well.  However, the results will not be as accurate, and are much more prone to roundoff error/mass cancellation issues.  Statisticians have a habit of over-hyping the dangers of roundoff error in this author's opinion.  If your data is [well-conditioned](https://en.wikipedia.org/wiki/Condition_number), then using floats is "probably" fine for many applications.  
+**spm** is a single precision (aka float) matrix framework for R.  Base R has no single precision type.  Its "numeric" vectors/matrices are double precision.  Floats have half the precision of double precision data, for a performance vs accuracy tradeoff.  A matrix of floats should use about half as much memory as a matrix of doubles, and your favorite matrix routines will generally compute about twice as fast on them as well.  However, the results will not be as accurate, and are much more prone to roundoff error/mass cancellation issues.  Statisticians have a habit of over-hyping the dangers of roundoff error in this author's opinion.  If your data is [well-conditioned](https://en.wikipedia.org/wiki/Condition_number), then using floats is "probably" fine for many applications.  
 
 Type promotion always defaults to the higher precision.  So if a float matrix operates with an integer matrix, the integer matrix will be cast to a float first. Likewise if a float matrix operates with a double matrix, the float will be cast to a double first.  Similarly, any float matrix that is explicitly converted to a "regular" matrix will be stored in double precision.
 
@@ -42,6 +40,7 @@ Basic utilities:
 | Method | Status |
 |---|---|
 | `[` | positive integer indices for `i` and `j` only |
+| `diag()` | done |
 | `is.spm()` | done |
 | `nrow()`, `ncol()`, `dim()` | done |
 
@@ -74,6 +73,9 @@ In progress:
 
 Future plans:
 
+* Binary arithmetic (`+`, `-`, ...)
+* `cbind()` and `rbind()`
+* `chol2inv()`
 * Accept more general `i`/`j` in `[`
 * `norm()`, `rcond()`, and `kappa()`
 * Basic random generation interface.
