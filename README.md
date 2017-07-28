@@ -6,7 +6,9 @@
 * **Author:** Drew Schmidt
 
 
-**spm** is a single precision matrix framework for R.  The package is nearly feature complete with base R's matrix operations, which is probably good enough for most everyone.
+**spm** is a single precision (aka float) matrix framework for R.  Base R has no single precision type.  Its "numeric" vectors/matrices are double precision.  The package is nearly feature complete with base R's matrix operations, which is probably good enough for most everyone.
+
+Floats have half the precision of double precision data, for a performance vs accuracy tradeoff.  A matrix of floats should use about half as much memory as a matrix of doubles, and your favorite matrix routines will generally compute about twice as fast on them as well.  However, the results will not be as accurate, and are much more prone to roundoff error/mass cancellation issues.  Statisticians have a habit of over-hyping the dangers of roundoff error in this author's opinion.  If your data is [well-conditioned](https://en.wikipedia.org/wiki/Condition_number), then using floats is "probably" fine for many applications.  
 
 Type promotion always defaults to the higher precision.  So if a float matrix operates with an integer matrix, the integer matrix will be cast to a float first. Likewise if a float matrix operates with a double matrix, the float will be cast to a double first.  Similarly, any float matrix that is explicitly converted to a "regular" matrix will be stored in double precision.
 
@@ -33,35 +35,46 @@ remotes::install_github("wrathematics/spm")
 
 ## Package Use
 
-Example:
+The memory consumption is roughly half when using floats:
 
 ```r
-suppressPackageStartupMessages(library(spm))
+library(spm)
 
 m = 10000
 n = 2500
-memuse::howbig(10000, 2500)
+
+memuse::howbig(m, n)
 ## 190.735 MiB
 
 x = matrix(rnorm(m*n), m, n)
+object.size(x)
+## 200000200 bytes
 
-t1 = system.time(crossprod(x))
-t1
-##  user  system elapsed 
-## 5.076   0.672   1.508 
-
-t2 = system.time({
-  xs = fl(x)
-  cp = crossprod(xs)
-  dbl(cp)
-})
-t2
-##  user  system elapsed 
-## 2.316   0.668   0.811 
-
-t1[3] / t2[3]
-## elapsed 
-## 1.859433 
+s = fl(x)
+object.size(s)
+## 100000024 bytes
 ```
 
-So it's almost 2 times faster to do the crossproduct in this case with floats, even counting the cost of conversion both ways. Which makes sense.
+And the runtime performance is roughly 2x better:
+
+```r
+library(rbenchmark)
+cols <- cols <- c("test", "replications", "elapsed", "relative")
+reps <- 5
+
+benchmark(crossprod(x), crossprod(s), replications=reps, columns=cols)
+##           test replications elapsed relative
+## 2 crossprod(s)            5   3.185    1.000
+## 1 crossprod(x)            5   7.163    2.249
+```
+
+However, the accuracy is better in the double precision version:
+
+```r
+cpx = crossprod(x)
+cps = crossprod(s)
+all.equal(cpx, dbl(cps))
+## [1] "Mean relative difference: 3.478718e-07"
+```
+
+That difference is fairly small, but for some operations/data could be significantly larger.  
