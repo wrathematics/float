@@ -1,2 +1,7 @@
 language: R
+sudo: required
 warnings_are_errors: true
+
+before_install:
+  - sudo apt-get update -q
+  - sudo apt-get install -y -q libblas-dev liblapack-dev
