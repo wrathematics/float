@@ -6,3 +6,5 @@ rm -rf ./src/*.d
 rm -rf ./src/*.dll
 
 rm -rf ./src/lapack/*.o
+
+rm -rf src/Makevars
