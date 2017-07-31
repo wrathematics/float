@@ -1,6 +1,11 @@
 PKG_CFLAGS = $(SHLIB_OPENMP_CFLAGS)
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CFLAGS)
 
-ADD_OBJS = lapack/sblas.f lapack/slapack1.f lapack/slapack2.f lapack/slapack3.f lapack/slapack4.f
+R_SOURCES = $(wildcard *.c)
+OBJECTS = lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o  lapack/sblas.o $(R_SOURCES:.c=.o)
 
-$(SHLIB): $(ADD_OBJS)
+
+### Start making here.
+all: $(SHLIB)
+
+$(SHLIB): $(OBJECTS)
