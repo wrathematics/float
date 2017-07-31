@@ -2765,6 +2765,10 @@ FLIBS=`${R_SCMD} FLIBS`
 BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
 LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
 
+echo "FLIBS=${FLIBS}"
+echo "BLAS_LIBS=${BLAS_LIBS}"
+echo "LAPACK_LIBS=${LAPACK_LIBS}"
+
 # Check tools.
 # Extract the first word of "echo", so it can be a program name with args.
 set dummy echo; ac_word=$2
@@ -2844,9 +2848,9 @@ fi
 
 
 # Check Rblas.
-if test "X$echo_ok" = "Xyes" -a "X$grep_ok" = "Xyes"; then
-  useRblas=`echo ${LAPACK_LIBS} | grep "\-lRblas"`
-  if test "X$useRblas" = "X"; then
+if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
+  useRblas=`echo ${BLAS_LIBS} | grep "\-lRblas"`
+  if test "X${useRblas}" = "X"; then
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lblas" >&5
 $as_echo_n "checking for sgemm_ in -lblas... " >&6; }
@@ -2939,9 +2943,9 @@ fi
 fi
 
 # Check Rlapack.
-if test "X$echo_ok" = "Xyes" -a "X$grep_ok" = "Xyes"; then
+if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
   useRlapack=`echo ${LAPACK_LIBS} | grep "\-lRlapack"`
-  if test "X$useRlapack" = "X"; then
+  if test "X${useRlapack}" = "X"; then
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -llapack" >&5
 $as_echo_n "checking for sgetrf_ in -llapack... " >&6; }
 if ${ac_cv_lib_lapack_sgetrf_+:} false; then :

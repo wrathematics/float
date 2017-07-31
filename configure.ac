@@ -18,14 +18,18 @@ FLIBS=`${R_SCMD} FLIBS`
 BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
 LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
 
+echo "FLIBS=${FLIBS}"
+echo "BLAS_LIBS=${BLAS_LIBS}"
+echo "LAPACK_LIBS=${LAPACK_LIBS}"
+
 # Check tools.
 AC_CHECK_PROG([echo_ok], [echo], [yes], [no], ,)
 AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
 
 # Check Rblas.
-if test "X$echo_ok" = "Xyes" -a "X$grep_ok" = "Xyes"; then
-  useRblas=`echo ${LAPACK_LIBS} | grep "\-lRblas"`
-  if test "X$useRblas" = "X"; then
+if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
+  useRblas=`echo ${BLAS_LIBS} | grep "\-lRblas"`
+  if test "X${useRblas}" = "X"; then
     AC_CHECK_LIB(blas, [sgemm_], [HAVESBLAS=yes], [HAVESBLAS=no])
   else
     HAVESBLAS="no"
@@ -35,9 +39,9 @@ else
 fi
 
 # Check Rlapack.
-if test "X$echo_ok" = "Xyes" -a "X$grep_ok" = "Xyes"; then
+if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
   useRlapack=`echo ${LAPACK_LIBS} | grep "\-lRlapack"`
-  if test "X$useRlapack" = "X"; then
+  if test "X${useRlapack}" = "X"; then
     AC_CHECK_LIB(lapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
   else
     HAVESBLAS="no"
