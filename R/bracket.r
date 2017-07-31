@@ -1,3 +1,31 @@
+#' Extract
+#' 
+#' Extract subsets of a float vector/matrix.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' @param i,j
+#' The indices. NOTE that at this time only non-specified and positive indexed
+#' i/j are accepted.
+#' 
+#' @return
+#' A float vector/matrix.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' s = flrunif(10, 3)
+#' s[, -1]
+#' s[c(1, 3, 5, 7), 1:2]
+#' }
+#' 
+#' @name bracket
+#' @rdname bracket
+NULL
+
+
+
 bracket.spm = function(x, i, j)
 {
   if (missing(i) && missing(j))
@@ -33,6 +61,8 @@ bracket.spm = function(x, i, j)
   ptr = .Call(R_bracket_spm, x@ptr, i, j)
   new("spm", ptr=ptr)
 }
+
+
 
 #' @rdname bracket
 #' @export

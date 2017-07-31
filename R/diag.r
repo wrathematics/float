@@ -1,3 +1,32 @@
+#' diag
+#' 
+#' Methods for getting the diagonal of a float matrix, or constructing a float
+#' matrix given a float vector.
+#' 
+#' @param x
+#' A float vector (create a diagonal matrix) or matrix (get its diagonal).
+#' @param nrow,ncol
+#' As in base R's \code{diag()}.
+#' 
+#' @return
+#' A float vector or matrix, depending on the input.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' s = flrunif(10, 3)
+#' s
+#' diag(s)
+#' diag(diag(s))
+#' }
+#' 
+#' @name diag
+#' @rdname diag
+NULL
+
+
+
 diag.spm = function(x, nrow, ncol)
 {
   if (missing(nrow) && missing(ncol))
@@ -28,5 +57,6 @@ diag.spm = function(x, nrow, ncol)
 
 
 
+#' @rdname diag
 #' @export
 setMethod("diag", signature(x="spm"), diag.spm)

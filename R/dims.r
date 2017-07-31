@@ -1,3 +1,29 @@
+#' dim
+#' 
+#' Dimension information for a float vector/matrix.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' 
+#' @return
+#' The requested integer values.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' s = flrunif(10, 3)
+#' dim(s)
+#' nrow(s)
+#' ncol(s)
+#' }
+#' 
+#' @rdname diag
+#' @rdname diag
+NULL
+
+
+
 #' @export
 setMethod("nrow", signature(x="spm"), function(x) .Call(R_nrow_spm, x@ptr))
 
