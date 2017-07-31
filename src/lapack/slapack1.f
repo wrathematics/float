@@ -41209,9 +41209,9 @@
       SUBROUTINE SSYTRD_SB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB, 
      $                         D, E, HOUS, LHOUS, WORK, LWORK, INFO )
 *
-#if defined(_OPENMP)
-      use omp_lib
-#endif
+c #if defined(_OPENMP)
+c       use omp_lib
+c #endif
 *
       IMPLICIT NONE
 *
@@ -41411,15 +41411,15 @@
 *
 *     openMP parallelisation start here
 *
-#if defined(_OPENMP)
-!$OMP PARALLEL PRIVATE( TID, THGRID, BLKLASTIND )
-!$OMP$         PRIVATE( THED, I, M, K, ST, ED, STT, SWEEPID ) 
-!$OMP$         PRIVATE( MYID, TTYPE, COLPT, STIND, EDIND )
-!$OMP$         SHARED ( UPLO, WANTQ, INDV, INDTAU, HOUS, WORK)
-!$OMP$         SHARED ( N, KD, IB, NBTILES, LDA, LDV, INDA )
-!$OMP$         SHARED ( STEPERCOL, THGRNB, THGRSIZ, GRSIZ, SHIFT )
-!$OMP MASTER
-#endif
+c #if defined(_OPENMP)
+c !$OMP PARALLEL PRIVATE( TID, THGRID, BLKLASTIND )
+c !$OMP$         PRIVATE( THED, I, M, K, ST, ED, STT, SWEEPID ) 
+c !$OMP$         PRIVATE( MYID, TTYPE, COLPT, STIND, EDIND )
+c !$OMP$         SHARED ( UPLO, WANTQ, INDV, INDTAU, HOUS, WORK)
+c !$OMP$         SHARED ( N, KD, IB, NBTILES, LDA, LDV, INDA )
+c !$OMP$         SHARED ( STEPERCOL, THGRNB, THGRSIZ, GRSIZ, SHIFT )
+c !$OMP MASTER
+c #endif
 *
 *     main bulge chasing loop
 *      
@@ -41460,36 +41460,36 @@
 *
 *                         Call the kernel
 *                             
-#if defined(_OPENMP)
-                          IF( TTYPE.NE.1 ) THEN      
-!$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
-!$OMP$     DEPEND(in:WORK(MYID-1))
-!$OMP$     DEPEND(out:WORK(MYID))
-                              TID      = OMP_GET_THREAD_NUM()
-                              CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, 
-     $                             STIND, EDIND, SWEEPID, N, KD, IB,
-     $                             WORK ( INDA ), LDA, 
-     $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                             WORK( INDW + TID*KD ) )
-!$OMP END TASK
-                          ELSE
-!$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
-!$OMP$     DEPEND(out:WORK(MYID))
-                              TID      = OMP_GET_THREAD_NUM()
-                              CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, 
-     $                             STIND, EDIND, SWEEPID, N, KD, IB,
-     $                             WORK ( INDA ), LDA, 
-     $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
-     $                             WORK( INDW + TID*KD ) )
-!$OMP END TASK
-                          ENDIF
-#else
+c #if defined(_OPENMP)
+c                           IF( TTYPE.NE.1 ) THEN      
+c !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
+c !$OMP$     DEPEND(in:WORK(MYID-1))
+c !$OMP$     DEPEND(out:WORK(MYID))
+c                               TID      = OMP_GET_THREAD_NUM()
+c                               CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, 
+c      $                             STIND, EDIND, SWEEPID, N, KD, IB,
+c      $                             WORK ( INDA ), LDA, 
+c      $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
+c      $                             WORK( INDW + TID*KD ) )
+c !$OMP END TASK
+c                           ELSE
+c !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
+c !$OMP$     DEPEND(out:WORK(MYID))
+c                               TID      = OMP_GET_THREAD_NUM()
+c                               CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, 
+c      $                             STIND, EDIND, SWEEPID, N, KD, IB,
+c      $                             WORK ( INDA ), LDA, 
+c      $                             HOUS( INDV ), HOUS( INDTAU ), LDV,
+c      $                             WORK( INDW + TID*KD ) )
+c !$OMP END TASK
+c                           ENDIF
+c #else
                           CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, 
      $                         STIND, EDIND, SWEEPID, N, KD, IB,
      $                         WORK ( INDA ), LDA, 
      $                         HOUS( INDV ), HOUS( INDTAU ), LDV,
      $                         WORK( INDW + TID*KD ) )
-#endif 
+c #endif 
                           IF ( BLKLASTIND.GE.(N-1) ) THEN
                               STT = STT + 1
                               EXIT
@@ -41500,10 +41500,10 @@
   110     CONTINUE
   100 CONTINUE
 *
-#if defined(_OPENMP)
-!$OMP END MASTER
-!$OMP END PARALLEL
-#endif
+c #if defined(_OPENMP)
+c !$OMP END MASTER
+c !$OMP END PARALLEL
+c #endif
 *      
 *     Copy the diagonal from A to D. Note that D is REAL thus only
 *     the Real part is needed, the imaginary part should be zero.
@@ -49215,4 +49215,3 @@
 *     End of STRTTF
 *
       END
-
