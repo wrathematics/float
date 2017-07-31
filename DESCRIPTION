@@ -21,6 +21,8 @@ Depends:
     methods
 Imports:
     utils
+Enhances:
+    memuse
 SystemRequirements: GNU make
 ByteCompile: yes
 URL: https://github.com/wrathematics/spm

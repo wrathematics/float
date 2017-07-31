@@ -1,9 +1,54 @@
+#' object.size
+#' 
+#' Return the memory being used to store the object.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' s = flrunif(10, 3)
+#' object.size(s)
+#' 
+#' ### if the memuse package is also available:
+#' memuse(s)
+#' }
+#' 
+#' @name object.size
+#' @rdname object_size
+NULL
+
+
+
 numbytes.spm = function(x)
 {
-  ret = .Call(R_numbytes_spm, x@ptr)
-  class(ret) = "object_size"
-  ret
+  .Call(R_numbytes_spm, x@ptr) + utils::object.size(x)
 }
 
+
+
+#' @rdname object_size
 #' @export
 setMethod("object.size", signature(x="spm"), numbytes.spm)
+
+
+
+#' @export
+setMethod("mu", signature(size="spm"),
+  function(size, unit="best", prefix="IEC", names="short")
+  {
+    size = unclass(spm::object.size(size))
+    memuse::mu(size, unit=unit, prefix=prefix, names=names)
+  }
+)
+
+#' @export
+setMethod("memuse", signature(size="spm"),
+  function(size, unit="best", prefix="IEC", names="short")
+  {
+    size = unclass(spm::object.size(size))
+    memuse::mu(size, unit=unit, prefix=prefix, names=names)
+  }
+)
