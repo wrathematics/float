@@ -2938,7 +2938,51 @@ else
 fi
 
   else
-    HAVESBLAS="no"
+    LDFLAGS_OLD="${LDFLAGS}"
+    LDFLAGS="${LDFLAGS} ${BLAS_LIBS}"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lRblas" >&5
+$as_echo_n "checking for sgemm_ in -lRblas... " >&6; }
+if ${ac_cv_lib_Rblas_sgemm_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lRblas  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgemm_ ();
+int
+main ()
+{
+return sgemm_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_Rblas_sgemm_=yes
+else
+  ac_cv_lib_Rblas_sgemm_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Rblas_sgemm_" >&5
+$as_echo "$ac_cv_lib_Rblas_sgemm_" >&6; }
+if test "x$ac_cv_lib_Rblas_sgemm_" = xyes; then :
+  HAVESBLAS=yes
+else
+  HAVESBLAS=no
+fi
+
+    LDFLAGS="${LDFLAGS_OLD}"
   fi
 else
   HAVESBLAS="no"
@@ -2991,7 +3035,51 @@ else
 fi
 
   else
-    HAVESLAPACK="no"
+    LDFLAGS_OLD="${LDFLAGS}"
+    LDFLAGS="${LDFLAGS} ${LAPACK_LIBS}"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -lRlapack" >&5
+$as_echo_n "checking for sgetrf_ in -lRlapack... " >&6; }
+if ${ac_cv_lib_Rlapack_sgetrf_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lRlapack  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgetrf_ ();
+int
+main ()
+{
+return sgetrf_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_Rlapack_sgetrf_=yes
+else
+  ac_cv_lib_Rlapack_sgetrf_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Rlapack_sgetrf_" >&5
+$as_echo "$ac_cv_lib_Rlapack_sgetrf_" >&6; }
+if test "x$ac_cv_lib_Rlapack_sgetrf_" = xyes; then :
+  HAVESLAPACK=yes
+else
+  HAVESLAPACK=no
+fi
+
+    LDFLAGS="${LDFLAGS_OLD}"
   fi
 else
   HAVESLAPACK="no"

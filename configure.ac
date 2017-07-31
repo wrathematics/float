@@ -30,7 +30,10 @@ if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
   if test "X${useRblas}" = "X"; then
     AC_CHECK_LIB(blas, [sgemm_], [HAVESBLAS=yes], [HAVESBLAS=no])
   else
-    HAVESBLAS="no"
+    LDFLAGS_OLD="${LDFLAGS}"
+    LDFLAGS="${LDFLAGS} ${BLAS_LIBS}"
+    AC_CHECK_LIB(Rblas, [sgemm_], [HAVESBLAS=yes], [HAVESBLAS=no])
+    LDFLAGS="${LDFLAGS_OLD}"
   fi
 else
   HAVESBLAS="no"
@@ -42,7 +45,10 @@ if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
   if test "X${useRlapack}" = "X"; then
     AC_CHECK_LIB(lapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
   else
-    HAVESLAPACK="no"
+    LDFLAGS_OLD="${LDFLAGS}"
+    LDFLAGS="${LDFLAGS} ${LAPACK_LIBS}"
+    AC_CHECK_LIB(Rlapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
+    LDFLAGS="${LDFLAGS_OLD}"
   fi
 else
   HAVESLAPACK="no"
