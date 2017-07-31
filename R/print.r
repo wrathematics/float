@@ -1,3 +1,25 @@
+#' print-spm
+#' 
+#' Print methods for float vector/matrices.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' s = flrunif(10, 3)
+#' print(s)
+#' s
+#' }
+#' 
+#' @name print-spm
+#' @rdname print-spm
+NULL
+
+
+
 print_spm_vec = function(x)
 {
   n = nrow(x)
@@ -70,10 +92,10 @@ print_spm = function(x)
 
 
 
-#' @rdname print
+#' @rdname print-spm
 #' @export
 setMethod("print", signature(x="spm"), function(x, ...) print_spm(x))
 
-#' @rdname print
+#' @rdname print-spm
 #' @export
 setMethod("show", signature(object="spm"), function(object) print_spm(object))

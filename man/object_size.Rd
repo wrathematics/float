@@ -11,9 +11,6 @@
 \arguments{
 \item{x}{A float vector/matrix.}
 }
-\value{
-The requested integer values.
-}
 \description{
 Return the memory being used to store the object.
 }
@@ -22,9 +19,10 @@ Return the memory being used to store the object.
 library(spm)
 
 s = flrunif(10, 3)
-dim(s)
-nrow(s)
-ncol(s)
+object.size(s)
+
+### if the memuse package is also available:
+memuse(s)
 }
 
 }
