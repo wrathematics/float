@@ -14,6 +14,8 @@ Type promotion always defaults to the higher precision.  So if a float matrix op
 
 ## Installation
 
+The package requires the single precision BLAS/LAPACK routines which are not included in the default `libRblas` and `libRlapack` shipped from CRAN.  If your BLAS/LAPACK libraries do not have what is needed, then they will be built.  However, these can take a very long time to compile, and will have much worse performance than optimized libraries.  The topic of which BLAS/LAPACK to use and how to use them has been written about many times.  If this is the first you're hearing of it, I would recommend you use [Microsoft R Open](https://mran.microsoft.com/open/).
+
 <!-- To install the R package, run:
 
 ```r
