@@ -585,6 +585,8 @@ ac_unique_file="DESCRIPTION"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 ADD_OBJS
+grep_ok
+echo_ok
 OBJEXT
 EXEEXT
 ac_ct_CC
@@ -2750,6 +2752,102 @@ fi
 
 
 
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+
+
+# Obtain from R.
+R_SCMD="${R_HOME}/bin/R CMD config"
+FLIBS=`${R_SCMD} FLIBS`
+BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
+LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
+
+# Check tools.
+# Extract the first word of "echo", so it can be a program name with args.
+set dummy echo; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_prog_echo_ok+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test -n "$echo_ok"; then
+  ac_cv_prog_echo_ok="$echo_ok" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_prog_echo_ok="yes"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_prog_echo_ok" && ac_cv_prog_echo_ok="no"
+fi
+fi
+echo_ok=$ac_cv_prog_echo_ok
+if test -n "$echo_ok"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $echo_ok" >&5
+$as_echo "$echo_ok" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+# Extract the first word of "grep", so it can be a program name with args.
+set dummy grep; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_prog_grep_ok+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test -n "$grep_ok"; then
+  ac_cv_prog_grep_ok="$grep_ok" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_prog_grep_ok="yes"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_prog_grep_ok" && ac_cv_prog_grep_ok="no"
+fi
+fi
+grep_ok=$ac_cv_prog_grep_ok
+if test -n "$grep_ok"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $grep_ok" >&5
+$as_echo "$grep_ok" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+
+# Check Rblas.
+if test "X$echo_ok" = "Xyes" -a "X$grep_ok" = "Xyes"; then
+  useRblas=`echo ${LAPACK_LIBS} | grep "\-lRblas"`
+  if test "X$useRblas" = "X"; then
+
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lblas" >&5
 $as_echo_n "checking for sgemm_ in -lblas... " >&6; }
 if ${ac_cv_lib_blas_sgemm_+:} false; then :
@@ -2792,7 +2890,59 @@ else
   HAVESBLAS=no
 fi
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -llapack" >&5
+  else
+    HAVESBLAS="no"
+  fi
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lblas" >&5
+$as_echo_n "checking for sgemm_ in -lblas... " >&6; }
+if ${ac_cv_lib_blas_sgemm_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lblas  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgemm_ ();
+int
+main ()
+{
+return sgemm_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_blas_sgemm_=yes
+else
+  ac_cv_lib_blas_sgemm_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blas_sgemm_" >&5
+$as_echo "$ac_cv_lib_blas_sgemm_" >&6; }
+if test "x$ac_cv_lib_blas_sgemm_" = xyes; then :
+  HAVESBLAS=yes
+else
+  HAVESBLAS=no
+fi
+
+fi
+
+# Check Rlapack.
+if test "X$echo_ok" = "Xyes" -a "X$grep_ok" = "Xyes"; then
+  useRlapack=`echo ${LAPACK_LIBS} | grep "\-lRlapack"`
+  if test "X$useRlapack" = "X"; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -llapack" >&5
 $as_echo_n "checking for sgetrf_ in -llapack... " >&6; }
 if ${ac_cv_lib_lapack_sgetrf_+:} false; then :
   $as_echo_n "(cached) " >&6
@@ -2834,17 +2984,71 @@ else
   HAVESLAPACK=no
 fi
 
+  else
+    HAVESBLAS="no"
+  fi
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -llapack" >&5
+$as_echo_n "checking for sgetrf_ in -llapack... " >&6; }
+if ${ac_cv_lib_lapack_sgetrf_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-llapack  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgetrf_ ();
+int
+main ()
+{
+return sgetrf_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_lapack_sgetrf_=yes
+else
+  ac_cv_lib_lapack_sgetrf_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_lapack_sgetrf_" >&5
+$as_echo "$ac_cv_lib_lapack_sgetrf_" >&6; }
+if test "x$ac_cv_lib_lapack_sgetrf_" = xyes; then :
+  HAVESLAPACK=yes
+else
+  HAVESLAPACK=no
+fi
+
+fi
+
 
 
 # set additional files as needed
 ADD_OBJS=""
 
 if test "X${HAVESBLAS}" = "Xno"; then
+  echo "Using internal single precision blas"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
+else
+  echo "Using system single precision blas"
 fi
 
 if test "X${HAVESLAPACK}" = "Xno"; then
+  echo "Using internal single precision lapack"
   ADD_OBJS="${ADD_OBJS} lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o"
+else
+  echo "Using system single precision lapack"
 fi
 
 
