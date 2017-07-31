@@ -15,12 +15,25 @@ SEXP R_flrunif_spm(SEXP m_, SEXP n_, SEXP min_, SEXP max_, SEXP isavec)
   ISAVEC(ret) = LOGICAL(isavec)[0];
   
   
-  GetRNGstate();
-  
-  for (size_t i=0; i<((size_t)m*n); i++)
-    DATA(ret)[i] = min + (max-min)*((float) unif_rand());
-  
-  PutRNGstate();
+  if (min > max)
+  {
+    for (size_t i=0; i<((size_t)m*n); i++)
+      DATA(ret)[i] = (float) R_NaN;
+  }
+  else if (min == max)
+  {
+    for (size_t i=0; i<((size_t)m*n); i++)
+      DATA(ret)[i] = min;
+  }
+  else
+  {
+    GetRNGstate();
+    
+    for (size_t i=0; i<((size_t)m*n); i++)
+      DATA(ret)[i] = min + (max-min)*((float) unif_rand());
+    
+    PutRNGstate();
+  }
   
   newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
