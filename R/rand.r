@@ -17,6 +17,7 @@
 #' @param min,max
 #' Minimum and maximum values for the uniform generator.
 #' @param mean,sd
+#' Mean and standard deviation values for the normal generator.
 #' 
 #' @examples
 #' \dontrun{

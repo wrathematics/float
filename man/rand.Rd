@@ -16,7 +16,7 @@ is not, then the return is a vector.}
 
 \item{min, max}{Minimum and maximum values for the uniform generator.}
 
-\item{mean, sd}{}
+\item{mean, sd}{Mean and standard deviation values for the normal generator.}
 }
 \description{
 Random float vector/matrix generators. \code{flrunif()} produces uniform

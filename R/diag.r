@@ -27,7 +27,7 @@ NULL
 
 
 
-diag.spm = function(x, nrow, ncol)
+diag.spm = function(x=1, nrow, ncol)
 {
   if (missing(nrow) && missing(ncol))
   {

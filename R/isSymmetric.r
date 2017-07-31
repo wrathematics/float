@@ -4,6 +4,8 @@
 #' 
 #' @param object
 #' A float vector/matrix.
+#' @param ...
+#' Ignored.
 #' 
 #' @return
 #' A logical value.
@@ -32,5 +34,6 @@ isSymmetric.spm = function(object, ...)
 
 
 
+#' @rdname isSymmetric
 #' @export
 setMethod("isSymmetric", signature(object="spm"), isSymmetric.spm)
