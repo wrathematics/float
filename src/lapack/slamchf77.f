@@ -576,10 +576,10 @@
          FIRST = .FALSE.
 ***
 * Comment out this if block if EMIN is ok
-         IF( IWARN ) THEN
-            FIRST = .TRUE.
-            WRITE( 6, FMT = 9999 )LEMIN
-         END IF
+C         IF( IWARN ) THEN
+C            FIRST = .TRUE.
+C            WRITE( 6, FMT = 9999 )LEMIN
+C         END IF
 ***
 *
 *        Assume IEEE arithmetic if we found denormalised  numbers above,
