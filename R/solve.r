@@ -4,6 +4,8 @@
 #' 
 #' @param a,b
 #' A float vector/matrix.
+#' @param ...
+#' Ignored.
 #' 
 #' @return
 #' A float matrix if inverting.  If solving a system, a float vector if given

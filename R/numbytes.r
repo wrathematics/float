@@ -13,6 +13,7 @@
 #' object.size(s)
 #' 
 #' ### if the memuse package is also available:
+#' library(memuse)
 #' memuse(s)
 #' }
 #' 
@@ -35,20 +36,23 @@ setMethod("object.size", signature(x="spm"), numbytes.spm)
 
 
 
-#' @export
-setMethod("mu", signature(size="spm"),
-  function(size, unit="best", prefix="IEC", names="short")
-  {
-    size = unclass(spm::object.size(size))
-    memuse::mu(size, unit=unit, prefix=prefix, names=names)
-  }
-)
+####' @importMethodsFrom memuse memuse mu
+# #' @rdname object_size
+# #' @export
+# setMethod("mu", signature(size="spm"),
+#   function(size, unit="best", prefix="IEC", names="short")
+#   {
+#     size = unclass(spm::object.size(size))
+#     memuse::mu(size, unit=unit, prefix=prefix, names=names)
+#   }
+# )
 
-#' @export
-setMethod("memuse", signature(size="spm"),
-  function(size, unit="best", prefix="IEC", names="short")
-  {
-    size = unclass(spm::object.size(size))
-    memuse::mu(size, unit=unit, prefix=prefix, names=names)
-  }
-)
+# #' @rdname object_size
+# #' @export
+# setMethod("memuse", signature(size="spm"),
+#   function(size, unit="best", prefix="IEC", names="short")
+#   {
+#     size = unclass(spm::object.size(size))
+#     memuse::mu(size, unit=unit, prefix=prefix, names=names)
+#   }
+# )

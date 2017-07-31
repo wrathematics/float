@@ -22,6 +22,7 @@ s = flrunif(10, 3)
 object.size(s)
 
 ### if the memuse package is also available:
+library(memuse)
 memuse(s)
 }
 

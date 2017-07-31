@@ -10,6 +10,8 @@
 }
 \arguments{
 \item{a, b}{A float vector/matrix.}
+
+\item{...}{Ignored.}
 }
 \value{
 A float matrix if inverting.  If solving a system, a float vector if given

@@ -2,8 +2,10 @@
 #' 
 #' Print methods for float vector/matrices.
 #' 
-#' @param x
+#' @param x,object
 #' A float vector/matrix.
+#' @param ...
+#' Ignored.
 #' 
 #' @examples
 #' \dontrun{

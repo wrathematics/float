@@ -12,7 +12,9 @@
 \S4method{show}{spm}(object)
 }
 \arguments{
-\item{x}{A float vector/matrix.}
+\item{x, object}{A float vector/matrix.}
+
+\item{...}{Ignored.}
 }
 \description{
 Print methods for float vector/matrices.
