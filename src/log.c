@@ -11,40 +11,32 @@
   ISAVEC(ret) = ISAVEC(x); \
   memcpy(DATA(ret), DATA(x), (size_t)m*n*sizeof(float));
 
+#define APPLY(fun) \
+  for (size_t i=0; i<((size_t)m*n); i++) \
+    DATA(ret)[i] = fun(DATA(x)[i]);
+
 #define FUN_END \
   newRptr(ret, ret_ptr, matfin); \
   UNPROTECT(1); \
   return ret_ptr;
 
-// -----------------------------------------------------------------------------
-// exp
-// -----------------------------------------------------------------------------
+
 
 SEXP R_exp_spm(SEXP x_ptr)
 {
   FUN_INIT
-  
-  for (size_t i=0; i<((size_t)m*n); i++)
-    DATA(ret)[i] = expf(DATA(x)[i]);
-  
+  APPLY(expf)
   FUN_END
 }
 
 SEXP R_expm1_spm(SEXP x_ptr)
 {
   FUN_INIT
-  
-  for (size_t i=0; i<((size_t)m*n); i++)
-    DATA(ret)[i] = expm1f(DATA(x)[i]);
-  
+  APPLY(expm1f)
   FUN_END
 }
 
 
-
-// -----------------------------------------------------------------------------
-// log
-// -----------------------------------------------------------------------------
 
 SEXP R_log_spm(SEXP x_ptr, SEXP base_)
 {
@@ -57,24 +49,16 @@ SEXP R_log_spm(SEXP x_ptr, SEXP base_)
   FUN_END
 }
 
-
-
 SEXP R_log10_spm(SEXP x_ptr)
 {
   FUN_INIT
-  
-  for (size_t i=0; i<((size_t)m*n); i++)
-    DATA(ret)[i] = log10f(DATA(x)[i]);
-  
+  APPLY(log10f)
   FUN_END
 }
 
 SEXP R_log2_spm(SEXP x_ptr)
 {
   FUN_INIT
-  
-  for (size_t i=0; i<((size_t)m*n); i++)
-    DATA(ret)[i] = log2f(DATA(x)[i]);
-  
+  APPLY(log2f)
   FUN_END
 }
