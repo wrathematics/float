@@ -21,6 +21,9 @@
   return ret_ptr;
 
 
+// ----------------------------------------------------------------------------
+// logs
+// ----------------------------------------------------------------------------
 
 SEXP R_exp_spm(SEXP x_ptr)
 {
@@ -35,8 +38,6 @@ SEXP R_expm1_spm(SEXP x_ptr)
   APPLY(expm1f)
   FUN_END
 }
-
-
 
 SEXP R_log_spm(SEXP x_ptr, SEXP base_)
 {
@@ -60,5 +61,53 @@ SEXP R_log2_spm(SEXP x_ptr)
 {
   FUN_INIT
   APPLY(log2f)
+  FUN_END
+}
+
+
+
+// ----------------------------------------------------------------------------
+// trig
+// ----------------------------------------------------------------------------
+
+SEXP R_sin_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(sinf)
+  FUN_END
+}
+
+SEXP R_cos_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(cosf)
+  FUN_END
+}
+
+SEXP R_tan_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(tanf)
+  FUN_END
+}
+
+SEXP R_asin_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(asinf)
+  FUN_END
+}
+
+SEXP R_acos_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(acosf)
+  FUN_END
+}
+
+SEXP R_atan_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(atanf)
   FUN_END
 }
