@@ -17,9 +17,6 @@ R_SCMD="${R_HOME}/bin/R CMD config"
 BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
 LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
 
-echo "BLAS_LIBS=${BLAS_LIBS}"
-echo "LAPACK_LIBS=${LAPACK_LIBS}"
-
 # Check tools.
 AC_CHECK_PROG([echo_ok], [echo], [yes], [no], ,)
 AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
@@ -56,27 +53,52 @@ fi
 
 
 
-# set additional files as needed
-if test "X${HAVESBLAS}" = "Xno" -o "X${HAVESLAPACK}" = "Xno"; then
-  AC_PROG_F77
-fi
-
-
+# Set additional object files and messages
 ADD_OBJS=""
 
 if test "X${HAVESBLAS}" = "Xno"; then
-  echo "Using internal single precision blas"
+  BLAS_REPORT="WARNING: using internal single precision blas"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
 else
-  echo "Using system single precision blas"
+  BLAS_REPORT="using system single precision blas"
 fi
 
 if test "X${HAVESLAPACK}" = "Xno"; then
-  echo "Using internal single precision lapack"
+  LAPACK_REPORT="WARNING: using internal single precision lapack"
   ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
 else
-  echo "Using system single precision lapack"
+  LAPACK_REPORT="using system single precision lapack"
 fi
+
+if test "X${HAVESBLAS}" = "Xno" -o "X${HAVESLAPACK}" = "Xno"; then
+  AC_PROG_F77
+  
+  WARN_EXTRA="
+The internal single precision BLAS/LAPACK are inefficient. Please \
+consider installing high performance implementations, such as OpenBLAS \
+(open source software) or MKL (available for free from the Microsoft R \
+Open R distribution).
+
+If you believe you are seeing this message in error, please contact the \
+package maintainers.
+  "
+else
+  WARN_EXTRA=" "
+fi
+
+
+# Report
+echo " "
+echo "******************** Results of spm package configure *******************"
+echo " "
+echo "${BLAS_REPORT}"
+echo ">> BLAS_LIBS=${BLAS_LIBS}"
+echo "${LAPACK_REPORT}"
+echo ">> LAPACK_LIBS=${LAPACK_LIBS}"
+echo "${WARN_EXTRA}"
+echo "*************************************************************************"
+echo " "
+
 
 
 AC_SUBST(ADD_OBJS)

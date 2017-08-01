@@ -2809,9 +2809,6 @@ R_SCMD="${R_HOME}/bin/R CMD config"
 BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
 LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
 
-echo "BLAS_LIBS=${BLAS_LIBS}"
-echo "LAPACK_LIBS=${LAPACK_LIBS}"
-
 # Check tools.
 # Extract the first word of "echo", so it can be a program name with args.
 set dummy echo; ac_word=$2
@@ -3087,7 +3084,23 @@ fi
 
 
 
-# set additional files as needed
+# Set additional object files and messages
+ADD_OBJS=""
+
+if test "X${HAVESBLAS}" = "Xno"; then
+  BLAS_REPORT="WARNING: using internal single precision blas"
+  ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
+else
+  BLAS_REPORT="using system single precision blas"
+fi
+
+if test "X${HAVESLAPACK}" = "Xno"; then
+  LAPACK_REPORT="WARNING: using internal single precision lapack"
+  ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
+else
+  LAPACK_REPORT="using system single precision lapack"
+fi
+
 if test "X${HAVESBLAS}" = "Xno" -o "X${HAVESLAPACK}" = "Xno"; then
   ac_ext=f
 ac_compile='$F77 -c $FFLAGS conftest.$ac_ext >&5'
@@ -3300,24 +3313,33 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
-fi
 
+  WARN_EXTRA="
+The internal single precision BLAS/LAPACK are inefficient. Please \
+consider installing high performance implementations, such as OpenBLAS \
+(open source software) or MKL (available for free from the Microsoft R \
+Open R distribution).
 
-ADD_OBJS=""
-
-if test "X${HAVESBLAS}" = "Xno"; then
-  echo "Using internal single precision blas"
-  ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
+If you believe you are seeing this message in error, please contact the \
+package maintainers.
+  "
 else
-  echo "Using system single precision blas"
+  WARN_EXTRA=" "
 fi
 
-if test "X${HAVESLAPACK}" = "Xno"; then
-  echo "Using internal single precision lapack"
-  ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
-else
-  echo "Using system single precision lapack"
-fi
+
+# Report
+echo " "
+echo "******************** Results of spm package configure *******************"
+echo " "
+echo "${BLAS_REPORT}"
+echo ">> BLAS_LIBS=${BLAS_LIBS}"
+echo "${LAPACK_REPORT}"
+echo ">> LAPACK_LIBS=${LAPACK_LIBS}"
+echo "${WARN_EXTRA}"
+echo "*************************************************************************"
+echo " "
+
 
 
 
