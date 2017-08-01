@@ -174,3 +174,95 @@ setMethod("acos", signature(x="spm"), acos.spm)
 #' @rdname trig
 #' @export
 setMethod("atan", signature(x="spm"), atan.spm)
+
+
+
+# -----------------------------------------------------------------------------
+# hyperbolic
+# -----------------------------------------------------------------------------
+
+#' Hyperbolic functions
+#' 
+#' Hyperbolic functions.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' 
+#' @return
+#' A float vector/matrix of the same dimensions as the input.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' x = flrunif(10)
+#' sinh(x)
+#' }
+#' 
+#' @name hyperbolic
+#' @rdname hyperbolic
+NULL
+
+
+
+sinh.spm = function(x)
+{
+  ptr = .Call(R_sinh_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+cosh.spm = function(x)
+{
+  ptr = .Call(R_cosh_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+tanh.spm = function(x)
+{
+  ptr = .Call(R_tanh_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+asinh.spm = function(x)
+{
+  ptr = .Call(R_asinh_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+acosh.spm = function(x)
+{
+  ptr = .Call(R_acosh_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+atanh.spm = function(x)
+{
+  ptr = .Call(R_atanh_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+
+
+#' @rdname trig
+#' @export
+setMethod("sinh", signature(x="spm"), sinh.spm)
+
+#' @rdname trig
+#' @export
+setMethod("cosh", signature(x="spm"), cosh.spm)
+
+#' @rdname trig
+#' @export
+setMethod("tanh", signature(x="spm"), tanh.spm)
+
+#' @rdname trig
+#' @export
+setMethod("asinh", signature(x="spm"), asinh.spm)
+
+#' @rdname trig
+#' @export
+setMethod("acosh", signature(x="spm"), acosh.spm)
+
+#' @rdname trig
+#' @export
+setMethod("atanh", signature(x="spm"), atanh.spm)

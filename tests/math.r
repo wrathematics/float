@@ -27,3 +27,17 @@ same(tan, s, x)
 same(asin, s, x)
 same(acos, s, x)
 same(atan, s, x)
+
+# -----------------------------------------------------------------------------
+# hyperbolic
+# -----------------------------------------------------------------------------
+
+x2 = 1:30
+s2 = fl(x2)
+
+same(sinh, s, x)
+same(cosh, s, x)
+same(tanh, s, x)
+same(asinh, s, x)
+same(acosh, s2, x2)
+same(atanh, s, x)

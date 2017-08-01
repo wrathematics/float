@@ -111,3 +111,51 @@ SEXP R_atan_spm(SEXP x_ptr)
   APPLY(atanf)
   FUN_END
 }
+
+
+
+// ----------------------------------------------------------------------------
+// hyperbolic
+// ----------------------------------------------------------------------------
+
+SEXP R_sinh_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(sinhf)
+  FUN_END
+}
+
+SEXP R_cosh_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(coshf)
+  FUN_END
+}
+
+SEXP R_tanh_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(tanhf)
+  FUN_END
+}
+
+SEXP R_asinh_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(asinhf)
+  FUN_END
+}
+
+SEXP R_acosh_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(acoshf)
+  FUN_END
+}
+
+SEXP R_atanh_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(atanhf)
+  FUN_END
+}
