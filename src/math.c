@@ -159,3 +159,23 @@ SEXP R_atanh_spm(SEXP x_ptr)
   APPLY(atanhf)
   FUN_END
 }
+
+
+
+// ----------------------------------------------------------------------------
+// misc
+// ----------------------------------------------------------------------------
+
+SEXP R_abs_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(fabsf)
+  FUN_END
+}
+
+SEXP R_sqrt_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(sqrtf)
+  FUN_END
+}

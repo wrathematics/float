@@ -22,7 +22,9 @@
 #'   R_bracket_spm R_nrow_spm R_ncol_spm R_dim_spm R_isSymmetric_spm R_svd_spm
 #'   R_isavec_spm R_qr_spm R_qrQ_spm R_qrR_spm R_numbytes_spm
 #'   R_flrunif_spm R_flrnorm_spm R_exp_spm R_expm1_spm R_log_spm R_log10_spm
-#'   R_log2_spm
+#'   R_log2_spm R_sin_spm R_cos_spm R_tan_spm R_asin_spm R_acos_spm R_atan_spm
+#'   R_sinh_spm R_cosh_spm R_tanh_spm R_asinh_spm R_acosh_spm R_atanh_spm
+#'   R_abs_spm R_sqrt_spm
 #' 
 #' @docType package
 #' @name spm-package

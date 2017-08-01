@@ -9,12 +9,6 @@
 \alias{asin,spm-method}
 \alias{acos,spm-method}
 \alias{atan,spm-method}
-\alias{sinh,spm-method}
-\alias{cosh,spm-method}
-\alias{tanh,spm-method}
-\alias{asinh,spm-method}
-\alias{acosh,spm-method}
-\alias{atanh,spm-method}
 \title{Trigonometric functions}
 \usage{
 \S4method{sin}{spm}(x)
@@ -28,18 +22,6 @@
 \S4method{acos}{spm}(x)
 
 \S4method{atan}{spm}(x)
-
-\S4method{sinh}{spm}(x)
-
-\S4method{cosh}{spm}(x)
-
-\S4method{tanh}{spm}(x)
-
-\S4method{asinh}{spm}(x)
-
-\S4method{acosh}{spm}(x)
-
-\S4method{atanh}{spm}(x)
 }
 \arguments{
 \item{x}{A float vector/matrix.}

@@ -243,26 +243,78 @@ atanh.spm = function(x)
 
 
 
-#' @rdname trig
+#' @rdname hyperbolic
 #' @export
 setMethod("sinh", signature(x="spm"), sinh.spm)
 
-#' @rdname trig
+#' @rdname hyperbolic
 #' @export
 setMethod("cosh", signature(x="spm"), cosh.spm)
 
-#' @rdname trig
+#' @rdname hyperbolic
 #' @export
 setMethod("tanh", signature(x="spm"), tanh.spm)
 
-#' @rdname trig
+#' @rdname hyperbolic
 #' @export
 setMethod("asinh", signature(x="spm"), asinh.spm)
 
-#' @rdname trig
+#' @rdname hyperbolic
 #' @export
 setMethod("acosh", signature(x="spm"), acosh.spm)
 
-#' @rdname trig
+#' @rdname hyperbolic
 #' @export
 setMethod("atanh", signature(x="spm"), atanh.spm)
+
+
+
+# -----------------------------------------------------------------------------
+# misc
+# -----------------------------------------------------------------------------
+
+#' Miscellaneous mathematical functions
+#' 
+#' Miscellaneous mathematical functions.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' 
+#' @return
+#' A float vector/matrix of the same dimensions as the input.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' x = flrunif(10)
+#' sqrt(x)
+#' }
+#' 
+#' @name miscmath
+#' @rdname miscmath
+NULL
+
+
+
+abs.spm = function(x)
+{
+  ptr = .Call(R_abs_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+sqrt.spm = function(x)
+{
+  ptr = .Call(R_sqrt_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+
+
+#' @rdname miscmath
+#' @export
+setMethod("abs", signature(x="spm"), abs.spm)
+
+#' @rdname miscmath
+#' @export
+setMethod("sqrt", signature(x="spm"), sqrt.spm)
