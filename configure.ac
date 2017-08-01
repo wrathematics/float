@@ -57,14 +57,14 @@ fi
 ADD_OBJS=""
 
 if test "X${HAVESBLAS}" = "Xno"; then
-  BLAS_REPORT="WARNING: using internal single precision blas"
+  BLAS_REPORT="NOTE: using internal single precision blas"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
 else
   BLAS_REPORT="using system single precision blas"
 fi
 
 if test "X${HAVESLAPACK}" = "Xno"; then
-  LAPACK_REPORT="WARNING: using internal single precision lapack"
+  LAPACK_REPORT="NOTE: using internal single precision lapack"
   ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
 else
   LAPACK_REPORT="using system single precision lapack"

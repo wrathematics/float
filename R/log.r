@@ -58,6 +58,7 @@ log2.spm = function(x)
 }
 
 
+
 #' @rdname log
 #' @export
 setMethod("exp", signature(x="spm"), exp.spm)
