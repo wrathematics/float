@@ -76,8 +76,8 @@ Math functions:
 | `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()` | done |
 | `sinh()`, `cosh()`, `tanh()`, `asinh()`, `acosh()`, `atanh()` | done |
 | `abs()`, `sqrt()` | done |
-| `gamma()`, `lgamma()` | `beta()` and `lbeta()` in progress |
-| `is.finite()`, `is.infinite()`, `is.nan()` | NA problems with `is.nan()` |
+| `gamma()`, `lgamma()` | done |
+| `is.finite()`, `is.infinite()`, `is.nan()` | done |
 
 
 
