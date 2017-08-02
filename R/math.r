@@ -318,3 +318,114 @@ setMethod("abs", signature(x="spm"), abs.spm)
 #' @rdname miscmath
 #' @export
 setMethod("sqrt", signature(x="spm"), sqrt.spm)
+
+
+
+# -----------------------------------------------------------------------------
+# special
+# -----------------------------------------------------------------------------
+
+#' Special mathematical functions
+#' 
+#' Special mathematical functions.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' 
+#' @return
+#' A float vector/matrix of the same dimensions as the input.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' x = flrunif(10)
+#' lgamma(x)
+#' }
+#' 
+#' @name specialmath
+#' @rdname specialmath
+NULL
+
+
+
+gamma.spm = function(x)
+{
+  ptr = .Call(R_gamma_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+lgamma.spm = function(x)
+{
+  ptr = .Call(R_lgamma_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+
+
+#' @rdname specialmath
+#' @export
+setMethod("gamma", signature(x="spm"), gamma.spm)
+
+#' @rdname specialmath
+#' @export
+setMethod("lgamma", signature(x="spm"), lgamma.spm)
+
+
+
+# -----------------------------------------------------------------------------
+# mathis
+# -----------------------------------------------------------------------------
+
+#' Finite, infinite, and NaNs
+#' 
+#' Finite, infinite, and NaNs.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' 
+#' @return
+#' An integre vector/matrix of the same dimensions as the input.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' x = flrnorm(10)
+#' is.nan(sqrt(x))
+#' }
+#' 
+#' @name mathis
+#' @rdname mathis
+NULL
+
+
+
+is.finite.spm = function(x)
+{
+  .Call(R_isfinite_spm, x@ptr)
+}
+
+is.infinite.spm = function(x)
+{
+  .Call(R_isinfinite_spm, x@ptr)
+}
+
+is.nan.spm = function(x)
+{
+  .Call(R_isnan_spm, x@ptr)
+}
+
+
+
+#' @rdname mathis
+#' @export
+setMethod("is.finite", signature(x="spm"), is.finite.spm)
+
+#' @rdname mathis
+#' @export
+setMethod("is.infinite", signature(x="spm"), is.infinite.spm)
+
+#' @rdname mathis
+#' @export
+setMethod("is.nan", signature(x="spm"), is.nan.spm)

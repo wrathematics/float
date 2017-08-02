@@ -1,5 +1,8 @@
-#include "spm.h"
 #include <math.h>
+
+#include "NA.h"
+#include "spm.h"
+
 
 #define FUN_INIT \
   SEXP ret_ptr; \
@@ -8,8 +11,7 @@
   const int n = NCOLS(x); \
    \
   matrix_t *ret = newmat(m, n); \
-  ISAVEC(ret) = ISAVEC(x); \
-  memcpy(DATA(ret), DATA(x), (size_t)m*n*sizeof(float));
+  ISAVEC(ret) = ISAVEC(x);
 
 #define APPLY(fun) \
   for (size_t i=0; i<((size_t)m*n); i++) \
@@ -178,4 +180,106 @@ SEXP R_sqrt_spm(SEXP x_ptr)
   FUN_INIT
   APPLY(sqrtf)
   FUN_END
+}
+
+
+
+// ----------------------------------------------------------------------------
+// special
+// ----------------------------------------------------------------------------
+
+SEXP R_gamma_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(tgammaf)
+  FUN_END
+}
+
+SEXP R_lgamma_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(lgammaf)
+  FUN_END
+}
+
+
+
+// ----------------------------------------------------------------------------
+// mathis
+// ----------------------------------------------------------------------------
+
+SEXP R_isfinite_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  const int m = NROWS(x);
+  const int n = NCOLS(x);
+  
+  if (ISAVEC(x))
+    PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
+  else
+    PROTECT(ret = allocMatrix(LGLSXP, m, n));
+  
+  for (int j=0; j<n; j++)
+  {
+    for (int i=0; i<m; i++)
+    {
+      const float tmp =  DATA(x)[i + m*j];
+      LOGICAL(ret)[i + m*j] = !isinf(tmp) && !isnanf(tmp);
+    }
+  }
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+SEXP R_isinfinite_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  const int m = NROWS(x);
+  const int n = NCOLS(x);
+  
+  if (ISAVEC(x))
+    PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
+  else
+    PROTECT(ret = allocMatrix(LGLSXP, m, n));
+  
+  for (int j=0; j<n; j++)
+  {
+    for (int i=0; i<m; i++)
+    {
+      const float tmp =  DATA(x)[i + m*j];
+      LOGICAL(ret)[i + m*j] = isinff(tmp);
+    }
+  }
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+SEXP R_isnan_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  const int m = NROWS(x);
+  const int n = NCOLS(x);
+  
+  
+  if (ISAVEC(x))
+    PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
+  else
+    PROTECT(ret = allocMatrix(LGLSXP, m, n));
+  
+  for (int j=0; j<n; j++)
+  {
+    for (int i=0; i<m; i++)
+    {
+      const float tmp = DATA(x)[i + m*j];
+      LOGICAL(ret)[i + m*j] = isnanf(tmp) && !ISNAf(tmp);
+    }
+  }
+  
+  UNPROTECT(1);
+  return ret;
 }

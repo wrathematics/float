@@ -48,3 +48,21 @@ same(atanh, s, x)
 
 same(abs, s, x)
 same(sqrt, s, x)
+
+# -----------------------------------------------------------------------------
+# special
+# -----------------------------------------------------------------------------
+
+same(gamma, s, x)
+same(lgamma, s, x)
+
+# -----------------------------------------------------------------------------
+# mathis
+# -----------------------------------------------------------------------------
+
+x3 = c(1, NaN, Inf, -Inf, 2, NA_real_)
+s3 = fl(x3)
+
+stopifnot(all.equal(is.finite(s3), is.finite(x3), tol=tol))
+stopifnot(all.equal(is.infinite(s3), is.infinite(x3), tol=tol))
+stopifnot(all.equal(is.nan(s3), is.nan(x3), tol=tol))
