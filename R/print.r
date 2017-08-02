@@ -38,7 +38,7 @@ print_spm_vec = function(x)
   if (top == n)
     submat = spm2mat(x)
   else
-    submat = spm2mat(x[1:top, 1L])
+    submat = spm2mat(x[1:top])
   
   dim(submat) = NULL
   
