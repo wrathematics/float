@@ -2,7 +2,7 @@ AC_PREREQ([2.69])
 AC_INIT(DESCRIPTION)
 
 AC_PROG_CC_C99
-
+AC_C_BIGENDIAN
 
 dnl Determine R_HOME.
 : ${R_HOME=`R RHOME`}
@@ -21,34 +21,43 @@ LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
 AC_CHECK_PROG([echo_ok], [echo], [yes], [no], ,)
 AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
 
+
+### Check for single precision BLAS/LAPACK symbols. These can be present/absent
+### in almost any imaginable combination. For example, OpenBLAS (and others?)
+### ship LAPACK symbols in the blas.[so|dylib|dll] file.
+
 # Check Rblas.
 if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
   useRblas=`echo ${BLAS_LIBS} | grep "\-lRblas"`
   if test "X${useRblas}" = "X"; then
     AC_CHECK_LIB(blas, [sgemm_], [HAVESBLAS=yes], [HAVESBLAS=no])
+    AC_CHECK_LIB(blas, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
   else
     LDFLAGS_OLD="${LDFLAGS}"
     LDFLAGS="${LDFLAGS} ${BLAS_LIBS}"
     AC_CHECK_LIB(Rblas, [sgemm_], [HAVESBLAS=yes], [HAVESBLAS=no])
+    AC_CHECK_LIB(Rblas, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
     LDFLAGS="${LDFLAGS_OLD}"
   fi
 else
   HAVESBLAS="no"
 fi
 
-# Check Rlapack.
-if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
-  useRlapack=`echo ${LAPACK_LIBS} | grep "\-lRlapack"`
-  if test "X${useRlapack}" = "X"; then
-    AC_CHECK_LIB(lapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
+# Check for single precision LAPACK symbols.
+if test "X${HAVESLAPACK}" = "X" -o "X${HAVESLAPACK}" = "Xno"; then
+  if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
+    useRlapack=`echo ${LAPACK_LIBS} | grep "\-lRlapack"`
+    if test "X${useRlapack}" = "X"; then
+      AC_CHECK_LIB(lapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
+    else
+      LDFLAGS_OLD="${LDFLAGS}"
+      LDFLAGS="${LDFLAGS} ${LAPACK_LIBS}"
+      AC_CHECK_LIB(Rlapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
+      LDFLAGS="${LDFLAGS_OLD}"
+    fi
   else
-    LDFLAGS_OLD="${LDFLAGS}"
-    LDFLAGS="${LDFLAGS} ${LAPACK_LIBS}"
-    AC_CHECK_LIB(Rlapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
-    LDFLAGS="${LDFLAGS_OLD}"
+    HAVESLAPACK="no"
   fi
-else
-  HAVESLAPACK="no"
 fi
 
 
