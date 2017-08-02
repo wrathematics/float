@@ -35,8 +35,8 @@ NULL
 #' @export
 mat2spm = function(x)
 {
-  if (!is.numeric(x))
-    stop("input 'x' must be a numeric vector/matrix")
+  if (!is.numeric(x) && !is.logical(x))
+    stop("input 'x' must be a numeric or logical vector/matrix")
   
   ptr = .Call(R_mat2spm, x)
   new("spm", ptr=ptr)

@@ -1,3 +1,4 @@
+#include "NA.h"
 #include "spm.h"
 
 
@@ -29,17 +30,30 @@ SEXP R_mat2spm(SEXP x)
       for (int j=0; j<n; j++)
       {
         for (int i=0; i<m; i++)
-          DATA(ret)[i + m*j] = (float) REAL(x)[i + m*j];
+        {
+          const double tmp = REAL(x)[i + m*j];
+          if (ISNA(tmp))
+            DATA(ret)[i + m*j] = NA_FLOAT;
+          else
+            DATA(ret)[i + m*j] = (float) tmp;
+        }
       }
       
       break;
     
     
+    case LGLSXP:
     case INTSXP:
       for (int j=0; j<n; j++)
       {
         for (int i=0; i<m; i++)
-          DATA(ret)[i + m*j] = (float) INTEGER(x)[i + m*j];
+        {
+          const int tmp = INTEGER(x)[i + m*j];
+          if (tmp == NA_INTEGER)
+            DATA(ret)[i + m*j] = NA_FLOAT;
+          else
+            DATA(ret)[i + m*j] = (float) tmp;
+        }
       }
       
       break;
@@ -69,7 +83,17 @@ SEXP R_spm2mat(SEXP x_ptr)
   else
     PROTECT(ret = allocMatrix(REALSXP, m, n));
   
-  s2d(m, n, DATA(x), REAL(ret));
+  for (int j=0; j<n; j++)
+  {
+    for (int i=0; i<m; i++)
+    {
+      const float tmp = DATA(x)[i + m*j];
+      if (ISNAf(tmp))
+        REAL(ret)[i + m*j] = NA_REAL;
+      else
+        REAL(ret)[i + m*j] = (double) tmp;
+    }
+  }
   
   UNPROTECT(1);
   return ret;

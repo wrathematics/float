@@ -2,7 +2,13 @@ AC_PREREQ([2.69])
 AC_INIT(DESCRIPTION)
 
 AC_PROG_CC_C99
-AC_C_BIGENDIAN
+AC_CHECK_LIB(m, [sinf], [], 
+  [AC_MSG_ERROR([float math functions unavailable])]
+)
+AC_C_BIGENDIAN([BOBE=1], [BOBE=0], 
+  [AC_MSG_ERROR([unable to determine endianness; not dealing with you])]
+)
+
 
 dnl Determine R_HOME.
 : ${R_HOME=`R RHOME`}
@@ -109,6 +115,8 @@ echo "*************************************************************************"
 echo " "
 
 
+AC_SUBST(BOBE)
+AC_OUTPUT(src/endianness.h)
 
 AC_SUBST(ADD_OBJS)
 AC_OUTPUT(src/Makevars)
