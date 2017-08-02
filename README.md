@@ -45,7 +45,6 @@ Basic utilities:
 | `diag()` | done |
 | `is.spm()` | done |
 | `nrow()`, `ncol()`, `dim()` | done |
-| `exp()`, `log()` | done |
 
 Casters:
 
@@ -68,6 +67,20 @@ Linear algebra:
 | `solve()` | done | 
 | `t()` | done |
 
+Math functions:
+
+| Method | Status |
+|---|---|
+| `exp()`, `exp1m()` | done |
+| `log()`, `log10()`, `log2()` | done |
+| `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()` | done |
+| `sinh()`, `cosh()`, `tanh()`, `asinh()`, `acosh()`, `atanh()` | done |
+| `abs()`, `sqrt()` | done |
+| `gamma()`, `lgamma()` | `beta()` and `lbeta()` in progress |
+| `is.finite()`, `is.infinite()`, `is.nan()` | NA problems with `is.nan()` |
+
+
+
 In progress:
 
 * `svd()` and `La.svd()`
@@ -84,6 +97,11 @@ Future plans:
 * Basic random generation interface.
 * A (low-level) reader, like `scan()`.
 * Documentation ;_;
+
+Much later:
+
+* Support single complex.
+* `fft()`
 
 Something missing?  Please [let me know](https://github.com/wrathematics/spm/issues).
 
