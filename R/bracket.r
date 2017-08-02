@@ -31,6 +31,12 @@ bracket.spm = function(x, i, j)
   if (missing(i) && missing(j))
     return(x)
   
+  if (isavec(x))
+  {
+    if (!missing(j))
+      stop("incorrect number of dimensions")
+  }
+  
   if (missing(i))
     i = 1:nrow(x)
   else
@@ -43,12 +49,7 @@ bracket.spm = function(x, i, j)
   }
   
   if (missing(j))
-  {
-    if (!isavec(x))
-      j = 1:ncol(x)
-    else
-      stop("incorrect number of dimensions")
-  }
+    j = 1:ncol(x)
   else
   {
     if (!is.numeric(j) && !is.logical(j))
