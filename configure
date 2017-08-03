@@ -4013,7 +4013,7 @@ else
   LAPACK_REPORT="using system single precision lapack"
 fi
 
-if test "X${HAVESBLAS}" = "Xno" -o "X${HAVESLAPACK}" = "Xno"; then
+if test "X${HAVESBLAS}" = "Xno"; then
   ac_ext=f
 ac_compile='$F77 -c $FFLAGS conftest.$ac_ext >&5'
 ac_link='$F77 -o conftest$ac_exeext $FFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
@@ -4227,7 +4227,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
   WARN_EXTRA="
-The internal single precision BLAS/LAPACK are inefficient. Please \
+The internal single precision BLAS are inefficient. Please \
 consider installing high performance implementations, such as OpenBLAS \
 (open source software) or MKL (available for free from the Microsoft R \
 Open R distribution).

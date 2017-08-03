@@ -85,11 +85,11 @@ else
   LAPACK_REPORT="using system single precision lapack"
 fi
 
-if test "X${HAVESBLAS}" = "Xno" -o "X${HAVESLAPACK}" = "Xno"; then
+if test "X${HAVESBLAS}" = "Xno"; then
   AC_PROG_F77
   
   WARN_EXTRA="
-The internal single precision BLAS/LAPACK are inefficient. Please \
+The internal single precision BLAS are inefficient. Please \
 consider installing high performance implementations, such as OpenBLAS \
 (open source software) or MKL (available for free from the Microsoft R \
 Open R distribution).
