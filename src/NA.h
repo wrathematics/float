@@ -8,8 +8,6 @@
 
 #include "endianness.h"
 
-extern float NA_FLOAT;
-
 
 
 typedef union
@@ -31,6 +29,13 @@ static inline int ISNAf(const float x)
 #else
   return y.y[0] == 1954;
 #endif
+}
+
+
+
+static inline int ISNANf(const float x)
+{
+  return isnanf(x) && !ISNAf(x);
 }
 
 

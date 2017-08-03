@@ -276,7 +276,7 @@ SEXP R_isnan_spm(SEXP x_ptr)
     for (int i=0; i<m; i++)
     {
       const float tmp = DATA(x)[i + m*j];
-      LOGICAL(ret)[i + m*j] = isnanf(tmp) && !ISNAf(tmp);
+      LOGICAL(ret)[i + m*j] = ISNANf(tmp);
     }
   }
   

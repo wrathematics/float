@@ -25,7 +25,7 @@
 #'   R_log2_spm R_sin_spm R_cos_spm R_tan_spm R_asin_spm R_acos_spm R_atan_spm
 #'   R_sinh_spm R_cosh_spm R_tanh_spm R_asinh_spm R_acosh_spm R_atanh_spm
 #'   R_abs_spm R_sqrt_spm R_isfinite_spm R_isinfinite_spm R_isnan_spm
-#'   R_gamma_spm R_lgamma_spm
+#'   R_gamma_spm R_lgamma_spm R_isna_spm R_naomit_spm
 #' 
 #' @docType package
 #' @name spm-package

@@ -6,7 +6,7 @@
 \alias{[,spm-method}
 \title{Extract}
 \usage{
-\S4method{[}{spm}(x, i, j)
+\S4method{[}{spm}(x, i, j, drop = TRUE)
 }
 \arguments{
 \item{x}{A float vector/matrix.}
