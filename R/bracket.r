@@ -26,8 +26,10 @@ NULL
 
 
 
-bracket.spm = function(x, i, j)
+bracket.spm = function(x, i, j, drop=TRUE)
 {
+  drop = ifelse(isTRUE(drop[1]), TRUE, FALSE)
+  
   if (missing(i) && missing(j))
     return(x)
   
@@ -59,7 +61,7 @@ bracket.spm = function(x, i, j)
       storage.mode(j) = "integer"
   }
   
-  ptr = .Call(R_bracket_spm, x@ptr, i, j)
+  ptr = .Call(R_bracket_spm, x@ptr, i, j, drop)
   new("spm", ptr=ptr)
 }
 

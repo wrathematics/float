@@ -3,16 +3,19 @@
 #define INT(x,i) INTEGER(x)[i]
 
 // assume positive integer indices for now
-SEXP R_bracket_spm(SEXP x_ptr, SEXP I, SEXP J)
+SEXP R_bracket_spm(SEXP x_ptr, SEXP I, SEXP J, SEXP drop)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const int mx = NROWS(x);
-  
   const int m = LENGTH(I);
   const int n = LENGTH(J);
   matrix_t *ret = newmat(m, n);
-  ISAVEC(ret) = ISAVEC(x);
+  
+  if (INTEGER(drop)[0] && n == 1)
+    ISAVEC(ret) = true;
+  else
+    ISAVEC(ret) = ISAVEC(x);
   
   for (int j=0; j<n; j++)
   {

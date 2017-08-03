@@ -70,7 +70,7 @@ print_spm_mat = function(x)
   if (toprow == m && toprow == n)
     submat = spm2mat(x)
   else
-    submat = spm2mat(x[1:toprow, 1:topcol])
+    submat = spm2mat(x[1:toprow, 1:topcol, drop=FALSE])
   
   submat = submat[1:toprow, 1:topcol, drop=FALSE]
   
