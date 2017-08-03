@@ -37,7 +37,9 @@ remotes::install_github("wrathematics/spm")
 
 The goal of the package is to recreate the matrix algebra facilities of the base package, but with floats.  So we do not include higher statistical methods (like `lm()` and `prcomp()`), or more "basic" methods like sorts and so on.
 
-Basic utilities:
+Is something missing?  Please [let me know](https://github.com/wrathematics/spm/issues).
+
+### Basic utilities
 
 | Method | Status |
 |---|---|
@@ -45,16 +47,17 @@ Basic utilities:
 | `diag()` | done |
 | `is.spm()` | done |
 | `nrow()`, `ncol()`, `dim()` | done |
+| `is.na()` | done |
+| `na.omit()`, `na.exclude()` | done |
 
-Casters:
+### Casters
 
 | Method | Status |
 |---|---|
 | `mat2spm()` / `fl()` | done |
 | `spm2mat()` / `dbl()` | done |
 
-
-Linear algebra:
+### Linear algebra
 
 | Method | Status |
 |---|---|
@@ -67,7 +70,7 @@ Linear algebra:
 | `solve()` | done | 
 | `t()` | done |
 
-Math functions:
+### Math functions
 
 | Method | Status |
 |---|---|
@@ -81,14 +84,17 @@ Math functions:
 
 
 
-In progress:
+### In progress and Future Plans
+
+Nearing completion: 
 
 * `svd()` and `La.svd()`
 * The QR family of functions (`qr()`, `qr.Q()`, ...)
 * `eigen()`
 
-Future plans:
+Future roadmap:
 
+* `is.na()`, etc.
 * Binary arithmetic (`+`, `-`, ...)
 * `cbind()` and `rbind()`
 * `chol2inv()`
@@ -96,14 +102,12 @@ Future plans:
 * `norm()`, `rcond()`, and `kappa()`
 * Basic random generation interface.
 * A (low-level) reader, like `scan()`.
-* Documentation ;_;
+* An "in-place" API.
 
-Much later:
+Maybe eventually:
 
 * Support single complex.
 * `fft()`
-
-Something missing?  Please [let me know](https://github.com/wrathematics/spm/issues).
 
 
 
