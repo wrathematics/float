@@ -13,6 +13,9 @@
 
 \item{i, j}{The indices. NOTE that at this time only non-specified and positive indexed
 i/j are accepted.}
+
+\item{drop}{Logical. If TRUE, single column matrices will be treated as one-dimensional
+vectors.}
 }
 \value{
 A float vector/matrix.
