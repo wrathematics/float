@@ -1,4 +1,5 @@
 suppressPackageStartupMessages(library(spm))
+suppressPackageStartupMessages(library(utils))
 
 m = 10L
 n = 3L

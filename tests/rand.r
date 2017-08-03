@@ -1,4 +1,4 @@
-library(spm)
+suppressPackageStartupMessages(library(spm))
 set.seed(1234)
 
 ### uniform
@@ -34,6 +34,3 @@ m = 5L
 n = 10L
 s = flrnorm(m, n)
 stopifnot(identical(dim(s), c(m, n))) 
-
-
-
