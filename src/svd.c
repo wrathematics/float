@@ -22,7 +22,10 @@ int svd(const int nu, const int nv, const int m, const int n,
   int ldvt;
   
   if (nu == 0 && nv == 0)
+  {
     jobz = 'N';
+    ldvt = 1; // value is irrelevant, but must exist!
+  }
   else if (nu <= minmn && nv <= minmn)
   {
     jobz = 'S';
