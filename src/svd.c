@@ -23,8 +23,6 @@ int svd(const int nu, const int nv, const int m, const int n,
   
   if (nu == 0 && nv == 0)
     jobz = 'N';
-  // else if ((nu == 0 && m >= n) || (nv == 0 && m < n))
-  //   jobz = 'O';
   else if (nu <= minmn && nv <= minmn)
   {
     jobz = 'S';
@@ -67,7 +65,6 @@ int svd(const int nu, const int nv, const int m, const int n,
 
 
 
-// TODO FIXME check mallocs
 SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
 {
   SEXP ret, ret_names;
