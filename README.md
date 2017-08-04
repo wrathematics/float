@@ -69,6 +69,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `print()` | done |
 | `solve()` | done | 
 | `t()` | done |
+| `La.svd()` and `svd()` | done |
 
 ### Math functions
 
@@ -88,7 +89,6 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 
 Nearing completion: 
 
-* `svd()` and `La.svd()`
 * The QR family of functions (`qr()`, `qr.Q()`, ...)
 * `eigen()`
 
