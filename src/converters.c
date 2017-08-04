@@ -12,15 +12,13 @@ SEXP R_mat2spm(SEXP x)
   {
     m = LENGTH(x);
     n = 1;
-    ret = newmat(m, n);
-    ISAVEC(ret) = true;
+    ret = newvec(m);
   }
   else
   {
     m = nrows(x);
     n = ncols(x);
     ret = newmat(m, n);
-    ISAVEC(ret) = false;
   }
   
   

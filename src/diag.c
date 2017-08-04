@@ -9,8 +9,7 @@ SEXP R_diag_spm(SEXP x_ptr)
   const int n = NCOLS(x);
   const int min = MIN(m, n);
   
-  matrix_t *ret = newmat(min, 1);
-  ISAVEC(ret) = true;
+  matrix_t *ret = newvec(min);
   
   for (int i=0; i<min; i++)
     DATA(ret)[i] = DATA(x)[i + m*i];
@@ -32,7 +31,6 @@ SEXP R_diagmat_spm(SEXP x_ptr, SEXP nrow, SEXP ncol)
   const int minmn = MIN(m, n);
   
   matrix_t *ret = newmat(m, n);
-  ISAVEC(ret) = false;
   
   memset(DATA(ret), 0, m*n*sizeof(float));
   for (int i=0; i<minmn; i++)

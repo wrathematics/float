@@ -211,8 +211,7 @@ static SEXP R_naomit_spm_vec(int n, const float *const x)
       numna++;
   }
   
-  matrix_t *ret = newmat(n-numna, 1);
-  ISAVEC(ret) = true;
+  matrix_t *ret = newvec(n-numna);
   newRptr(ret, ret_ptr, matfin);
   
   int retpos = 0;

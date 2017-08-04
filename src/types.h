@@ -49,6 +49,13 @@ static inline matrix_t *newmat(const len_t m, const len_t n)
   return ret;
 }
 
+static inline matrix_t *newvec(const len_t n)
+{
+  matrix_t *ret = newmat(n, 1);
+  ISAVEC(ret) = true;
+  return ret;
+}
+
 static inline void freemat(matrix_t *x)
 {
   if (DATA(x) != NULL)
