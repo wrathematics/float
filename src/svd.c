@@ -71,8 +71,10 @@ int svd(const int nu, const int nv, const int m, const int n,
 SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
 {
   SEXP ret, ret_names;
-  SEXP s_ptr, u_ptr = R_NilValue, vt_ptr;
-  matrix_t *s, *u = NULL, *vt = NULL;
+  SEXP s_ptr;
+  SEXP u_ptr = R_NilValue, vt_ptr = R_NilValue; // avoid spurious compiler warning
+  matrix_t *s;
+  matrix_t *u = NULL, *vt = NULL; // avoid spurious compiler warning
   float *u_data, *vt_data;
   int nret = 1;
   const int nu = INTEGER(nu_)[0];
