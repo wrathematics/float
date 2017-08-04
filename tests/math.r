@@ -3,7 +3,7 @@ set.seed(1234)
 
 same = function(fun, s, x, tol=1e-6, ...) stopifnot(all.equal(dbl(fun(s, ...)), fun(x, ...), tol=tol))
 
-x = runif(30, 0.1, 1)
+x = stats::runif(30, 0.1, 1)
 s = fl(x)
 
 # -----------------------------------------------------------------------------

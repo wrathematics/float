@@ -1,6 +1,8 @@
 suppressPackageStartupMessages(library(spm))
 set.seed(1234)
 
+sd = stats::sd
+
 ### uniform
 s = flrunif(500)
 x = dbl(s)
