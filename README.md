@@ -94,13 +94,11 @@ Nearing completion:
 
 Future roadmap:
 
-* `is.na()`, etc.
 * Binary arithmetic (`+`, `-`, ...)
 * `cbind()` and `rbind()`
 * `chol2inv()`
 * Accept more general `i`/`j` in `[`
 * `norm()`, `rcond()`, and `kappa()`
-* Basic random generation interface.
 * A (low-level) reader, like `scan()`.
 * An "in-place" API.
 
