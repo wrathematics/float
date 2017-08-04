@@ -130,7 +130,7 @@ object.size(x)
 
 s = fl(x)
 object.size(s)
-## 100000024 bytes
+## 100000672 bytes
 ```
 
 And the runtime performance is roughly 2x better:
@@ -155,4 +155,4 @@ all.equal(cpx, dbl(cps))
 ## [1] "Mean relative difference: 3.478718e-07"
 ```
 
-That difference is fairly small, but for some operations/data could be significantly larger.  
+That difference is fairly small, but for some operations/data, the difference could be significantly larger due to roundoff error.
