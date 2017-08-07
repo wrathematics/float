@@ -75,8 +75,8 @@ tcp.spm = function(x, y=NULL)
 
 #' @rdname crossprod
 #' @export
-setMethod("crossprod", signature(x="mat", y="ANY"), cp.spm)
+setMethod("crossprod", signature(x="Mat", y="ANY"), cp.spm)
 
 #' @rdname crossprod
 #' @export
-setMethod("tcrossprod", signature(x="mat", y="ANY"), tcp.spm)
+setMethod("tcrossprod", signature(x="Mat", y="ANY"), tcp.spm)

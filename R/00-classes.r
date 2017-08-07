@@ -13,4 +13,4 @@ setClass("spm",
   representation(ptr="externalptr")
 )
 
-setClassUnion("mat", c("matrix", "spm"))
+setClassUnion("Mat", c("matrix", "spm"))

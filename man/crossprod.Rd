@@ -3,13 +3,13 @@
 \docType{methods}
 \name{crossprod}
 \alias{crossprod}
-\alias{crossprod,mat-method}
-\alias{tcrossprod,mat-method}
+\alias{crossprod,Mat-method}
+\alias{tcrossprod,Mat-method}
 \title{crossprod}
 \usage{
-\S4method{crossprod}{mat}(x, y = NULL)
+\S4method{crossprod}{Mat}(x, y = NULL)
 
-\S4method{tcrossprod}{mat}(x, y = NULL)
+\S4method{tcrossprod}{Mat}(x, y = NULL)
 }
 \arguments{
 \item{x}{A float vector/matrix.}
