@@ -2,8 +2,8 @@
 #' 
 #' Binary arithmetic numeric/float matrices.
 #' 
-#' @param x,y
-#' Numeric/float matrices.
+#' @param e1,e2
+#' Numeric/float vectors/matrices.
 #' 
 #' @return
 #' A matrix of the same type as the highest precision input.

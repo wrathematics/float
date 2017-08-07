@@ -9,7 +9,7 @@
 \S4method{+}{LinAlg,LinAlg}(e1, e2)
 }
 \arguments{
-\item{x, y}{Numeric/float matrices.}
+\item{e1, e2}{Numeric/float vectors/matrices.}
 }
 \value{
 A matrix of the same type as the highest precision input.
