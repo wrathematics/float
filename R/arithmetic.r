@@ -38,10 +38,13 @@ add_spmspm = function(e1, e2)
 
 add.spm = function(e1, e2)
 {
+  if ((!is.spm(e1) && !is.atomic(e1)) || (!is.spm(e2) && !is.atomic(e2)))
+    stop("non-numeric argument to binary operator")
+  
   if (is.spm(e1))
   {
-    if (is.integer(e1))
-      e1 = fl(e1)
+    if (is.integer(e2))
+      e2 = fl(e2)
     
     if (is.spm(e2))
       ret = add_spmspm(e1, e2)
@@ -68,4 +71,4 @@ add.spm = function(e1, e2)
 
 #' @rdname arithmetic
 #' @export
-setMethod("+", signature(e1="Mat", e2="Mat"), add.spm)
+setMethod("+", signature(e1="LinAlg", e2="LinAlg"), add.spm)

@@ -3,10 +3,10 @@
 \docType{methods}
 \name{arithmetic}
 \alias{arithmetic}
-\alias{+,Mat,Mat-method}
+\alias{+,LinAlg,LinAlg-method}
 \title{arithmetic}
 \usage{
-\S4method{+}{Mat,Mat}(e1, e2)
+\S4method{+}{LinAlg,LinAlg}(e1, e2)
 }
 \arguments{
 \item{x, y}{Numeric/float matrices.}

@@ -14,3 +14,4 @@ setClass("spm",
 )
 
 setClassUnion("Mat", c("matrix", "spm"))
+setClassUnion("LinAlg", c("Mat", "vector"))
