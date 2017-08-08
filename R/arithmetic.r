@@ -44,7 +44,13 @@ mul_spmspm = function(e1, e2)
   new("spm", ptr=ptr)
 }
 
-binop_commutative = function(e1, e2, fun, spmfun)
+sub_spmspm = function(e1, e2)
+{
+  ptr = .Call(R_sub_spm, e1@ptr, e2@ptr)
+  new("spm", ptr=ptr)
+}
+
+binop = function(e1, e2, fun, spmfun)
 {
   if ((!is.spm(e1) && !is.atomic(e1)) || (!is.spm(e2) && !is.atomic(e2)))
     stop("non-numeric argument to binary operator")
@@ -77,12 +83,17 @@ binop_commutative = function(e1, e2, fun, spmfun)
 
 add.spm = function(e1, e2)
 {
-  binop_commutative(e1, e2, `+`, add_spmspm)
+  binop(e1, e2, `+`, add_spmspm)
 }
 
 mul.spm = function(e1, e2)
 {
-  binop_commutative(e1, e2, `*`, mul_spmspm)
+  binop(e1, e2, `*`, mul_spmspm)
+}
+
+sub.spm = function(e1, e2)
+{
+  binop(e1, e2, `-`, sub_spmspm)
 }
 
 
@@ -94,3 +105,7 @@ setMethod("+", signature(e1="LinAlg", e2="LinAlg"), add.spm)
 #' @rdname arithmetic
 #' @export
 setMethod("*", signature(e1="LinAlg", e2="LinAlg"), mul.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("-", signature(e1="LinAlg", e2="LinAlg"), sub.spm)

@@ -47,17 +47,20 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 |---|---|
 | `[` | positive integer indices for `i` and `j` only |
 | `diag()` | done |
-| `is.spm()` | done |
-| `nrow()`, `ncol()`, `dim()` | done |
 | `is.na()` | done |
+| `is.spm()` | done |
 | `na.omit()`, `na.exclude()` | done |
+| `nrow()`, `ncol()`, `dim()` | done |
 | `object.size()` | done |
+| `print()` | done |
 
 ### Binary Arithmetic
 
 | Method | Status |
 |---|---|
 | `+` | done |
+| `*` | done |
+| `-` | done |
 
 ### Casters
 
@@ -70,26 +73,25 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 
 | Method | Status |
 |---|---|
+| `%*%` | done |
 | `chol()` | done |
 | `crossprod()` and `tcrossprod()` | done | 
 | `isSymmetric()` | done |
-| `%*%` | done |
-| `print()` | done |
+| `La.svd()` and `svd()` | done |
 | `solve()` | done | 
 | `t()` | done |
-| `La.svd()` and `svd()` | done |
 
 ### Math functions
 
 | Method | Status |
 |---|---|
+| `abs()`, `sqrt()` | done |
 | `exp()`, `exp1m()` | done |
+| `gamma()`, `lgamma()` | done |
+| `is.finite()`, `is.infinite()`, `is.nan()` | done |
 | `log()`, `log10()`, `log2()` | done |
 | `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()` | done |
 | `sinh()`, `cosh()`, `tanh()`, `asinh()`, `acosh()`, `atanh()` | done |
-| `abs()`, `sqrt()` | done |
-| `gamma()`, `lgamma()` | done |
-| `is.finite()`, `is.infinite()`, `is.nan()` | done |
 
 
 

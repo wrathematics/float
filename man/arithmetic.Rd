@@ -5,11 +5,14 @@
 \alias{arithmetic}
 \alias{+,LinAlg,LinAlg-method}
 \alias{*,LinAlg,LinAlg-method}
+\alias{-,LinAlg,LinAlg-method}
 \title{arithmetic}
 \usage{
 \S4method{+}{LinAlg,LinAlg}(e1, e2)
 
 \S4method{*}{LinAlg,LinAlg}(e1, e2)
+
+\S4method{-}{LinAlg,LinAlg}(e1, e2)
 }
 \arguments{
 \item{e1, e2}{Numeric/float vectors/matrices.}
