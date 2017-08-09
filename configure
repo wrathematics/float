@@ -2997,6 +2997,9 @@ else
 
 fi
 
+
+
+
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -3619,12 +3622,11 @@ $as_echo "#define AC_APPLE_UNIVERSAL_BUILD 1" >>confdefs.h
 
 
 
+
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
-  echo "could not determine R_HOME"
-  exit 1
+  as_fn_error $? "could not determine R_HOME" "$LINENO" 5
 fi
-
 
 # Obtain from R.
 R_SCMD="${R_HOME}/bin/R CMD config"
@@ -4238,6 +4240,8 @@ package maintainers.
 else
   WARN_EXTRA=" "
 fi
+
+
 
 
 # Report

@@ -5,18 +5,20 @@ AC_PROG_CC_C99
 AC_CHECK_LIB(m, [sinf], [], 
   [AC_MSG_ERROR([float math functions unavailable])]
 )
+
+
+
 AC_C_BIGENDIAN([BOBE=1], [BOBE=0], 
   [AC_MSG_ERROR([unable to determine endianness; not dealing with you])]
 )
 
 
+
 dnl Determine R_HOME.
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
-  echo "could not determine R_HOME"
-  exit 1
+  AC_MSG_ERROR([could not determine R_HOME])
 fi
-
 
 # Obtain from R.
 R_SCMD="${R_HOME}/bin/R CMD config"
@@ -100,6 +102,8 @@ package maintainers.
 else
   WARN_EXTRA=" "
 fi
+
+
 
 
 # Report
