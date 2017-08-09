@@ -31,7 +31,6 @@ NULL
 
 
 
-
 add_spmspm = function(e1, e2)
 {
   ptr = .Call(R_add_spm, e1@ptr, e2@ptr)
@@ -49,6 +48,20 @@ sub_spmspm = function(e1, e2)
   ptr = .Call(R_sub_spm, e1@ptr, e2@ptr)
   new("spm", ptr=ptr)
 }
+
+div_spmspm = function(e1, e2)
+{
+  ptr = .Call(R_div_spm, e1@ptr, e2@ptr)
+  new("spm", ptr=ptr)
+}
+
+pow_spmspm = function(e1, e2)
+{
+  ptr = .Call(R_pow_spm, e1@ptr, e2@ptr)
+  new("spm", ptr=ptr)
+}
+
+
 
 binop = function(e1, e2, fun, spmfun)
 {
@@ -96,6 +109,16 @@ sub.spm = function(e1, e2)
   binop(e1, e2, `-`, sub_spmspm)
 }
 
+div.spm = function(e1, e2)
+{
+  binop(e1, e2, `/`, div_spmspm)
+}
+
+pow.spm = function(e1, e2)
+{
+  binop(e1, e2, `^`, pow_spmspm)
+}
+
 
 
 #' @rdname arithmetic
@@ -109,3 +132,11 @@ setMethod("*", signature(e1="LinAlg", e2="LinAlg"), mul.spm)
 #' @rdname arithmetic
 #' @export
 setMethod("-", signature(e1="LinAlg", e2="LinAlg"), sub.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("/", signature(e1="LinAlg", e2="LinAlg"), div.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("^", signature(e1="LinAlg", e2="LinAlg"), pow.spm)
