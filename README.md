@@ -81,6 +81,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `isSymmetric()` | done |
 | `La.svd()` and `svd()` | done |
 | `norm()` | done |
+| `qr()`, `qr.Q()`, `qr.R()` | Mostly done; `qr.Q()` broken if `qr()` pivots |
 | `solve()` | done | 
 | `t()` | done |
 
@@ -110,11 +111,10 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 
 Version 0.1-0:
 
-* The QR family of functions (`qr()`, `qr.Q()`, ...)
 * `eigen()`
 * Binary arithmetic (`+`, `-`, ...)
 * Finish `[`
-* `norm()`, `rcond()`, and `kappa()`
+* `rcond()`, and `kappa()`
 
 Future roadmap:
 
