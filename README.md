@@ -37,7 +37,7 @@ remotes::install_github("wrathematics/spm")
 
 ## Methods
 
-The goal of the package is to recreate the matrix algebra facilities of the base package, but with floats.  So we do not include higher statistical methods (like `lm()` and `prcomp()`), or more "basic" methods like sorts and so on.
+The goal of the package is to recreate the matrix algebra facilities of the base package, but with floats.  So we do not include higher statistical methods (like `lm()` and `prcomp()`).
 
 Is something missing?  Please [let me know](https://github.com/wrathematics/spm/issues).
 
@@ -80,6 +80,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `crossprod()` and `tcrossprod()` | done | 
 | `isSymmetric()` | done |
 | `La.svd()` and `svd()` | done |
+| `norm()` | done |
 | `solve()` | done | 
 | `t()` | done |
 
@@ -107,20 +108,20 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 
 ### In progress and Future Plans
 
-Nearing completion: 
+Version 0.1-0:
 
 * The QR family of functions (`qr()`, `qr.Q()`, ...)
 * `eigen()`
+* Binary arithmetic (`+`, `-`, ...)
+* Finish `[`
+* `norm()`, `rcond()`, and `kappa()`
 
 Future roadmap:
 
-* Binary arithmetic (`+`, `-`, ...)
 * `cbind()` and `rbind()`
 * `chol2inv()`
-* Accept more general `i`/`j` in `[`
-* `norm()`, `rcond()`, and `kappa()`
 * A (low-level) reader, like `scan()`.
-* An "in-place" API.
+* An "in-place" (no copy on modify) API.
 
 Maybe eventually:
 

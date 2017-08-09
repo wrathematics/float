@@ -28,7 +28,7 @@
 #'   R_sqrt_spm R_isfinite_spm R_isinfinite_spm R_isnan_spm R_gamma_spm
 #'   R_lgamma_spm R_isna_spm R_naomit_spm R_add_spm R_mul_spm R_sub_spm
 #'   R_div_spm R_pow_spm R_colSums_spm R_rowSums_spm R_colMeans_spm
-#'   R_rowMeans_spm
+#'   R_rowMeans_spm R_norm_spm
 #' 
 #' @docType package
 #' @name spm-package
