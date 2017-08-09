@@ -61,6 +61,8 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `+` | done |
 | `*` | done |
 | `-` | done |
+| `/` | done |
+| `^` | done |
 
 ### Casters
 
@@ -93,6 +95,14 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()` | done |
 | `sinh()`, `cosh()`, `tanh()`, `asinh()`, `acosh()`, `atanh()` | done |
 
+### Sums and Means
+
+| Method | Status |
+|---|---|
+| `rowSums()` | done |
+| `colSums()` | done |
+| `rowMeans()` | done |
+| `colMeans()` | done |
 
 
 ### In progress and Future Plans
