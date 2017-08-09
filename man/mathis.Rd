@@ -2,10 +2,10 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{mathis}
-\alias{mathis}
 \alias{is.finite,spm-method}
 \alias{is.infinite,spm-method}
 \alias{is.nan,spm-method}
+\alias{mathis}
 \title{Finite, infinite, and NaNs}
 \usage{
 \S4method{is.finite}{spm}(x)
@@ -32,3 +32,4 @@ is.nan(sqrt(x))
 }
 
 }
+

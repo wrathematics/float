@@ -2,8 +2,8 @@
 % Please edit documentation in R/xpose.r
 \docType{methods}
 \name{xpose}
-\alias{xpose}
 \alias{t,spm-method}
+\alias{xpose}
 \title{xpose}
 \usage{
 \S4method{t}{spm}(x)
@@ -28,3 +28,4 @@ dim(ts)
 }
 
 }
+

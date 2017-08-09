@@ -2,13 +2,13 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{trig}
-\alias{trig}
-\alias{sin,spm-method}
-\alias{cos,spm-method}
-\alias{tan,spm-method}
-\alias{asin,spm-method}
 \alias{acos,spm-method}
+\alias{asin,spm-method}
 \alias{atan,spm-method}
+\alias{cos,spm-method}
+\alias{sin,spm-method}
+\alias{tan,spm-method}
+\alias{trig}
 \title{Trigonometric functions}
 \usage{
 \S4method{sin}{spm}(x)
@@ -41,3 +41,4 @@ sin(x)
 }
 
 }
+

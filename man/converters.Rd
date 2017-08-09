@@ -2,10 +2,10 @@
 % Please edit documentation in R/converters.r
 \name{converters}
 \alias{converters}
-\alias{mat2spm}
-\alias{fl}
-\alias{spm2mat}
 \alias{dbl}
+\alias{fl}
+\alias{mat2spm}
+\alias{spm2mat}
 \title{converters}
 \usage{
 mat2spm(x)
@@ -44,3 +44,4 @@ all.equal(x, y)
 }
 
 }
+

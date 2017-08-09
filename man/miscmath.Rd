@@ -2,8 +2,8 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{miscmath}
-\alias{miscmath}
 \alias{abs,spm-method}
+\alias{miscmath}
 \alias{sqrt,spm-method}
 \title{Miscellaneous mathematical functions}
 \usage{
@@ -29,3 +29,4 @@ sqrt(x)
 }
 
 }
+

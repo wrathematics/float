@@ -2,13 +2,13 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{hyperbolic}
+\alias{acosh,spm-method}
+\alias{asinh,spm-method}
+\alias{atanh,spm-method}
+\alias{cosh,spm-method}
 \alias{hyperbolic}
 \alias{sinh,spm-method}
-\alias{cosh,spm-method}
 \alias{tanh,spm-method}
-\alias{asinh,spm-method}
-\alias{acosh,spm-method}
-\alias{atanh,spm-method}
 \title{Hyperbolic functions}
 \usage{
 \S4method{sinh}{spm}(x)
@@ -41,3 +41,4 @@ sinh(x)
 }
 
 }
+

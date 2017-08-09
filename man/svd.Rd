@@ -2,8 +2,8 @@
 % Please edit documentation in R/svd.r
 \docType{methods}
 \name{svd}
-\alias{svd}
 \alias{La.svd,spm-method}
+\alias{svd}
 \alias{svd,spm-method}
 \title{SVD}
 \usage{
@@ -33,3 +33,4 @@ svd(x)
 }
 
 }
+

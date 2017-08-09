@@ -2,10 +2,10 @@
 % Please edit documentation in R/dims.r
 \docType{methods}
 \name{dims}
-\alias{dims}
-\alias{nrow,spm-method}
-\alias{ncol,spm-method}
 \alias{dim,spm-method}
+\alias{dims}
+\alias{ncol,spm-method}
+\alias{nrow,spm-method}
 \title{dim}
 \usage{
 \S4method{nrow}{spm}(x)
@@ -34,3 +34,4 @@ ncol(s)
 }
 
 }
+

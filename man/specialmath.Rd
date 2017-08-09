@@ -2,9 +2,9 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{specialmath}
-\alias{specialmath}
 \alias{gamma,spm-method}
 \alias{lgamma,spm-method}
+\alias{specialmath}
 \title{Special mathematical functions}
 \usage{
 \S4method{gamma}{spm}(x)
@@ -29,3 +29,4 @@ lgamma(x)
 }
 
 }
+

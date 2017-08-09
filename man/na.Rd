@@ -2,10 +2,10 @@
 % Please edit documentation in R/na.r
 \docType{methods}
 \name{na}
-\alias{na}
 \alias{is.na,spm-method}
-\alias{na.omit,spm-method}
+\alias{na}
 \alias{na.exclude,spm-method}
+\alias{na.omit,spm-method}
 \title{NA}
 \usage{
 \S4method{is.na}{spm}(x)
@@ -31,3 +31,4 @@ is.na(s)
 }
 
 }
+

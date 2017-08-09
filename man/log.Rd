@@ -2,9 +2,9 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{log}
-\alias{log}
 \alias{exp,spm-method}
 \alias{expm1,spm-method}
+\alias{log}
 \alias{log,spm-method}
 \alias{log10,spm-method}
 \alias{log2,spm-method}
@@ -40,3 +40,4 @@ log(x)
 }
 
 }
+

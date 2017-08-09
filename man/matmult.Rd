@@ -2,10 +2,10 @@
 % Please edit documentation in R/matmult.r
 \docType{methods}
 \name{matmult}
-\alias{matmult}
-\alias{\%*\%,spm,spm-method}
-\alias{\%*\%,spm,matrix-method}
 \alias{\%*\%,matrix,spm-method}
+\alias{\%*\%,spm,matrix-method}
+\alias{\%*\%,spm,spm-method}
+\alias{matmult}
 \title{matmult}
 \usage{
 \S4method{\%*\%}{spm,spm}(x, y)
@@ -46,3 +46,4 @@ x \%*\% s2 # double
 }
 
 }
+

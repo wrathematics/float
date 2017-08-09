@@ -2,10 +2,12 @@
 % Please edit documentation in R/arithmetic.r
 \docType{methods}
 \name{arithmetic}
-\alias{arithmetic}
-\alias{+,LinAlg,LinAlg-method}
 \alias{*,LinAlg,LinAlg-method}
+\alias{+,LinAlg,LinAlg-method}
 \alias{-,LinAlg,LinAlg-method}
+\alias{/,LinAlg,LinAlg-method}
+\alias{^,LinAlg,LinAlg-method}
+\alias{arithmetic}
 \title{arithmetic}
 \usage{
 \S4method{+}{LinAlg,LinAlg}(e1, e2)
@@ -13,6 +15,10 @@
 \S4method{*}{LinAlg,LinAlg}(e1, e2)
 
 \S4method{-}{LinAlg,LinAlg}(e1, e2)
+
+\S4method{/}{LinAlg,LinAlg}(e1, e2)
+
+\S4method{^}{LinAlg,LinAlg}(e1, e2)
 }
 \arguments{
 \item{e1, e2}{Numeric/float vectors/matrices.}
@@ -41,3 +47,4 @@ x + s2 # double
 }
 
 }
+

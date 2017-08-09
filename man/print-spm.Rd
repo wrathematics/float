@@ -2,8 +2,8 @@
 % Please edit documentation in R/print.r
 \docType{methods}
 \name{print-spm}
-\alias{print-spm}
 \alias{print,spm-method}
+\alias{print-spm}
 \alias{show,spm-method}
 \title{print-spm}
 \usage{
@@ -29,3 +29,4 @@ s
 }
 
 }
+

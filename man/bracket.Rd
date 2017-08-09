@@ -2,8 +2,8 @@
 % Please edit documentation in R/bracket.r
 \docType{methods}
 \name{bracket}
-\alias{bracket}
 \alias{[,spm-method}
+\alias{bracket}
 \title{Extract}
 \usage{
 \S4method{[}{spm}(x, i, j, drop = TRUE)
@@ -33,3 +33,4 @@ s[c(1, 3, 5, 7), 1:2]
 }
 
 }
+

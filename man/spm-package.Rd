@@ -21,3 +21,4 @@ BLAS and LAPACK, which are automatically built in the event they are needed.
 Drew Schmidt
 }
 \keyword{package}
+
