@@ -105,6 +105,7 @@ static inline int solve_system(const int n, const int nrhs,
   if (info != 0)
     error("sgesv() returned info=%d\n", info);
   
+  free(ipiv);
   return info;
 }
 
@@ -127,23 +128,18 @@ SEXP R_solve_spmspm(SEXP x_ptr, SEXP y_ptr)
   
   matrix_t *ret = newmat(n, nrhs);
   ISAVEC(ret) = ISAVEC(y);
-    
+  newRptr(ret, ret_ptr, matfin);
   
   
   float *tmp = malloc((size_t)n*n*sizeof(*tmp));
   if (tmp == NULL)
-  {
-    free(DATA(ret));
-    free(ret);
     error("OOM");
-  }
   
   memcpy(tmp, DATA(x), (size_t)n*n*sizeof(*tmp));
   memcpy(DATA(ret), DATA(y), (size_t)n*nrhs*sizeof(float));
   solve_system(n, nrhs, tmp, DATA(ret));
   free(tmp);
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
   return ret_ptr;
 }
