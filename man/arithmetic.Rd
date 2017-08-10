@@ -2,38 +2,98 @@
 % Please edit documentation in R/binary.r
 \docType{methods}
 \name{arithmetic}
-\alias{*,LinAlg,LinAlg-method}
-\alias{+,LinAlg,LinAlg-method}
-\alias{-,LinAlg,LinAlg-method}
-\alias{/,LinAlg,LinAlg-method}
-\alias{<,LinAlg,LinAlg-method}
-\alias{<=,LinAlg,LinAlg-method}
-\alias{==,LinAlg,LinAlg-method}
-\alias{>,LinAlg,LinAlg-method}
-\alias{>=,LinAlg,LinAlg-method}
-\alias{^,LinAlg,LinAlg-method}
+\alias{*,BaseLinAlg,spm-method}
+\alias{*,spm,BaseLinAlg-method}
+\alias{*,spm,spm-method}
+\alias{+,BaseLinAlg,spm-method}
+\alias{+,spm,BaseLinAlg-method}
+\alias{+,spm,spm-method}
+\alias{-,BaseLinAlg,spm-method}
+\alias{-,spm,BaseLinAlg-method}
+\alias{-,spm,spm-method}
+\alias{/,BaseLinAlg,spm-method}
+\alias{/,spm,BaseLinAlg-method}
+\alias{/,spm,spm-method}
+\alias{<,BaseLinAlg,spm-method}
+\alias{<,spm,BaseLinAlg-method}
+\alias{<,spm,spm-method}
+\alias{<=,BaseLinAlg,spm-method}
+\alias{<=,spm,BaseLinAlg-method}
+\alias{<=,spm,spm-method}
+\alias{==,BaseLinAlg,spm-method}
+\alias{==,spm,BaseLinAlg-method}
+\alias{==,spm,spm-method}
+\alias{>,BaseLinAlg,spm-method}
+\alias{>,spm,BaseLinAlg-method}
+\alias{>,spm,spm-method}
+\alias{>=,BaseLinAlg,spm-method}
+\alias{>=,spm,BaseLinAlg-method}
+\alias{>=,spm,spm-method}
+\alias{^,BaseLinAlg,spm-method}
+\alias{^,spm,BaseLinAlg-method}
+\alias{^,spm,spm-method}
 \alias{arithmetic}
 \title{arithmetic}
 \usage{
-\S4method{+}{LinAlg,LinAlg}(e1, e2)
+\S4method{+}{spm,spm}(e1, e2)
 
-\S4method{*}{LinAlg,LinAlg}(e1, e2)
+\S4method{*}{spm,spm}(e1, e2)
 
-\S4method{-}{LinAlg,LinAlg}(e1, e2)
+\S4method{-}{spm,spm}(e1, e2)
 
-\S4method{/}{LinAlg,LinAlg}(e1, e2)
+\S4method{/}{spm,spm}(e1, e2)
 
-\S4method{^}{LinAlg,LinAlg}(e1, e2)
+\S4method{^}{spm,spm}(e1, e2)
 
-\S4method{<}{LinAlg,LinAlg}(e1, e2)
+\S4method{+}{spm,BaseLinAlg}(e1, e2)
 
-\S4method{<=}{LinAlg,LinAlg}(e1, e2)
+\S4method{*}{spm,BaseLinAlg}(e1, e2)
 
-\S4method{==}{LinAlg,LinAlg}(e1, e2)
+\S4method{-}{spm,BaseLinAlg}(e1, e2)
 
-\S4method{>}{LinAlg,LinAlg}(e1, e2)
+\S4method{/}{spm,BaseLinAlg}(e1, e2)
 
-\S4method{>=}{LinAlg,LinAlg}(e1, e2)
+\S4method{^}{spm,BaseLinAlg}(e1, e2)
+
+\S4method{+}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{*}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{-}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{/}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{^}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{<}{spm,spm}(e1, e2)
+
+\S4method{<=}{spm,spm}(e1, e2)
+
+\S4method{==}{spm,spm}(e1, e2)
+
+\S4method{>}{spm,spm}(e1, e2)
+
+\S4method{>=}{spm,spm}(e1, e2)
+
+\S4method{<}{spm,BaseLinAlg}(e1, e2)
+
+\S4method{<=}{spm,BaseLinAlg}(e1, e2)
+
+\S4method{==}{spm,BaseLinAlg}(e1, e2)
+
+\S4method{>}{spm,BaseLinAlg}(e1, e2)
+
+\S4method{>=}{spm,BaseLinAlg}(e1, e2)
+
+\S4method{<}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{<=}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{==}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{>}{BaseLinAlg,spm}(e1, e2)
+
+\S4method{>=}{BaseLinAlg,spm}(e1, e2)
 }
 \arguments{
 \item{e1, e2}{Numeric/float vectors/matrices.}

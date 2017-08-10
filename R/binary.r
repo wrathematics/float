@@ -130,23 +130,67 @@ pow.spm = function(e1, e2)
 
 #' @rdname arithmetic
 #' @export
-setMethod("+", signature(e1="LinAlg", e2="LinAlg"), add.spm)
+setMethod("+", signature(e1="spm", e2="spm"), add.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod("*", signature(e1="LinAlg", e2="LinAlg"), mul.spm)
+setMethod("*", signature(e1="spm", e2="spm"), mul.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod("-", signature(e1="LinAlg", e2="LinAlg"), sub.spm)
+setMethod("-", signature(e1="spm", e2="spm"), sub.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod("/", signature(e1="LinAlg", e2="LinAlg"), div.spm)
+setMethod("/", signature(e1="spm", e2="spm"), div.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod("^", signature(e1="LinAlg", e2="LinAlg"), pow.spm)
+setMethod("^", signature(e1="spm", e2="spm"), pow.spm)
+
+
+
+#' @rdname arithmetic
+#' @export
+setMethod("+", signature(e1="spm", e2="BaseLinAlg"), add.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("*", signature(e1="spm", e2="BaseLinAlg"), mul.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("-", signature(e1="spm", e2="BaseLinAlg"), sub.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("/", signature(e1="spm", e2="BaseLinAlg"), div.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("^", signature(e1="spm", e2="BaseLinAlg"), pow.spm)
+
+
+
+#' @rdname arithmetic
+#' @export
+setMethod("+", signature(e1="BaseLinAlg", e2="spm"), add.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("*", signature(e1="BaseLinAlg", e2="spm"), mul.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("-", signature(e1="BaseLinAlg", e2="spm"), sub.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("/", signature(e1="BaseLinAlg", e2="spm"), div.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("^", signature(e1="BaseLinAlg", e2="spm"), pow.spm)
 
 
 
@@ -236,20 +280,64 @@ ge.spm = function(e1, e2)
 
 #' @rdname arithmetic
 #' @export
-setMethod("<", signature(e1="LinAlg", e2="LinAlg"), lt.spm)
+setMethod("<", signature(e1="spm", e2="spm"), lt.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod("<=", signature(e1="LinAlg", e2="LinAlg"), le.spm)
+setMethod("<=", signature(e1="spm", e2="spm"), le.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod("==", signature(e1="LinAlg", e2="LinAlg"), eq.spm)
+setMethod("==", signature(e1="spm", e2="spm"), eq.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod(">", signature(e1="LinAlg", e2="LinAlg"), gt.spm)
+setMethod(">", signature(e1="spm", e2="spm"), gt.spm)
 
 #' @rdname arithmetic
 #' @export
-setMethod(">=", signature(e1="LinAlg", e2="LinAlg"), ge.spm)
+setMethod(">=", signature(e1="spm", e2="spm"), ge.spm)
+
+
+
+#' @rdname arithmetic
+#' @export
+setMethod("<", signature(e1="spm", e2="BaseLinAlg"), lt.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("<=", signature(e1="spm", e2="BaseLinAlg"), le.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("==", signature(e1="spm", e2="BaseLinAlg"), eq.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod(">", signature(e1="spm", e2="BaseLinAlg"), gt.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod(">=", signature(e1="spm", e2="BaseLinAlg"), ge.spm)
+
+
+
+#' @rdname arithmetic
+#' @export
+setMethod("<", signature(e1="BaseLinAlg", e2="spm"), lt.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("<=", signature(e1="BaseLinAlg", e2="spm"), le.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod("==", signature(e1="BaseLinAlg", e2="spm"), eq.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod(">", signature(e1="BaseLinAlg", e2="spm"), gt.spm)
+
+#' @rdname arithmetic
+#' @export
+setMethod(">=", signature(e1="BaseLinAlg", e2="spm"), ge.spm)

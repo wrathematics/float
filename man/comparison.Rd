@@ -7,7 +7,7 @@
 \item{e1, e2}{Numeric/float vectors/matrices.}
 }
 \value{
-A vector/matrix of the same type as the highest precision input.
+A vector/matrix of logicals.
 }
 \description{
 Binary comparison operators for numeric/float matrices.
