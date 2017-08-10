@@ -2,6 +2,8 @@
 #define SPM_NORM_H_
 
 
+#include "spm.h"
+
 // Don't want to write a slange wrapper; don't make the user compile fortran
 // if at all possible
 
