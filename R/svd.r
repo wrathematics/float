@@ -26,6 +26,10 @@ NULL
 
 
 
+utils::globalVariables(c("n", "p"))
+
+
+
 La.svd.spm = function(x, nu=min(n, p), nv=min(n, p)) 
 {
   n = nrow(x)
