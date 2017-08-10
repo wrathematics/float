@@ -54,7 +54,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `object.size()` | done |
 | `print()` | done |
 
-### Binary Arithmetic
+### Binary Operations
 
 | Method | Status |
 |---|---|
@@ -63,6 +63,11 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `-` | done |
 | `/` | done |
 | `^` | done |
+| `>` | done |
+| `>=` | done |
+| `==` | done |
+| `<` | done |
+| `<=` | done |
 
 ### Casters
 
