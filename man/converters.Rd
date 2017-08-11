@@ -8,16 +8,19 @@
 \alias{spm2mat}
 \title{converters}
 \usage{
-mat2spm(x)
+mat2spm(x, strict = FALSE)
 
-fl(x)
+fl(x, strict = FALSE)
 
-spm2mat(x)
+spm2mat(x, strict = FALSE)
 
-dbl(x)
+dbl(x, strict = FALSE)
 }
 \arguments{
 \item{x}{A numeric or float vector/matrix.}
+
+\item{strict}{Should the function error if given the wrong kind of input? Otherwise it just
+silently returns the input.}
 }
 \value{
 The data stored in the type of whatever was asked for (the opposite of the
