@@ -37,12 +37,12 @@ c.spm = function(x, ...)
   if (length(additional) == 0)
     return(x)
   
-  if (any(sapply(additional, function(x) is.double(x))))
+  if (any(sapply(additional, is.double)))
   {
     x = dbl(x)
     additional = lapply(additional, dbl, strict=FALSE)
     
-    do.call(base::c, list(x, additional))
+    unlist(list(x, additional))
   }
   else
   {
