@@ -1,4 +1,3 @@
-// set during configuration; do not modify by hand
 #ifndef SPM_NA_HANDLING_H_
 #define SPM_NA_HANDLING_H_
 
