@@ -46,9 +46,11 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | Method | Status |
 |---|---|
 | `[` | positive integer indices for `i` and `j` only |
+| `c()` | done |
 | `diag()` | done |
 | `is.na()` | done |
 | `is.spm()` | done |
+| `min()` and `max()` | done |
 | `na.omit()`, `na.exclude()` | done |
 | `nrow()`, `ncol()`, `dim()` | done |
 | `object.size()` | done |
@@ -106,10 +108,11 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 
 | Method | Status |
 |---|---|
-| `rowSums()` | done |
+| `colMeans()` | done |
 | `colSums()` | done |
 | `rowMeans()` | done |
-| `colMeans()` | done |
+| `rowSums()` | done |
+| `sum()` | done |
 
 
 ### In progress and Future Plans
