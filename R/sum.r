@@ -1,16 +1,18 @@
 #' sum
 #' 
-#' Sums the elements of a shaq.
+#' Sums any combination of float/numeric vector(s)/matri[x|ces].
 #' 
 #' @details
-#' TODO
+#' If there are any elements in \code{...}, all elements in the list will first
+#' be summed in their native precision, then converted to double precision so
+#' they can be combined with \code{base::sum()}.  The final result will be cast
+#' to single precision if \code{...} contains only integer and/or float objects.
+#' Otherwise, the return will be double precision.
 #' 
 #' @param x
-#' 
+#' A float matrix.
 #' @param ...
-#' Additional elements (shaqs or numeric vectors/matrices) to sum.  Regular
-#' vectors/matrices are assumed to be global, but will only be included to the
-#' sum on rank 0.
+#' Additional elements (numeric/float vectors/matrices) to sum.
 #' @param na.rm
 #' should NA's be removed?
 #'  

@@ -9,11 +9,9 @@
 \S4method{sum}{spm}(x, ..., na.rm = FALSE)
 }
 \arguments{
-\item{x}{}
+\item{x}{A float matrix.}
 
-\item{...}{Additional elements (shaqs or numeric vectors/matrices) to sum.  Regular
-vectors/matrices are assumed to be global, but will only be included to the
-sum on rank 0.}
+\item{...}{Additional elements (numeric/float vectors/matrices) to sum.}
 
 \item{na.rm}{should NA's be removed?}
 }
@@ -21,10 +19,14 @@ sum on rank 0.}
 A single value.
 }
 \description{
-Sums the elements of a shaq.
+Sums any combination of float/numeric vector(s)/matri[x|ces].
 }
 \details{
-TODO
+If there are any elements in \code{...}, all elements in the list will first
+be summed in their native precision, then converted to double precision so
+they can be combined with \code{base::sum()}.  The final result will be cast
+to single precision if \code{...} contains only integer and/or float objects.
+Otherwise, the return will be double precision.
 }
 \examples{
 \dontrun{
