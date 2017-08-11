@@ -30,10 +30,10 @@ x2[3, 1] = NA_integer_
 x2[4, 2] = NA_integer_
 s2 = fl(x2)
 
-test = dbl(sum(s1, na.rm=FALSE))
-truth = sum(x1, na.rm=FALSE)
+test = dbl(sum(s2, na.rm=FALSE))
+truth = sum(x2, na.rm=FALSE)
 same(test, truth)
 
-test = dbl(sum(s1, na.rm=TRUE))
-truth = sum(x1, na.rm=TRUE)
+test = dbl(sum(s2, na.rm=TRUE))
+truth = sum(x2, na.rm=TRUE)
 same(test, truth)
