@@ -62,7 +62,7 @@ extreme = function(x, ..., na.rm=FALSE, dFUN, sFUN)
   if (length(additional) > 0)
   {
     additional = dFUN(sapply(additional, extremer, na.rm=na.rm, dFUN=dFUN, sFUN=sFUN))
-    if (any(sapply(additional, function(x) is.double(x))))
+    if (any(sapply(additional, is.double)))
       dFUN(dbl(first),  additional)
     else
     {

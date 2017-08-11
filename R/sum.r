@@ -56,7 +56,7 @@ sum.spm = function(x, ..., na.rm=FALSE)
   if (length(additional) > 0)
   {
     additional_sum = base::sum(sapply(additional, summer, na.rm=na.rm))
-    if (any(sapply(additional, function(x) is.double(x))))
+    if (any(sapply(additional, is.double)))
       dbl(xsum) + additional_sum
     else
       xsum + fl(additional_sum)
