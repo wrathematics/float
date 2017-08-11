@@ -40,7 +40,7 @@ mat2spm = function(x, strict=FALSE)
 {
   if (!is.numeric(x) && !is.logical(x))
   {
-    if (is.spm(x) && isTRUE(strict))
+    if (is.spm(x) && !isTRUE(strict))
       return(x)
     else
       stop("input 'x' must be a numeric or logical vector/matrix")
