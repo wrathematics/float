@@ -117,7 +117,6 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 Version 0.1-0:
 
 * `eigen()`
-* Binary arithmetic (`+`, `-`, ...)
 * Finish `[`
 * `rcond()`, and `kappa()`
 

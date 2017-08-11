@@ -29,7 +29,7 @@
 #'   R_lgamma_spm R_isna_spm R_naomit_spm R_add_spm R_mul_spm R_sub_spm
 #'   R_div_spm R_pow_spm R_colSums_spm R_rowSums_spm R_colMeans_spm
 #'   R_rowMeans_spm R_norm_spm R_rcond_spm R_lt_spm R_le_spm R_eq_spm R_gt_spm
-#'   R_ge_spm
+#'   R_ge_spm R_sum_spm
 #' 
 #' @docType package
 #' @name spm-package
