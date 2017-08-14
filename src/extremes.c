@@ -1,4 +1,6 @@
+#include <limits.h>
 #include <math.h>
+#include <stdbool.h>
 
 #include "NA.h"
 #include "spm.h"
@@ -99,3 +101,91 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
 // ----------------------------------------------------------------------------
 // which-min/max
 // ----------------------------------------------------------------------------
+
+SEXP R_whichmin_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  const int m = NROWS(x);
+  const int n = NCOLS(x);
+  float min = (float) INFINITY;
+  size_t which;
+  bool empty = true;
+  
+  for (size_t i=0; i<((size_t)m*n); i++)
+  {
+    const float tmp = DATA(x)[i];
+    if (!ISNAf(tmp) && !isnanf(tmp) && min > tmp)
+    {
+      min = tmp;
+      which = i+1;
+      empty = false;
+    }
+  }
+  
+  if (empty)
+  {
+    PROTECT(ret = allocVector(INTSXP, 0));
+  }
+  else
+  {
+    if (which < INT_MAX)
+    {
+      PROTECT(ret = allocVector(INTSXP, 1));
+      INTEGER(ret)[0] = which;
+    }
+    else
+    {
+      PROTECT(ret = allocVector(REALSXP, 1));
+      REAL(ret)[0] = which;
+    }
+  }
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
+SEXP R_whichmax_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  const int m = NROWS(x);
+  const int n = NCOLS(x);
+  float max = (float) -INFINITY;
+  size_t which;
+  bool empty = true;
+  
+  for (size_t i=0; i<((size_t)m*n); i++)
+  {
+    const float tmp = DATA(x)[i];
+    if (!ISNAf(tmp) && !isnanf(tmp) && max < tmp)
+    {
+      max = tmp;
+      which = i+1;
+      empty = false;
+    }
+  }
+  
+  if (empty)
+  {
+    PROTECT(ret = allocVector(INTSXP, 0));
+  }
+  else
+  {
+    if (which < INT_MAX)
+    {
+      PROTECT(ret = allocVector(INTSXP, 1));
+      INTEGER(ret)[0] = which;
+    }
+    else
+    {
+      PROTECT(ret = allocVector(REALSXP, 1));
+      REAL(ret)[0] = which;
+    }
+  }
+  
+  UNPROTECT(1);
+  return ret;
+}

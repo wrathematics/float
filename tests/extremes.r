@@ -2,7 +2,7 @@ suppressPackageStartupMessages(library(spm))
 set.seed(1234)
 tol=1e-6
 
-same = function(test, truth) stopifnot(all.equal(test, truth, tol=tol))
+same = function(test, truth) stopifnot(all.equal(dbl(test), truth, tol=tol))
 
 x1 = matrix(-4:5, 5)
 s1 = fl(x1)
@@ -18,47 +18,67 @@ s3 = flrunif(5)
 
 
 ### min
-test = dbl(min(s1))
+test = min(s1)
 truth = min(x1)
 same(test, truth)
 
-test = dbl(min(s1, s3))
+test = min(s1, s3)
 truth = min(x1, dbl(s3))
 same(test, truth)
 
-test = dbl(min(s1, y))
+test = min(s1, y)
 truth = min(x1, y)
 same(test, truth)
 
 # NA
-test = dbl(sum(s2, na.rm=FALSE))
+test = sum(s2, na.rm=FALSE)
 truth = sum(x2, na.rm=FALSE)
 same(test, truth)
 
-test = dbl(sum(s2, na.rm=TRUE))
+test = sum(s2, na.rm=TRUE)
 truth = sum(x2, na.rm=TRUE)
 same(test, truth)
 
 
 
 ### max
-test = dbl(max(s1))
+test = max(s1)
 truth = max(x1)
 same(test, truth)
 
-test = dbl(max(s1, s3))
+test = max(s1, s3)
 truth = max(x1, dbl(s3))
 same(test, truth)
 
-test = dbl(max(s1, y))
+test = max(s1, y)
 truth = max(x1, y)
 same(test, truth)
 
 # NA
-test = dbl(sum(s2, na.rm=FALSE))
+test = sum(s2, na.rm=FALSE)
 truth = sum(x2, na.rm=FALSE)
 same(test, truth)
 
-test = dbl(sum(s2, na.rm=TRUE))
+test = sum(s2, na.rm=TRUE)
 truth = sum(x2, na.rm=TRUE)
+same(test, truth)
+
+
+
+
+# which
+test = which.min(s1)
+truth = which.min(x1)
+same(test, truth)
+
+test = which.min(s2)
+truth = which.min(x2)
+same(test, truth)
+
+test = which.max(s1)
+truth = which.max(x1)
+same(test, truth)
+
+test = which.max(s2)
+truth = which.max(x2)
 same(test, truth)

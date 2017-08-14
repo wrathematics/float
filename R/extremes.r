@@ -84,6 +84,15 @@ max.spm = function(x, ..., na.rm=FALSE)
   extreme(x, ..., na.rm=na.rm, dFUN=base::max, sFUN=max_spm)
 }
 
+whichmin.spm = function(x)
+{
+  .Call(R_whichmin_spm, x@ptr)
+}
+
+whichmax.spm = function(x)
+{
+  .Call(R_whichmax_spm, x@ptr)
+}
 
 
 
@@ -94,3 +103,11 @@ setMethod("min", signature(x="spm"), min.spm)
 #' @rdname extremes
 #' @export
 setMethod("max", signature(x="spm"), max.spm)
+
+#' @rdname extremes
+#' @export
+setMethod("which.min", signature(x="spm"), whichmin.spm)
+
+#' @rdname extremes
+#' @export
+setMethod("which.max", signature(x="spm"), whichmax.spm)

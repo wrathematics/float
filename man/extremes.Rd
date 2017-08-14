@@ -5,11 +5,17 @@
 \alias{extremes}
 \alias{max,spm-method}
 \alias{min,spm-method}
+\alias{which.max,spm-method}
+\alias{which.min,spm-method}
 \title{extremes}
 \usage{
 \S4method{min}{spm}(x, ..., na.rm = FALSE)
 
 \S4method{max}{spm}(x, ..., na.rm = FALSE)
+
+\S4method{which.min}{spm}(x)
+
+\S4method{which.max}{spm}(x)
 }
 \arguments{
 \item{x}{A float matrix.}
