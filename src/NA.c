@@ -70,8 +70,7 @@ SEXP R_isna_spm(SEXP x_ptr)
 // ----------------------------------------------------------------------------
 
 #include <stdlib.h>
-
-#define OMP_MIN_SIZE 1000
+#include "safeomp.h"
 
 #define INT(x) INTEGER(x)
 
