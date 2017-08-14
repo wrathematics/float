@@ -84,12 +84,32 @@ print_spm_mat = function(x)
 
 
 
+print_attr = function(x)
+{
+  att = attributes(x)
+  att$ptr = NULL
+  att$class = NULL
+  
+  if (length(att) == 0)
+    return(invisible())
+  
+  for (i in 1:length(att))
+  {
+    cat(paste0("attr(,\"", names(att)[i], "\")\n"))
+    print(att[[i]]) # NOTE intentional
+  }
+}
+
+
+
 print_spm = function(x)
 {
   if (isavec(x))
     print_spm_vec(x)
   else
     print_spm_mat(x)
+  
+  print_attr(x)
 }
 
 
