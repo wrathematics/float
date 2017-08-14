@@ -18,8 +18,18 @@
 #' is.spm(s)
 #' }
 #' 
+#' @name is.spm
+#' @rdname is.spm
+NULL
+
+
+#' @rdname is.spm
 #' @export
 is.spm = function(x)
 {
   is(x, "spm")
 }
+
+#' @rdname is.spm
+#' @export
+is.float = is.spm
