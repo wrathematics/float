@@ -1,4 +1,4 @@
-library(spm)
+suppressPackageStartupMessages(library(spm))
 
 same = function(test, truth) stopifnot(all.equal(dbl(test), truth, tol=1e-6, check.attributes=FALSE))
 

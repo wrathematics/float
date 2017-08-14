@@ -1,4 +1,4 @@
-library(spm)
+suppressPackageStartupMessages(library(spm))
 tol = 1e-6
 
 x1 = 1:3
