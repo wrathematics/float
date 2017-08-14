@@ -18,6 +18,10 @@ A logical value.
 \description{
 Tests if argument is a float matrix.
 }
+\details{
+\code{is.spm()} and \code{is.float()} are different names for the same
+function.
+}
 \examples{
 \dontrun{
 library(spm)
