@@ -5,3 +5,5 @@ src/*.o
 src/*.so
 src/Makevars
 src/endianness.h
+
+TODO
