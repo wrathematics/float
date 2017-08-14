@@ -385,7 +385,7 @@ setMethod("lgamma", signature(x="spm"), lgamma.spm)
 #' A float vector/matrix.
 #' 
 #' @return
-#' An integre vector/matrix of the same dimensions as the input.
+#' An integer vector/matrix of the same dimensions as the input.
 #' 
 #' @examples
 #' \dontrun{
@@ -429,3 +429,79 @@ setMethod("is.infinite", signature(x="spm"), is.infinite.spm)
 #' @rdname mathis
 #' @export
 setMethod("is.nan", signature(x="spm"), is.nan.spm)
+
+
+
+# -----------------------------------------------------------------------------
+# rounding
+# -----------------------------------------------------------------------------
+
+#' Round
+#' 
+#' Rounding functions.
+#' 
+#' @param x
+#' A float vector/matrix.
+#' @param digits
+#' The number of digits to use in rounding.
+#' @param ...
+#' ignored
+#' 
+#' @return
+#' A float vector/matrix of the same dimensions as the input.
+#' 
+#' @examples
+#' \dontrun{
+#' library(spm)
+#' 
+#' x = flrnorm(10)
+#' floor(x)
+#' }
+#' 
+#' @name round
+#' @rdname round
+NULL
+
+
+
+ceiling.spm = function(x)
+{
+  ptr = .Call(R_ceiling_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+floor.spm = function(x)
+{
+  ptr = .Call(R_floor_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+trunc.spm = function(x, ...)
+{
+  ptr = .Call(R_trunc_spm, x@ptr)
+  new("spm", ptr=ptr)
+}
+
+round.spm = function(x, digits=0)
+{
+  ptr = .Call(R_round_spm, x@ptr, as.double(digits))
+  new("spm", ptr=ptr)
+}
+
+
+
+#' @rdname round
+#' @export
+setMethod("ceiling", signature(x="spm"), ceiling.spm)
+
+#' @rdname round
+#' @export
+setMethod("floor", signature(x="spm"), floor.spm)
+
+#' @rdname round
+#' @export
+setMethod("trunc", signature(x="spm"), trunc.spm)
+
+#' @rdname round
+#' @export
+setMethod("round", signature(x="spm"), round.spm)

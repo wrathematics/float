@@ -66,3 +66,20 @@ s3 = fl(x3)
 stopifnot(all.equal(is.finite(s3), is.finite(x3), tol=tol))
 stopifnot(all.equal(is.infinite(s3), is.infinite(x3), tol=tol))
 stopifnot(all.equal(is.nan(s3), is.nan(x3), tol=tol))
+
+# -----------------------------------------------------------------------------
+# mathis
+# -----------------------------------------------------------------------------
+
+
+pis = fl(pi)
+
+same(ceiling, pis, pi)
+same(floor, pis, pi)
+same(trunc, pis, pi)
+
+same(round, pis, pi)
+same(round, pis, pi, digits=1)
+same(round, pis, pi, digits=2)
+same(round, pis, pi, digits=3)
+same(round, pis, pi, digits=-1)

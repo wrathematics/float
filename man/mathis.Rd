@@ -18,7 +18,7 @@
 \item{x}{A float vector/matrix.}
 }
 \value{
-An integre vector/matrix of the same dimensions as the input.
+An integer vector/matrix of the same dimensions as the input.
 }
 \description{
 Finite, infinite, and NaNs.

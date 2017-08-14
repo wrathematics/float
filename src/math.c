@@ -283,3 +283,47 @@ SEXP R_isnan_spm(SEXP x_ptr)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+// ----------------------------------------------------------------------------
+// rounding
+// ----------------------------------------------------------------------------
+
+SEXP R_ceiling_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(ceilf)
+  FUN_END
+}
+
+SEXP R_floor_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(floorf)
+  FUN_END
+}
+
+SEXP R_trunc_spm(SEXP x_ptr)
+{
+  FUN_INIT
+  APPLY(roundf)
+  FUN_END
+}
+
+// NOTE I'm not sure if this is numerically wise...
+static inline float roundfun(const float x, const float p)
+{
+  return roundf(x*p)/p;
+}
+
+SEXP R_round_spm(SEXP x_ptr, SEXP digits)
+{
+  FUN_INIT
+  
+  const float p = powf(10, REAL(digits)[0]);
+  for (size_t i=0; i<((size_t)m*n); i++)
+    DATA(ret)[i] = roundfun(DATA(x)[i], p);
+  
+  FUN_END
+}

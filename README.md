@@ -99,6 +99,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | Method | Status |
 |---|---|
 | `abs()`, `sqrt()` | done |
+| `ceiling()`, `floor()`, `trunc()`, `round()` | done |
 | `exp()`, `exp1m()` | done |
 | `gamma()`, `lgamma()` | done |
 | `is.finite()`, `is.infinite()`, `is.nan()` | done |
