@@ -55,6 +55,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `nrow()`, `ncol()`, `dim()` | done |
 | `object.size()` | done |
 | `print()` | done |
+| `scale()` | Available for logical `center` and `scale` |
 | `sweep()` | Available for `FUN`'s `"+"`, `"-"`, `"*"`, and `"/"`. Others impossible(?) | 
 
 ### Binary Operations

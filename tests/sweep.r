@@ -1,6 +1,6 @@
 library(spm)
 
-same = function(test, truth) stopifnot(all.equal(dbl(test), truth))
+same = function(test, truth) stopifnot(all.equal(dbl(test), truth, tol=1e-6))
 
 x = matrix(1:30, 10, 3)
 s = fl(x)
