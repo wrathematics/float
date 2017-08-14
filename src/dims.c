@@ -32,6 +32,27 @@ SEXP R_dim_spm(SEXP x_ptr)
   return ret;
 }
 
+SEXP R_length_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  size_t len = NROWS(x)*NCOLS(x);
+  
+  if (len > INT_MAX)
+  {
+    PROTECT(ret = allocVector(INTSXP, 1));
+    INTEGER(ret)[0] = (int) len;
+  }
+  else
+  {
+    PROTECT(ret = allocVector(REALSXP, 1));
+    REAL(ret)[0] = (double) len;
+  }
+  
+  UNPROTECT(1);
+  return ret;
+}
+
 
 
 // for my eyes only

@@ -4,6 +4,7 @@
 \name{dims}
 \alias{dim,spm-method}
 \alias{dims}
+\alias{length,spm-method}
 \alias{ncol,spm-method}
 \alias{nrow,spm-method}
 \title{dim}
@@ -13,6 +14,8 @@
 \S4method{ncol}{spm}(x)
 
 \S4method{dim}{spm}(x)
+
+\S4method{length}{spm}(x)
 }
 \arguments{
 \item{x}{A float vector/matrix.}
