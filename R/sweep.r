@@ -1,6 +1,6 @@
 #' sweep
 #' 
-#' Extract subsets of a float vector/matrix.
+#' Sweep a vector through a float matrix.
 #' 
 #' @details
 #' Note that if the length of \code{STATS} does not recycle exactly across
@@ -45,6 +45,9 @@ sweep.spm = function(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...)
     return(sweep(dbl(x), MARGIN, STATS, FUN, check.margin, ...))
   else if (!is.logical(STATS) && !is.integer(STATS) && !is.spm(STATS))
     stop("non-numeric argument to binary operator")
+  
+  if (isavec(x))
+    stop("Error in array(STATS, dims[perm]) : 'dims' cannot be of length 0", call.=FALSE)
   
   if (!isTRUE(all.equal(MARGIN, 1)) && !isTRUE(all.equal(MARGIN, 2)))
     stop("missing value where TRUE/FALSE needed")
