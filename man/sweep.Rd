@@ -19,6 +19,9 @@
 \code{"/"}.}
 
 \item{check.margin}{Should x/STATS margin lengths be checked?}
+
+\item{...}{Theoretically these are additional arguments passed to an arbitrary function.
+However, we only support basic arithmetic, so they are ignored.}
 }
 \value{
 A matrix of the same type as the highest precision input.
