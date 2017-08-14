@@ -22,8 +22,8 @@ Extract subsets of a float vector/matrix.
 library(spm)
 
 s = flrunif(10, 3)
-s[, -1]
-s[c(1, 3, 5, 7), 1:2]
+cp = crossprod(s)
+chol(cp)
 }
 
 }
