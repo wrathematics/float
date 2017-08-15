@@ -6,12 +6,14 @@
 
 
 void sgemm_(const char *transa, const char *transb, const int *m, const int *n,
-            const int *k, const float *restrict alpha, const float *restrict a,
-            const int *lda, const float *restrict b, const int *ldb,
-            const float *beta, float *restrict c, const int *ldc);
+  const int *k, const float *restrict alpha, const float *restrict a,
+  const int *lda, const float *restrict b, const int *ldb,
+  const float *beta, float *restrict c, const int *ldc);
 
 // dgemm wrapper
-static inline void matmult(const bool transx, const bool transy, const float alpha, const int mx, const int nx, const float *const restrict x, const int my, const int ny, const float *const restrict y, float *restrict ret)
+static inline void matmult(const bool transx, const bool transy,
+  const float alpha, const int mx, const int nx, const float *const restrict x,
+  const int my, const int ny, const float *const restrict y, float *restrict ret)
 {
   // m = # rows of op(x)
   // n = # cols of op(y)
