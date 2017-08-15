@@ -54,8 +54,8 @@ print_spm_vec = function(x)
 
 print_spm_mat = function(x)
 {
-  m = nrow(x)
-  n = ncol(x)
+  m = NROW(x)
+  n = NCOL(x)
   
   cat(paste0("# An spm (single precision matrix): ", m, "x", n, "\n"))
   

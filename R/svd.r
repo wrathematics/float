@@ -32,8 +32,8 @@ utils::globalVariables(c("n", "p"))
 
 La.svd.spm = function(x, nu=min(n, p), nv=min(n, p)) 
 {
-  n = nrow(x)
-  p = ncol(x)
+  n = NROW(x)
+  p = NCOL(x)
   
   if (n == 0 || p == 0)
     stop("a dimension is zero")
@@ -61,8 +61,8 @@ La.svd.spm = function(x, nu=min(n, p), nv=min(n, p))
 
 svd.spm = function(x, nu=min(n, p), nv=min(n, p), LINPACK=FALSE) 
 {
-  n = nrow(x)
-  p = ncol(x)
+  n = NROW(x)
+  p = NCOL(x)
   
   ret = La.svd(x, nu, nv)
   if (nv)

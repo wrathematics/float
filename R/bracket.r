@@ -43,7 +43,7 @@ bracket.spm = function(x, i, j, drop=TRUE)
   }
   
   if (missing(i))
-    i = 1:nrow(x)
+    i = 1:NROW(x)
   else
   {
     if (!is.numeric(i) && !is.logical(i))
@@ -54,7 +54,7 @@ bracket.spm = function(x, i, j, drop=TRUE)
   }
   
   if (missing(j))
-    j = 1:ncol(x)
+    j = 1:NCOL(x)
   else
   {
     if (!is.numeric(j) && !is.logical(j))

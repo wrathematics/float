@@ -59,7 +59,7 @@ sweep.spm = function(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...)
   
   if (isTRUE(check.margin))
   {
-    if ((MARGIN == 1 && nrow(x)%%length(STATS)) || (MARGIN == 2 && ncol(x)%%length(STATS)))
+    if ((MARGIN == 1 && NROW(x)%%length(STATS)) || (MARGIN == 2 && NCOL(x)%%length(STATS)))
       warning("STATS does not recycle exactly across MARGIN")
   }
   
