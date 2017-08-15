@@ -57,6 +57,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `print()` | done |
 | `scale()` | Available for logical `center` and `scale` |
 | `sweep()` | Available for `FUN`'s `"+"`, `"-"`, `"*"`, and `"/"`. Others impossible(?) | 
+| `which.min()` and `which.max()` | done |
 
 ### Binary Operations
 
