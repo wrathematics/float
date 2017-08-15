@@ -22,6 +22,11 @@
   UNPROTECT(1); \
   return ret_ptr;
 
+#define MATHFUN(fun) \
+  FUN_INIT \
+  APPLY(fun) \
+  FUN_END
+
 
 // ----------------------------------------------------------------------------
 // logs
@@ -29,16 +34,12 @@
 
 SEXP R_exp_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(expf)
-  FUN_END
+  MATHFUN(expf)
 }
 
 SEXP R_expm1_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(expm1f)
-  FUN_END
+  MATHFUN(expm1f)
 }
 
 SEXP R_log_spm(SEXP x_ptr, SEXP base_)
@@ -54,16 +55,12 @@ SEXP R_log_spm(SEXP x_ptr, SEXP base_)
 
 SEXP R_log10_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(log10f)
-  FUN_END
+  MATHFUN(log10f)
 }
 
 SEXP R_log2_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(log2f)
-  FUN_END
+  MATHFUN(log2f)
 }
 
 
@@ -74,44 +71,32 @@ SEXP R_log2_spm(SEXP x_ptr)
 
 SEXP R_sin_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(sinf)
-  FUN_END
+  MATHFUN(sinf)
 }
 
 SEXP R_cos_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(cosf)
-  FUN_END
+  MATHFUN(cosf)
 }
 
 SEXP R_tan_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(tanf)
-  FUN_END
+  MATHFUN(tanf)
 }
 
 SEXP R_asin_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(asinf)
-  FUN_END
+  MATHFUN(asinf)
 }
 
 SEXP R_acos_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(acosf)
-  FUN_END
+  MATHFUN(acosf)
 }
 
 SEXP R_atan_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(atanf)
-  FUN_END
+  MATHFUN(atanf)
 }
 
 
@@ -122,44 +107,32 @@ SEXP R_atan_spm(SEXP x_ptr)
 
 SEXP R_sinh_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(sinhf)
-  FUN_END
+  MATHFUN(sinhf)
 }
 
 SEXP R_cosh_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(coshf)
-  FUN_END
+  MATHFUN(coshf)
 }
 
 SEXP R_tanh_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(tanhf)
-  FUN_END
+  MATHFUN(tanhf)
 }
 
 SEXP R_asinh_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(asinhf)
-  FUN_END
+  MATHFUN(asinhf)
 }
 
 SEXP R_acosh_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(acoshf)
-  FUN_END
+  MATHFUN(acoshf)
 }
 
 SEXP R_atanh_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(atanhf)
-  FUN_END
+  MATHFUN(atanhf)
 }
 
 
@@ -170,16 +143,12 @@ SEXP R_atanh_spm(SEXP x_ptr)
 
 SEXP R_abs_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(fabsf)
-  FUN_END
+  MATHFUN(fabsf)
 }
 
 SEXP R_sqrt_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(sqrtf)
-  FUN_END
+  MATHFUN(sqrtf)
 }
 
 
@@ -190,16 +159,12 @@ SEXP R_sqrt_spm(SEXP x_ptr)
 
 SEXP R_gamma_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(tgammaf)
-  FUN_END
+  MATHFUN(tgammaf)
 }
 
 SEXP R_lgamma_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(lgammaf)
-  FUN_END
+  MATHFUN(lgammaf)
 }
 
 
@@ -292,23 +257,17 @@ SEXP R_isnan_spm(SEXP x_ptr)
 
 SEXP R_ceiling_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(ceilf)
-  FUN_END
+  MATHFUN(ceilf)
 }
 
 SEXP R_floor_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(floorf)
-  FUN_END
+  MATHFUN(floorf)
 }
 
 SEXP R_trunc_spm(SEXP x_ptr)
 {
-  FUN_INIT
-  APPLY(roundf)
-  FUN_END
+  MATHFUN(roundf)
 }
 
 // NOTE I'm not sure if this is numerically wise...
