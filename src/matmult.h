@@ -2,6 +2,9 @@
 #define SPM_MATMULT_
 
 
+#include <stdbool.h>
+
+
 void sgemm_(const char *transa, const char *transb, const int *m, const int *n,
             const int *k, const float *restrict alpha, const float *restrict a,
             const int *lda, const float *restrict b, const int *ldb,

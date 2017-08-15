@@ -1,5 +1,6 @@
 #include "spm.h"
 
+
 void spotrf_(const char *const restrict uplo, const int *const restrict n,
   float *const restrict a, const int *const restrict lda, int *const restrict info);
 

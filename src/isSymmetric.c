@@ -1,7 +1,7 @@
+#include "blocksize.h"
 #include "spm.h"
 
 
-#define BLOCKSIZE 16
 #define EPS 1000*FLT_EPSILON
 
 static inline bool samenum(const float x, const float y)

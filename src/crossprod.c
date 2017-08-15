@@ -1,5 +1,6 @@
-#include "spm.h"
+#include "blocksize.h"
 #include "matmult.h"
+#include "spm.h"
 
 
 void ssyrk_(const char *uplo, const char *trans, const int *n, const int *k,
@@ -20,16 +21,14 @@ static inline void tcrossprod(const int m, const int n, const float alpha, const
 
 static inline void symmetrize(const len_t n, float *restrict x)
 {
-  const int blocksize = 8; // TODO check cache line explicitly
-  
   // #pragma omp parallel for default(none) shared(x) schedule(dynamic, 1) if(n>OMP_MIN_SIZE)
-  for (len_t j=0; j<n; j+=blocksize)
+  for (len_t j=0; j<n; j+=BLOCKSIZE)
   {
-    for (len_t i=j+1; i<n; i+=blocksize)
+    for (len_t i=j+1; i<n; i+=BLOCKSIZE)
     {
-      for (len_t col=j; col<j+blocksize && col<n; ++col)
+      for (len_t col=j; col<j+BLOCKSIZE && col<n; ++col)
       {
-        for (len_t row=i; row<i+blocksize && row<n; ++row)
+        for (len_t row=i; row<i+BLOCKSIZE && row<n; ++row)
           x[col + n*row] = x[row + n*col];
       }
     }

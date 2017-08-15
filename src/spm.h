@@ -8,6 +8,7 @@
 #include "cdefs.h"
 #include "types.h"
 
+
 extern float NA_FLOAT;
 
 #define CHARPT(x,i) ((char*)CHAR(STRING_ELT(x,i)))

@@ -1,13 +1,13 @@
 // Elements taken from the coop package (src/R_naomit.c)
 // Copyright (c) 2016-2017 Drew Schmidt
 
-
 #include <stdint.h>
 #include <string.h>
 
 #include "endianness.h"
 #include "NA.h"
 #include "spm.h"
+
 
 // R uses 0x7ff00000000007a2 for NA_REAL, and 0x7f8007a2 is the most reasonable
 // float analogue
