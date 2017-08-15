@@ -28,6 +28,8 @@
 }
 \arguments{
 \item{x}{A float vector/matrix.}
+
+\item{value}{The right hand side for the "setter" (\code{dim<-}).}
 }
 \value{
 The requested integer values.

@@ -4,6 +4,8 @@
 #' 
 #' @param x
 #' A float vector/matrix.
+#' @param value
+#' The right hand side for the "setter" (\code{dim<-}).
 #' 
 #' @return
 #' The requested integer values.
