@@ -73,12 +73,12 @@ SEXP R_length_spm(SEXP x_ptr)
   
   if (len > INT_MAX)
   {
-    PROTECT(ret = allocVector(INTSXP, 1));
+    PROTECT(ret = allocVector(REALSXP, 1));
     INTEGER(ret)[0] = (int) len;
   }
   else
   {
-    PROTECT(ret = allocVector(REALSXP, 1));
+    PROTECT(ret = allocVector(INTSXP, 1));
     REAL(ret)[0] = (double) len;
   }
   
