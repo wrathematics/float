@@ -2,6 +2,8 @@
 % Please edit documentation in R/dims.r
 \docType{methods}
 \name{dims}
+\alias{NCOL,spm-method}
+\alias{NROW,spm-method}
 \alias{dim,spm-method}
 \alias{dim<-,spm-method}
 \alias{dims}
@@ -13,6 +15,10 @@
 \S4method{nrow}{spm}(x)
 
 \S4method{ncol}{spm}(x)
+
+\S4method{NROW}{spm}(x)
+
+\S4method{NCOL}{spm}(x)
 
 \S4method{dim}{spm}(x)
 

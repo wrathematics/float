@@ -34,6 +34,14 @@ setMethod("ncol", signature(x="spm"), function(x) .Call(R_ncol_spm, x@ptr))
 
 #' @rdname dims
 #' @export
+setMethod("NROW", signature(x="spm"), function(x) .Call(R_NROW_spm, x@ptr))
+
+#' @rdname dims
+#' @export
+setMethod("NCOL", signature(x="spm"), function(x) .Call(R_NCOL_spm, x@ptr))
+
+#' @rdname dims
+#' @export
 setMethod("dim", signature(x="spm"), function(x) .Call(R_dim_spm, x@ptr))
 
 #' @rdname dims

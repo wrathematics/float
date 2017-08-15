@@ -24,7 +24,7 @@ NULL
 
 print_spm_vec = function(x)
 {
-  n = nrow(x)
+  n = NROW(x)
   
   cat(paste0("# An spv (single precision vector): ", n, "\n"))
   
