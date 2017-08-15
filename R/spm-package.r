@@ -31,7 +31,7 @@
 #'   R_rowMeans_spm R_norm_spm R_rcond_spm R_lt_spm R_le_spm R_eq_spm R_gt_spm
 #'   R_ge_spm R_sum_spm R_min_spm R_max_spm R_c_spm R_sweep_spm R_scale_spm
 #'   R_ceiling_spm R_floor_spm R_trunc_spm R_round_spm R_whichmin_spm
-#'   R_whichmax_spm
+#'   R_whichmax_spm R_dimset_spm
 #' 
 #' @docType package
 #' @name spm-package

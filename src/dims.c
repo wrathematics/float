@@ -53,8 +53,6 @@ SEXP R_length_spm(SEXP x_ptr)
   return ret;
 }
 
-
-
 // for my eyes only
 SEXP R_isavec_spm(SEXP x_ptr)
 {
@@ -64,4 +62,73 @@ SEXP R_isavec_spm(SEXP x_ptr)
   LOGICAL(ret)[0] = ISAVEC(x);
   UNPROTECT(1);
   return ret;
+}
+
+
+
+SEXP R_dimset_spm(SEXP x_ptr, SEXP value)
+{
+  int nr=0, nc=0, len;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  
+  if (value == R_NilValue)
+  {
+    NROWS(x) = NROWS(x)*NCOLS(x);
+    NCOLS(x) = 1;
+    ISAVEC(x) = true;
+    return x_ptr;
+  }
+  
+  if (LENGTH(value) == 0)
+    error("length-0 dimension vector is invalid\n");
+  else if (LENGTH(value) > 2)
+    error("\n");
+  
+  if (TYPEOF(value) != REALSXP && TYPEOF(value) != INTSXP)
+    error("dimension must be numeric (double or int)\n");
+  
+  
+  
+  if (LENGTH(value) == 1)
+  {
+    if (TYPEOF(value) == REALSXP)
+      len = (int) REAL(value)[0];
+    else
+      len = INTEGER(value)[0];
+  }
+  else
+  {
+    if (TYPEOF(value) == REALSXP)
+    {
+      nr = REAL(value)[0];
+      nc = REAL(value)[1];
+      len = nr*nc;
+    }
+    else
+    {
+      nr = INTEGER(value)[0];
+      nc = INTEGER(value)[1];
+      len = nr*nc;
+    }
+  }
+  
+  
+  
+  if (len != NROWS(x)*NCOLS(x))
+    error("dims [product %d] do not match the length of object [%d]\n", len, NROWS(x)*NCOLS(x));
+  
+  if (LENGTH(value) == 1)
+  {
+    ISAVEC(x) = true;
+    NROWS(x) = len;
+    NCOLS(x) = 1;
+  }
+  else
+  {
+    ISAVEC(x) = false;
+    NROWS(x) = nr;
+    NCOLS(x) = nc;
+  }
+  
+  return x_ptr;
 }

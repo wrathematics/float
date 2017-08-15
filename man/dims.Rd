@@ -3,6 +3,7 @@
 \docType{methods}
 \name{dims}
 \alias{dim,spm-method}
+\alias{dim<-,spm-method}
 \alias{dims}
 \alias{length,spm-method}
 \alias{ncol,spm-method}
@@ -16,6 +17,8 @@
 \S4method{dim}{spm}(x)
 
 \S4method{length}{spm}(x)
+
+\S4method{dim}{spm}(x) <- value
 }
 \arguments{
 \item{x}{A float vector/matrix.}

@@ -40,7 +40,17 @@ setMethod("dim", signature(x="spm"), function(x) .Call(R_dim_spm, x@ptr))
 #' @export
 setMethod("length", signature(x="spm"), function(x) .Call(R_length_spm, x@ptr))
 
-
-
 # for my eyes only
 isavec = function(x) .Call(R_isavec_spm, x@ptr)
+
+
+
+dimset.spm = function(x, value)
+{
+  ptr = .Call(R_dimset_spm, x@ptr, value)
+  new("spm", ptr=ptr)
+}
+
+#' @rdname dims
+#' @export
+setReplaceMethod("dim", signature(x="spm"), dimset.spm)
