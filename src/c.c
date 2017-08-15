@@ -20,7 +20,7 @@ SEXP R_c_spm(SEXP x_ptr, SEXP additional)
   
   // TODO check for overflow
   
-  matrix_t *ret = newvec((int)len);
+  matrix_t *ret = newvec((len_t)len);
   newRptr(ret, ret_ptr, matfin);
   size_t sofar = 0;
   

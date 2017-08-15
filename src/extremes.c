@@ -14,8 +14,8 @@ SEXP R_min_spm(SEXP x_ptr, SEXP na_rm)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   float min = (float) INFINITY;
   
   matrix_t *ret = newvec(1);
@@ -23,9 +23,9 @@ SEXP R_min_spm(SEXP x_ptr, SEXP na_rm)
   
   if (LOGICAL(na_rm)[0])
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (!ISNAf(tmp) && !isnanf(tmp) && min > tmp)
@@ -35,9 +35,9 @@ SEXP R_min_spm(SEXP x_ptr, SEXP na_rm)
   }
   else
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (min > tmp)
@@ -58,8 +58,8 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   float max = (float) -INFINITY;
   
   matrix_t *ret = newvec(1);
@@ -67,9 +67,9 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
   
   if (LOGICAL(na_rm)[0])
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (!ISNAf(tmp) && !isnanf(tmp) && max < tmp)
@@ -79,9 +79,9 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
   }
   else
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (max < tmp)
@@ -106,8 +106,8 @@ SEXP R_whichmin_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   float min = (float) INFINITY;
   size_t which;
   bool empty = true;
@@ -151,8 +151,8 @@ SEXP R_whichmax_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   float max = (float) -INFINITY;
   size_t which;
   bool empty = true;

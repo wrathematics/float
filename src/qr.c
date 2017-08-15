@@ -56,9 +56,9 @@ SEXP R_qr_spm(SEXP x_ptr, SEXP tol)
   SEXP qr_ptr, rank, qraux_ptr, pivot;
   int info;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
-  const int minmn = MIN(m, n);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
+  const len_t minmn = MIN(m, n);
   
   PROTECT(rank = allocVector(INTSXP, 1));
   PROTECT(pivot = allocVector(INTSXP, n));
@@ -114,14 +114,14 @@ SEXP R_qrQ_spm(SEXP qr_ptr, SEXP tau_ptr)
   int info;
   matrix_t *qr = (matrix_t*) getRptr(qr_ptr);
   matrix_t *tau = (matrix_t*) getRptr(tau_ptr);
-  const int m = NROWS(qr);
-  const int n = NCOLS(qr);
-  const int minmn = MIN(m, n);
+  const len_t m = NROWS(qr);
+  const len_t n = NCOLS(qr);
+  const len_t minmn = MIN(m, n);
   
   matrix_t *Q = newmat(m, minmn);
   newRptr(Q, Q_ptr, matfin);
   
-  int k = minmn;
+  len_t k = minmn;
   
   float tmp;
   sorgqr_(&m, &minmn, &k, DATA(Q), &m, DATA(tau), &tmp, &(int){-1}, &info);
@@ -149,17 +149,17 @@ SEXP R_qrR_spm(SEXP qr_ptr)
 {
   SEXP R_ptr;
   matrix_t *qr = (matrix_t*) getRptr(qr_ptr);
-  const int m = NROWS(qr);
-  const int n = NCOLS(qr);
-  const int minmn = MIN(m, n);
+  const len_t m = NROWS(qr);
+  const len_t n = NCOLS(qr);
+  const len_t minmn = MIN(m, n);
   
   matrix_t *R = newmat(minmn, n);
   newRptr(R, R_ptr, matfin);
   
   memset(DATA(R), 0, (size_t)minmn*n*sizeof(float));
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    for (int i=0; i<=j && i<minmn; i++)
+    for (len_t i=0; i<=j && i<minmn; i++)
       DATA(R)[i + minmn*j] = DATA(qr)[i + m*j];
   }
   

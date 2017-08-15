@@ -9,24 +9,24 @@
 #define WARN_LEN warning("longer object length is not a multiple of shorter object length\n")
 
 #define BINOP_MATMAT(x,y,FUN) \
-  const int m = NROWS(x); \
-  const int n = NCOLS(x); \
+  const len_t m = NROWS(x); \
+  const len_t n = NCOLS(x); \
   if (m != NROWS(y) || n != NCOLS(y)) \
     ERR_NONC; \
   \
   matrix_t *ret = newmat(m, n); \
   \
-  for (int j=0; j<n; j++) \
+  for (len_t j=0; j<n; j++) \
   { \
-    for (int i=0; i<m; i++) \
+    for (len_t i=0; i<m; i++) \
       DATA(ret)[i + m*j] = DATA(x)[i + m*j] FUN DATA(y)[i + m*j]; \
   } \
   \
   return ret;
 
 #define BINOP_MATVEC(x,y,FUN) \
-  const int m = NROWS(x); \
-  const int n = NCOLS(x); \
+  const len_t m = NROWS(x); \
+  const len_t n = NCOLS(x); \
   const size_t ny = NROWS(y); \
   const size_t dimprod = (size_t)m*n; \
   matrix_t *ret = newmat(m, n); \
@@ -42,8 +42,8 @@
   return ret;
 
 #define BINOP_VECMAT(x,y,FUN) \
-  const int m = NROWS(y); \
-  const int n = NCOLS(y); \
+  const len_t m = NROWS(y); \
+  const len_t n = NCOLS(y); \
   const size_t nx = NROWS(x); \
   const size_t dimprod = (size_t)m*n; \
   matrix_t *ret = newmat(m, n); \
@@ -77,17 +77,17 @@
 
 
 #define COMPARE_MATMAT(x,y,FUN) \
-  const int m = NROWS(x); \
-  const int n = NCOLS(x); \
+  const len_t m = NROWS(x); \
+  const len_t n = NCOLS(x); \
   if (m != NROWS(y) || n != NCOLS(y)) \
     ERR_NONC; \
   \
   SEXP ret; \
   PROTECT(ret = allocMatrix(LGLSXP, m, n)); \
   \
-  for (int j=0; j<n; j++) \
+  for (len_t j=0; j<n; j++) \
   { \
-    for (int i=0; i<m; i++) \
+    for (len_t i=0; i<m; i++) \
     { \
       const float tmp1 = DATA(x)[i + m*j]; \
       const float tmp2 = DATA(y)[i + m*j]; \
@@ -102,8 +102,8 @@
   return ret;
 
 #define COMPARE_MATVEC(x,y,FUN) \
-  const int m = NROWS(x); \
-  const int n = NCOLS(x); \
+  const len_t m = NROWS(x); \
+  const len_t n = NCOLS(x); \
   const size_t ny = NROWS(y); \
   const size_t dimprod = (size_t)m*n; \
   SEXP ret; \
@@ -128,8 +128,8 @@
   return ret;
 
 #define COMPARE_VECMAT(x,y,FUN) \
-  const int m = NROWS(y); \
-  const int n = NCOLS(y); \
+  const len_t m = NROWS(y); \
+  const len_t n = NCOLS(y); \
   const size_t nx = NROWS(x); \
   const size_t dimprod = (size_t)m*n; \
   SEXP ret; \
@@ -382,16 +382,16 @@ SEXP R_div_spm(SEXP x_ptr, SEXP y_ptr)
 // ^
 static inline matrix_t* pow_matmat(const matrix_t *const restrict x, const matrix_t *const restrict y)
 {
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   if (m != NROWS(y) || n != NCOLS(y))
     ERR_NONC;
   
   matrix_t *ret = newmat(m, n);
   
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
       DATA(ret)[i + m*j] = pow(DATA(x)[i + m*j], DATA(y)[i + m*j]);
   }
   
@@ -400,8 +400,8 @@ static inline matrix_t* pow_matmat(const matrix_t *const restrict x, const matri
 
 static inline matrix_t* pow_matvec(const matrix_t *const restrict x, const matrix_t *const restrict y)
 {
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   const size_t ny = NROWS(y);
   const size_t dimprod = (size_t)m*n;
   matrix_t *ret = newmat(m, n);
@@ -419,8 +419,8 @@ static inline matrix_t* pow_matvec(const matrix_t *const restrict x, const matri
 
 static inline matrix_t* pow_vecmat(const matrix_t *const restrict x, const matrix_t *const restrict y)
 {
-  const int m = NROWS(y);
-  const int n = NCOLS(y);
+  const len_t m = NROWS(y);
+  const len_t n = NCOLS(y);
   const size_t nx = NROWS(x);
   const size_t dimprod = (size_t)m*n;
   matrix_t *ret = newmat(m, n);

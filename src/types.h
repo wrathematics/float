@@ -2,8 +2,12 @@
 #define SPM_TYPES_
 
 
-#include <stdint.h>
+#include <Rinternals.h>
+
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
+
 #include "cdefs.h"
 
 #define NROWS(x) ((x)->nrows)

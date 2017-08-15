@@ -7,8 +7,8 @@
 #define FUN_INIT \
   SEXP ret_ptr; \
   matrix_t *x = (matrix_t*) getRptr(x_ptr); \
-  const int m = NROWS(x); \
-  const int n = NCOLS(x); \
+  const len_t m = NROWS(x); \
+  const len_t n = NCOLS(x); \
    \
   matrix_t *ret = newmat(m, n); \
   ISAVEC(ret) = ISAVEC(x);
@@ -212,17 +212,17 @@ SEXP R_isfinite_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
   else
     PROTECT(ret = allocMatrix(LGLSXP, m, n));
   
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       const float tmp =  DATA(x)[i + m*j];
       LOGICAL(ret)[i + m*j] = !isinf(tmp) && !isnanf(tmp);
@@ -237,17 +237,17 @@ SEXP R_isinfinite_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
   else
     PROTECT(ret = allocMatrix(LGLSXP, m, n));
   
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       const float tmp =  DATA(x)[i + m*j];
       LOGICAL(ret)[i + m*j] = isinff(tmp);
@@ -262,8 +262,8 @@ SEXP R_isnan_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   
   if (ISAVEC(x))
@@ -271,9 +271,9 @@ SEXP R_isnan_spm(SEXP x_ptr)
   else
     PROTECT(ret = allocMatrix(LGLSXP, m, n));
   
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       const float tmp = DATA(x)[i + m*j];
       LOGICAL(ret)[i + m*j] = ISNANf(tmp);

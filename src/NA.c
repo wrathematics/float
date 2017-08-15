@@ -41,8 +41,8 @@ SEXP R_isna_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   
   if (ISAVEC(x))
@@ -50,9 +50,9 @@ SEXP R_isna_spm(SEXP x_ptr)
   else
     PROTECT(ret = allocMatrix(LGLSXP, m, n));
   
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       const float tmp = DATA(x)[i + m*j];
       LOGICAL(ret)[i + m*j] = isnanf(tmp) || ISNAf(tmp);
@@ -81,17 +81,17 @@ SEXP R_isna_spm(SEXP x_ptr)
 // faster to index each element and operate accordingly, but
 // this is too memory expensive for most applications
 // note: R does this anyway because, well, R...
-static SEXP R_naomit_spm_small(const int m, const int n, const float *const x)
+static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const x)
 {
   SEXP ret_ptr;
-  const int len = m*n;
-  int m_fin = m;
+  const size_t len = m*n;
+  len_t m_fin = m;
   int *na_vec_ind = (int*) calloc(len, sizeof(*na_vec_ind));
   R_CHECKMALLOC(na_vec_ind);
   
   
   // get indices of NA's
-  for (int i=0; i<len; i++)
+  for (size_t i=0; i<len; i++)
   {
     if (ISNAf(x[i]) || isnanf(x[i]))
       na_vec_ind[i] = 1;
@@ -99,11 +99,11 @@ static SEXP R_naomit_spm_small(const int m, const int n, const float *const x)
   
   // adjust col index; turn first column of the NA indices
   // to track which rows should go
-  for (int j=1; j<n; j++)
+  for (len_t j=1; j<n; j++)
   {
-    const int mj = m*j;
+    const len_t mj = m*j;
     
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       if (na_vec_ind[i + mj])
         na_vec_ind[i] = 1;
@@ -111,7 +111,7 @@ static SEXP R_naomit_spm_small(const int m, const int n, const float *const x)
   }
   
   // get number of rows of output
-  for (int i=0; i<m; i++)
+  for (len_t i=0; i<m; i++)
     m_fin -= na_vec_ind[i];
   
   if (m_fin == m)
@@ -122,12 +122,12 @@ static SEXP R_naomit_spm_small(const int m, const int n, const float *const x)
   newRptr(ret, ret_ptr, matfin);
   float *ptr = DATA(ret);
   
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    const int mj = m*j;
-    int row = 0;
+    const len_t mj = m*j;
+    len_t row = 0;
     
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       if (!na_vec_ind[i%m])
       {
@@ -144,20 +144,20 @@ static SEXP R_naomit_spm_small(const int m, const int n, const float *const x)
 
 
 
-static SEXP R_naomit_spm_big(const int m, const int n, const float *const x)
+static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
 {
   SEXP ret_ptr;
-  int m_fin = m;
+  len_t m_fin = m;
   int *rows = (int*) calloc(m, sizeof(*rows));
   R_CHECKMALLOC(rows);
   
   // get indices of NA's
   #pragma omp parallel for default(none) shared(rows)
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    const int mj = m*j;
+    const len_t mj = m*j;
     
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       if (ISNAf(x[i + m*j]) || isnanf(x[i + mj]))
         rows[i] = 1;
@@ -165,7 +165,7 @@ static SEXP R_naomit_spm_big(const int m, const int n, const float *const x)
   }
   
   // get number of rows of output
-  for (int i=0; i<m; i++)
+  for (len_t i=0; i<m; i++)
     m_fin -= rows[i];
   
   if (m_fin == m)
@@ -177,12 +177,12 @@ static SEXP R_naomit_spm_big(const int m, const int n, const float *const x)
   
   // build reduced matrix
   #pragma omp parallel for default(none) shared(rows, ptr, m_fin)
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    const int mj = m*j;
-    int row = 0;
+    const len_t mj = m*j;
+    len_t row = 0;
     
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       if (!rows[i])
       {
@@ -199,12 +199,12 @@ static SEXP R_naomit_spm_big(const int m, const int n, const float *const x)
 
 
 
-static SEXP R_naomit_spm_vec(int n, const float *const x)
+static SEXP R_naomit_spm_vec(size_t n, const float *const x)
 {
   SEXP ret_ptr;
-  int numna = 0;
+  size_t numna = 0;
   
-  for (int i=0; i<n; i++)
+  for (size_t i=0; i<n; i++)
   {
     if (ISNAf(x[i]) || isnanf(x[i]))
       numna++;
@@ -213,8 +213,8 @@ static SEXP R_naomit_spm_vec(int n, const float *const x)
   matrix_t *ret = newvec(n-numna);
   newRptr(ret, ret_ptr, matfin);
   
-  int retpos = 0;
-  for (int i=0; i<n; i++)
+  size_t retpos = 0;
+  for (size_t i=0; i<n; i++)
   {
     if (!ISNAf(x[i]) && !isnanf(x[i]))
       DATA(ret)[retpos++] = x[i];
@@ -230,8 +230,8 @@ SEXP R_naomit_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     return R_naomit_spm_vec(m, DATA(x));

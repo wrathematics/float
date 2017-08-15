@@ -65,7 +65,7 @@ SEXP R_solve_spm(SEXP x_ptr)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int n = NROWS(x);
+  const len_t n = NROWS(x);
   if (n != NCOLS(x))
     error("'a' must be a square matrix");
   
@@ -117,9 +117,9 @@ SEXP R_solve_spmspm(SEXP x_ptr, SEXP y_ptr)
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
   matrix_t *y = (matrix_t*) getRptr(y_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
-  const int nrhs = NCOLS(y);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
+  const len_t nrhs = NCOLS(y);
   if (m != n)
     error("'a' (%d x %d) must be square\n", m, n);
   

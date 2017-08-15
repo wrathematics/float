@@ -6,7 +6,7 @@ SEXP R_mat2spm(SEXP x)
 {
   SEXP ret_ptr;
   matrix_t *ret;
-  int m, n;
+  len_t m, n;
   
   if (!isMatrix(x))
   {
@@ -25,9 +25,9 @@ SEXP R_mat2spm(SEXP x)
   switch (TYPEOF(x))
   {
     case REALSXP:
-      for (int j=0; j<n; j++)
+      for (len_t j=0; j<n; j++)
       {
-        for (int i=0; i<m; i++)
+        for (len_t i=0; i<m; i++)
         {
           const double tmp = REAL(x)[i + m*j];
           if (ISNA(tmp))
@@ -42,9 +42,9 @@ SEXP R_mat2spm(SEXP x)
     
     case LGLSXP:
     case INTSXP:
-      for (int j=0; j<n; j++)
+      for (len_t j=0; j<n; j++)
       {
-        for (int i=0; i<m; i++)
+        for (len_t i=0; i<m; i++)
         {
           const int tmp = INTEGER(x)[i + m*j];
           if (tmp == NA_INTEGER)
@@ -73,17 +73,17 @@ SEXP R_spm2mat(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   if (n == 1 && ISAVEC(x))
     PROTECT(ret = allocVector(REALSXP, m));
   else
     PROTECT(ret = allocMatrix(REALSXP, m, n));
   
-  for (int j=0; j<n; j++)
+  for (len_t j=0; j<n; j++)
   {
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       const float tmp = DATA(x)[i + m*j];
       if (ISNAf(tmp))

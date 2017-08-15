@@ -7,8 +7,8 @@ SEXP R_matmult_spm(SEXP x_ptr, SEXP y_ptr)
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
   matrix_t *y = (matrix_t*) getRptr(y_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(y);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(y);
   
   if (NCOLS(x) != NROWS(y))
     error("non-conformable arguments");

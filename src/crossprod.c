@@ -18,18 +18,18 @@ static inline void tcrossprod(const int m, const int n, const float alpha, const
   ssyrk_(&(char){'L'}, &(char){'N'}, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
 }
 
-static inline void symmetrize(const int n, float *restrict x)
+static inline void symmetrize(const len_t n, float *restrict x)
 {
   const int blocksize = 8; // TODO check cache line explicitly
   
   // #pragma omp parallel for default(none) shared(x) schedule(dynamic, 1) if(n>OMP_MIN_SIZE)
-  for (int j=0; j<n; j+=blocksize)
+  for (len_t j=0; j<n; j+=blocksize)
   {
-    for (int i=j+1; i<n; i+=blocksize)
+    for (len_t i=j+1; i<n; i+=blocksize)
     {
-      for (int col=j; col<j+blocksize && col<n; ++col)
+      for (len_t col=j; col<j+blocksize && col<n; ++col)
       {
-        for (int row=i; row<i+blocksize && row<n; ++row)
+        for (len_t row=i; row<i+blocksize && row<n; ++row)
           x[col + n*row] = x[row + n*col];
       }
     }
@@ -42,8 +42,8 @@ SEXP R_crossprod_spm(SEXP x_ptr)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   matrix_t *ret = newmat(n, n);
   
@@ -79,8 +79,8 @@ SEXP R_tcrossprod_spm(SEXP x_ptr)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   matrix_t *ret = newmat(m, m);
   

@@ -73,13 +73,13 @@ SEXP R_length_spm(SEXP x_ptr)
   
   if (len > INT_MAX)
   {
-    PROTECT(ret = allocVector(REALSXP, 1));
-    INTEGER(ret)[0] = (int) len;
+    PROTECT(ret = allocVector(INTSXP, 1));
+    REAL(ret)[0] = (double) len;
   }
   else
   {
-    PROTECT(ret = allocVector(INTSXP, 1));
-    REAL(ret)[0] = (double) len;
+    PROTECT(ret = allocVector(REALSXP, 1));
+    INTEGER(ret)[0] = (int) len;
   }
   
   UNPROTECT(1);
@@ -101,7 +101,7 @@ SEXP R_isavec_spm(SEXP x_ptr)
 
 SEXP R_dimset_spm(SEXP x_ptr, SEXP value)
 {
-  int nr=0, nc=0, len;
+  len_t nr=0, nc=0, len;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
   
   if (value == R_NilValue)
@@ -125,7 +125,7 @@ SEXP R_dimset_spm(SEXP x_ptr, SEXP value)
   if (LENGTH(value) == 1)
   {
     if (TYPEOF(value) == REALSXP)
-      len = (int) REAL(value)[0];
+      len = (len_t) REAL(value)[0];
     else
       len = INTEGER(value)[0];
   }
@@ -133,14 +133,14 @@ SEXP R_dimset_spm(SEXP x_ptr, SEXP value)
   {
     if (TYPEOF(value) == REALSXP)
     {
-      nr = REAL(value)[0];
-      nc = REAL(value)[1];
+      nr = (len_t)REAL(value)[0];
+      nc = (len_t)REAL(value)[1];
       len = nr*nc;
     }
     else
     {
-      nr = INTEGER(value)[0];
-      nc = INTEGER(value)[1];
+      nr = (len_t)INTEGER(value)[0];
+      nc = (len_t)INTEGER(value)[1];
       len = nr*nc;
     }
   }

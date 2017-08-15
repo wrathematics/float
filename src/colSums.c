@@ -8,8 +8,8 @@ SEXP R_colSums_spm(SEXP x_ptr, SEXP na_rm_)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   matrix_t *ret = newvec(n);
@@ -17,10 +17,10 @@ SEXP R_colSums_spm(SEXP x_ptr, SEXP na_rm_)
   
   if (na_rm)
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
       float sum = 0.0f;
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
@@ -32,10 +32,10 @@ SEXP R_colSums_spm(SEXP x_ptr, SEXP na_rm_)
   }
   else
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
       float sum = 0.0f;
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
         sum += DATA(x)[i + m*j];
       
       DATA(ret)[j] = sum;
@@ -53,8 +53,8 @@ SEXP R_rowSums_spm(SEXP x_ptr, SEXP na_rm_)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   matrix_t *ret = newvec(m);
@@ -64,9 +64,9 @@ SEXP R_rowSums_spm(SEXP x_ptr, SEXP na_rm_)
   
   if (na_rm)
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
@@ -76,9 +76,9 @@ SEXP R_rowSums_spm(SEXP x_ptr, SEXP na_rm_)
   }
   else
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
         DATA(ret)[i] += DATA(x)[i + m*j];
     }
   }
@@ -94,8 +94,8 @@ SEXP R_colMeans_spm(SEXP x_ptr, SEXP na_rm_)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   matrix_t *ret = newvec(n);
@@ -104,11 +104,11 @@ SEXP R_colMeans_spm(SEXP x_ptr, SEXP na_rm_)
   
   if (na_rm)
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      int num = m;
+      len_t num = m;
       float sum = 0.0f;
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
@@ -125,10 +125,10 @@ SEXP R_colMeans_spm(SEXP x_ptr, SEXP na_rm_)
   }
   else
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
       float sum = 0.0f;
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
         sum += DATA(x)[i + m*j];
       
       DATA(ret)[j] = sum / ((float) m);
@@ -146,8 +146,8 @@ SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   matrix_t *ret = newvec(m);
@@ -157,13 +157,13 @@ SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
   
   if (na_rm)
   {
-    int *num = malloc(m * sizeof(*num));
-    for (int i=0; i<m; i++)
+    len_t *num = malloc(m * sizeof(*num));
+    for (len_t i=0; i<m; i++)
       num[i] = n;
     
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
       {
         const float tmp = DATA(x)[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
@@ -173,7 +173,7 @@ SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
       }
     }
     
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
     {
       if (num[i])
         DATA(ret)[i] /= ((float) num[i]);
@@ -185,13 +185,13 @@ SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
   }
   else
   {
-    for (int j=0; j<n; j++)
+    for (len_t j=0; j<n; j++)
     {
-      for (int i=0; i<m; i++)
+      for (len_t i=0; i<m; i++)
         DATA(ret)[i] += DATA(x)[i + m*j];
     }
     
-    for (int i=0; i<m; i++)
+    for (len_t i=0; i<m; i++)
       DATA(ret)[i] /= ((float) n);
   }
   

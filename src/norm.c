@@ -9,8 +9,8 @@ SEXP R_norm_spm(SEXP x_ptr, SEXP type_)
   SEXP ret_ptr;
   float norm;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   const char type = CHARPT(type_, 0)[0];
   
   matrix_t *ret = newvec(1);

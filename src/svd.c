@@ -80,9 +80,9 @@ SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
   const int nu = INTEGER(nu_)[0];
   const int nv = INTEGER(nv_)[0];
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
-  const int minmn = MIN(m, n);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
+  const len_t minmn = MIN(m, n);
   
   s = newvec(minmn);
   newRptr(s, s_ptr, matfin);
@@ -160,7 +160,7 @@ SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
     {
       for (int j=0; j<nu; j++)
       {
-        for (int i=0; i<m; i++)
+        for (len_t i=0; i<m; i++)
           DATA(u)[i + m*j] = u_data[i + m*j];
       }
     }
@@ -174,8 +174,8 @@ SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
   {
     if (nv != minmn && nv != n)
     {
-      int top = nv>minmn?n:minmn;
-      for (int j=0; j<n; j++)
+      len_t top = nv>minmn?n:minmn;
+      for (len_t j=0; j<n; j++)
       {
         for (int i=0; i<nv; i++)
           DATA(vt)[i + nv*j] = vt_data[i + top*j];

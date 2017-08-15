@@ -7,7 +7,7 @@ SEXP R_bracket_spm(SEXP x_ptr, SEXP I, SEXP J, SEXP drop)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int mx = NROWS(x);
+  const len_t mx = NROWS(x);
   const int m = LENGTH(I);
   const int n = LENGTH(J);
   matrix_t *ret = newmat(m, n);

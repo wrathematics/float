@@ -9,15 +9,15 @@ static inline bool samenum(const float x, const float y)
   return (fabsf(x-y) < EPS);
 }
 
-static inline bool isSym(const int n, const float *const restrict x)
+static inline bool isSym(const len_t n, const float *const restrict x)
 {
-  for (int j=0; j<n; j+=BLOCKSIZE)
+  for (len_t j=0; j<n; j+=BLOCKSIZE)
   {
-    for (int i=j; i<n; i+=BLOCKSIZE)
+    for (len_t i=j; i<n; i+=BLOCKSIZE)
     {
-      for (int col=j; col<j+BLOCKSIZE && col<n; ++col)
+      for (len_t col=j; col<j+BLOCKSIZE && col<n; ++col)
       {
-        for (int row=i; row<i+BLOCKSIZE && row<n; ++row)
+        for (len_t row=i; row<i+BLOCKSIZE && row<n; ++row)
         {
           const bool check = samenum(x[col + n*row], x[row + n*col]);
           if (!check)
@@ -38,8 +38,8 @@ SEXP R_isSymmetric_spm(SEXP x_ptr)
 {
   SEXP ret;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   PROTECT(ret = allocVector(LGLSXP, 1));
   

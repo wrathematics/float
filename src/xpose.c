@@ -6,8 +6,8 @@ SEXP R_xpose_spm(SEXP x_ptr)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   
   matrix_t *ret = newmat(n, m);
   

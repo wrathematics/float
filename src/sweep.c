@@ -5,17 +5,17 @@
   { \
     if (MARGIN == 1) \
     { \
-      for (int j=0; j<n; j++) \
+      for (len_t j=0; j<n; j++) \
       { \
-        for (int i=0; i<m; i++) \
+        for (len_t i=0; i<m; i++) \
           ret[i + m*j] = x[i + m*j] FUN vec[i % veclen]; \
       } \
     } \
     else \
     { \
-      for (int j=0; j<n; j++) \
+      for (len_t j=0; j<n; j++) \
       { \
-        for (int i=0; i<m; i++) \
+        for (len_t i=0; i<m; i++) \
           ret[i + m*j] = x[i + m*j] FUN vec[j % veclen]; \
       } \
     } \
@@ -25,8 +25,8 @@ SEXP R_sweep_spm(SEXP x_ptr, SEXP MARGIN_, SEXP STATS, SEXP FUN_)
 {
   SEXP ret_ptr;
   matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   const int MARGIN = INTEGER(MARGIN_)[0];
   const char FUN = CHARPT(FUN_, 0)[0];
   
