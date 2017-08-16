@@ -10,7 +10,6 @@
 #include "endianness.h"
 
 
-
 typedef union
 {
   float x;

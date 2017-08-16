@@ -45,3 +45,14 @@ setMethod("na.omit", signature(object="spm"), na.omit.spm)
 #' @rdname na
 #' @export
 setMethod("na.exclude", signature(object="spm"), na.omit.spm)
+
+
+
+# -----------------------------------------------------------------------------
+# don't export
+# -----------------------------------------------------------------------------
+
+anyNA = function(x)
+{
+  .Call(R_anyNA_spm, x@ptr)
+}

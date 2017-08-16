@@ -66,6 +66,25 @@ SEXP R_isna_spm(SEXP x_ptr)
 
 
 // ----------------------------------------------------------------------------
+// anyNA
+// ----------------------------------------------------------------------------
+
+SEXP R_anyNA_spm(SEXP x_ptr)
+{
+  SEXP ret;
+  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  const size_t len = (size_t) NROWS(x)*NCOLS(x);
+  
+  PROTECT(ret = allocVector(LGLSXP, 1));
+  LOGICAL(ret)[0] = anyNA(len, DATA(x));
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+
+
+// ----------------------------------------------------------------------------
 // na.omit
 // ----------------------------------------------------------------------------
 
