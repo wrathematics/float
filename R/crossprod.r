@@ -37,13 +37,11 @@ cp.spm = function(x, y=NULL)
       ptr = .Call(R_crossprod_spm, x@ptr)
     else if (is.spm(y))
       ptr = .Call(R_crossprod_spmspm, x@ptr, y@ptr)
-    else if (is.matrix(y))
-      return(base::crossprod(spm2mat(x), y))
     else
-      stop("TODO")
+      return(base::crossprod(dbl(x), y))
   }
   else if (is.matrix(x) && is.spm(y))
-    return(base::crossprod(x, spm2mat(y)))
+    return(base::crossprod(x, dbl(y)))
   else
     return(base::crossprod(x, y))
   
@@ -58,13 +56,11 @@ tcp.spm = function(x, y=NULL)
       ptr = .Call(R_tcrossprod_spm, x@ptr)
     else if (is.spm(y))
       ptr = .Call(R_tcrossprod_spmspm, x@ptr, y@ptr)
-    else if (is.matrix(y))
-      return(base::tcrossprod(spm2mat(x), y))
     else
-      stop("TODO")
+      return(base::tcrossprod(dbl(x), y))
   }
   else if (is.matrix(x) && is.spm(y))
-    return(base::tcrossprod(x, spm2mat(y)))
+    return(base::tcrossprod(x, dbl(y)))
   else
     return(base::tcrossprod(x, y))
   
