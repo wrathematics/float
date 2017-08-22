@@ -12,7 +12,7 @@ SEXP R_bracket_spm(SEXP x_ptr, SEXP I, SEXP J, SEXP drop)
   const int n = LENGTH(J);
   matrix_t *ret;
   
-  if (INTEGER(drop)[0] && (m == 1 || n == 1))
+  if (!ISAVEC(x) && INTEGER(drop)[0] && (m == 1 || n == 1))
   {
     if (m == 1)
     {
@@ -30,6 +30,7 @@ SEXP R_bracket_spm(SEXP x_ptr, SEXP I, SEXP J, SEXP drop)
   else
   {
     ret = newmat(m, n);
+    ISAVEC(ret) = ISAVEC(x);
     
     for (int j=0; j<n; j++)
     {
