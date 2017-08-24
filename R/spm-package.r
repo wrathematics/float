@@ -33,7 +33,7 @@
 #'   R_min_spm R_max_spm R_c_spm R_sweep_spm R_scale_spm R_ceiling_spm
 #'   R_floor_spm R_trunc_spm R_round_spm R_whichmin_spm R_whichmax_spm
 #'   R_dimset_spm R_mean_spm R_median_spm R_anyNA_spm R_symeig_spm
-#'   R_bracketchecks_spm
+#'   R_bracketchecks_spm R_machine_spm
 #' 
 #' @docType package
 #' @name spm-package
