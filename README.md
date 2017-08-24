@@ -109,6 +109,12 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()` | done |
 | `sinh()`, `cosh()`, `tanh()`, `asinh()`, `acosh()`, `atanh()` | done |
 
+### Misc
+
+| Method | Status |
+|---|---|
+| `.Machine_float` | float analogue of `.Machine`. everything you'd actually want is there |
+
 ### Sums and Means
 
 | Method | Status |
