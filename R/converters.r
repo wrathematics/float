@@ -34,6 +34,7 @@
 NULL
 
 
+
 #' @rdname converters
 #' @export
 mat2spm = function(x, strict=FALSE)

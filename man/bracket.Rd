@@ -11,8 +11,9 @@
 \arguments{
 \item{x}{A float vector/matrix.}
 
-\item{i, j}{The indices. NOTE that at this time only non-specified and positive indexed
-i/j are accepted.}
+\item{i, j}{The indices.  Most combinations of integer/double/logical values will be
+treated the same as R does. One major difference is that \code{NA} values
+will not be tolerated.}
 
 \item{drop}{Logical. If TRUE, single column matrices will be treated as one-dimensional
 vectors.}
