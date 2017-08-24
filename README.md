@@ -45,7 +45,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 
 | Method | Status |
 |---|---|
-| `[` | positive integer indices for `i` and `j` only |
+| `[` | done |
 | `c()` | done |
 | `diag()` | done |
 | `is.na()` | done |
@@ -88,6 +88,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 | `%*%` | done |
 | `chol()` | done |
 | `crossprod()` and `tcrossprod()` | done | 
+| `eigen()` | only for symmetric inputs |
 | `isSymmetric()` | done |
 | `La.svd()` and `svd()` | done |
 | `norm()` | done |
@@ -123,8 +124,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/spm/
 
 Version 0.1-0:
 
-* `eigen()`
-* Finish `[`
+* finish/fix QR functions
 * `rcond()`, and `kappa()`
 
 Future roadmap:
