@@ -34,7 +34,7 @@ Hyperbolic functions.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = flrunif(10)
 sinh(x)

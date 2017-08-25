@@ -16,7 +16,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrunif(10)
 #' log(x)
@@ -101,7 +101,7 @@ setMethod("log2", signature(x="spm"), log2.spm)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrunif(10)
 #' sin(x)
@@ -193,7 +193,7 @@ setMethod("atan", signature(x="spm"), atan.spm)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrunif(10)
 #' sinh(x)
@@ -285,7 +285,7 @@ setMethod("atanh", signature(x="spm"), atanh.spm)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrunif(10)
 #' sqrt(x)
@@ -337,7 +337,7 @@ setMethod("sqrt", signature(x="spm"), sqrt.spm)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrunif(10)
 #' lgamma(x)
@@ -389,7 +389,7 @@ setMethod("lgamma", signature(x="spm"), lgamma.spm)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrnorm(10)
 #' is.nan(sqrt(x))
@@ -452,7 +452,7 @@ setMethod("is.nan", signature(x="spm"), is.nan.spm)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrnorm(10)
 #' floor(x)

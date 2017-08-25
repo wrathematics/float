@@ -22,7 +22,7 @@ matrix given a float vector.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 s

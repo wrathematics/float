@@ -32,7 +32,7 @@ Row and columns sums/means.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(5, 3)
 

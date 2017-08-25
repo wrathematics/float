@@ -16,7 +16,7 @@ Return the memory being used to store the object.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 object.size(s)

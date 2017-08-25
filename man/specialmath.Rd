@@ -22,7 +22,7 @@ Special mathematical functions.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = flrunif(10)
 lgamma(x)

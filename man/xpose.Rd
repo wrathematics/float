@@ -19,7 +19,7 @@ Transpose a float vector/matrix.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 dim(s)

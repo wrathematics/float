@@ -36,7 +36,7 @@ base R.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 sweep(s, 2, fl(1))

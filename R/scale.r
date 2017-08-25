@@ -16,7 +16,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' scale(s)

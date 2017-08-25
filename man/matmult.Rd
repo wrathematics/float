@@ -30,7 +30,7 @@ the float matrix is promoted to doubles.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s1 = flrunif(5, 5)
 s2 = flrunif(5, 2)

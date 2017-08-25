@@ -32,7 +32,7 @@ Rounding functions.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = flrnorm(10)
 floor(x)

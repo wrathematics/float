@@ -35,7 +35,7 @@ The factorization is performed by the LAPACK routine \code{sgeqp3()}.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = flrunif(10, 3)
 qr(x)

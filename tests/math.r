@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library(spm))
+suppressPackageStartupMessages(library(float))
 set.seed(1234)
 
 same = function(fun, s, x, tol=1e-6, ...) stopifnot(all.equal(dbl(fun(s, ...)), fun(x, ...), tol=tol))

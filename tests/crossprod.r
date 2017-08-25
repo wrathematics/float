@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library(spm))
+suppressPackageStartupMessages(library(float))
 
 x = matrix(1:30, 10)
 y = matrix(1:10, 10, 2)

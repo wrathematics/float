@@ -28,7 +28,7 @@ matrix, and the return will therefore be numeric (not float).
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 crossprod(s)

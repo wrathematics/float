@@ -1,12 +1,12 @@
-# spm
+# float
 
 * **Version:** 0.1-0
-* **Status:** [![Build Status](https://travis-ci.org/wrathematics/spm.png)](https://travis-ci.org/wrathematics/spm)
+* **Status:** [![Build Status](https://travis-ci.org/wrathematics/float.png)](https://travis-ci.org/wrathematics/float)
 * **License:** [BSD 2-Clause](http://opensource.org/licenses/BSD-2-Clause)
 * **Author:** Drew Schmidt
 
 
-**spm** is a single precision (aka float) matrix framework for R.  Base R has no single precision type.  Its "numeric" vectors/matrices are double precision (or possibly integer, but you know what I mean).  Floats have half the precision of double precision data, for a pretty obvious performance vs accuracy tradeoff.
+**float** is a single precision (aka float) matrix framework for R.  Base R has no single precision type.  Its "numeric" vectors/matrices are double precision (or possibly integer, but you know what I mean).  Floats have half the precision of double precision data, for a pretty obvious performance vs accuracy tradeoff.
 
 A matrix of floats should use about half as much memory as a matrix of doubles, and your favorite matrix routines will generally compute about twice as fast on them as well.  However, the results will not be as accurate, and are much more prone to roundoff error/mass cancellation issues.  Statisticians have a habit of over-hyping the dangers of roundoff error in this author's opinion.  If your data is [well-conditioned](https://en.wikipedia.org/wiki/Condition_number), then using floats is "probably" fine for many applications.  
 
@@ -21,16 +21,16 @@ The package requires the single precision BLAS/LAPACK routines which are not inc
 <!-- To install the R package, run:
 
 ```r
-install.package("spm")
+install.package("float")
 ``` -->
 
 The development version is maintained on GitHub, and can easily be installed by any of the packages that offer installations from GitHub:
 
 ```r
 ### Pick your preference
-devtools::install_github("wrathematics/spm")
-ghit::install_github("wrathematics/spm")
-remotes::install_github("wrathematics/spm")
+devtools::install_github("wrathematics/float")
+ghit::install_github("wrathematics/float")
+remotes::install_github("wrathematics/float")
 ```
 
 
@@ -39,7 +39,7 @@ remotes::install_github("wrathematics/spm")
 
 The goal of the package is to recreate the matrix algebra facilities of the base package, but with floats.  So we do not include higher statistical methods (like `lm()` and `prcomp()`).
 
-Is something missing?  Please [let me know](https://github.com/wrathematics/spm/issues).
+Is something missing?  Please [let me know](https://github.com/wrathematics/float/issues).
 
 ### Basic utilities
 
@@ -152,7 +152,7 @@ Maybe eventually:
 The memory consumption is roughly half when using floats:
 
 ```r
-library(spm)
+library(float)
 
 m = 10000
 n = 2500

@@ -20,7 +20,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = flrunif(10, 3)
 #' qr(x)

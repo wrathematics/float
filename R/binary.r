@@ -48,7 +48,7 @@ binop = function(e1, e2, fun, spmfun)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' s1 = flrunif(5, 5)
 #' s2 = flrunif(5, 2)
@@ -210,7 +210,7 @@ setMethod("^", signature(e1="BaseLinAlg", e2="spm"), pow.spm)
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' s = flrunif(5, 5)
 #' x = matrix(1:25, 5)
 #' 

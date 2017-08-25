@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library(spm))
+suppressPackageStartupMessages(library(float))
 set.seed(1234)
 
 tester = function(s, x, fun)

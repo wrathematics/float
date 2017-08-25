@@ -30,7 +30,7 @@ Otherwise, the return will be double precision.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 x = flrunif(10, 3)
 
 sum(x)

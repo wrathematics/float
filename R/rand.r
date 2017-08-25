@@ -21,7 +21,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' flrunif(10) # length 10 vector
 #' flrunif(10, 1) # 10x1 matrix

@@ -33,7 +33,7 @@ exp/log functions.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = flrunif(10)
 log(x)

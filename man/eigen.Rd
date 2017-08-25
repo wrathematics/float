@@ -27,7 +27,7 @@ Solve a system of equations or invert a float matrix.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 cp = crossprod(s)

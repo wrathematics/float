@@ -1,11 +1,11 @@
-suppressPackageStartupMessages(library(spm))
+suppressPackageStartupMessages(library(float))
 suppressPackageStartupMessages(library(utils))
 
 m = 10L
 n = 3L
 
 x = matrix(1:(m*n), m, n)
-xs = mat2spm(x)
+xs = fl(x)
 
 stopifnot(identical(nrow(x), m))
 stopifnot(identical(ncol(x), n))

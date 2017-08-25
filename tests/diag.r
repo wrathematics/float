@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library(spm))
+suppressPackageStartupMessages(library(float))
 
 ### Diag taker
 x = matrix(1:30, 10)

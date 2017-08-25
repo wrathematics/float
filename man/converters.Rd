@@ -36,7 +36,7 @@ TO double (numeric matrix).
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = matrix(1:30, 10, 3)
 s = fl(x) ### same as mat2spm(x)

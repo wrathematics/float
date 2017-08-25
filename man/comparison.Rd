@@ -14,7 +14,7 @@ Binary comparison operators for numeric/float matrices.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 s = flrunif(5, 5)
 x = matrix(1:25, 5)
 

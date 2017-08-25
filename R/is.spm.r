@@ -14,7 +14,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' library(spm)
+#' library(float)
 #' 
 #' x = matrix(0, 5, 5)
 #' s = flrunif(10, 3)

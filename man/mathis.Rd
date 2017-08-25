@@ -25,7 +25,7 @@ Finite, infinite, and NaNs.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = flrnorm(10)
 is.nan(sqrt(x))

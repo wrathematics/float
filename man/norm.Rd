@@ -21,7 +21,7 @@ Compute matrix norm.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 norm(s)

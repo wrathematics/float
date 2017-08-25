@@ -26,7 +26,7 @@ Extract subsets of a float vector/matrix.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 s[, -1]

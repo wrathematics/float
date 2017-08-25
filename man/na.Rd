@@ -24,7 +24,7 @@ NA utilities.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 s = flrunif(10, 3)
 is.na(s)

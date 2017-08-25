@@ -22,7 +22,7 @@ Miscellaneous mathematical functions.
 }
 \examples{
 \dontrun{
-library(spm)
+library(float)
 
 x = flrunif(10)
 sqrt(x)

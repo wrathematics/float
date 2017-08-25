@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library(spm))
+suppressPackageStartupMessages(library(float))
 set.seed(1234)
 
 testd = function(test, truth) all.equal(dbl(test$d), truth$d, tol=tol)

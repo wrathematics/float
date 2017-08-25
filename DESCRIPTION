@@ -1,4 +1,4 @@
-Package: spm
+Package: float
 Type: Package
 Title: Single Precision Matrices
 Version: 0.1-0
@@ -24,8 +24,8 @@ Imports:
     utils
 SystemRequirements: GNU make
 ByteCompile: yes
-URL: https://github.com/wrathematics/spm
-BugReports: https://github.com/wrathematics/spm/issues
+URL: https://github.com/wrathematics/float
+BugReports: https://github.com/wrathematics/float/issues
 Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre", "cph"),
     email="wrathematics@gmail.com"),
     person("ORNL", role="cph"))
