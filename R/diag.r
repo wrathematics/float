@@ -33,7 +33,7 @@ diag.spm = function(x=1, nrow, ncol)
   {
     if (isavec(x))
     {
-      len = as.integer(spm::NROW(x))
+      len = as.integer(float::NROW(x))
       ptr = .Call(R_diagmat_spm, x@ptr, len, len)
     }
     else

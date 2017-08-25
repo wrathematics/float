@@ -42,7 +42,7 @@ setMethod("object.size", signature(x="spm"), numbytes.spm)
 # setMethod("mu", signature(size="spm"),
 #   function(size, unit="best", prefix="IEC", names="short")
 #   {
-#     size = unclass(spm::object.size(size))
+#     size = unclass(float::object.size(size))
 #     memuse::mu(size, unit=unit, prefix=prefix, names=names)
 #   }
 # )
@@ -52,7 +52,7 @@ setMethod("object.size", signature(x="spm"), numbytes.spm)
 # setMethod("memuse", signature(size="spm"),
 #   function(size, unit="best", prefix="IEC", names="short")
 #   {
-#     size = unclass(spm::object.size(size))
+#     size = unclass(float::object.size(size))
 #     memuse::mu(size, unit=unit, prefix=prefix, names=names)
 #   }
 # )

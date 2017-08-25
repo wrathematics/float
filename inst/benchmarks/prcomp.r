@@ -1,4 +1,4 @@
-library(spm)
+library(float)
 library(rbenchmark)
 
 reps = 5
