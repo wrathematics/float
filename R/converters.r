@@ -2,11 +2,6 @@
 #' 
 #' Convert between a numeric vector/matrix and a float vector/matrix.
 #' 
-#' @details
-#' \code{fl()} is shorthand for \code{mat2spm()}; it behaves like a caster
-#' (i.e., TO float). \code{dbl()} is shorthand for \code{spm2mat()}, casting
-#' TO double (numeric matrix).
-#' 
 #' @param x
 #' A numeric or float vector/matrix.
 #' @param strict
@@ -22,7 +17,7 @@
 #' library(float)
 #' 
 #' x = matrix(1:30, 10, 3)
-#' s = fl(x) ### same as mat2spm(x)
+#' s = fl(x)
 #' 
 #' y = dbl(s)
 #' 
@@ -37,7 +32,7 @@ NULL
 
 #' @rdname converters
 #' @export
-mat2spm = function(x, strict=FALSE)
+fl = function(x, strict=FALSE)
 {
   if (!is.numeric(x) && !is.logical(x))
   {
@@ -51,15 +46,11 @@ mat2spm = function(x, strict=FALSE)
   new("spm", ptr=ptr)
 }
 
-#' @rdname converters
-#' @export
-fl = mat2spm
-
 
 
 #' @rdname converters
 #' @export
-spm2mat = function(x, strict=FALSE)
+dbl = function(x, strict=FALSE)
 {
   if (!is.spm(x))
   {
@@ -71,7 +62,3 @@ spm2mat = function(x, strict=FALSE)
   
   .Call(R_spm2mat, x@ptr)
 }
-
-#' @rdname converters
-#' @export
-dbl = spm2mat

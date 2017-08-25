@@ -36,9 +36,9 @@ print_spm_vec = function(x)
   }
   
   if (top == n)
-    submat = spm2mat(x)
+    submat = dbl(x)
   else
-    submat = spm2mat(x[1:top])
+    submat = dbl(x[1:top])
   
   dim(submat) = NULL
   
@@ -68,9 +68,9 @@ print_spm_mat = function(x)
   }
   
   if (toprow == m && toprow == n)
-    submat = spm2mat(x)
+    submat = dbl(x)
   else
-    submat = spm2mat(x[1:toprow, 1:topcol, drop=FALSE])
+    submat = dbl(x[1:toprow, 1:topcol, drop=FALSE])
   
   submat = submat[1:toprow, 1:topcol, drop=FALSE]
   

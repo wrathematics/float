@@ -5,16 +5,16 @@ y = matrix(1:9, 3)
 
 x_y = x %*% y
 
-xs = mat2spm(x)
-ys = mat2spm(y)
+xs = fl(x)
+ys = fl(y)
 
-test = spm2mat(xs %*% ys)
+test = dbl(xs %*% ys)
 stopifnot(all.equal(test, x_y))
 
-test = spm2mat(xs %*% y)
+test = dbl(xs %*% y)
 stopifnot(all.equal(test, x_y))
 
-test = spm2mat(x %*% ys)
+test = dbl(x %*% ys)
 stopifnot(all.equal(test, x_y))
 
 

@@ -4,7 +4,7 @@ set.seed(1234)
 tol = 1e-6
 
 x = crossprod(matrix(stats::rnorm(30), 10))
-xs = mat2spm(x)
+xs = fl(x)
 
-test = spm2mat(chol(xs))
+test = dbl(chol(xs))
 stopifnot(all.equal(test, chol(x), tol=tol))

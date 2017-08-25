@@ -6,10 +6,10 @@ z = crossprod(x)
 w = z
 w[1, 2] = -123456
 
-xs = mat2spm(x)
-ys = mat2spm(y)
-zs = mat2spm(z)
-ws = mat2spm(w)
+xs = fl(x)
+ys = fl(y)
+zs = fl(z)
+ws = fl(w)
 
 
 test = isSymmetric(xs)

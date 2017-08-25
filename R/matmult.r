@@ -45,9 +45,9 @@ mm.spm = function(x, y)
 mm.spm_mat = function(x, y)
 {
   if (is.integer(y))
-    x %*% mat2spm(y)
+    x %*% fl(y)
   else if (is.double(y))
-    spm2mat(x) %*% y
+    dbl(x) %*% y
   else
     stop("TODO")
 }
@@ -55,9 +55,9 @@ mm.spm_mat = function(x, y)
 mm.mat_spm = function(x, y)
 {
   if (is.integer(x))
-    mat2spm(x) %*% y
+    fl(x) %*% y
   else if (is.double(x))
-    x %*% spm2mat(y)
+    x %*% dbl(y)
   else
     stop("TODO")
 }

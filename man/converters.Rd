@@ -4,15 +4,9 @@
 \alias{converters}
 \alias{dbl}
 \alias{fl}
-\alias{mat2spm}
-\alias{spm2mat}
 \title{converters}
 \usage{
-mat2spm(x, strict = FALSE)
-
 fl(x, strict = FALSE)
-
-spm2mat(x, strict = FALSE)
 
 dbl(x, strict = FALSE)
 }
@@ -29,17 +23,12 @@ input).
 \description{
 Convert between a numeric vector/matrix and a float vector/matrix.
 }
-\details{
-\code{fl()} is shorthand for \code{mat2spm()}; it behaves like a caster
-(i.e., TO float). \code{dbl()} is shorthand for \code{spm2mat()}, casting
-TO double (numeric matrix).
-}
 \examples{
 \dontrun{
 library(float)
 
 x = matrix(1:30, 10, 3)
-s = fl(x) ### same as mat2spm(x)
+s = fl(x)
 
 y = dbl(s)
 

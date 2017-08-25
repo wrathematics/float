@@ -78,8 +78,8 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 
 | Method | Status |
 |---|---|
-| `mat2spm()` / `fl()` | done |
-| `spm2mat()` / `dbl()` | done |
+| `fl()` | done |
+| `dbl()` | done |
 
 ### Linear algebra
 

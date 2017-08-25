@@ -36,12 +36,12 @@ solve.spm = function(a, b, ...)
   else
   {
     if (is.integer(b))
-      b = mat2spm(b)
+      b = fl(b)
     
     if (is.spm(b))
       ptr = .Call(R_solve_spmspm, a@ptr, b@ptr)
     else if (is.numeric(b))
-      return(solve(spm2mat(a), b))
+      return(solve(dbl(a), b))
   }
   
   new("spm", ptr=ptr)

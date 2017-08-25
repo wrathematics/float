@@ -5,18 +5,18 @@ x = matrix(1:30, 10)
 y = matrix(1:10, 10, 2)
 z = matrix(1:5, 5, 3)
 
-xs = mat2spm(x)
-ys = mat2spm(y)
-zs = mat2spm(z)
+xs = fl(x)
+ys = fl(y)
+zs = fl(z)
 
 
-test = spm2mat(diag(xs))
+test = dbl(diag(xs))
 stopifnot(all.equal(test, diag(x)))
 
-test = spm2mat(diag(ys))
+test = dbl(diag(ys))
 stopifnot(all.equal(test, diag(y)))
 
-test = spm2mat(diag(zs))
+test = dbl(diag(zs))
 stopifnot(all.equal(test, diag(z)))
 
 
@@ -25,15 +25,15 @@ stopifnot(all.equal(test, diag(z)))
 tester = function(x, s)
 {
   truth = diag(x)
-  test = spm2mat(diag(s))
+  test = dbl(diag(s))
   stopifnot(all.equal(test, truth))
   
   truth = diag(x, 3, 2)
-  test = spm2mat(diag(s, 3, 2))
+  test = dbl(diag(s, 3, 2))
   stopifnot(all.equal(test, truth))
   
   truth = diag(x, 5, 5)
-  test = spm2mat(diag(s, 5, 5))
+  test = dbl(diag(s, 5, 5))
   stopifnot(all.equal(test, truth))
 }
 
