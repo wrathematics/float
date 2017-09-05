@@ -3,13 +3,12 @@
 
 
 // we assume IEEE-754 compliance to build the package, so some values are hard-coded
-SEXP R_machine_spm(SEXP x_ptr)
+SEXP R_machine_spm()
 {
   int i;
   SEXP ret, ret_names;
   SEXP float_eps, float_xmin, float_xmax, float_base, float_digits,
     float_exponent, float_min_exp, float_max_exp;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   
   PROTECT(float_eps = allocVector(REALSXP, 1));
   REAL(float_eps)[0] = (double) FLT_EPSILON;
