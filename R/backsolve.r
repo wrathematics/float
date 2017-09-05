@@ -54,6 +54,11 @@ backsolve.spm = function(r, x, k=ncol(r), upper.tri=TRUE, transpose=FALSE)
   }
 }
 
+forwardsolve.spm = function(l, x, k=ncol(l), upper.tri=FALSE, transpose=FALSE)
+{
+  backsolve.spm(l, x, k, upper.tri, transpose)
+}
+
 
 
 #' @rdname backsolve
@@ -68,4 +73,16 @@ setMethod("backsolve", signature(r="spm", x="BaseLinAlg"), backsolve.spm)
 #' @export
 setMethod("backsolve", signature(r="BaseLinAlg", x="spm"), backsolve.spm)
 
-# TODO forwardsolve
+
+
+#' @rdname backsolve
+#' @export
+setMethod("forwardsolve", signature(l="spm", x="spm"), forwardsolve.spm)
+
+#' @rdname backsolve
+#' @export
+setMethod("forwardsolve", signature(l="spm", x="BaseLinAlg"), forwardsolve.spm)
+
+#' @rdname backsolve
+#' @export
+setMethod("forwardsolve", signature(l="BaseLinAlg", x="spm"), forwardsolve.spm)
