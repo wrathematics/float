@@ -1,4 +1,3 @@
-
 #' backsolve
 #' 
 #' Solve a triangular system.
