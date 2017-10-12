@@ -2,11 +2,11 @@
 % Please edit documentation in R/bracket.r
 \docType{methods}
 \name{bracket}
-\alias{[,spm-method}
+\alias{[,float32-method}
 \alias{bracket}
 \title{Extract}
 \usage{
-\S4method{[}{spm}(x, i, j, drop = TRUE)
+\S4method{[}{float32}(x, i, j, drop = TRUE)
 }
 \arguments{
 \item{x}{A float vector/matrix.}

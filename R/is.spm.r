@@ -31,7 +31,7 @@ NULL
 #' @export
 is.spm = function(x)
 {
-  is(x, "spm")
+  is(x, "float32")
 }
 
 #' @rdname is.spm

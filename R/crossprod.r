@@ -29,14 +29,14 @@ NULL
 
 
 
-cp.spm = function(x, y=NULL)
+cp_float32 = function(x, y=NULL)
 {
   if (is.spm(x))
   {
     if (is.null(y))
-      ptr = .Call(R_crossprod_spm, x@ptr)
+      d = .Call(R_crossprod_spm, DATA(x))
     else if (is.spm(y))
-      ptr = .Call(R_crossprod_spmspm, x@ptr, y@ptr)
+      d = .Call(R_crossprod_spmspm, DATA(x), DATA(y))
     else
       return(base::crossprod(dbl(x), y))
   }
@@ -45,17 +45,17 @@ cp.spm = function(x, y=NULL)
   else
     return(base::crossprod(x, y))
   
-  new("spm", ptr=ptr)
+  new("float32", Data=d)
 }
 
-tcp.spm = function(x, y=NULL)
+tcp_float32 = function(x, y=NULL)
 {
   if (is.spm(x))
   {
     if (is.null(y))
-      ptr = .Call(R_tcrossprod_spm, x@ptr)
+      d = .Call(R_tcrossprod_spm, DATA(x))
     else if (is.spm(y))
-      ptr = .Call(R_tcrossprod_spmspm, x@ptr, y@ptr)
+      d = .Call(R_tcrossprod_spmspm, DATA(x), DATA(y))
     else
       return(base::tcrossprod(dbl(x), y))
   }
@@ -64,15 +64,15 @@ tcp.spm = function(x, y=NULL)
   else
     return(base::tcrossprod(x, y))
   
-  new("spm", ptr=ptr)
+  new("float32", Data=d)
 }
 
 
 
 #' @rdname crossprod
 #' @export
-setMethod("crossprod", signature(x="Mat", y="ANY"), cp.spm)
+setMethod("crossprod", signature(x="Mat", y="ANY"), cp_float32)
 
 #' @rdname crossprod
 #' @export
-setMethod("tcrossprod", signature(x="Mat", y="ANY"), tcp.spm)
+setMethod("tcrossprod", signature(x="Mat", y="ANY"), tcp_float32)

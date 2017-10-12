@@ -36,7 +36,7 @@ SEXP R_init_NA()
 }
 
 
-
+#if 0
 SEXP R_isna_spm(SEXP x_ptr)
 {
   SEXP ret;
@@ -264,3 +264,5 @@ SEXP R_naomit_spm(SEXP x_ptr)
   else
     return ret;
 }
+
+#endif

@@ -26,41 +26,43 @@ NULL
 
 
 
-#' @rdname dims
-#' @export
-setMethod("nrow", signature(x="spm"), function(x) .Call(R_nrow_spm, x@ptr))
+DATA = function(x) x@Data
+isavec = function(x) !is.matrix(DATA(x))
 
-#' @rdname dims
-#' @export
-setMethod("ncol", signature(x="spm"), function(x) .Call(R_ncol_spm, x@ptr))
+
 
 #' @rdname dims
 #' @export
-setMethod("NROW", signature(x="spm"), function(x) .Call(R_NROW_spm, x@ptr))
+setMethod("nrow", signature(x="float32"), function(x) NROW(DATA(x)))
 
 #' @rdname dims
 #' @export
-setMethod("NCOL", signature(x="spm"), function(x) .Call(R_NCOL_spm, x@ptr))
+setMethod("ncol", signature(x="float32"), function(x) NCOL(DATA(x)))
 
 #' @rdname dims
 #' @export
-setMethod("dim", signature(x="spm"), function(x) .Call(R_dim_spm, x@ptr))
+setMethod("NROW", signature(x="float32"), function(x) NROW(DATA(x)))
 
 #' @rdname dims
 #' @export
-setMethod("length", signature(x="spm"), function(x) .Call(R_length_spm, x@ptr))
-
-# for my eyes only
-isavec = function(x) .Call(R_isavec_spm, x@ptr)
-
-
-
-dimset.spm = function(x, value)
-{
-  ptr = .Call(R_dimset_spm, x@ptr, value)
-  new("spm", ptr=ptr)
-}
+setMethod("NCOL", signature(x="float32"), function(x) NCOL(DATA(x)))
 
 #' @rdname dims
 #' @export
-setReplaceMethod("dim", signature(x="spm"), dimset.spm)
+setMethod("dim", signature(x="float32"), function(x) c(nrow(x), ncol(x)))
+
+#' @rdname dims
+#' @export
+setMethod("length", signature(x="float32"), function(x) nrow(x)*ncol(x))
+
+
+
+# dimset.float32 = function(x, value)
+# {
+#   ptr = .Call(R_dimset_float32, x@ptr, value)
+#   new("float32", ptr=ptr)
+# }
+
+# #' @rdname dims
+# #' @export
+# setReplaceMethod("dim", signature(x="float32"), dimset.float32)

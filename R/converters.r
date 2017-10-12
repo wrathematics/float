@@ -42,8 +42,8 @@ fl = function(x, strict=FALSE)
       stop("input 'x' must be a numeric or logical vector/matrix")
   }
   
-  ptr = .Call(R_mat2spm, x)
-  new("spm", ptr=ptr)
+  d = .Call(R_mat2spm, x)
+  new("float32", Data=d)
 }
 
 
@@ -55,10 +55,10 @@ dbl = function(x, strict=FALSE)
   if (!is.spm(x))
   {
     if (isTRUE(strict))
-      stop("input 'x' must be a spv/spm (single precision vector/matrix)")
+      stop("input 'x' must be float32")
     else
       return(x)
   }
   
-  .Call(R_spm2mat, x@ptr)
+  .Call(R_spm2mat, DATA(x))
 }

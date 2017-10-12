@@ -2,29 +2,26 @@
 % Please edit documentation in R/dims.r
 \docType{methods}
 \name{dims}
-\alias{NCOL,spm-method}
-\alias{NROW,spm-method}
-\alias{dim,spm-method}
-\alias{dim<-,spm-method}
+\alias{NCOL,float32-method}
+\alias{NROW,float32-method}
+\alias{dim,float32-method}
 \alias{dims}
-\alias{length,spm-method}
-\alias{ncol,spm-method}
-\alias{nrow,spm-method}
+\alias{length,float32-method}
+\alias{ncol,float32-method}
+\alias{nrow,float32-method}
 \title{dim}
 \usage{
-\S4method{nrow}{spm}(x)
+\S4method{nrow}{float32}(x)
 
-\S4method{ncol}{spm}(x)
+\S4method{ncol}{float32}(x)
 
-\S4method{NROW}{spm}(x)
+\S4method{NROW}{float32}(x)
 
-\S4method{NCOL}{spm}(x)
+\S4method{NCOL}{float32}(x)
 
-\S4method{dim}{spm}(x)
+\S4method{dim}{float32}(x)
 
-\S4method{length}{spm}(x)
-
-\S4method{dim}{spm}(x) <- value
+\S4method{length}{float32}(x)
 }
 \arguments{
 \item{x}{A float vector/matrix.}

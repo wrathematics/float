@@ -12,7 +12,7 @@ stopifnot(identical(ncol(x), n))
 stopifnot(identical(dim(x), c(m, n)))
 
 p = paste(capture.output(print(xs)), collapse="\n")
-truth = "# An spm (single precision matrix): 10x3
+truth = "# A float32 matrix: 10x3
       [,1] [,2] [,3]
  [1,]    1   11   21
  [2,]    2   12   22

@@ -4,23 +4,23 @@
 
 SEXP R_mat2spm(SEXP x)
 {
-  SEXP ret_ptr;
-  matrix_t *ret;
+  SEXP ret_;
   len_t m, n;
   
   if (!isMatrix(x))
   {
     m = LENGTH(x);
     n = 1;
-    ret = newvec(m);
+    PROTECT(ret_ = newvec(m));
   }
   else
   {
-    m = nrows(x);
-    n = ncols(x);
-    ret = newmat(m, n);
+    m = NROWS(x);
+    n = NCOLS(x);
+    PROTECT(ret_ = newmat(m, n));
   }
   
+  float *const ret = FLOAT(ret_);
   
   switch (TYPEOF(x))
   {
@@ -31,9 +31,9 @@ SEXP R_mat2spm(SEXP x)
         {
           const double tmp = REAL(x)[i + m*j];
           if (ISNA(tmp))
-            DATA(ret)[i + m*j] = NA_FLOAT;
+            ret[i + m*j] = NA_FLOAT;
           else
-            DATA(ret)[i + m*j] = (float) tmp;
+            ret[i + m*j] = (float) tmp;
         }
       }
       
@@ -48,9 +48,9 @@ SEXP R_mat2spm(SEXP x)
         {
           const int tmp = INTEGER(x)[i + m*j];
           if (tmp == NA_INTEGER)
-            DATA(ret)[i + m*j] = NA_FLOAT;
+            ret[i + m*j] = NA_FLOAT;
           else
-            DATA(ret)[i + m*j] = (float) tmp;
+            ret[i + m*j] = (float) tmp;
         }
       }
       
@@ -61,22 +61,20 @@ SEXP R_mat2spm(SEXP x)
       error("");
   }
   
-  newRptr(ret, ret_ptr, matfin);
-  // classgets(ret_ptr, mkString("spm"));
   UNPROTECT(1);
-  return ret_ptr;
+  return ret_;
 }
 
 
 
-SEXP R_spm2mat(SEXP x_ptr)
+SEXP R_spm2mat(SEXP x_)
 {
   SEXP ret;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const len_t m = NROWS(x_);
+  const len_t n = NCOLS(x_);
+  const float *x = (float*) INTEGER(x_);
   
-  if (n == 1 && ISAVEC(x))
+  if (n == 1 && ISAVEC(x_))
     PROTECT(ret = allocVector(REALSXP, m));
   else
     PROTECT(ret = allocMatrix(REALSXP, m, n));
@@ -85,7 +83,7 @@ SEXP R_spm2mat(SEXP x_ptr)
   {
     for (len_t i=0; i<m; i++)
     {
-      const float tmp = DATA(x)[i + m*j];
+      const float tmp = x[i + m*j];
       if (ISNAf(tmp))
         REAL(ret)[i + m*j] = NA_REAL;
       else

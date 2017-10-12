@@ -1,4 +1,4 @@
-#' print-spm
+#' print-float32
 #' 
 #' Print methods for float vector/matrices.
 #' 
@@ -16,8 +16,8 @@
 #' s
 #' }
 #' 
-#' @name print-spm
-#' @rdname print-spm
+#' @name print-float32
+#' @rdname print-float32
 NULL
 
 
@@ -26,7 +26,7 @@ print_spm_vec = function(x)
 {
   n = NROW(x)
   
-  cat(paste0("# An spv (single precision vector): ", n, "\n"))
+  cat(paste0("# A float32 vector: ", n, "\n"))
   
   top = min(5, n)
   if (top == 0)
@@ -57,7 +57,7 @@ print_spm_mat = function(x)
   m = NROW(x)
   n = NCOL(x)
   
-  cat(paste0("# An spm (single precision matrix): ", m, "x", n, "\n"))
+  cat(paste0("# A float32 matrix: ", m, "x", n, "\n"))
   
   toprow = min(10, m)
   topcol = min(5, n)
@@ -87,7 +87,7 @@ print_spm_mat = function(x)
 print_attr = function(x)
 {
   att = attributes(x)
-  att$ptr = NULL
+  att$Data = NULL
   att$class = NULL
   
   if (length(att) == 0)
@@ -102,7 +102,7 @@ print_attr = function(x)
 
 
 
-print_spm = function(x)
+print_float32 = function(x)
 {
   if (isavec(x))
     print_spm_vec(x)
@@ -112,12 +112,10 @@ print_spm = function(x)
   print_attr(x)
 }
 
-
-
-#' @rdname print-spm
+#' @rdname print-float32
 #' @export
-setMethod("print", signature(x="spm"), function(x, ...) print_spm(x))
+setMethod("print", signature(x="float32"), function(x, ...) print_float32(x))
 
-#' @rdname print-spm
+#' @rdname print-float32
 #' @export
-setMethod("show", signature(object="spm"), function(object) print_spm(object))
+setMethod("show", signature(object="float32"), function(object) print_float32(object))

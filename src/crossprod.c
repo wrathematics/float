@@ -37,74 +37,63 @@ static inline void symmetrize(const len_t n, float *restrict x)
 
 
 
-SEXP R_crossprod_spm(SEXP x_ptr)
+SEXP R_crossprod_spm(SEXP x)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   
-  matrix_t *ret = newmat(n, n);
+  PROTECT(ret = newmat(n, n));
   
-  crossprod(m, n, 1.0f, DATA(x), DATA(ret));
-  symmetrize(n, DATA(ret));
+  crossprod(m, n, 1.0f, FLOAT(x), FLOAT(ret));
+  symmetrize(n, FLOAT(ret));
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
-SEXP R_crossprod_spmspm(SEXP x_ptr, SEXP y_ptr)
+SEXP R_crossprod_spmspm(SEXP x, SEXP y)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  matrix_t *y = (matrix_t*) getRptr(y_ptr);
-  
+  SEXP ret;
   if (NROWS(x) != NROWS(y))
     error("non-conformable arguments");
   
-  matrix_t *ret = newmat(NCOLS(x), NCOLS(y));
+  PROTECT(ret = newmat(NCOLS(x), NCOLS(y)));
   
-  matmult(true, false, 1.0f, NROWS(x), NCOLS(x), DATA(x), NROWS(y), NCOLS(y), DATA(y), DATA(ret));
+  matmult(true, false, 1.0f, NROWS(x), NCOLS(x), FLOAT(x), NROWS(y), NCOLS(y), FLOAT(y), FLOAT(ret));
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
-SEXP R_tcrossprod_spm(SEXP x_ptr)
+SEXP R_tcrossprod_spm(SEXP x)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   
-  matrix_t *ret = newmat(m, m);
+  PROTECT(ret = newmat(m, m));
   
-  tcrossprod(m, n, 1.0f, DATA(x), DATA(ret));
-  symmetrize(m, DATA(ret));
+  tcrossprod(m, n, 1.0f, FLOAT(x), FLOAT(ret));
+  symmetrize(m, FLOAT(ret));
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
-SEXP R_tcrossprod_spmspm(SEXP x_ptr, SEXP y_ptr)
+SEXP R_tcrossprod_spmspm(SEXP x, SEXP y)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  matrix_t *y = (matrix_t*) getRptr(y_ptr);
+  SEXP ret;
   
   if (NCOLS(x) != NCOLS(y))
     error("non-conformable arguments");
   
-  matrix_t *ret = newmat(NROWS(x), NROWS(y));
+  PROTECT(ret = newmat(NROWS(x), NROWS(y)));
   
-  matmult(false, true, 1.0f, NROWS(x), NCOLS(x), DATA(x), NROWS(y), NCOLS(y), DATA(y), DATA(ret));
+  matmult(false, true, 1.0f, NROWS(x), NCOLS(x), FLOAT(x), NROWS(y), NCOLS(y), FLOAT(y), FLOAT(ret));
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }

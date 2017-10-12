@@ -2,98 +2,98 @@
 % Please edit documentation in R/binary.r
 \docType{methods}
 \name{arithmetic}
-\alias{*,BaseLinAlg,spm-method}
-\alias{*,spm,BaseLinAlg-method}
-\alias{*,spm,spm-method}
-\alias{+,BaseLinAlg,spm-method}
-\alias{+,spm,BaseLinAlg-method}
-\alias{+,spm,spm-method}
-\alias{-,BaseLinAlg,spm-method}
-\alias{-,spm,BaseLinAlg-method}
-\alias{-,spm,spm-method}
-\alias{/,BaseLinAlg,spm-method}
-\alias{/,spm,BaseLinAlg-method}
-\alias{/,spm,spm-method}
-\alias{<,BaseLinAlg,spm-method}
-\alias{<,spm,BaseLinAlg-method}
-\alias{<,spm,spm-method}
-\alias{<=,BaseLinAlg,spm-method}
-\alias{<=,spm,BaseLinAlg-method}
-\alias{<=,spm,spm-method}
-\alias{==,BaseLinAlg,spm-method}
-\alias{==,spm,BaseLinAlg-method}
-\alias{==,spm,spm-method}
-\alias{>,BaseLinAlg,spm-method}
-\alias{>,spm,BaseLinAlg-method}
-\alias{>,spm,spm-method}
-\alias{>=,BaseLinAlg,spm-method}
-\alias{>=,spm,BaseLinAlg-method}
-\alias{>=,spm,spm-method}
-\alias{^,BaseLinAlg,spm-method}
-\alias{^,spm,BaseLinAlg-method}
-\alias{^,spm,spm-method}
+\alias{*,BaseLinAlg,float32-method}
+\alias{*,float32,BaseLinAlg-method}
+\alias{*,float32,float32-method}
+\alias{+,BaseLinAlg,float32-method}
+\alias{+,float32,BaseLinAlg-method}
+\alias{+,float32,float32-method}
+\alias{-,BaseLinAlg,float32-method}
+\alias{-,float32,BaseLinAlg-method}
+\alias{-,float32,float32-method}
+\alias{/,BaseLinAlg,float32-method}
+\alias{/,float32,BaseLinAlg-method}
+\alias{/,float32,float32-method}
+\alias{<,BaseLinAlg,float32-method}
+\alias{<,float32,BaseLinAlg-method}
+\alias{<,float32,float32-method}
+\alias{<=,BaseLinAlg,float32-method}
+\alias{<=,float32,BaseLinAlg-method}
+\alias{<=,float32,float32-method}
+\alias{==,BaseLinAlg,float32-method}
+\alias{==,float32,BaseLinAlg-method}
+\alias{==,float32,float32-method}
+\alias{>,BaseLinAlg,float32-method}
+\alias{>,float32,BaseLinAlg-method}
+\alias{>,float32,float32-method}
+\alias{>=,BaseLinAlg,float32-method}
+\alias{>=,float32,BaseLinAlg-method}
+\alias{>=,float32,float32-method}
+\alias{^,BaseLinAlg,float32-method}
+\alias{^,float32,BaseLinAlg-method}
+\alias{^,float32,float32-method}
 \alias{arithmetic}
 \title{arithmetic}
 \usage{
-\S4method{+}{spm,spm}(e1, e2)
+\S4method{+}{float32,float32}(e1, e2)
 
-\S4method{*}{spm,spm}(e1, e2)
+\S4method{*}{float32,float32}(e1, e2)
 
-\S4method{-}{spm,spm}(e1, e2)
+\S4method{-}{float32,float32}(e1, e2)
 
-\S4method{/}{spm,spm}(e1, e2)
+\S4method{/}{float32,float32}(e1, e2)
 
-\S4method{^}{spm,spm}(e1, e2)
+\S4method{^}{float32,float32}(e1, e2)
 
-\S4method{+}{spm,BaseLinAlg}(e1, e2)
+\S4method{+}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{*}{spm,BaseLinAlg}(e1, e2)
+\S4method{*}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{-}{spm,BaseLinAlg}(e1, e2)
+\S4method{-}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{/}{spm,BaseLinAlg}(e1, e2)
+\S4method{/}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{^}{spm,BaseLinAlg}(e1, e2)
+\S4method{^}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{+}{BaseLinAlg,spm}(e1, e2)
+\S4method{+}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{*}{BaseLinAlg,spm}(e1, e2)
+\S4method{*}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{-}{BaseLinAlg,spm}(e1, e2)
+\S4method{-}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{/}{BaseLinAlg,spm}(e1, e2)
+\S4method{/}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{^}{BaseLinAlg,spm}(e1, e2)
+\S4method{^}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{<}{spm,spm}(e1, e2)
+\S4method{<}{float32,float32}(e1, e2)
 
-\S4method{<=}{spm,spm}(e1, e2)
+\S4method{<=}{float32,float32}(e1, e2)
 
-\S4method{==}{spm,spm}(e1, e2)
+\S4method{==}{float32,float32}(e1, e2)
 
-\S4method{>}{spm,spm}(e1, e2)
+\S4method{>}{float32,float32}(e1, e2)
 
-\S4method{>=}{spm,spm}(e1, e2)
+\S4method{>=}{float32,float32}(e1, e2)
 
-\S4method{<}{spm,BaseLinAlg}(e1, e2)
+\S4method{<}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{<=}{spm,BaseLinAlg}(e1, e2)
+\S4method{<=}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{==}{spm,BaseLinAlg}(e1, e2)
+\S4method{==}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{>}{spm,BaseLinAlg}(e1, e2)
+\S4method{>}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{>=}{spm,BaseLinAlg}(e1, e2)
+\S4method{>=}{float32,BaseLinAlg}(e1, e2)
 
-\S4method{<}{BaseLinAlg,spm}(e1, e2)
+\S4method{<}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{<=}{BaseLinAlg,spm}(e1, e2)
+\S4method{<=}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{==}{BaseLinAlg,spm}(e1, e2)
+\S4method{==}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{>}{BaseLinAlg,spm}(e1, e2)
+\S4method{>}{BaseLinAlg,float32}(e1, e2)
 
-\S4method{>=}{BaseLinAlg,spm}(e1, e2)
+\S4method{>=}{BaseLinAlg,float32}(e1, e2)
 }
 \arguments{
 \item{e1, e2}{Numeric/float vectors/matrices.}
