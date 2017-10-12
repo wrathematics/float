@@ -28,7 +28,7 @@ NULL
 
 
 
-scale.spm = function(x, center=TRUE, scale=TRUE) 
+scale_float32 = function(x, center=TRUE, scale=TRUE) 
 {
   if (!is.logical(center) || !is.logical(scale))
     stop("only logical 'center' and 'scale' implemented at this time")
@@ -39,11 +39,11 @@ scale.spm = function(x, center=TRUE, scale=TRUE)
   if (!isTRUE(center) && !isTRUE(scale))
     return(x)
   
-  .Call(R_scale_spm, x@ptr, as.integer(center), as.integer(scale))
+  .Call(R_scale_spm, DATA(x), as.integer(center), as.integer(scale))
 }
 
 
 
 #' @rdname scale
 #' @export
-setMethod("scale", signature(x="spm"), scale.spm)
+setMethod("scale", signature(x="float32"), scale_float32)

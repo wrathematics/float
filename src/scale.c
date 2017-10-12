@@ -119,12 +119,11 @@ static inline int scaler(const bool centerx, const bool scalex, const len_t m, c
 
 
 
-SEXP R_scale_spm(SEXP x_ptr, SEXP center_, SEXP scale_)
+SEXP R_scale_spm(SEXP x, SEXP center_, SEXP scale_)
 {
+  SEXP ret;
   SEXP ret_s4, cm_s4, cv_s4;
-  SEXP ret_ptr, cm_ptr, cv_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  matrix_t *cm, *cv;
+  SEXP cm, cv;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const bool center = INTEGER(center_)[0];
@@ -132,55 +131,50 @@ SEXP R_scale_spm(SEXP x_ptr, SEXP center_, SEXP scale_)
   int ptct = 2;
   float *colmeans, *colvars;
   
-  matrix_t *ret = newmat(m, n);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newmat(m, n));
   memcpy(DATA(ret), DATA(x), (size_t)m*n*sizeof(float));
   
   if (center)
   {
-    cm = newvec(n);
-    newRptr(cm, cm_ptr, matfin);
+    PROTECT(cm = newvec(n));
     colmeans = DATA(cm);
     ptct += 2;
   }
   else
   {
     cm = NULL;
-    cm_ptr = R_NilValue;
     colmeans = NULL;
   }
   
   if (scale)
   {
-    cv = newvec(n);
-    newRptr(cv, cv_ptr, matfin);
+    PROTECT(cv = newvec(n));
     colvars = DATA(cv);
     ptct += 2;
   }
   else
   {
     cv = NULL;
-    cv_ptr = R_NilValue;
     colvars = NULL;
   }
   
   
   scaler(center, scale, m, n, DATA(ret), colmeans, colvars);
   
-  ret_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("spm")));
-  SET_SLOT(ret_s4, install("ptr"), ret_ptr);
+  ret_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("float32")));
+  SET_SLOT(ret_s4, install("Data"), ret);
   
   if (center)
   {
-    cm_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("spm")));
-    SET_SLOT(cm_s4, install("ptr"), cm_ptr);
+    cm_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("float32")));
+    SET_SLOT(cm_s4, install("Data"), cm);
     setAttrib(ret_s4, install("scaled:center"), cm_s4);
   }
   
   if (scale)
   {
-    cv_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("spm")));
-    SET_SLOT(cv_s4, install("ptr"), cv_ptr);
+    cv_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("float32")));
+    SET_SLOT(cv_s4, install("Data"), cv);
     setAttrib(ret_s4, install("scaled:scale"), cv_s4);
   }
   
