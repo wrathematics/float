@@ -20,7 +20,7 @@
 #' @useDynLib float R_mat2spm R_spm2mat R_init_NA R_machine_spm R_crossprod_spm
 #'   R_crossprod_spmspm R_tcrossprod_spm R_tcrossprod_spmspm R_add_spm R_mul_spm
 #'   R_sub_spm R_div_spm R_pow_spm R_lt_spm R_le_spm R_eq_spm R_gt_spm R_ge_spm
-#'   R_matmult_spm R_xpose_spm R_isSymmetric_spm R_chol_spm
+#'   R_matmult_spm R_xpose_spm R_isSymmetric_spm R_chol_spm R_sweep_spm
 #' 
 #' @docType package
 #' @name spm-package
@@ -40,7 +40,7 @@ NULL
 ## '   R_naomit_spm 
 ## '   R_colSums_spm R_rowSums_spm R_colMeans_spm R_rowMeans_spm R_norm_spm
 ## '   R_rcond_spm  R_sum_spm
-## '   R_min_spm R_max_spm R_c_spm R_sweep_spm R_scale_spm R_ceiling_spm
+## '   R_min_spm R_max_spm R_c_spm R_scale_spm R_ceiling_spm
 ## '   R_floor_spm R_trunc_spm R_round_spm R_whichmin_spm R_whichmax_spm
 ## '   R_dimset_spm R_mean_spm R_median_spm R_anyNA_spm R_symeig_spm
 ## '   R_bracketchecks_spm  R_backsolve_spm

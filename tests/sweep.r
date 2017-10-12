@@ -32,3 +32,9 @@ same(test, truth)
 test = sweep(s, 2, STATS=1:3, FUN='-')
 truth = sweep(x, 2, STATS=1:3, FUN='-')
 same(test, truth)
+
+
+
+test = sweep(s, 1, STATS=fl(pi), FUN='+')
+truth = sweep(x, 1, STATS=pi, FUN='+')
+same(test, truth)

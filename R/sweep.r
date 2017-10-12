@@ -39,7 +39,7 @@ NULL
 
 
 
-sweep.spm = function(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...) 
+sweep_float32 = function(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...) 
 {
   if (is.double(STATS))
     return(sweep(dbl(x), MARGIN, STATS, FUN, check.margin, ...))
@@ -63,12 +63,12 @@ sweep.spm = function(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...)
       warning("STATS does not recycle exactly across MARGIN")
   }
   
-  ptr = .Call(R_sweep_spm, x@ptr, as.integer(MARGIN), STATS, FUN)
-  new("spm", ptr=ptr)
+  ret = .Call(R_sweep_spm, DATA(x), as.integer(MARGIN), STATS, FUN)
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname sweep
 #' @export
-setMethod("sweep", signature(x="spm"), sweep.spm)
+setMethod("sweep", signature(x="float32"), sweep_float32)
