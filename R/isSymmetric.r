@@ -27,13 +27,13 @@ NULL
 
 
 
-isSymmetric.spm = function(object, ...)
+isSymmetric_float32 = function(object, ...)
 {
-  .Call(R_isSymmetric_spm, object@ptr)
+  .Call(R_isSymmetric_spm, DATA(object))
 }
 
 
 
 #' @rdname isSymmetric
 #' @export
-setMethod("isSymmetric", signature(object="spm"), isSymmetric.spm)
+setMethod("isSymmetric", signature(object="float32"), isSymmetric_float32)

@@ -34,27 +34,20 @@ static inline bool isSym(const len_t n, const float *const restrict x)
 
 #define LGL(x) LOGICAL(x)[0]
 
-SEXP R_isSymmetric_spm(SEXP x_ptr)
+SEXP R_isSymmetric_spm(SEXP x)
 {
   SEXP ret;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   
   PROTECT(ret = allocVector(LGLSXP, 1));
   
   if (m != n)
-  {
     LGL(ret) = 0;
-  }
   else if (n == 0)
-  {
     LGL(ret) = 1;
-  }
   else
-  {
     LGL(ret) = isSym(n, DATA(x));
-  }
   
   UNPROTECT(1);
   return ret;

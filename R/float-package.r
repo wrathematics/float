@@ -20,7 +20,7 @@
 #' @useDynLib float R_mat2spm R_spm2mat R_init_NA R_machine_spm R_crossprod_spm
 #'   R_crossprod_spmspm R_tcrossprod_spm R_tcrossprod_spmspm R_add_spm R_mul_spm
 #'   R_sub_spm R_div_spm R_pow_spm R_lt_spm R_le_spm R_eq_spm R_gt_spm R_ge_spm
-#'   R_matmult_spm R_xpose_spm
+#'   R_matmult_spm R_xpose_spm R_isSymmetric_spm
 #' 
 #' @docType package
 #' @name spm-package
@@ -31,7 +31,7 @@ NULL
 ## '   R_diag_spm
 ## '   R_diagmat_spm R_chol_spm R_solve_spm R_solve_spmspm R_bracket_spm
 ## '   R_nrow_spm R_ncol_spm R_NROW_spm R_NCOL_spm R_dim_spm R_length_spm
-## '   R_isSymmetric_spm R_svd_spm R_isavec_spm R_qr_spm R_qrQ_spm R_qrR_spm
+## '   R_svd_spm R_isavec_spm R_qr_spm R_qrQ_spm R_qrR_spm
 ## '   R_flrunif_spm R_flrnorm_spm R_exp_spm R_expm1_spm
 ## '   R_log_spm R_log10_spm R_log2_spm R_sin_spm R_cos_spm R_tan_spm R_asin_spm
 ## '   R_acos_spm R_atan_spm R_sinh_spm R_cosh_spm R_tanh_spm R_asinh_spm
