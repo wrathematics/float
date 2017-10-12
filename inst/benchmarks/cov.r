@@ -12,13 +12,13 @@ s = fl(x)
 cov_spm = function(x)
 {
   s = scale(x, TRUE, FALSE)
-  crossprod(s) / max(1, nrow(x)-1)
+  crossprod(s) / max(1L, nrow(x)-1)
 }
 
 cor_spm = function(x)
 {
   s = scale(x, TRUE, TRUE)
-  crossprod(s) / max(1, nrow(x)-1)
+  crossprod(s) / max(1L, nrow(x)-1)
 }
 
 
