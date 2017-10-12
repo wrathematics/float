@@ -24,14 +24,14 @@ NULL
 
 
 
-xpose.spm = function(x)
+xpose_float32 = function(x)
 {
-  ptr = .Call(R_xpose_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_xpose_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname xpose
 #' @export
-setMethod("t", signature(x="spm"), xpose.spm)
+setMethod("t", signature(x="float32"), xpose_float32)

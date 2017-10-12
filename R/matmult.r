@@ -36,13 +36,13 @@ NULL
 
 
 
-mm.spm = function(x, y)
+mm_float32 = function(x, y)
 {
-  ptr = .Call(R_matmult_spm, x@ptr, y@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_matmult_spm, DATA(x), DATA(y))
+  new("float32", Data=ret)
 }
 
-mm.spm_mat = function(x, y)
+mm_float32_mat = function(x, y)
 {
   if (is.integer(y))
     x %*% fl(y)
@@ -52,7 +52,7 @@ mm.spm_mat = function(x, y)
     stop("TODO")
 }
 
-mm.mat_spm = function(x, y)
+mm_mat_float32 = function(x, y)
 {
   if (is.integer(x))
     fl(x) %*% y
@@ -66,12 +66,12 @@ mm.mat_spm = function(x, y)
 
 #' @rdname matmult
 #' @export
-setMethod("%*%", signature(x="spm", y="spm"), mm.spm)
+setMethod("%*%", signature(x="float32", y="float32"), mm_float32)
 
 #' @rdname matmult
 #' @export
-setMethod("%*%", signature(x="spm", y="matrix"), mm.spm_mat)
+setMethod("%*%", signature(x="float32", y="matrix"), mm_float32_mat)
 
 #' @rdname matmult
 #' @export
-setMethod("%*%", signature(x="matrix", y="spm"), mm.mat_spm)
+setMethod("%*%", signature(x="matrix", y="float32"), mm_mat_float32)
