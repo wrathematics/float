@@ -23,14 +23,14 @@ NULL
 
 
 
-chol.spm = function(x)
+chol_float32 = function(x)
 {
-  ptr = .Call(R_chol_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_chol_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname chol
 #' @export
-setMethod("chol", signature(x="spm"), chol.spm)
+setMethod("chol", signature(x="float32"), chol_float32)
