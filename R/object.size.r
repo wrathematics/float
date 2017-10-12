@@ -23,16 +23,16 @@ NULL
 
 
 
-numbytes.spm = function(x)
+numbytes_float32 = function(x)
 {
-  .Call(R_numbytes_spm, x@ptr) + utils::object.size(x)
+  utils::object.size(x) + utils::object.size(DATA(x))
 }
 
 
 
 #' @rdname object_size
 #' @export
-setMethod("object.size", signature(x="spm"), numbytes.spm)
+setMethod("object.size", signature(x="spm"), numbytes_float32)
 
 
 
