@@ -57,12 +57,12 @@ setMethod("length", signature(x="float32"), function(x) nrow(x)*ncol(x))
 
 
 
-# dimset.float32 = function(x, value)
-# {
-#   ptr = .Call(R_dimset_float32, x@ptr, value)
-#   new("float32", ptr=ptr)
-# }
+dimset_float32 = function(x, value)
+{
+  dim(x@Data) = value
+  x
+}
 
-# #' @rdname dims
-# #' @export
-# setReplaceMethod("dim", signature(x="float32"), dimset.float32)
+#' @rdname dims
+#' @export
+setReplaceMethod("dim", signature(x="float32"), dimset_float32)

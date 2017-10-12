@@ -5,6 +5,7 @@
 \alias{NCOL,float32-method}
 \alias{NROW,float32-method}
 \alias{dim,float32-method}
+\alias{dim<-,float32-method}
 \alias{dims}
 \alias{length,float32-method}
 \alias{ncol,float32-method}
@@ -22,6 +23,8 @@
 \S4method{dim}{float32}(x)
 
 \S4method{length}{float32}(x)
+
+\S4method{dim}{float32}(x) <- value
 }
 \arguments{
 \item{x}{A float vector/matrix.}

@@ -10,6 +10,6 @@ An S4 container for single precision (float) vector/matrix objects.
 \section{Slots}{
 
 \describe{
-\item{\code{ptr}}{An external pointer to a struct.}
+\item{\code{Data}}{A vector or matrix of integers.}
 }}
 

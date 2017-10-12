@@ -4,8 +4,8 @@ setClassUnion("Int", c("integer", "matrix"))
 #' 
 #' An S4 container for single precision (float) vector/matrix objects.
 #' 
-#' @slot ptr
-#' An external pointer to a struct.
+#' @slot Data
+#' A vector or matrix of integers.
 #' 
 #' @name float32-class
 #' @docType class
