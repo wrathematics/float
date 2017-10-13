@@ -27,6 +27,7 @@
 #'   R_asinh_spm R_acosh_spm R_atanh_spm R_abs_spm R_sqrt_spm R_isfinite_spm
 #'   R_isinfinite_spm R_isnan_spm R_gamma_spm R_lgamma_spm R_ceiling_spm
 #'   R_floor_spm R_trunc_spm R_round_spm R_solve_spm R_solve_spmspm
+#'   R_backsolve_spm
 #' 
 #' @docType package
 #' @name spm-package
@@ -41,4 +42,3 @@ NULL
 ## R_rcond_spm  R_sum_spm
 ## R_min_spm R_max_spm R_whichmin_spm R_whichmax_spm
 ## R_mean_spm R_median_spm R_anyNA_spm
-## R_backsolve_spm

@@ -20,7 +20,7 @@ NULL
 
 
 
-backsolve.spm = function(r, x, k=ncol(r), upper.tri=TRUE, transpose=FALSE)
+backsolve_float32 = function(r, x, k=ncol(r), upper.tri=TRUE, transpose=FALSE)
 {
   if (is.integer(r))
   {
@@ -48,12 +48,12 @@ backsolve.spm = function(r, x, k=ncol(r), upper.tri=TRUE, transpose=FALSE)
     if (!is.numeric(k) || k < 1 || k > nrow(r) || is.na(k))
       stop("invalid 'k' argument")
     
-    ptr = .Call(R_backsolve_spm, r@ptr, x@ptr, as.integer(upper.tri), as.integer(transpose), as.integer(k))
-    new("spm", ptr=ptr)
+    ret = .Call(R_backsolve_spm, DATA(r), DATA(x), as.integer(upper.tri), as.integer(transpose), as.integer(k))
+    new("float32", Data=ret)
   }
 }
 
-forwardsolve.spm = function(l, x, k=ncol(l), upper.tri=FALSE, transpose=FALSE)
+forwardsolve_float32 = function(l, x, k=ncol(l), upper.tri=FALSE, transpose=FALSE)
 {
   backsolve.spm(l, x, k, upper.tri, transpose)
 }
@@ -62,26 +62,26 @@ forwardsolve.spm = function(l, x, k=ncol(l), upper.tri=FALSE, transpose=FALSE)
 
 #' @rdname backsolve
 #' @export
-setMethod("backsolve", signature(r="spm", x="spm"), backsolve.spm)
+setMethod("backsolve", signature(r="float32", x="float32"), backsolve_float32)
 
 #' @rdname backsolve
 #' @export
-setMethod("backsolve", signature(r="spm", x="BaseLinAlg"), backsolve.spm)
+setMethod("backsolve", signature(r="float32", x="BaseLinAlg"), backsolve_float32)
 
 #' @rdname backsolve
 #' @export
-setMethod("backsolve", signature(r="BaseLinAlg", x="spm"), backsolve.spm)
+setMethod("backsolve", signature(r="BaseLinAlg", x="float32"), backsolve_float32)
 
 
 
 #' @rdname backsolve
 #' @export
-setMethod("forwardsolve", signature(l="spm", x="spm"), forwardsolve.spm)
+setMethod("forwardsolve", signature(l="float32", x="float32"), forwardsolve_float32)
 
 #' @rdname backsolve
 #' @export
-setMethod("forwardsolve", signature(l="spm", x="BaseLinAlg"), forwardsolve.spm)
+setMethod("forwardsolve", signature(l="float32", x="BaseLinAlg"), forwardsolve_float32)
 
 #' @rdname backsolve
 #' @export
-setMethod("forwardsolve", signature(l="BaseLinAlg", x="spm"), forwardsolve.spm)
+setMethod("forwardsolve", signature(l="BaseLinAlg", x="float32"), forwardsolve_float32)
