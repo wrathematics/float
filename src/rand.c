@@ -74,3 +74,17 @@ SEXP R_flrnorm_spm(SEXP m_, SEXP n_, SEXP mean_, SEXP sd_, SEXP isavec)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+SEXP R_flrand_spm(SEXP data_, SEXP start, SEXP len_, SEXP gen_)
+{
+  const int len = INT(len_);
+  float *data = FLOAT(data_) + INT(start) - 1;
+  double *gen = REAL(gen_);
+  
+  for (int i=0; i<len; i++)
+    data[i] = (float) gen[i];
+  
+  return R_NilValue;
+}

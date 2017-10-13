@@ -21,7 +21,7 @@
 #'   R_crossprod_spmspm R_tcrossprod_spm R_tcrossprod_spmspm R_add_spm R_mul_spm
 #'   R_sub_spm R_div_spm R_pow_spm R_lt_spm R_le_spm R_eq_spm R_gt_spm R_ge_spm
 #'   R_matmult_spm R_xpose_spm R_isSymmetric_spm R_chol_spm R_sweep_spm
-#'   R_scale_spm R_symeig_spm R_flrunif_spm R_flrnorm_spm 
+#'   R_scale_spm R_symeig_spm R_flrunif_spm R_flrnorm_spm R_flrand_spm
 #' 
 #' @docType package
 #' @name spm-package

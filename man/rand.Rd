@@ -21,14 +21,22 @@ is not, then the return is a vector.}
 \description{
 Random float vector/matrix generators. \code{flrunif()} produces uniform
 random values. \code{flrnorm()} produces random normal values.
+\code{flrand()} will accept an arbitrary generator. See the details section
+for more information.
 }
 \details{
-The data is produced without a double precision copy.  That is, it is not
-(computationally) equivalent to \code{fl(matrix(runif(...)))}, though the
-operations are conceptually the same.
+For \code{flrunif()} and \code{flrnorm()}, the data is produced without a
+double precision copy.  That is, it is not (computationally) equivalent to
+\code{fl(matrix(runif(...)))}, though the operations are conceptually the
+same.  For these, To produce a vector instead of a matrix, leave argument
+\code{n} blank. Setting \code{n=1} will produce an mx1 matrix.
 
-To produce a vector instead of a matrix, leave argument \code{n} blank.
-Setting \code{n=1} will produce an mx1 matrix.
+For \code{flrand()}, the data is generated in double precision in 4KiB
+batches and copied over to a pre-allocated vector.  This will be slower than
+generating all of the data up front and copying it, although it uses far less
+memory most of the time.  So you can think of \code{flrunif()} and
+\code{flrnorm()} as highly optimized versions of \code{flrand()} for uniform
+and normal generators specifically.
 }
 \examples{
 \dontrun{
