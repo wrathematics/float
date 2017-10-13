@@ -34,14 +34,11 @@
 #' @keywords package
 NULL
 
-## '   R_diag_spm
-## '   R_diagmat_spm   R_bracket_spm
-## '   R_nrow_spm R_ncol_spm R_NROW_spm R_NCOL_spm R_dim_spm R_length_spm
-## '   R_isavec_spm R_qr_spm R_qrQ_spm R_qrR_spm
-## '    R_isna_spm
-## '   R_naomit_spm 
-## '   R_colSums_spm R_rowSums_spm R_colMeans_spm R_rowMeans_spm R_norm_spm
-## '   R_rcond_spm  R_sum_spm
-## '   R_min_spm R_max_spm R_c_spm  R_whichmin_spm R_whichmax_spm
-## '   R_dimset_spm R_mean_spm R_median_spm R_anyNA_spm
-## '   R_bracketchecks_spm  R_backsolve_spm
+## R_qr_spm R_qrQ_spm R_qrR_spm
+## R_isna_spm
+## R_naomit_spm 
+## R_colSums_spm R_rowSums_spm R_colMeans_spm R_rowMeans_spm R_norm_spm
+## R_rcond_spm  R_sum_spm
+## R_min_spm R_max_spm R_c_spm  R_whichmin_spm R_whichmax_spm
+## R_mean_spm R_median_spm R_anyNA_spm
+## R_bracketchecks_spm  R_backsolve_spm
