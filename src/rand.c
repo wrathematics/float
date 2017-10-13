@@ -2,67 +2,75 @@
  
 #include "spm.h"
 
+#define INT(x) INTEGER(x)[0]
+#define LGL(x) LOGICAL(x)[0]
+
 
 SEXP R_flrunif_spm(SEXP m_, SEXP n_, SEXP min_, SEXP max_, SEXP isavec)
 {
-  SEXP ret_ptr;
+  SEXP ret;
   const len_t m = INTEGER(m_)[0];
   const len_t n = INTEGER(n_)[0];
   
   const float min = (float) REAL(min_)[0];
   const float max = (float) REAL(max_)[0];
   
-  matrix_t *ret = newmat(m, n);
-  ISAVEC(ret) = LOGICAL(isavec)[0];
+  if (LGL(isavec))
+    PROTECT(ret = newvec(m*n));
+  else
+    PROTECT(ret = newmat(m, n));
   
+  float *retf = FLOAT(ret);
   
   if (min > max)
   {
     for (size_t i=0; i<((size_t)m*n); i++)
-      DATA(ret)[i] = (float) R_NaN;
+      retf[i] = (float) R_NaN;
   }
   else if (min == max)
   {
     for (size_t i=0; i<((size_t)m*n); i++)
-      DATA(ret)[i] = min;
+      retf[i] = min;
   }
   else
   {
     GetRNGstate();
     
     for (size_t i=0; i<((size_t)m*n); i++)
-      DATA(ret)[i] = min + (max-min)*((float) unif_rand());
+      retf[i] = min + (max-min)*((float) unif_rand());
     
     PutRNGstate();
   }
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
+
 
 
 SEXP R_flrnorm_spm(SEXP m_, SEXP n_, SEXP mean_, SEXP sd_, SEXP isavec)
 {
-  SEXP ret_ptr;
+  SEXP ret;
   const len_t m = INTEGER(m_)[0];
   const len_t n = INTEGER(n_)[0];
   
   const float mean = (float) REAL(mean_)[0];
   const float sd = (float) REAL(sd_)[0];
   
-  matrix_t *ret = newmat(m, n);
-  ISAVEC(ret) = LOGICAL(isavec)[0];
+  if (LGL(isavec))
+    PROTECT(ret = newvec(m*n));
+  else
+    PROTECT(ret = newmat(m, n));
   
+  float *retf = FLOAT(ret);
   
   GetRNGstate();
   
   for (size_t i=0; i<((size_t)m*n); i++)
-    DATA(ret)[i] = sd * ((float) norm_rand()) + mean;
+    retf[i] = sd * ((float) norm_rand()) + mean;
   
   PutRNGstate();
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }

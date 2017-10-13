@@ -1,3 +1,4 @@
+// Modified from the band package. Copyright (c) 2016 Drew Schmidt
 #include "spm.h"
 #include "safeomp.h"
 
@@ -123,36 +124,31 @@ cleanup:
 
 
 
-SEXP R_symeig_spm(SEXP x_ptr, SEXP onlyvals_, SEXP descending)
+SEXP R_symeig_spm(SEXP x, SEXP onlyvals_, SEXP descending)
 {
   SEXP ret, ret_names;
-  SEXP values_ptr, vectors_ptr;
+  SEXP values, vectors;
   const int onlyvals = INT(onlyvals_);
-  matrix_t *values, *vectors;
   float *vectors_pass;
   int ptct;
   int info;
   
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const int n = NROWS(x);
   
   if (onlyvals)
   {
-    vectors = NULL;
-    vectors_ptr = R_NilValue;
+    vectors = R_NilValue;
     vectors_pass = NULL;
     ptct = 3;
   }
   else
   {
-    vectors = newmat(n, n);
-    newRptr(vectors, vectors_ptr, matfin);
+    PROTECT(vectors = newmat(n, n));
     vectors_pass = DATA(vectors);
     ptct = 4;
   }
   
-  values = newvec(n);
-  newRptr(values, values_ptr, matfin);
+  PROTECT(values = newvec(n));
   
   info = eig_sym_rrr(false, onlyvals, n, DATA(x), DATA(values), vectors_pass);
   
@@ -171,8 +167,8 @@ SEXP R_symeig_spm(SEXP x_ptr, SEXP onlyvals_, SEXP descending)
   PROTECT(ret = allocVector(VECSXP, 2));
   PROTECT(ret_names = allocVector(STRSXP, 2));
   
-  SET_VECTOR_ELT(ret, 0, values_ptr);
-  SET_VECTOR_ELT(ret, 1, vectors_ptr);
+  SET_VECTOR_ELT(ret, 0, values);
+  SET_VECTOR_ELT(ret, 1, vectors);
   SET_STRING_ELT(ret_names, 0, mkChar("values"));
   SET_STRING_ELT(ret_names, 1, mkChar("vectors"));
   setAttrib(ret, R_NamesSymbol, ret_names);

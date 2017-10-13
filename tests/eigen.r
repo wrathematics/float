@@ -12,10 +12,10 @@ cp_d = dbl(cp_s)
 
 test = eigen(cp_s, TRUE, TRUE)
 truth = eigen(cp_d, TRUE, TRUE)
-all.equal(dbl(test$values), truth$values, tol=tol)
-identical(test$vectors, truth$vectors)
+stopifnot(all.equal(dbl(test$values), truth$values, tol=tol))
+stopifnot(identical(test$vectors, truth$vectors)) # both NULL
 
 test = eigen(cp_s, TRUE, FALSE)
 truth = eigen(cp_d, TRUE, FALSE)
-all.equal(dbl(test$values), truth$values, tol=tol)
-all.equal(abs(dbl(test$vectors)), abs(truth$vectors), tol=tol)
+stopifnot(all.equal(dbl(test$values), truth$values, tol=tol))
+stopifnot(all.equal(abs(dbl(test$vectors)), abs(truth$vectors), tol=tol))

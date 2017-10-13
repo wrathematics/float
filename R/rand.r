@@ -55,8 +55,8 @@ flrunif = function(m, n, min=0, max=1)
   if (n < 0)
     stop("invalid 'n' value (< 0)")
   
-  ptr = .Call(R_flrunif_spm, m, n, as.double(min), as.double(max), isavec)
-  new("spm", ptr=ptr)
+  ret = .Call(R_flrunif_spm, m, n, as.double(min), as.double(max), isavec)
+  new("float32", Data=ret)
 }
 
 
@@ -82,6 +82,6 @@ flrnorm = function(m, n, mean=0, sd=1)
   if (n < 0)
     stop("invalid 'n' value (< 0)")
   
-  ptr = .Call(R_flrnorm_spm, m, n, as.double(mean), as.double(sd), isavec)
-  new("spm", ptr=ptr)
+  ret = .Call(R_flrnorm_spm, m, n, as.double(mean), as.double(sd), isavec)
+  new("float32", Data=ret)
 }

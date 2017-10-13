@@ -32,7 +32,7 @@ NULL
 
 
 
-eigen.spm = function(x, symmetric, only.values=FALSE, EISPACK=FALSE)
+eigen_float32 = function(x, symmetric, only.values=FALSE, EISPACK=FALSE)
 {
   if (missing(symmetric))
     symmetric = isSymmetric(x)
@@ -41,11 +41,11 @@ eigen.spm = function(x, symmetric, only.values=FALSE, EISPACK=FALSE)
     stop("only symmetric=TRUE is supported at this time")
   
   only.values = as.integer(only.values)
-  ret = .Call(R_symeig_spm, x@ptr, only.values, TRUE)
+  ret = .Call(R_symeig_spm, DATA(x), only.values, TRUE)
   
-  ret$values = new("spm", ptr=ret$values)
+  ret$values = new("float32", Data=ret$values)
   if (!only.values)
-    ret$vectors = new("spm", ptr=ret$vectors)
+    ret$vectors = new("float32", Data=ret$vectors)
   
   ret
 }
@@ -54,4 +54,4 @@ eigen.spm = function(x, symmetric, only.values=FALSE, EISPACK=FALSE)
 
 #' @rdname eigen
 #' @export
-setMethod("eigen", signature(x="spm"), eigen.spm)
+setMethod("eigen", signature(x="float32"), eigen_float32)
