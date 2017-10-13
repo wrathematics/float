@@ -55,7 +55,7 @@ backsolve_float32 = function(r, x, k=ncol(r), upper.tri=TRUE, transpose=FALSE)
 
 forwardsolve_float32 = function(l, x, k=ncol(l), upper.tri=FALSE, transpose=FALSE)
 {
-  backsolve.spm(l, x, k, upper.tri, transpose)
+  backsolve_float32(l, x, k, upper.tri, transpose)
 }
 
 

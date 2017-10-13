@@ -24,12 +24,6 @@ NULL
 
 
 
-c_spm = function(x, additional)
-{
-  ptr = .Call(R_c_spm, x@ptr, additional)
-  new("spm", ptr=ptr)
-}
-
 c_float32 = function(x, ...)
 {
   additional = list(...)
