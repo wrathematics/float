@@ -235,3 +235,19 @@ object.size(fl(1:10000))
 object.size(1:10000)
 ## 40040 bytes
 ```
+
+
+
+## Q&A
+
+#### Why would I want to do arithmetic in single precision?
+
+It's (generally) twice as fast and uses half the RAM compared to double precision. For a some data analysis tasks, that's more important than having (roughly) twice as many decimal digits.
+
+#### Why does `floatmat + 1` produce a numeric (double) matrix but `floatmat + 1L` produce a float matrix?
+
+Type promotion always defaults to the highest type available. If you want the arithmetic to be carried out in single precision, cast the `1` with `fl(1)` first.
+
+#### Doesn't that make R's type system even more of a mess?
+
+Yes.
