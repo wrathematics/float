@@ -61,22 +61,20 @@ static inline int invert(const int n, float *const restrict x)
 
 
 
-SEXP R_solve_spm(SEXP x_ptr)
+SEXP R_solve_spm(SEXP x)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t n = NROWS(x);
   if (n != NCOLS(x))
     error("'a' must be a square matrix");
   
-  matrix_t *ret = newmat(n, n);
+  PROTECT(ret = newmat(n, n));
   memcpy(DATA(ret), DATA(x), (size_t)n*n*sizeof(float));
   
   invert(n, DATA(ret));
   
-  newRptr(ret, ret_ptr, matfin);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
@@ -111,12 +109,10 @@ static inline int solve_system(const int n, const int nrhs,
 
 
 
-SEXP R_solve_spmspm(SEXP x_ptr, SEXP y_ptr)
+SEXP R_solve_spmspm(SEXP x, SEXP y)
 {
   
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
-  matrix_t *y = (matrix_t*) getRptr(y_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const len_t nrhs = NCOLS(y);
@@ -126,10 +122,10 @@ SEXP R_solve_spmspm(SEXP x_ptr, SEXP y_ptr)
   if (n != NROWS(y))
     error("'b' (%d x %d) must be compatible with 'a' (%d x %d)\n", NROWS(y), nrhs, m, n);
   
-  matrix_t *ret = newmat(n, nrhs);
-  ISAVEC(ret) = ISAVEC(y);
-  newRptr(ret, ret_ptr, matfin);
-  
+  if (nrhs == 1)
+    PROTECT(ret = newvec(n));
+  else
+    PROTECT(ret = newmat(n, nrhs));
   
   float *tmp = malloc((size_t)n*n*sizeof(*tmp));
   if (tmp == NULL)
@@ -141,5 +137,5 @@ SEXP R_solve_spmspm(SEXP x_ptr, SEXP y_ptr)
   free(tmp);
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }

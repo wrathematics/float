@@ -29,26 +29,26 @@ NULL
 
 
 
-solve.spm = function(a, b, ...)
+solve_float32 = function(a, b, ...)
 {
   if (missing(b))
-    ptr = .Call(R_solve_spm, a@ptr)
+    ret = .Call(R_solve_spm, DATA(a))
   else
   {
     if (is.integer(b))
       b = fl(b)
     
     if (is.spm(b))
-      ptr = .Call(R_solve_spmspm, a@ptr, b@ptr)
+      ret = .Call(R_solve_spmspm, DATA(a), DATA(b))
     else if (is.numeric(b))
       return(solve(dbl(a), b))
   }
   
-  new("spm", ptr=ptr)
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname solve
 #' @export
-setMethod("solve", signature(a="spm", b="ANY"), solve.spm)
+setMethod("solve", signature(a="float32", b="ANY"), solve_float32)

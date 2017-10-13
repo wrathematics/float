@@ -26,7 +26,7 @@
 #'   R_tan_spm R_asin_spm R_acos_spm R_atan_spm R_sinh_spm R_cosh_spm R_tanh_spm
 #'   R_asinh_spm R_acosh_spm R_atanh_spm R_abs_spm R_sqrt_spm R_isfinite_spm
 #'   R_isinfinite_spm R_isnan_spm R_gamma_spm R_lgamma_spm R_ceiling_spm
-#'   R_floor_spm R_trunc_spm R_round_spm
+#'   R_floor_spm R_trunc_spm R_round_spm R_solve_spm R_solve_spmspm
 #' 
 #' @docType package
 #' @name spm-package
@@ -35,7 +35,7 @@
 NULL
 
 ## '   R_diag_spm
-## '   R_diagmat_spm  R_solve_spm R_solve_spmspm R_bracket_spm
+## '   R_diagmat_spm   R_bracket_spm
 ## '   R_nrow_spm R_ncol_spm R_NROW_spm R_NCOL_spm R_dim_spm R_length_spm
 ## '   R_isavec_spm R_qr_spm R_qrQ_spm R_qrR_spm
 ## '    R_isna_spm
