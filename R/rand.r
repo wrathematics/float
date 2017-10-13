@@ -29,6 +29,9 @@
 #' @param generator
 #' A generating function, such as \code{rnorm}, or even something custom
 #' defined.
+#' @param ...
+#' Additional arguments passed to the generator. For example, if \code{runif} is
+#' passed as \code{generator}, then you might additionally pass \code{max=10}.
 #' 
 #' @examples
 #' \dontrun{
@@ -114,6 +117,7 @@ flrand_batch = function(start, data, generator, MAX, ...)
   start + MAX
 }
 
+#' @rdname rand
 #' @export
 flrand = function(generator, n, ...)
 {
