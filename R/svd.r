@@ -30,7 +30,7 @@ utils::globalVariables(c("n", "p"))
 
 
 
-La.svd.spm = function(x, nu=min(n, p), nv=min(n, p)) 
+La.svd_float32 = function(x, nu=min(n, p), nv=min(n, p)) 
 {
   n = NROW(x)
   p = NCOL(x)
@@ -46,25 +46,25 @@ La.svd.spm = function(x, nu=min(n, p), nv=min(n, p))
   if (is.na(nv) || nv < 0)
     stop("argument must be coercible to non-negative integer")
   
-  ret = .Call(R_svd_spm, x@ptr, min(n, nu), min(p, nv))
+  ret = .Call(R_svd_spm, DATA(x), min(n, nu), min(p, nv))
   
-  ret$d = new("spm", ptr=ret$d)
+  ret$d = new("float32", Data=ret$d)
   if (nu)
-    ret$u = new("spm", ptr=ret$u)
+    ret$u = new("float32", Data=ret$u)
   if (nv)
-    ret$vt = new("spm", ptr=ret$vt)
+    ret$vt = new("float32", Data=ret$vt)
   
   ret
 }
 
 
 
-svd.spm = function(x, nu=min(n, p), nv=min(n, p), LINPACK=FALSE) 
+svd_float32 = function(x, nu=min(n, p), nv=min(n, p), LINPACK=FALSE) 
 {
   n = NROW(x)
   p = NCOL(x)
   
-  ret = La.svd(x, nu, nv)
+  ret = La.svd_float32(x, nu, nv)
   if (nv)
   {
     ret$v = t(ret$vt)
@@ -78,8 +78,8 @@ svd.spm = function(x, nu=min(n, p), nv=min(n, p), LINPACK=FALSE)
 
 #' @rdname svd
 #' @export
-setMethod("La.svd", signature(x="spm"), La.svd.spm)
+setMethod("La.svd", signature(x="float32"), La.svd_float32)
 
 #' @rdname svd
 #' @export
-setMethod("svd", signature(x="spm"), svd.spm)
+setMethod("svd", signature(x="float32"), svd_float32)

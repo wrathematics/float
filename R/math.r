@@ -28,60 +28,60 @@ NULL
 
 
 
-exp.spm = function(x)
+exp_float32 = function(x)
 {
-  ptr = .Call(R_exp_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_exp_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-expm1.spm = function(x)
+expm1_float32 = function(x)
 {
-  ptr = .Call(R_expm1_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_expm1_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-log.spm = function(x, base=exp(1))
+log_float32 = function(x, base=exp(1))
 {
   if (is.spm(base))
     base = dbl(base[1])
   
-  ptr = .Call(R_log_spm, x@ptr, as.double(base))
-  new("spm", ptr=ptr)
+  ret = .Call(R_log_spm, DATA(x), as.double(base))
+  new("float32", Data=ret)
 }
 
-log10.spm = function(x)
+log10_float32 = function(x)
 {
-  ptr = .Call(R_log10_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_log10_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-log2.spm = function(x)
+log2_float32 = function(x)
 {
-  ptr = .Call(R_log2_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_log2_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname log
 #' @export
-setMethod("exp", signature(x="spm"), exp.spm)
+setMethod("exp", signature(x="float32"), exp_float32)
 
 #' @rdname log
 #' @export
-setMethod("expm1", signature(x="spm"), expm1.spm)
+setMethod("expm1", signature(x="float32"), expm1_float32)
 
 #' @rdname log
 #' @export
-setMethod("log", signature(x="spm"), log.spm)
+setMethod("log", signature(x="float32"), log_float32)
 
 #' @rdname log
 #' @export
-setMethod("log10", signature(x="spm"), log10.spm)
+setMethod("log10", signature(x="float32"), log10_float32)
 
 #' @rdname log
 #' @export
-setMethod("log2", signature(x="spm"), log2.spm)
+setMethod("log2", signature(x="float32"), log2_float32)
 
 
 
@@ -113,67 +113,67 @@ NULL
 
 
 
-sin.spm = function(x)
+sin_float32 = function(x)
 {
-  ptr = .Call(R_sin_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_sin_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-cos.spm = function(x)
+cos_float32 = function(x)
 {
-  ptr = .Call(R_cos_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_cos_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-tan.spm = function(x)
+tan_float32 = function(x)
 {
-  ptr = .Call(R_tan_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_tan_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-asin.spm = function(x)
+asin_float32 = function(x)
 {
-  ptr = .Call(R_asin_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_asin_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-acos.spm = function(x)
+acos_float32 = function(x)
 {
-  ptr = .Call(R_acos_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_acos_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-atan.spm = function(x)
+atan_float32 = function(x)
 {
-  ptr = .Call(R_atan_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_atan_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname trig
 #' @export
-setMethod("sin", signature(x="spm"), sin.spm)
+setMethod("sin", signature(x="float32"), sin_float32)
 
 #' @rdname trig
 #' @export
-setMethod("cos", signature(x="spm"), cos.spm)
+setMethod("cos", signature(x="float32"), cos_float32)
 
 #' @rdname trig
 #' @export
-setMethod("tan", signature(x="spm"), tan.spm)
+setMethod("tan", signature(x="float32"), tan_float32)
 
 #' @rdname trig
 #' @export
-setMethod("asin", signature(x="spm"), asin.spm)
+setMethod("asin", signature(x="float32"), asin_float32)
 
 #' @rdname trig
 #' @export
-setMethod("acos", signature(x="spm"), acos.spm)
+setMethod("acos", signature(x="float32"), acos_float32)
 
 #' @rdname trig
 #' @export
-setMethod("atan", signature(x="spm"), atan.spm)
+setMethod("atan", signature(x="float32"), atan_float32)
 
 
 
@@ -205,67 +205,67 @@ NULL
 
 
 
-sinh.spm = function(x)
+sinh_float32 = function(x)
 {
-  ptr = .Call(R_sinh_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_sinh_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-cosh.spm = function(x)
+cosh_float32 = function(x)
 {
-  ptr = .Call(R_cosh_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_cosh_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-tanh.spm = function(x)
+tanh_float32 = function(x)
 {
-  ptr = .Call(R_tanh_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_tanh_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-asinh.spm = function(x)
+asinh_float32 = function(x)
 {
-  ptr = .Call(R_asinh_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_asinh_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-acosh.spm = function(x)
+acosh_float32 = function(x)
 {
-  ptr = .Call(R_acosh_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_acosh_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-atanh.spm = function(x)
+atanh_float32 = function(x)
 {
-  ptr = .Call(R_atanh_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_atanh_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname hyperbolic
 #' @export
-setMethod("sinh", signature(x="spm"), sinh.spm)
+setMethod("sinh", signature(x="float32"), sinh_float32)
 
 #' @rdname hyperbolic
 #' @export
-setMethod("cosh", signature(x="spm"), cosh.spm)
+setMethod("cosh", signature(x="float32"), cosh_float32)
 
 #' @rdname hyperbolic
 #' @export
-setMethod("tanh", signature(x="spm"), tanh.spm)
+setMethod("tanh", signature(x="float32"), tanh_float32)
 
 #' @rdname hyperbolic
 #' @export
-setMethod("asinh", signature(x="spm"), asinh.spm)
+setMethod("asinh", signature(x="float32"), asinh_float32)
 
 #' @rdname hyperbolic
 #' @export
-setMethod("acosh", signature(x="spm"), acosh.spm)
+setMethod("acosh", signature(x="float32"), acosh_float32)
 
 #' @rdname hyperbolic
 #' @export
-setMethod("atanh", signature(x="spm"), atanh.spm)
+setMethod("atanh", signature(x="float32"), atanh_float32)
 
 
 
@@ -297,27 +297,27 @@ NULL
 
 
 
-abs.spm = function(x)
+abs_float32 = function(x)
 {
-  ptr = .Call(R_abs_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_abs_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-sqrt.spm = function(x)
+sqrt_float32 = function(x)
 {
-  ptr = .Call(R_sqrt_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_sqrt_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname miscmath
 #' @export
-setMethod("abs", signature(x="spm"), abs.spm)
+setMethod("abs", signature(x="float32"), abs_float32)
 
 #' @rdname miscmath
 #' @export
-setMethod("sqrt", signature(x="spm"), sqrt.spm)
+setMethod("sqrt", signature(x="float32"), sqrt_float32)
 
 
 
@@ -349,27 +349,27 @@ NULL
 
 
 
-gamma.spm = function(x)
+gamma_float32 = function(x)
 {
-  ptr = .Call(R_gamma_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_gamma_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-lgamma.spm = function(x)
+lgamma_float32 = function(x)
 {
-  ptr = .Call(R_lgamma_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_lgamma_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname specialmath
 #' @export
-setMethod("gamma", signature(x="spm"), gamma.spm)
+setMethod("gamma", signature(x="float32"), gamma_float32)
 
 #' @rdname specialmath
 #' @export
-setMethod("lgamma", signature(x="spm"), lgamma.spm)
+setMethod("lgamma", signature(x="float32"), lgamma_float32)
 
 
 
@@ -401,34 +401,34 @@ NULL
 
 
 
-is.finite.spm = function(x)
+is.finite_float32 = function(x)
 {
-  .Call(R_isfinite_spm, x@ptr)
+  .Call(R_isfinite_spm, DATA(x))
 }
 
-is.infinite.spm = function(x)
+is.infinite_float32 = function(x)
 {
-  .Call(R_isinfinite_spm, x@ptr)
+  .Call(R_isinfinite_spm, DATA(x))
 }
 
-is.nan.spm = function(x)
+is.nan_float32 = function(x)
 {
-  .Call(R_isnan_spm, x@ptr)
+  .Call(R_isnan_spm, DATA(x))
 }
 
 
 
 #' @rdname mathis
 #' @export
-setMethod("is.finite", signature(x="spm"), is.finite.spm)
+setMethod("is.finite", signature(x="float32"), is.finite_float32)
 
 #' @rdname mathis
 #' @export
-setMethod("is.infinite", signature(x="spm"), is.infinite.spm)
+setMethod("is.infinite", signature(x="float32"), is.infinite_float32)
 
 #' @rdname mathis
 #' @export
-setMethod("is.nan", signature(x="spm"), is.nan.spm)
+setMethod("is.nan", signature(x="float32"), is.nan_float32)
 
 
 
@@ -464,44 +464,44 @@ NULL
 
 
 
-ceiling.spm = function(x)
+ceiling_float32 = function(x)
 {
-  ptr = .Call(R_ceiling_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_ceiling_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-floor.spm = function(x)
+floor_float32 = function(x)
 {
-  ptr = .Call(R_floor_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_floor_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-trunc.spm = function(x, ...)
+trunc_float32 = function(x, ...)
 {
-  ptr = .Call(R_trunc_spm, x@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_trunc_spm, DATA(x))
+  new("float32", Data=ret)
 }
 
-round.spm = function(x, digits=0)
+round_float32 = function(x, digits=0)
 {
-  ptr = .Call(R_round_spm, x@ptr, as.double(digits))
-  new("spm", ptr=ptr)
+  ret = .Call(R_round_spm, DATA(x), as.double(digits))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname round
 #' @export
-setMethod("ceiling", signature(x="spm"), ceiling.spm)
+setMethod("ceiling", signature(x="float32"), ceiling_float32)
 
 #' @rdname round
 #' @export
-setMethod("floor", signature(x="spm"), floor.spm)
+setMethod("floor", signature(x="float32"), floor_float32)
 
 #' @rdname round
 #' @export
-setMethod("trunc", signature(x="spm"), trunc.spm)
+setMethod("trunc", signature(x="float32"), trunc_float32)
 
 #' @rdname round
 #' @export
-setMethod("round", signature(x="spm"), round.spm)
+setMethod("round", signature(x="float32"), round_float32)

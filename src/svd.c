@@ -68,36 +68,30 @@ int svd(const int nu, const int nv, const int m, const int n,
 
 
 
-SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
+SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
 {
   SEXP ret, ret_names;
-  SEXP s_ptr;
-  SEXP u_ptr = R_NilValue, vt_ptr = R_NilValue; // avoid spurious compiler warning
-  matrix_t *s;
-  matrix_t *u = NULL, *vt = NULL; // avoid spurious compiler warning
+  SEXP s;
+  SEXP u = R_NilValue, vt = R_NilValue; // avoid spurious compiler warning
   float *u_data, *vt_data;
   int nret = 1;
   const int nu = INTEGER(nu_)[0];
   const int nv = INTEGER(nv_)[0];
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const len_t minmn = MIN(m, n);
   
-  s = newvec(minmn);
-  newRptr(s, s_ptr, matfin);
+  PROTECT(s = newvec(minmn));
   
   if (nu)
   {
-    u = newmat(m, nu);
-    newRptr(u, u_ptr, matfin);
+    PROTECT(u = newmat(m, nu));
     nret++;
   }
   
   if (nv)
   {
-    vt = newmat(nv, n);
-    newRptr(vt, vt_ptr, matfin);
+    PROTECT(vt = newmat(nv, n));
     nret++;
   }
   
@@ -150,7 +144,7 @@ SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
   PROTECT(ret = allocVector(VECSXP, nret));
   PROTECT(ret_names = allocVector(STRSXP, nret));
   
-  SET_VECTOR_ELT(ret, 0, s_ptr);
+  SET_VECTOR_ELT(ret, 0, s);
   SET_STRING_ELT(ret_names, 0, mkChar("d"));
   
   int retpos = 1;
@@ -158,14 +152,15 @@ SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
   {
     if (nu != minmn && nu != m)
     {
+      float *uf = FLOAT(u);
       for (int j=0; j<nu; j++)
       {
         for (len_t i=0; i<m; i++)
-          DATA(u)[i + m*j] = u_data[i + m*j];
+          uf[i + m*j] = u_data[i + m*j];
       }
     }
     
-    SET_VECTOR_ELT(ret, retpos, u_ptr);
+    SET_VECTOR_ELT(ret, retpos, u);
     SET_STRING_ELT(ret_names, retpos, mkChar("u"));
     retpos++;
   }
@@ -174,16 +169,17 @@ SEXP R_svd_spm(SEXP x_ptr, SEXP nu_, SEXP nv_)
   {
     if (nv != minmn && nv != n)
     {
+      float *vtf = FLOAT(vt);
       len_t top = nv>minmn?n:minmn;
       for (len_t j=0; j<n; j++)
       {
         for (int i=0; i<nv; i++)
-          DATA(vt)[i + nv*j] = vt_data[i + top*j];
+          vtf[i + nv*j] = vt_data[i + top*j];
       }
     }
     
     SET_STRING_ELT(ret_names, retpos, mkChar("vt"));
-    SET_VECTOR_ELT(ret, retpos, vt_ptr);
+    SET_VECTOR_ELT(ret, retpos, vt);
     retpos++;
   }
   
