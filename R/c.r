@@ -30,7 +30,7 @@ c_spm = function(x, additional)
   new("spm", ptr=ptr)
 }
 
-c.spm = function(x, ...)
+c_float32 = function(x, ...)
 {
   additional = list(...)
   
@@ -46,9 +46,9 @@ c.spm = function(x, ...)
   }
   else
   {
-    additional = lapply(additional, fl, strict=FALSE)
-    ptr = c_spm(x, additional)
-    new("spm", ptr)
+    raw = lapply(additional, function(x) DATA(fl(x, strict=FALSE)))
+    ret = c(DATA(x), do.call(c, raw))
+    new("float32", Data=ret)
   }
 }
 
@@ -56,4 +56,4 @@ c.spm = function(x, ...)
 
 #' @rdname c
 #' @export
-setMethod("c", signature(x="spm"), c.spm)
+setMethod("c", signature(x="float32"), c_float32)
