@@ -32,9 +32,13 @@ NULL
 
 bracket_float32 = function(x, i, j, drop=TRUE)
 {
+  if (missing(i) && missing(j))
+    return(x)
+  
   d = DATA(x)
   dim(d) = c(nrow(x), ncol(x))
-  d = d[i, j, drop=FALSE]
+  d = d[i, j, drop=drop]
+  
   new("float32", Data=d)
 }
 
