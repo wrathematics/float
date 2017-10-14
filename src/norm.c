@@ -4,17 +4,15 @@
 #include "spm.h"
 
 
-SEXP R_norm_spm(SEXP x_ptr, SEXP type_)
+SEXP R_norm_spm(SEXP x, SEXP type_)
 {
-  SEXP ret_ptr;
+  SEXP ret;
   float norm;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const char type = CHARPT(type_, 0)[0];
   
-  matrix_t *ret = newvec(1);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newvec(1));
   
   if (m == 0 || n == 0)
     norm = 0.0f;
@@ -32,5 +30,5 @@ SEXP R_norm_spm(SEXP x_ptr, SEXP type_)
   DATA(ret)[0] = norm;
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }

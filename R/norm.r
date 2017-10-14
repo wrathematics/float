@@ -24,16 +24,16 @@ NULL
 
 
 
-norm.spm = function(x, type=c("O", "I", "F", "M", "2"))
+norm_float32 = function(x, type=c("O", "I", "F", "M", "2"))
 {
   type = toupper(type)
   
   if (type == "2")
-    La.svd(x, nu=0, nv=0)$d[1L]
+    La.svd_float32(x, nu=0, nv=0)$d[1L]
   else
   {
-    ptr = .Call(R_norm_spm, x@ptr, type)
-    new("spm", ptr=ptr)
+    ret = .Call(R_norm_spm, DATA(x), type)
+    new("float32", Data=ret)
   }
 }
 
@@ -41,4 +41,4 @@ norm.spm = function(x, type=c("O", "I", "F", "M", "2"))
 
 #' @rdname norm
 #' @export
-setMethod("norm", signature(x="spm"), norm.spm)
+setMethod("norm", signature(x="float32"), norm_float32)
