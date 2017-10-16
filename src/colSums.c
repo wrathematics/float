@@ -4,16 +4,16 @@
 #include "spm.h"
 
 
-SEXP R_colSums_spm(SEXP x_ptr, SEXP na_rm_)
+SEXP R_colSums_spm(SEXP x, SEXP na_rm_)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
-  matrix_t *ret = newvec(n);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newvec(n));
+  float *xf = FLOAT(x);
+  float *retf = FLOAT(ret);
   
   if (na_rm)
   {
@@ -22,12 +22,12 @@ SEXP R_colSums_spm(SEXP x_ptr, SEXP na_rm_)
       float sum = 0.0f;
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
           sum += tmp;
       }
       
-      DATA(ret)[j] = sum;
+      retf[j] = sum;
     }
   }
   else
@@ -36,31 +36,31 @@ SEXP R_colSums_spm(SEXP x_ptr, SEXP na_rm_)
     {
       float sum = 0.0f;
       for (len_t i=0; i<m; i++)
-        sum += DATA(x)[i + m*j];
+        sum += xf[i + m*j];
       
-      DATA(ret)[j] = sum;
+      retf[j] = sum;
     }
   }
   
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
-SEXP R_rowSums_spm(SEXP x_ptr, SEXP na_rm_)
+SEXP R_rowSums_spm(SEXP x, SEXP na_rm_)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
-  matrix_t *ret = newvec(m);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newvec(m));
+  float *xf = FLOAT(x);
+  float *retf = FLOAT(ret);
   
-  memset(DATA(ret), 0, m*sizeof(float));
+  memset(retf, 0, m*sizeof(float));
   
   if (na_rm)
   {
@@ -68,9 +68,9 @@ SEXP R_rowSums_spm(SEXP x_ptr, SEXP na_rm_)
     {
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
-          DATA(ret)[i] += tmp;
+          retf[i] += tmp;
       }
     }
   }
@@ -79,28 +79,27 @@ SEXP R_rowSums_spm(SEXP x_ptr, SEXP na_rm_)
     for (len_t j=0; j<n; j++)
     {
       for (len_t i=0; i<m; i++)
-        DATA(ret)[i] += DATA(x)[i + m*j];
+        retf[i] += xf[i + m*j];
     }
   }
   
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
-SEXP R_colMeans_spm(SEXP x_ptr, SEXP na_rm_)
+SEXP R_colMeans_spm(SEXP x, SEXP na_rm_)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
-  matrix_t *ret = newvec(n);
-  newRptr(ret, ret_ptr, matfin);
-  
+  PROTECT(ret = newvec(n));
+  float *xf = FLOAT(x);
+  float *retf = FLOAT(ret);
   
   if (na_rm)
   {
@@ -110,7 +109,7 @@ SEXP R_colMeans_spm(SEXP x_ptr, SEXP na_rm_)
       float sum = 0.0f;
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
           sum += tmp;
         else
@@ -118,9 +117,9 @@ SEXP R_colMeans_spm(SEXP x_ptr, SEXP na_rm_)
       }
       
       if (num)
-        DATA(ret)[j] = sum / ((float) num);
+        retf[j] = sum / ((float) num);
       else
-        DATA(ret)[j] = 0.0f;
+        retf[j] = 0.0f;
     }
   }
   else
@@ -129,31 +128,31 @@ SEXP R_colMeans_spm(SEXP x_ptr, SEXP na_rm_)
     {
       float sum = 0.0f;
       for (len_t i=0; i<m; i++)
-        sum += DATA(x)[i + m*j];
+        sum += xf[i + m*j];
       
-      DATA(ret)[j] = sum / ((float) m);
+      retf[j] = sum / ((float) m);
     }
   }
   
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
-SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
+SEXP R_rowMeans_spm(SEXP x, SEXP na_rm_)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
-  matrix_t *ret = newvec(m);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newvec(m));
+  float *xf = FLOAT(x);
+  float *retf = FLOAT(ret);
   
-  memset(DATA(ret), 0, m*sizeof(float));
+  memset(retf, 0, m*sizeof(float));
   
   if (na_rm)
   {
@@ -165,9 +164,9 @@ SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
     {
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (!isnanf(tmp) && !ISNAf(tmp))
-          DATA(ret)[i] += tmp;
+          retf[i] += tmp;
         else
           num[i]--;
       }
@@ -176,9 +175,9 @@ SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
     for (len_t i=0; i<m; i++)
     {
       if (num[i])
-        DATA(ret)[i] /= ((float) num[i]);
+        retf[i] /= ((float) num[i]);
       else
-        DATA(ret)[i] = 0.0f;
+        retf[i] = 0.0f;
     }
     
     free(num);
@@ -188,14 +187,14 @@ SEXP R_rowMeans_spm(SEXP x_ptr, SEXP na_rm_)
     for (len_t j=0; j<n; j++)
     {
       for (len_t i=0; i<m; i++)
-        DATA(ret)[i] += DATA(x)[i + m*j];
+        retf[i] += xf[i + m*j];
     }
     
     for (len_t i=0; i<m; i++)
-      DATA(ret)[i] /= ((float) n);
+      retf[i] /= ((float) n);
   }
   
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
