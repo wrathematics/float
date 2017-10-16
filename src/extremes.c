@@ -10,16 +10,15 @@
 // min/max
 // ----------------------------------------------------------------------------
 
-SEXP R_min_spm(SEXP x_ptr, SEXP na_rm)
+SEXP R_min_spm(SEXP x, SEXP na_rm)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   float min = (float) INFINITY;
   
-  matrix_t *ret = newvec(1);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newvec(1));
+  float *xf = FLOAT(x);
   
   if (LOGICAL(na_rm)[0])
   {
@@ -27,7 +26,7 @@ SEXP R_min_spm(SEXP x_ptr, SEXP na_rm)
     {
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (!ISNAf(tmp) && !isnanf(tmp) && min > tmp)
           min = tmp;
       }
@@ -39,7 +38,7 @@ SEXP R_min_spm(SEXP x_ptr, SEXP na_rm)
     {
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (min > tmp)
           min = tmp;
       }
@@ -49,21 +48,20 @@ SEXP R_min_spm(SEXP x_ptr, SEXP na_rm)
   DATA(ret)[0] = min;
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
-SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
+SEXP R_max_spm(SEXP x, SEXP na_rm)
 {
-  SEXP ret_ptr;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
+  SEXP ret;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   float max = (float) -INFINITY;
   
-  matrix_t *ret = newvec(1);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newvec(1));
+  float *xf = FLOAT(x);
   
   if (LOGICAL(na_rm)[0])
   {
@@ -71,7 +69,7 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
     {
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (!ISNAf(tmp) && !isnanf(tmp) && max < tmp)
           max = tmp;
       }
@@ -83,7 +81,7 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
     {
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (max < tmp)
           max = tmp;
       }
@@ -93,7 +91,7 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
   DATA(ret)[0] = max;
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
@@ -102,19 +100,20 @@ SEXP R_max_spm(SEXP x_ptr, SEXP na_rm)
 // which-min/max
 // ----------------------------------------------------------------------------
 
-SEXP R_whichmin_spm(SEXP x_ptr)
+SEXP R_whichmin_spm(SEXP x)
 {
   SEXP ret;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   float min = (float) INFINITY;
   size_t which;
   bool empty = true;
   
+  float *xf = FLOAT(x);
+  
   for (size_t i=0; i<((size_t)m*n); i++)
   {
-    const float tmp = DATA(x)[i];
+    const float tmp = xf[i];
     if (!ISNAf(tmp) && !isnanf(tmp) && min > tmp)
     {
       min = tmp;
@@ -147,19 +146,20 @@ SEXP R_whichmin_spm(SEXP x_ptr)
 
 
 
-SEXP R_whichmax_spm(SEXP x_ptr)
+SEXP R_whichmax_spm(SEXP x)
 {
   SEXP ret;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   float max = (float) -INFINITY;
   size_t which;
   bool empty = true;
   
+  float *xf = FLOAT(x);
+  
   for (size_t i=0; i<((size_t)m*n); i++)
   {
-    const float tmp = DATA(x)[i];
+    const float tmp = xf[i];
     if (!ISNAf(tmp) && !isnanf(tmp) && max < tmp)
     {
       max = tmp;

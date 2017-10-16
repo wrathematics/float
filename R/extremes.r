@@ -34,16 +34,16 @@ NULL
 
 
 
-min_spm = function(x, na.rm)
+min_float32_ = function(x, na.rm)
 {
-  ptr = .Call(R_min_spm, x@ptr, na.rm)
-  new("spm", ptr=ptr)
+  ret = .Call(R_min_spm, DATA(x), na.rm)
+  new("float32", Data=ret)
 }
 
-max_spm = function(x, na.rm)
+max_float32_ = function(x, na.rm)
 {
-  ptr = .Call(R_max_spm, x@ptr, na.rm)
-  new("spm", ptr=ptr)
+  ret = .Call(R_max_spm, DATA(x), na.rm)
+  new("float32", Data=ret)
 }
 
 extremer = function(x, na.rm, dFUN, sFUN)
@@ -74,40 +74,40 @@ extreme = function(x, ..., na.rm=FALSE, dFUN, sFUN)
     first
 }
 
-min.spm = function(x, ..., na.rm=FALSE)
+min_float32 = function(x, ..., na.rm=FALSE)
 {
-  extreme(x, ..., na.rm=na.rm, dFUN=base::min, sFUN=min_spm)
+  extreme(x, ..., na.rm=na.rm, dFUN=base::min, sFUN=min_float32_)
 }
 
-max.spm = function(x, ..., na.rm=FALSE)
+max_float32 = function(x, ..., na.rm=FALSE)
 {
-  extreme(x, ..., na.rm=na.rm, dFUN=base::max, sFUN=max_spm)
+  extreme(x, ..., na.rm=na.rm, dFUN=base::max, sFUN=max_float32_)
 }
 
-whichmin.spm = function(x)
+whichmin_float32 = function(x)
 {
-  .Call(R_whichmin_spm, x@ptr)
+  .Call(R_whichmin_spm, DATA(x))
 }
 
-whichmax.spm = function(x)
+whichmax_float32 = function(x)
 {
-  .Call(R_whichmax_spm, x@ptr)
+  .Call(R_whichmax_spm, DATA(x))
 }
 
 
 
 #' @rdname extremes
 #' @export
-setMethod("min", signature(x="spm"), min.spm)
+setMethod("min", signature(x="float32"), min_float32)
 
 #' @rdname extremes
 #' @export
-setMethod("max", signature(x="spm"), max.spm)
+setMethod("max", signature(x="float32"), max_float32)
 
 #' @rdname extremes
 #' @export
-setMethod("which.min", signature(x="spm"), whichmin.spm)
+setMethod("which.min", signature(x="float32"), whichmin_float32)
 
 #' @rdname extremes
 #' @export
-setMethod("which.max", signature(x="spm"), whichmax.spm)
+setMethod("which.max", signature(x="float32"), whichmax_float32)
