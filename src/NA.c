@@ -31,8 +31,13 @@ static inline float get_na_float()
 // have to call on package load to set the global NA_FLOAT
 SEXP R_init_NA()
 {
+  SEXP ret;
+  PROTECT(ret = newvec(1));
+  
   NA_FLOAT = get_na_float();
-  return R_NilValue;
+  FLOAT(ret)[0] = NA_FLOAT;
+  
+  return ret;
 }
 
 
