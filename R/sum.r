@@ -34,24 +34,24 @@ NULL
 
 
 
-sum_spm = function(x, na.rm)
+sum_float32_ = function(x, na.rm)
 {
-  ptr = .Call(R_sum_spm, x@ptr, na.rm)
-  new("spm", ptr=ptr)
+  ret = .Call(R_sum_spm, DATA(x), na.rm)
+  new("float32", Data=ret)
 }
 
 summer = function(x, na.rm)
 {
   if (is.spm(x))
-    dbl(sum_spm(x, na.rm=na.rm))
+    dbl(sum_float32_(x, na.rm=na.rm))
   else
     sum(x, na.rm=na.rm)
 }
 
-sum.spm = function(x, ..., na.rm=FALSE)
+sum_float32 = function(x, ..., na.rm=FALSE)
 {
   additional = list(...)
-  xsum = sum_spm(x, na.rm=na.rm)
+  xsum = sum_float32_(x, na.rm=na.rm)
   
   if (length(additional) > 0)
   {
@@ -69,4 +69,4 @@ sum.spm = function(x, ..., na.rm=FALSE)
 
 #' @rdname sum
 #' @export
-setMethod("sum", signature(x="spm"), sum.spm)
+setMethod("sum", signature(x="float32"), sum_float32)

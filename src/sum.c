@@ -4,16 +4,16 @@
 #include "spm.h"
 
 
-SEXP R_sum_spm(SEXP x_ptr, SEXP na_rm)
+SEXP R_sum_spm(SEXP x, SEXP na_rm)
 {
-  SEXP ret_ptr;
+  SEXP ret;
   float sum = 0.0f;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   
-  matrix_t *ret = newvec(1);
-  newRptr(ret, ret_ptr, matfin);
+  float *xf = FLOAT(x);
+  
+  PROTECT(ret = newvec(1));
   
   if (LOGICAL(na_rm)[0])
   {
@@ -21,7 +21,7 @@ SEXP R_sum_spm(SEXP x_ptr, SEXP na_rm)
     {
       for (len_t i=0; i<m; i++)
       {
-        const float tmp = DATA(x)[i + m*j];
+        const float tmp = xf[i + m*j];
         if (!ISNAf(tmp) && !isnanf(tmp))
           sum += tmp;
       }
@@ -32,12 +32,12 @@ SEXP R_sum_spm(SEXP x_ptr, SEXP na_rm)
     for (len_t j=0; j<n; j++)
     {
       for (len_t i=0; i<m; i++)
-        sum += DATA(x)[i + m*j];
+        sum += xf[i + m*j];
     }
   }
   
   DATA(ret)[0] = sum;
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
