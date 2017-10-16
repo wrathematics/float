@@ -50,12 +50,11 @@ static inline int get_rank(const int m, const int n, const float *const restrict
 
 
 
-SEXP R_qr_spm(SEXP x_ptr, SEXP tol)
+SEXP R_qr_spm(SEXP x, SEXP tol)
 {
   SEXP qrlist, qrlist_names;
-  SEXP qr_ptr, rank, qraux_ptr, pivot;
+  SEXP qr, rank, qraux, pivot;
   int info;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const len_t minmn = MIN(m, n);
@@ -63,11 +62,8 @@ SEXP R_qr_spm(SEXP x_ptr, SEXP tol)
   PROTECT(rank = allocVector(INTSXP, 1));
   PROTECT(pivot = allocVector(INTSXP, n));
   
-  matrix_t *qr = newmat(m, n);
-  newRptr(qr, qr_ptr, matfin);
-  
-  matrix_t *qraux = newvec(minmn);
-  newRptr(qraux, qraux_ptr, matfin);
+  PROTECT(qr = newmat(m, n));
+  PROTECT(qraux = newvec(minmn));
   
   
   int lwork = worksize(m, n);
@@ -94,9 +90,9 @@ SEXP R_qr_spm(SEXP x_ptr, SEXP tol)
   SET_STRING_ELT(qrlist_names, 3, mkChar("pivot"));
   
   PROTECT(qrlist = allocVector(VECSXP, 4));
-  SET_VECTOR_ELT(qrlist, 0, qr_ptr);
+  SET_VECTOR_ELT(qrlist, 0, qr);
   SET_VECTOR_ELT(qrlist, 1, rank);
-  SET_VECTOR_ELT(qrlist, 2, qraux_ptr);
+  SET_VECTOR_ELT(qrlist, 2, qraux);
   SET_VECTOR_ELT(qrlist, 3, pivot);
   
   setAttrib(qrlist, R_NamesSymbol, qrlist_names);
@@ -108,18 +104,15 @@ SEXP R_qr_spm(SEXP x_ptr, SEXP tol)
 
 
 
-SEXP R_qrQ_spm(SEXP qr_ptr, SEXP tau_ptr)
+SEXP R_qrQ_spm(SEXP qr, SEXP tau)
 {
-  SEXP Q_ptr;
+  SEXP Q;
   int info;
-  matrix_t *qr = (matrix_t*) getRptr(qr_ptr);
-  matrix_t *tau = (matrix_t*) getRptr(tau_ptr);
   const len_t m = NROWS(qr);
   const len_t n = NCOLS(qr);
   const len_t minmn = MIN(m, n);
   
-  matrix_t *Q = newmat(m, minmn);
-  newRptr(Q, Q_ptr, matfin);
+  PROTECT(Q = newmat(m, minmn));
   
   len_t k = minmn;
   
@@ -140,29 +133,29 @@ SEXP R_qrQ_spm(SEXP qr_ptr, SEXP tau_ptr)
     error("sorgqr() returned info=%d\n", info);
   
   UNPROTECT(1);
-  return Q_ptr;
+  return Q;
 }
 
 
 
-SEXP R_qrR_spm(SEXP qr_ptr)
+SEXP R_qrR_spm(SEXP qr)
 {
-  SEXP R_ptr;
-  matrix_t *qr = (matrix_t*) getRptr(qr_ptr);
+  SEXP R;
   const len_t m = NROWS(qr);
   const len_t n = NCOLS(qr);
   const len_t minmn = MIN(m, n);
   
-  matrix_t *R = newmat(minmn, n);
-  newRptr(R, R_ptr, matfin);
+  PROTECT(R = newmat(minmn, n));
+  float *qrf = FLOAT(qr);
+  float *Rf = FLOAT(R);
   
-  memset(DATA(R), 0, (size_t)minmn*n*sizeof(float));
+  memset(Rf, 0, (size_t)minmn*n*sizeof(float));
   for (len_t j=0; j<n; j++)
   {
     for (len_t i=0; i<=j && i<minmn; i++)
-      DATA(R)[i + minmn*j] = DATA(qr)[i + m*j];
+      Rf[i + minmn*j] = qrf[i + m*j];
   }
   
   UNPROTECT(1);
-  return R_ptr;
+  return R;
 }
