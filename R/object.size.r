@@ -32,7 +32,7 @@ numbytes_float32 = function(x)
 
 #' @rdname object_size
 #' @export
-setMethod("object.size", signature(x="spm"), numbytes_float32)
+setMethod("object.size", signature(x="float32"), numbytes_float32)
 
 
 
