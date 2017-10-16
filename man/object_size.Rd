@@ -3,10 +3,10 @@
 \docType{methods}
 \name{object.size}
 \alias{object.size}
-\alias{object.size,spm-method}
+\alias{object.size,float32-method}
 \title{object.size}
 \usage{
-\S4method{object.size}{spm}(x)
+\S4method{object.size}{float32}(x)
 }
 \arguments{
 \item{x}{A float vector/matrix.}
