@@ -21,38 +21,38 @@ NULL
 
 
 
-is.na.spm = function(x)
+is.na_float32 = function(x)
 {
-  .Call(R_isna_spm, x@ptr)
+  .Call(R_isna_spm, DATA(x))
 }
 
-na.omit.spm = function(object, ...)
+na.omit_float32 = function(object, ...)
 {
-  ptr = .Call(R_naomit_spm, object@ptr)
-  new("spm", ptr=ptr)
+  ret = .Call(R_naomit_spm, DATA(object))
+  new("float32", Data=ret)
 }
 
 
 
 #' @rdname na
 #' @export
-setMethod("is.na", signature(x="spm"), is.na.spm)
+setMethod("is.na", signature(x="float32"), is.na_float32)
 
 #' @rdname na
 #' @export
-setMethod("na.omit", signature(object="spm"), na.omit.spm)
+setMethod("na.omit", signature(object="float32"), na.omit_float32)
 
 #' @rdname na
 #' @export
-setMethod("na.exclude", signature(object="spm"), na.omit.spm)
+setMethod("na.exclude", signature(object="float32"), na.omit_float32)
 
 
 
 # -----------------------------------------------------------------------------
-# don't export
+# internal only
 # -----------------------------------------------------------------------------
 
 anyNA = function(x)
 {
-  .Call(R_anyNA_spm, x@ptr)
+  .Call(R_anyNA_spm, DATA(x))
 }

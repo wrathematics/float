@@ -36,14 +36,14 @@ SEXP R_init_NA()
 }
 
 
-#if 0
-SEXP R_isna_spm(SEXP x_ptr)
+
+SEXP R_isna_spm(SEXP x)
 {
   SEXP ret;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   
+  float *xf = FLOAT(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
@@ -54,7 +54,7 @@ SEXP R_isna_spm(SEXP x_ptr)
   {
     for (len_t i=0; i<m; i++)
     {
-      const float tmp = DATA(x)[i + m*j];
+      const float tmp = xf[i + m*j];
       LOGICAL(ret)[i + m*j] = isnanf(tmp) || ISNAf(tmp);
     }
   }
@@ -69,10 +69,9 @@ SEXP R_isna_spm(SEXP x_ptr)
 // anyNA
 // ----------------------------------------------------------------------------
 
-SEXP R_anyNA_spm(SEXP x_ptr)
+SEXP R_anyNA_spm(SEXP x)
 {
   SEXP ret;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const size_t len = (size_t) NROWS(x)*NCOLS(x);
   
   PROTECT(ret = allocVector(LGLSXP, 1));
@@ -102,7 +101,7 @@ SEXP R_anyNA_spm(SEXP x_ptr)
 // note: R does this anyway because, well, R...
 static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const x)
 {
-  SEXP ret_ptr;
+  SEXP ret;
   const size_t len = m*n;
   len_t m_fin = m;
   int *na_vec_ind = (int*) calloc(len, sizeof(*na_vec_ind));
@@ -137,8 +136,7 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
     return R_NilValue;
   
   // build reduced matrix
-  matrix_t *ret = newmat(m_fin, n);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newmat(m_fin, n));
   float *ptr = DATA(ret);
   
   for (len_t j=0; j<n; j++)
@@ -158,14 +156,14 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
   
   free(na_vec_ind);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
 static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
 {
-  SEXP ret_ptr;
+  SEXP ret;
   len_t m_fin = m;
   int *rows = (int*) calloc(m, sizeof(*rows));
   R_CHECKMALLOC(rows);
@@ -190,8 +188,7 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
   if (m_fin == m)
     return R_NilValue;
   
-  matrix_t *ret = newmat(m_fin, n);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newmat(m_fin, n));
   float *ptr = DATA(ret);
   
   // build reduced matrix
@@ -213,14 +210,14 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
   
   free(rows);
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
 static SEXP R_naomit_spm_vec(size_t n, const float *const x)
 {
-  SEXP ret_ptr;
+  SEXP ret;
   size_t numna = 0;
   
   for (size_t i=0; i<n; i++)
@@ -229,26 +226,25 @@ static SEXP R_naomit_spm_vec(size_t n, const float *const x)
       numna++;
   }
   
-  matrix_t *ret = newvec(n-numna);
-  newRptr(ret, ret_ptr, matfin);
+  PROTECT(ret = newvec(n-numna));
+  float *retf = FLOAT(ret);
   
   size_t retpos = 0;
   for (size_t i=0; i<n; i++)
   {
     if (!ISNAf(x[i]) && !isnanf(x[i]))
-      DATA(ret)[retpos++] = x[i];
+      retf[retpos++] = x[i];
   }
   
   UNPROTECT(1);
-  return ret_ptr;
+  return ret;
 }
 
 
 
-SEXP R_naomit_spm(SEXP x_ptr)
+SEXP R_naomit_spm(SEXP x)
 {
   SEXP ret;
-  matrix_t *x = (matrix_t*) getRptr(x_ptr);
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   
@@ -260,9 +256,7 @@ SEXP R_naomit_spm(SEXP x_ptr)
     ret = R_naomit_spm_big(m, n, DATA(x));
   
   if (ret == R_NilValue)
-    return x_ptr;
+    return x;
   else
     return ret;
 }
-
-#endif
