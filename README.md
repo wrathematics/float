@@ -167,7 +167,7 @@ object.size(x)
 
 s = fl(x)
 object.size(s)
-## 100000672 bytes
+## 100000784 bytes
 ```
 
 And the runtime performance is roughly 2x better:
@@ -198,31 +198,31 @@ That difference is fairly small, but for some operations/data, the difference co
 
 ## A Note About Memory Consumption
 
-Because we can not use "native" R objects to store our data (and must instead use an external pointer), the memory footprint for objects is actually quite large.  This cost is amortized quickly for reasonably large vectors/matrices.  But storing many very small float vectors/matrices can be surprisingly costly.
+Because of the use of S4 for the nice syntax, there is some memory overhead which is noticeable for small vectors/matrices.  This cost is amortized quickly for reasonably large vectors/matrices.  But storing many very small float vectors/matrices can be surprisingly costly.
 
 For example, consider the cost for a single float vector vs a double precision vector:
 
 ```r
 object.size(fl(1))
-## 676 bytes
+## 632 bytes
 object.size(double(1))
 ## 48 bytes
 ```
 
-However once we get to 158 elements, the storage is identical:
+However once we get to 147 elements, the storage is identical:
 
 ```r
-object.size(fl(1:158))
-## 1304 bytes
-object.size(double(158))
-## 1304 bytes
+object.size(fl(1:147))
+## 1216 bytes
+object.size(double(147))
+## 1216 bytes
 ```
 
 And for vectors/matrices with many elements, the size of the double precision data is roughly twice that of the float data:
 
 ```r
 object.size(fl(1:10000))
-## 40672 bytes
+## 40624 bytes
 object.size(double(10000))
 ## 80040 bytes
 ```
@@ -231,7 +231,7 @@ The above analysis assumes that your `float` and `double` values are conforming 
 
 ```r
 object.size(fl(1:10000))
-## 40672 bytes
+## 40624 bytes
 object.size(1:10000)
 ## 40040 bytes
 ```
