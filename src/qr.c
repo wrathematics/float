@@ -21,6 +21,15 @@ void sorgqr_(const int *const restrict m, const int *const restrict n,
   float *const restrict work, const int *const restrict lwork,
   int *const restrict info);
 
+// Q * c
+void sormqr_(const char *const restrict side, const char *const restrict trans,
+  const int *const restrict m, const int *const restrict n,
+  const int *const restrict k, const float *const restrict a,
+  const int *const restrict lda, const float *const restrict tau,
+  float *const restrict c, const int *const restrict ldc,
+  float *const restrict work, const int *const restrict lwork,
+  int *const restrict info);
+
 
 
 static inline int worksize(const int m, const int n)
@@ -46,6 +55,27 @@ static inline int get_rank(const int m, const int n, const float *const restrict
   }
   
   return minmn;
+}
+
+static inline int Qty(const char side, const char trans, const int m, const int n, const int nrhs, const float *const restrict qr, const float *const restrict qraux, float *const restrict y)
+{
+  int info;
+  int lwork = -1;
+  float tmp;
+  
+  sormqr_(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, &tmp, &lwork, &info);
+  lwork = (int) tmp;
+  float *work = malloc(lwork * sizeof(*work));
+  if (work == NULL)
+    error("OOM");
+  
+  sormqr_(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, work, &lwork, &info);
+  
+  if (info != 0)
+    error("sormqr() returned info=%d\n", info);
+  
+  free(work);
+  return info;
 }
 
 
@@ -104,36 +134,27 @@ SEXP R_qr_spm(SEXP x, SEXP tol)
 
 
 
-SEXP R_qrQ_spm(SEXP qr, SEXP tau)
+SEXP R_qrQ_spm(SEXP qr, SEXP qraux, SEXP complete_)
 {
-  SEXP Q;
-  int info;
+  SEXP ret;
+  const char side = 'L';
+  const char trans = 'N';
   const len_t m = NROWS(qr);
   const len_t n = NCOLS(qr);
-  const len_t minmn = MIN(m, n);
+  const int complete = INTEGER(complete_)[0];
   
-  PROTECT(Q = newmat(m, minmn));
+  const int nrhs = complete ? m : MIN(m, n);
+  PROTECT(ret = newmat(m, nrhs));
+  float *retf = FLOAT(ret);
   
-  len_t k = minmn;
+  memset(retf, 0, m*nrhs*sizeof(float));
+  for (int i=0; i<m*nrhs; i+=m+1)
+    retf[i] = 1.0f;
   
-  float tmp;
-  sorgqr_(&m, &minmn, &k, DATA(Q), &m, DATA(tau), &tmp, &(int){-1}, &info);
-  int lwork = (int) tmp;
-  float *work = malloc(lwork * sizeof(*work));
-  if (work == NULL)
-    error("OOM");
-  
-  memcpy(DATA(Q), DATA(qr), (size_t)m*minmn*sizeof(float));
-  
-  sorgqr_(&m, &minmn, &k, DATA(Q), &m, DATA(tau), work, &lwork, &info);
-  
-  free(work);
-  
-  if (info != 0)
-    error("sorgqr() returned info=%d\n", info);
+  Qty(side, trans, m, n, nrhs, DATA(qr), DATA(qraux), retf);
   
   UNPROTECT(1);
-  return Q;
+  return ret;
 }
 
 
@@ -159,4 +180,22 @@ SEXP R_qrR_spm(SEXP qr, SEXP complete_)
   
   UNPROTECT(1);
   return R;
+}
+
+
+
+SEXP R_qrqy_spm(SEXP qr, SEXP qraux, SEXP y, SEXP trans_)
+{
+  SEXP ret;
+  const char side = 'L';
+  const char trans = LOGICAL(trans_)[0] ? 'T' : 'N';
+  const len_t m = NROWS(qr);
+  const len_t n = NCOLS(qr);
+  const len_t nrhs = NCOLS(y);
+  
+  PROTECT(ret = newmat(m, nrhs));
+  Qty(side, trans, m, n, nrhs, DATA(qr), DATA(qraux), DATA(ret));
+  
+  UNPROTECT(1);
+  return ret;
 }

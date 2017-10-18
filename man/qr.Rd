@@ -6,6 +6,8 @@
 \alias{qr,float32-method}
 \alias{qr.Q,ANY-method}
 \alias{qr.R,ANY-method}
+\alias{qr.qty,ANY-method}
+\alias{qr.qy,ANY-method}
 \title{QR}
 \usage{
 \S4method{qr}{float32}(x, tol = 1e-07, ...)
@@ -13,6 +15,10 @@
 \S4method{qr.Q}{ANY}(qr, complete = FALSE, Dvec)
 
 \S4method{qr.R}{ANY}(qr, complete = FALSE)
+
+\S4method{qr.qy}{ANY}(qr, y)
+
+\S4method{qr.qty}{ANY}(qr, y)
 }
 \arguments{
 \item{x}{A float matrix.}
@@ -23,15 +29,22 @@
 
 \item{qr}{Output of \code{qr()}.}
 
-\item{complete}{TODO}
+\item{complete}{Should the complete or truncated factor be returned?}
 
-\item{Dvec}{Ignored}
+\item{Dvec}{Vector of diagonals to use when re-constructing Q (default is 1's).}
+
+\item{y}{A vector/matrix or right hand sides (int, float, or double).}
 }
 \description{
 QR factorization and related functions.
 }
 \details{
-The factorization is performed by the LAPACK routine \code{sgeqp3()}.
+The factorization is performed by the LAPACK routine \code{sgeqp3()}. This
+should be similar to calling \code{qr()} on an ordinary R matrix with the
+argument \code{LAPACK=TRUE}. Calling \code{qr(x, LAPACK=FALSE)} on a double
+precision matrix 'x' (the default) will not be comparable in performance (it
+is much slower) or numerics to calling \code{qr(s)} where 's' is single a
+float matrix.
 }
 \examples{
 \dontrun{
