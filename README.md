@@ -93,7 +93,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 | `isSymmetric()` | done |
 | `La.svd()` and `svd()` | done |
 | `norm()` | done |
-| `qr()`, `qr.Q()`, `qr.R()` | Mostly done; `qr.Q()` broken if `qr()` pivots |
+| `qr()`, `qr.Q()`, `qr.R()` | done |
 | `solve()` | done | 
 | `t()` | done |
 
