@@ -62,7 +62,7 @@ qrR_float32 = function(qr, complete=FALSE)
   
   if (is.spm(qr$qr))
   {
-    ret = .Call(R_qrR_spm, qr$qr@ptr)
+    ret = .Call(R_qrR_spm, DATA(qr$qr), as.logical(complete))
     new("float32", Data=ret)
   }
   else

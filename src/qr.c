@@ -138,22 +138,23 @@ SEXP R_qrQ_spm(SEXP qr, SEXP tau)
 
 
 
-SEXP R_qrR_spm(SEXP qr)
+SEXP R_qrR_spm(SEXP qr, SEXP complete_)
 {
   SEXP R;
   const len_t m = NROWS(qr);
   const len_t n = NCOLS(qr);
-  const len_t minmn = MIN(m, n);
+  const int complete = INTEGER(complete_)[0];
+  const len_t nrows = complete ? m : MIN(m, n);
   
-  PROTECT(R = newmat(minmn, n));
+  PROTECT(R = newmat(nrows, n));
   float *qrf = FLOAT(qr);
   float *Rf = FLOAT(R);
   
-  memset(Rf, 0, (size_t)minmn*n*sizeof(float));
+  memset(Rf, 0, (size_t)nrows*n*sizeof(float));
   for (len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<=j && i<minmn; i++)
-      Rf[i + minmn*j] = qrf[i + m*j];
+    for (len_t i=0; i<=j && i<nrows; i++)
+      Rf[i + nrows*j] = qrf[i + m*j];
   }
   
   UNPROTECT(1);
