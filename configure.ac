@@ -13,6 +13,19 @@ AC_C_BIGENDIAN([BOBE=1], [BOBE=0],
 )
 
 
+AC_CHECK_SIZEOF(int)
+AC_PREPROC_IFELSE([AC_LANG_SOURCE([
+  #if SIZEOF_INT != 4
+  #error
+  #endif
+])], [INTSTORAGE=true], [INTSTORAGE=false])
+if test "X${INTSTORAGE}" = "Xtrue"; then
+  BACKEND_REPORT="using 'int' for internal float storage"
+else
+  AC_MSG_ERROR([sizeof(int) != 4. no other backend available at this time.])
+fi
+
+
 
 dnl Determine R_HOME.
 : ${R_HOME=`R RHOME`}
@@ -74,14 +87,14 @@ fi
 ADD_OBJS=""
 
 if test "X${HAVESBLAS}" = "Xno"; then
-  BLAS_REPORT="NOTE: using internal single precision blas"
+  BLAS_REPORT="NOTE: using package's single precision blas"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
 else
   BLAS_REPORT="using system single precision blas"
 fi
 
 if test "X${HAVESLAPACK}" = "Xno"; then
-  LAPACK_REPORT="NOTE: using internal single precision lapack"
+  LAPACK_REPORT="NOTE: using package's single precision lapack"
   ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
 else
   LAPACK_REPORT="using system single precision lapack"
@@ -97,7 +110,7 @@ consider installing high performance implementations, such as OpenBLAS \
 Open R distribution).
 
 If you believe you are seeing this message in error, please contact the \
-package maintainers.
+package maintainer.
   "
 else
   WARN_EXTRA=" "
@@ -110,10 +123,11 @@ fi
 echo " "
 echo "******************** Results of spm package configure *******************"
 echo " "
-echo "${BLAS_REPORT}"
-echo ">> BLAS_LIBS=${BLAS_LIBS}"
-echo "${LAPACK_REPORT}"
-echo ">> LAPACK_LIBS=${LAPACK_LIBS}"
+echo "* ${BACKEND_REPORT}"
+echo "* ${BLAS_REPORT}"
+echo "  >> BLAS_LIBS=${BLAS_LIBS}"
+echo "* ${LAPACK_REPORT}"
+echo "  >> LAPACK_LIBS=${LAPACK_LIBS}"
 echo "${WARN_EXTRA}"
 echo "*************************************************************************"
 echo " "
