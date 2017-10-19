@@ -6,13 +6,13 @@
 #' precision (or less!) is more than enough for a particular task.  This
 #' package extends R's linear algebra facilities to include single precision
 #' (float) data.  Float vectors/matrices have half the precision of their
-#' "numeric"-type counterparts, for a performance vs accuracy tradeoff.  The
+#' "numeric"-type counterparts, for a performance vs accuracy trade-off.  The
 #' internal representation is an S4 class, which allows us to keep the syntax
 #' identical to that of base R's.  Interaction between base types for binary
 #' operators is generally possible.  In these cases, type promotion always
 #' defaults to the higher precision.  The package ships with copies of the
-#' single precision BLAS and LAPACK, which are automatically built in the event
-#' they are not available on the system.
+#' single precision 'BLAS' and 'LAPACK', which are automatically built in the
+#' event they are not available on the system.
 #' 
 #' @importFrom utils capture.output
 #' @import methods
