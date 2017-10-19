@@ -24,7 +24,7 @@ SEXP R_colSums_spm(SEXP x, SEXP na_rm_)
       for (len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
-        if (!isnanf(tmp) && !ISNAf(tmp))
+        if (! isnan(tmp) && !ISNAf(tmp))
           sum += tmp;
       }
       
@@ -70,7 +70,7 @@ SEXP R_rowSums_spm(SEXP x, SEXP na_rm_)
       for (len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
-        if (!isnanf(tmp) && !ISNAf(tmp))
+        if (! isnan(tmp) && !ISNAf(tmp))
           retf[i] += tmp;
       }
     }
@@ -111,7 +111,7 @@ SEXP R_colMeans_spm(SEXP x, SEXP na_rm_)
       for (len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
-        if (!isnanf(tmp) && !ISNAf(tmp))
+        if (! isnan(tmp) && !ISNAf(tmp))
           sum += tmp;
         else
           num--;
@@ -166,7 +166,7 @@ SEXP R_rowMeans_spm(SEXP x, SEXP na_rm_)
       for (len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
-        if (!isnanf(tmp) && !ISNAf(tmp))
+        if (! isnan(tmp) && !ISNAf(tmp))
           retf[i] += tmp;
         else
           num[i]--;

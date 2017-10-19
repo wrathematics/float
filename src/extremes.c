@@ -27,7 +27,7 @@ SEXP R_min_spm(SEXP x, SEXP na_rm)
       for (len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
-        if (!ISNAf(tmp) && !isnanf(tmp) && min > tmp)
+        if (!ISNAf(tmp) && ! isnan(tmp) && min > tmp)
           min = tmp;
       }
     }
@@ -70,7 +70,7 @@ SEXP R_max_spm(SEXP x, SEXP na_rm)
       for (len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
-        if (!ISNAf(tmp) && !isnanf(tmp) && max < tmp)
+        if (!ISNAf(tmp) && ! isnan(tmp) && max < tmp)
           max = tmp;
       }
     }
@@ -114,7 +114,7 @@ SEXP R_whichmin_spm(SEXP x)
   for (size_t i=0; i<((size_t)m*n); i++)
   {
     const float tmp = xf[i];
-    if (!ISNAf(tmp) && !isnanf(tmp) && min > tmp)
+    if (!ISNAf(tmp) && ! isnan(tmp) && min > tmp)
     {
       min = tmp;
       which = i+1;
@@ -160,7 +160,7 @@ SEXP R_whichmax_spm(SEXP x)
   for (size_t i=0; i<((size_t)m*n); i++)
   {
     const float tmp = xf[i];
-    if (!ISNAf(tmp) && !isnanf(tmp) && max < tmp)
+    if (!ISNAf(tmp) && ! isnan(tmp) && max < tmp)
     {
       max = tmp;
       which = i+1;

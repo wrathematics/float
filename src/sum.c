@@ -22,7 +22,7 @@ SEXP R_sum_spm(SEXP x, SEXP na_rm)
       for (len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
-        if (!ISNAf(tmp) && !isnanf(tmp))
+        if (!ISNAf(tmp) && !isnan(tmp))
           sum += tmp;
       }
     }

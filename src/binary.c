@@ -112,7 +112,7 @@
     { \
       const float tmp1 = xf[i + m*j]; \
       const float tmp2 = yf[i + m*j]; \
-      if (ISNAf(tmp1) || isnanf(tmp1) || ISNAf(tmp2) || isnanf(tmp2)) \
+      if (ISNAf(tmp1) ||  isnan(tmp1) || ISNAf(tmp2) ||  isnan(tmp2)) \
         LOGICAL(ret)[i + m*j] = NA_LOGICAL; \
       else \
         LOGICAL(ret)[i + m*j] = tmp1 FUN tmp2; \
@@ -141,7 +141,7 @@
   { \
     const float tmp1 = xf[i]; \
     const float tmp2 = yf[i%ny]; \
-    if (ISNAf(tmp1) || isnanf(tmp1) || ISNAf(tmp2) || isnanf(tmp2)) \
+    if (ISNAf(tmp1) ||  isnan(tmp1) || ISNAf(tmp2) ||  isnan(tmp2)) \
       LOGICAL(ret)[i] = NA_LOGICAL; \
     else \
       LOGICAL(ret)[i] = tmp1 FUN tmp2; \
@@ -169,7 +169,7 @@
   { \
     const float tmp1 = xf[i%nx]; \
     const float tmp2 = yf[i]; \
-    if (ISNAf(tmp1) || isnanf(tmp1) || ISNAf(tmp2) || isnanf(tmp2)) \
+    if (ISNAf(tmp1) ||  isnan(tmp1) || ISNAf(tmp2) ||  isnan(tmp2)) \
       LOGICAL(ret)[i] = NA_LOGICAL; \
     else \
       LOGICAL(ret)[i] = tmp1 FUN tmp2; \
@@ -195,7 +195,7 @@
   { \
     const float tmp1 = xf[i%nx]; \
     const float tmp2 = yf[i%ny]; \
-    if (ISNAf(tmp1) || isnanf(tmp1) || ISNAf(tmp2) || isnanf(tmp2)) \
+    if (ISNAf(tmp1) ||  isnan(tmp1) || ISNAf(tmp2) ||  isnan(tmp2)) \
       LOGICAL(ret)[i] = NA_LOGICAL; \
     else \
       LOGICAL(ret)[i] = tmp1 FUN tmp2; \

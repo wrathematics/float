@@ -60,7 +60,7 @@ SEXP R_isna_spm(SEXP x)
     for (len_t i=0; i<m; i++)
     {
       const float tmp = xf[i + m*j];
-      LOGICAL(ret)[i + m*j] = isnanf(tmp) || ISNAf(tmp);
+      LOGICAL(ret)[i + m*j] = isnan(tmp) || ISNAf(tmp);
     }
   }
   
@@ -110,7 +110,7 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
   // get indices of NA's
   for (size_t i=0; i<len; i++)
   {
-    if (ISNAf(x[i]) || isnanf(x[i]))
+    if (ISNAf(x[i]) || isnan(x[i]))
       na_vec_ind[i] = 1;
   }
   
@@ -178,7 +178,7 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
     
     for (len_t i=0; i<m; i++)
     {
-      if (ISNAf(x[i + m*j]) || isnanf(x[i + mj]))
+      if (ISNAf(x[i + m*j]) || isnan(x[i + mj]))
         rows[i] = 1;
     }
   }
@@ -227,7 +227,7 @@ static SEXP R_naomit_spm_vec(size_t n, const float *const x)
   
   for (size_t i=0; i<n; i++)
   {
-    if (ISNAf(x[i]) || isnanf(x[i]))
+    if (ISNAf(x[i]) || isnan(x[i]))
       numna++;
   }
   
@@ -237,7 +237,7 @@ static SEXP R_naomit_spm_vec(size_t n, const float *const x)
   size_t retpos = 0;
   for (size_t i=0; i<n; i++)
   {
-    if (!ISNAf(x[i]) && !isnanf(x[i]))
+    if (!ISNAf(x[i]) && !isnan(x[i]))
       retf[retpos++] = x[i];
   }
   
