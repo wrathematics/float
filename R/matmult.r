@@ -49,7 +49,7 @@ mm_float32_mat = function(x, y)
   else if (is.double(y))
     dbl(x) %*% y
   else
-    stop("TODO")
+    stop("requires numeric/complex matrix/vector arguments")
 }
 
 mm_mat_float32 = function(x, y)
@@ -59,7 +59,7 @@ mm_mat_float32 = function(x, y)
   else if (is.double(x))
     x %*% dbl(y)
   else
-    stop("TODO")
+    stop("requires numeric/complex matrix/vector arguments")
 }
 
 

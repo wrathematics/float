@@ -14,7 +14,7 @@
 \item{...}{Additional elements (numeric/float vectors/matrices) to sum.}
 }
 \value{
-TODO
+A matrix of the same type as the highest precision input.
 }
 \description{
 Combine float/numeric vector(s)/matri[x|ces].

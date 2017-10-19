@@ -8,7 +8,7 @@
 #' Additional elements (numeric/float vectors/matrices) to sum.
 #'  
 #' @return 
-#' TODO
+#' A matrix of the same type as the highest precision input.
 #' 
 #' @examples
 #' \dontrun{
