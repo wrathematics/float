@@ -1,3 +1,4 @@
+// Modified from the pcapack package. Copyright (c) 2014-2017 Drew Schmidt
 #include "spm.h"
 #include "xpose.h"
 

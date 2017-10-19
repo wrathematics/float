@@ -1,3 +1,4 @@
+// Modified from the band package. Copyright (c) 2016 Drew Schmidt
 #include "blocksize.h"
 #include "spm.h"
 

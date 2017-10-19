@@ -1,3 +1,4 @@
+// Taken from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 #ifndef SPM_MATMULT_
 #define SPM_MATMULT_
 

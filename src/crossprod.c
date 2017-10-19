@@ -1,3 +1,4 @@
+// Modified from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 #include "blocksize.h"
 #include "matmult.h"
 #include "spm.h"
