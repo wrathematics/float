@@ -22,7 +22,6 @@ Depends:
     methods
 Imports:
     utils
-SystemRequirements: GNU make
 ByteCompile: yes
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues

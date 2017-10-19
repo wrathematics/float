@@ -3,8 +3,33 @@ PKG_FFLAGS = $(SHLIB_OPENMP_FFLAGS)
 PKG_FCFLAGS = $(SHLIB_OPENMP_FCFLAGS)
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CFLAGS) $(SHLIB_OPENMP_FCFLAGS)
 
-R_SOURCES = $(wildcard *.c)
-OBJECTS = $(R_SOURCES:.c=.o) @ADD_OBJS@
+R_SOURCES = \
+	backsolve.o \
+	binary.o \
+	chol.o \
+	colSums.o \
+	cond.o \
+	converters.o \
+	crossprod.o \
+	eigen.o \
+	extremes.o \
+	float_native.o \
+	isSymmetric.o \
+	machine.o \
+	math.o \
+	matmult.o \
+	NA.o \
+	norm.o \
+	qr.o \
+	rand.o \
+	scale.o \
+	solve.o \
+	sum.o \
+	svd.o \
+	sweep.o \
+	xpose.o
+
+OBJECTS = $(R_SOURCES) @ADD_OBJS@
 
 ### Start making here.
 all: $(SHLIB)
