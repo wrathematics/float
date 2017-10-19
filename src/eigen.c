@@ -71,8 +71,13 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
   if (!inplace)
   {
     x_cp = malloc(n*n * sizeof(*x_cp));
+    if (x_cp == NULL)
+    {
+      info = BADMALLOC;
+      goto cleanup;
+    }
+    
     memcpy(x_cp, x, n*n*sizeof(float));
-    // TODO check malloc
   }
   else
     x_cp = x;
@@ -83,7 +88,11 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
     jobz = 'V';
   
   vec_support = malloc(2*n * sizeof(*vec_support));
-  // TODO check malloc
+  if (vec_support == NULL)
+  {
+    info = BADMALLOC;
+    goto cleanup;
+  }
   
   ssyevr_(&jobz, &(char){'A'}, &(char){'U'}, &n, x_cp, &n, 
     &(float){0.0}, &(float){0.0}, &(int){0}, &(int){0}, &(float){0.0}, 
@@ -94,6 +103,7 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
   work = malloc(lwork * sizeof(*work));
   if (work == NULL)
   {
+    free(vec_support);
     info = BADMALLOC;
     goto cleanup;
   }
@@ -101,7 +111,7 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
   iwork = malloc(liwork * sizeof(*iwork));
   if (iwork == NULL)
   {
-    free(work);
+    free(vec_support);free(work);
     info = BADMALLOC;
     goto cleanup;
   }
@@ -116,7 +126,7 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
   free(work);
   free(iwork);
 cleanup:
-  if (inplace)
+  if (!inplace)
     free(x_cp);
   
   return info;

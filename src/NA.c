@@ -138,7 +138,10 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
     m_fin -= na_vec_ind[i];
   
   if (m_fin == m)
+  {
+    free(na_vec_ind);
     return R_NilValue;
+  }
   
   // build reduced matrix
   PROTECT(ret = newmat(m_fin, n));
