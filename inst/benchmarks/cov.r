@@ -1,4 +1,5 @@
-library(float)
+library(stats)
+library(float, quietly=TRUE)
 library(rbenchmark)
 
 reps = 5
@@ -6,7 +7,7 @@ cols <- c("test", "replications", "elapsed", "relative")
 
 m = 7500
 n = 500
-x = matrix(stats::rnorm(m*n), m, n)
+x = matrix(rnorm(m*n), m, n)
 s = fl(x)
 
 cov_spm = function(x)
@@ -23,6 +24,7 @@ cor_spm = function(x)
 
 
 
+cat("##### covariance\n")
 benchmark(cov_spm(x), cov_spm(s), cov(x), replications=reps, columns=cols)
-cat("\n")
+cat("\n##### correlation\n")
 benchmark(cor_spm(x), cor_spm(s), cor(x), replications=reps, columns=cols)

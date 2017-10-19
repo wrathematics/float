@@ -1,4 +1,5 @@
-library(float)
+library(stats)
+library(float, quietly=TRUE)
 library(rbenchmark)
 
 reps = 5
@@ -6,7 +7,7 @@ cols <- c("test", "replications", "elapsed", "relative")
 
 m = 7500
 n = 500
-x = matrix(stats::rnorm(m*n), m, n)
+x = matrix(rnorm(m*n), m, n)
 s = fl(x)
 
 prcomp_spm = function(x)
