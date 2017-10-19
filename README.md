@@ -131,7 +131,6 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 
 Version 0.1-0:
 
-* finish/fix QR functions
 * `rcond()`, and `kappa()`
 
 Future roadmap:

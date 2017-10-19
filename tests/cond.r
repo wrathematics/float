@@ -1,7 +1,3 @@
-### notes for tomorrrow:
-# * triangular broken
-# * need a better test...
-
 suppressPackageStartupMessages(library(float))
 set.seed(1234)
 
