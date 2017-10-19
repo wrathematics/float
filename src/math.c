@@ -198,7 +198,7 @@ SEXP R_isfinite_spm(SEXP x)
     for (len_t i=0; i<m; i++)
     {
       const float tmp =  xf[i + m*j];
-      reti[i + m*j] = !isinf(tmp) && !isnanf(tmp);
+      reti[i + m*j] = !isinf(tmp) && !isnan(tmp);
     }
   }
   
@@ -225,7 +225,7 @@ SEXP R_isinfinite_spm(SEXP x)
     for (len_t i=0; i<m; i++)
     {
       const float tmp =  xf[i + m*j];
-      reti[i + m*j] = isinff(tmp);
+      reti[i + m*j] = abs(isinf(tmp));
     }
   }
   
