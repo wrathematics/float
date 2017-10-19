@@ -194,7 +194,10 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
     m_fin -= rows[i];
   
   if (m_fin == m)
+  {
+    free(rows);
     return R_NilValue;
+  }
   
   PROTECT(ret = newmat(m_fin, n));
   float *ptr = DATA(ret);
