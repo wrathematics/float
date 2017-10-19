@@ -66,8 +66,7 @@ static inline int Qty(const char side, const char trans, const int m, const int 
   sormqr_(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, &tmp, &lwork, &info);
   lwork = (int) tmp;
   float *work = malloc(lwork * sizeof(*work));
-  if (work == NULL)
-    error("OOM");
+  CHECKMALLOC(work);
   
   sormqr_(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, work, &lwork, &info);
   
@@ -98,8 +97,7 @@ SEXP R_qr_spm(SEXP x, SEXP tol)
   
   int lwork = worksize(m, n);
   float *work = malloc(lwork * sizeof(*work));
-  if (work == NULL)
-    error("OOM");
+  CHECKMALLOC(work);
   
   memcpy(DATA(qr), DATA(x), (size_t)m*n*sizeof(float));
   memset(INTEGER(pivot), 0, n*sizeof(int));

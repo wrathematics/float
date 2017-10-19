@@ -35,8 +35,7 @@ static inline float norm_mars(const len_t m, const len_t n, const float *const r
 {
   float norm = 0.0f;
   float *tmp = malloc(m*sizeof(*tmp));
-  if (tmp == NULL)
-    error("OOM");
+  CHECKMALLOC(tmp);
   
   memset(tmp, 0.0f, m*sizeof(*tmp));
   

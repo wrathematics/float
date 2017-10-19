@@ -42,7 +42,7 @@ int svd(const int nu, const int nv, const int m, const int n,
   if (iwork == NULL)
   {
     free(x);
-    error("OOM");
+    THROW_MEMERR;
   }
   
   lwork = -1;
@@ -53,7 +53,7 @@ int svd(const int nu, const int nv, const int m, const int n,
   {
     free(x);
     free(iwork);
-    error("OOM");
+    THROW_MEMERR;
   }
   
   sgesdd_(&jobz, &m, &n, x, &m, s, u, &m, vt, &ldvt, work, &lwork, iwork, &info);
@@ -130,8 +130,7 @@ SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
   
   
   float *tmp = malloc(m*n * sizeof(*tmp));
-  if (tmp == NULL)
-    error("OOM");
+  CHECKMALLOC(tmp);
   memcpy(tmp, DATA(x), (size_t)m*n*sizeof(*tmp));
   
   int info = svd(nu, nv, m, n, tmp, DATA(s), u_data, vt_data);

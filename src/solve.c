@@ -21,8 +21,7 @@ static inline int invert(const int n, float *const restrict x)
   
   // Factor x = LU
   ipiv = malloc(n * sizeof(*ipiv));
-  if (ipiv == NULL)
-    error("OOM");
+  CHECKMALLOC(ipiv);
   
   sgetrf_(&n, &n, x, &n, ipiv, &info);
   if (info != 0)
@@ -45,7 +44,7 @@ static inline int invert(const int n, float *const restrict x)
   if (work == NULL)
   {
     free(ipiv);
-    error("OOM");
+    THROW_MEMERR;
   }
   
   sgetri_(&n, x, &n, ipiv, work, &lwork, &info);
@@ -95,8 +94,7 @@ static inline int solve_system(const int n, const int nrhs,
   int *ipiv;
   
   ipiv = malloc((size_t)n*sizeof(*ipiv));
-  if (ipiv == NULL)
-    error("OOM");
+  CHECKMALLOC(ipiv);
   
   sgesv_(&n, &nrhs, x, &n, ipiv, y, &n, &info);
   
@@ -128,8 +126,7 @@ SEXP R_solve_spmspm(SEXP x, SEXP y)
     PROTECT(ret = newmat(n, nrhs));
   
   float *tmp = malloc((size_t)n*n*sizeof(*tmp));
-  if (tmp == NULL)
-    error("OOM");
+  CHECKMALLOC(tmp);
   
   memcpy(tmp, DATA(x), (size_t)n*n*sizeof(*tmp));
   memcpy(DATA(ret), DATA(y), (size_t)n*nrhs*sizeof(float));

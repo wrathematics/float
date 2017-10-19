@@ -35,13 +35,12 @@ SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
   PROTECT(ret = newvec(1));
   
   float *work = malloc(ws*n * sizeof(*work));
-  if (work == NULL)
-    error("OOM");
+  CHECKMALLOC(work);
   int *iwork = malloc(n * sizeof(*iwork));
   if (iwork == NULL)
   {
     free(work);
-    error("OOM");
+    THROW_MEMERR;
   }
   
   
@@ -65,7 +64,7 @@ SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
     if (tmp == NULL || ipiv == NULL)
     {
       FREE(tmp); FREE(ipiv); FREE(work); FREE(iwork);
-      error("OOM");
+      THROW_MEMERR;
     }
     
     memcpy(tmp, DATA(x), n*n*sizeof(*tmp));

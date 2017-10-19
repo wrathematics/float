@@ -97,10 +97,6 @@ SEXP R_anyNA_spm(SEXP x)
 
 #define INT(x) INTEGER(x)
 
-#define THROW_MEMERR error("unable to allocate necessary memory")
-#define R_CHECKMALLOC(ptr) if (ptr == NULL) THROW_MEMERR
-
-
 // faster to index each element and operate accordingly, but
 // this is too memory expensive for most applications
 // note: R does this anyway because, well, R...
@@ -110,7 +106,7 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
   const size_t len = m*n;
   len_t m_fin = m;
   int *na_vec_ind = (int*) calloc(len, sizeof(*na_vec_ind));
-  R_CHECKMALLOC(na_vec_ind);
+  CHECKMALLOC(na_vec_ind);
   
   
   // get indices of NA's
@@ -174,7 +170,7 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
   SEXP ret;
   len_t m_fin = m;
   int *rows = (int*) calloc(m, sizeof(*rows));
-  R_CHECKMALLOC(rows);
+  CHECKMALLOC(rows);
   
   // get indices of NA's
   #pragma omp parallel for default(none) shared(rows)
