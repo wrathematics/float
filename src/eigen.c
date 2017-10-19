@@ -2,9 +2,6 @@
 #include "spm.h"
 #include "safeomp.h"
 
-#define BADMALLOC -1
-
-#define INT(x) INTEGER(x)[0]
 
 void ssyevr_(const char * const restrict, const char *const restrict, 
   const char *const restrict, const int *const restrict, float *const restrict,
@@ -128,6 +125,9 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
 cleanup:
   if (!inplace)
     free(x_cp);
+  
+  if (info == BADMALLOC) // jobz is safe, so checking against -1 necessarily means OOM
+    THROW_MEMERR;
   
   return info;
 }

@@ -7,6 +7,7 @@
 
 #define FREE(ptr) if(ptr!=NULL) free(ptr)
 
+#define BADMALLOC -1
 #define THROW_MEMERR error("OOM")
 #define CHECKMALLOC(ptr) if (ptr == NULL) THROW_MEMERR
 

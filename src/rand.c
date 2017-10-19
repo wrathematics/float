@@ -2,9 +2,6 @@
  
 #include "spm.h"
 
-#define INT(x) INTEGER(x)[0]
-#define LGL(x) LOGICAL(x)[0]
-
 
 SEXP R_flrunif_spm(SEXP m_, SEXP n_, SEXP min_, SEXP max_, SEXP isavec)
 {

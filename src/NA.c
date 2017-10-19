@@ -95,8 +95,6 @@ SEXP R_anyNA_spm(SEXP x)
 #include <stdlib.h>
 #include "safeomp.h"
 
-#define INT(x) INTEGER(x)
-
 // faster to index each element and operate accordingly, but
 // this is too memory expensive for most applications
 // note: R does this anyway because, well, R...

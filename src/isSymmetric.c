@@ -32,8 +32,6 @@ static inline bool isSym(const len_t n, const float *const restrict x)
 
 
 
-#define LGL(x) LOGICAL(x)[0]
-
 SEXP R_isSymmetric_spm(SEXP x)
 {
   SEXP ret;
