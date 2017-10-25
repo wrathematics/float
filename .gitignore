@@ -6,4 +6,6 @@ src/*.so
 src/Makevars
 src/endianness.h
 
+inst/doc
+
 TODO

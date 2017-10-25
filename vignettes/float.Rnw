@@ -1,0 +1,452 @@
+%\VignetteIndexEntry{Introducing float: Single Precision Floats for R}
+\documentclass[]{article}
+
+
+\input{./include/settings}
+
+
+\mytitle{Introducing {float}: Single Precision Floats for R}
+\mysubtitle{}
+\myversion{0.1-0}
+\myauthor{
+\centering
+Drew Schmidt \\ 
+\texttt{wrathematics@gmail.com} 
+}
+
+
+\begin{document}
+\makefirstfew
+
+
+
+\section{Introduction}\label{introduction}
+
+R has a "numeric" type for vectors and matrices. This type must be either 
+integer or double precision. As such, R has no real ability to work with 
+32-bit floats. However, sometimes single precision (or less!) is more than 
+enough for a particular task.  The \textbf{float} package~\cite{float} 
+extends R's linear algebra facilities to include single precision
+(float) data.  Float vectors/matrices have half the precision of their
+"numeric"-type counterparts, for a performance vs accuracy trade-off.
+
+The internal representation is an S4 class, which allows us to keep the syntax
+identical to that of base R's.  Interaction between base types for binary
+operators is generally possible.  In these cases, type promotion always
+defaults to the higher precision (more on this in Section~\ref{typepromotion}). 
+ The package ships with copies of the single precision 'BLAS' and 'LAPACK', 
+which are automatically built in the event they are not available on the system.
+
+\subsection{Installation}\label{installation}
+
+You can install the stable version from CRAN using the usual
+\texttt{install.packages()}:
+
+\begin{lstlisting}[language=rr]
+install.packages("float")
+\end{lstlisting}
+
+The development version is maintained on GitHub. You can install this
+version using any of the well-known installer packages available to R:
+
+\begin{lstlisting}[language=rr]
+### Pick your preference
+devtools::install_github("wrathematics/float")
+ghit::install_github("wrathematics/float")
+remotes::install_github("wrathematics/float")
+\end{lstlisting}
+
+Note that for best performance, you will need to build the package from source, 
+either from the GitHub repository or from the CRAN source distribution.  See 
+Section~\ref{blasnlapack} for more details as to why a source installation is 
+recommended.
+
+
+\subsection{BLAS and LAPACK Libraries}\label{blasnlapack}
+
+The linear algebra operations in the \textbf{float} package are handled by the 
+BLAS and LAPACK~\cite{lawson1979basic,anderson1999lapack}.  By default, R will 
+not ship with the single precision versions of these functions, so we include 
+a source code distribution within the package.  This is the "reference" or 
+NetLib implementation, which is not particularly efficient. Additionally, 
+compiling these can take a very long time.
+
+To take advantage of the enhanced run-time performance and reduced compilation 
+times of using tuned BLAS/LAPACK with \textbf{float}, you will need to choose 
+an implementation and install it.  Typical implementations include 
+\textbf{OpenBLAS}~\cite{OpenBLAS}, Intel \textbf{MKL}~\cite{mkl}, AMD 
+\textbf{ACML}~\cite{acml}, and \textbf{Atlas}~\cite{atlas}, and Apple's 
+\textbf{Accelerate}~\cite{accelerate}. You can read more about using different 
+BLAS implementations with R in the R Installation and Administration 
+manual~\cite{Rblas}.
+
+Once you switch BLAS implementations with R, you will need to rebuild the 
+\textbf{float} package from source.
+
+
+
+\section{For Users}
+
+\subsection{Basics}
+
+R does not have a 32-bit float type (hence the package). You can cast your data 
+from integer/numeric to float using \code{fl()}:
+
+\begin{lstlisting}[language=rr]
+library(float)
+
+x = matrix(1:9, 3)
+x
+##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9
+
+s = fl(x)
+s
+## # A float32 matrix: 3x3
+##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9
+\end{lstlisting}
+
+This will of course require 1.5x the memory of the input matrix. For workflows 
+requiring many operations, the memory savings will still be substantial. At 
+this time, we do not have a reader, so casting is the best way to go. You can 
+also cast a float to a numeric (double precision) matrix via \code{dbl()}.
+
+For testing or other cases where random matrices are needed (e.g., PCA via 
+random normal projections~\cite{halko2011finding}), 
+
+\begin{lstlisting}[language=rr]
+set.seed(1234)
+
+flrunif(5)
+## # A float32 vector: 5
+## [1] 0.1137034 0.6222994 0.6092747 0.6233795 0.8609154
+flrunif(2, 2)
+## # A float32 matrix: 2x2
+##             [,1]      [,2]
+## [1,] 0.640310585 0.2325505
+## [2,] 0.009495757 0.6660838
+flrunif(5, min=10, max=20)
+## # A float32 vector: 5
+## [1] 15.14251 16.93591 15.44975 12.82734 19.23433
+\end{lstlisting}
+
+Arbitrary generators can be used with the \code{flrand()} interface. It behaves 
+more like R's \code{runif()}, \code{rnorm()}, etc., except that it accepts a 
+generator function for its first argument. For example:
+
+\begin{lstlisting}[language=rr]
+flrand(generator=rexp, n=5, rate=.1)
+## # A float32 vector: 5
+## [1]  8.624105  6.745913  8.380404  7.604303 18.800766
+flrand(function(n) sample(5, size=n, replace=TRUE), 5)
+## # A float32 vector: 5
+## [1] 2 2 2 1 1
+\end{lstlisting}
+
+This is conceptually similar to first creating \code{n} random values and then 
+casting them over to floats, but more memory efficient. The function processes 
+the generator data in 4KiB chunks (for double precision generators).
+
+\subsection{Arithmetic and Type Promotion}\label{typepromotion}
+
+Perhaps a mistake in hindsight, but floats and numeric vectors/matrices will 
+interoperate with each other in binary arithmetic operations. So you can 
+multiply \code{2L}, \code{2.0}, and \code{fl(2)} in any binary combination you 
+like. But the output will be determined by the highest precision. The arithmetic 
+itself will be carried out in the highest possible precision.  So adding a float 
+matrix with a double matrix is really just adding 2 double matrices and 
+returning a double matrix.
+
+This even works for more complicated functions like \code{\%*\%} (matrix 
+multiplication). For example:
+
+\begin{lstlisting}[language=rr]
+set.seed(1234)
+x = matrix(1:4, 2)
+y = flrunif(2, 2)
+
+x
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+y
+## # A float32 matrix: 2x2
+##           [,1]      [,2]
+## [1,] 0.1137034 0.6092747
+## [2,] 0.6222994 0.6233795
+
+x %*% y
+## # A float32 matrix: 2x2
+##          [,1]     [,2]
+## [1,] 1.980602 2.479413
+## [2,] 2.716604 3.712067
+
+storage.mode(x) = "double"
+x %*% y
+##          [,1]     [,2]
+## [1,] 1.980602 2.479413
+## [2,] 2.716605 3.712067
+\end{lstlisting}
+
+Long story short, be careful when mixing types.
+
+
+
+\section{For Developers}
+
+\subsection{Basics}
+
+A \code{float32} matrix/vector is really a very simple S4 class. It has one 
+slot, \code{@Data}, which should be an ordinary R integer vector or matrix. 
+The values of that integer matrix will be interpreted as floats in the provided 
+methods. If you wish to create your own method, say using C kernels or 
+Rcpp~\cite{Rcpp}, then you will have to play the same game. More on that later.
+
+To create a \code{float32} object, use \code{methods::new()}:
+
+\begin{lstlisting}[language=rr]
+Data = 1:3
+x = new("float32", Data=Data)
+x
+## # A float32 vector: 3
+## [1] 1.401298e-45 2.802597e-45 4.203895e-45
+\end{lstlisting}
+
+To access the integer data of a \code{float32}, just grab the \code{@Data} slot:
+
+\begin{lstlisting}[language=rr]
+> x@Data
+## [1] 1 2 3
+\end{lstlisting}
+
+In general there's no relationship between the integer vs float interpretations
+of the values residing in the same block of memory, with the exception of 0:
+
+\begin{lstlisting}[language=rr]
+x = fl(0:3)
+x@Data
+## [1]          0 1065353216 1073741824 1077936128
+dbl(x+x)
+## [1] 0 2 4 6
+(x+x)@Data
+## [1]          0 1073741824 1082130432 1086324736
+x@Data + x@Data
+## [1]          0 2130706432         NA         NA
+## Warning message:
+## In x@Data + x@Data : NAs produced by integer overflow
+\end{lstlisting}
+
+So when creating new functionality not provided by existing \textbf{float} 
+package methods, you will probably have to move to compiled code.
+
+
+\subsection{Compiled Code}
+
+Using 32-bit floats from \textbf{float} in compiled code is not terribly 
+difficult, but maybe a bit annoying.  The general way to proceed for a 32-bit 
+float \code{x} is:
+
+\begin{itemize}
+  \item Pass \code{x@Data} (an integer) to \code{.Call()}
+  \item Inside the C/C++ function, use a \code{float} pointer to the integer 
+data.
+  \item Return from \code{.Call()} an integer vector/matrix.
+  \item Put the return from \code{.Call()} (say \code{ret}) in the \code{float} 
+S4 class: \code{new("float32", Data=ret)}.
+\end{itemize}
+
+One can access the data with the following macro:
+
+\begin{lstlisting}[language=cc]
+#define FLOAT(x) ((float*) INTEGER(x))
+\end{lstlisting}
+
+This is the "\code{DATAPTR}" way of doing things, similar to \code{REAL()} for 
+double precision and \code{INTEGER} for ints. There is no Rcpp-like idiom for 
+using floats (\code{NumericVector} and \code{NumericMatrix}) at this time.
+
+Here's a basic example of how one would create a new function \code{add1()} in 
+R (ignoring that we could just do \code{x+1}).
+
+\begin{lstlisting}[language=cc, title=add1.c]
+#include <Rinternals.h>
+#include <R.h>
+
+#define FLOAT(x) ((float*) INTEGER(x))
+
+SEXP R_add1(SEXP x_)
+{
+  SEXP ret;
+  PROTECT(ret = allocVector(INTSXP, 1));
+  
+  float *x = FLOAT(x_);
+  FLOAT(ret)[0] = x[0] + 1.0f;
+  
+  UNPROTECT(1);
+  return ret;
+}
+\end{lstlisting}
+
+Note that using \code{INTEGER(ret)[0]} instead of \code{FLOAT(ret)[0]} is not 
+correct. That would cast the value to an integer, then once put in the 
+\code{float32} class, that integer value would be treated as the memory of a 
+\code{float}. If that doesn't make sense, try modifying the above to the wrong 
+thing and see what happens.
+
+We can build that function with \code{R CMD SHLIB add1.c}, and then call it via:
+
+\begin{lstlisting}[language=rr, title=add1.r]
+dyn.load("add1.so")
+library(float)
+
+add1 = function(x)
+{
+  ret = .Call("R_add1", x@Data)
+  new("float32", Data=ret)
+}
+
+add1(fl(1))
+## # A float32 vector: 1
+## [1] 2
+add1(fl(pi))
+## # A float32 vector: 1
+## [1] 4.141593
+\end{lstlisting}
+
+Like I said, not really difficult, but annoying.
+
+
+
+
+
+\section{Some Benchmarks}
+
+We will be examining two common applications from statistics which are 
+dominated by linear algebra computations: covariance and principal components 
+analysis.  The setup for each of these benchmarks is:
+
+\begin{lstlisting}[language=rr]
+library(float)
+library(rbenchmark)
+set.seed(1234)
+
+reps = 5
+cols = c("test", "replications", "elapsed", "relative")
+
+m = 7500
+n = 500
+x = matrix(rnorm(m*n), m, n)
+s = fl(x)
+\end{lstlisting}
+
+All benchmarks were performed using 2 cores of on an Intel Core i5-5200U 
+(2.20GHz CPU) laptop running Linux and:
+
+\begin{itemize}
+  \item gcc 7.2.0
+  \item R version 3.4.2
+  \item libopenblas 0.2.20
+\end{itemize}
+
+Note that the benchmarks are highly dependent on the choice of BLAS library and 
+hardware used. The cache sizes for this machine are:
+
+\begin{lstlisting}[language=rr]
+memuse::Sys.cachesize()
+## L1I:   32.000 KiB 
+## L1D:   32.000 KiB 
+## L2:   256.000 KiB 
+## L3:     3.000 MiB 
+\end{lstlisting}
+
+
+
+
+\subsection{Covariance}
+
+Since covariance is just the crossproducts matrix $x^Tx$ on mean-centered data, 
+we can very easily create a custom covariance function:
+
+\begin{lstlisting}[language=rr]
+custcov = function(x)
+{
+  s = scale(x, TRUE, FALSE)
+  crossprod(s) / max(1L, nrow(x)-1)
+}
+\end{lstlisting}
+
+This function will work for numeric inputs as well as 32-bit floats.  We can 
+compare these two cases against R's internal covariance function:
+
+\begin{lstlisting}[language=rr]
+benchmark(custcov(x), custcov(s), cov(x), replications=reps, columns=cols)
+##         test replications elapsed relative
+## 3     cov(x)            5   8.113   43.385
+## 2 custcov(s)            5   0.187    1.000
+## 1 custcov(x)            5   0.719    3.845
+\end{lstlisting}
+
+R's \code{cov()} is clearly not designed with performance in mind.  The 
+performance difference between the \code{custcov(s)} (float) and 
+\code{custcov(x)} (double) calls should only be about 2x. The higher 
+performance we see is likely due to the fact that our implementation of 
+\code{scale()} is better than R's.  We can compare this to a highly optimized 
+implementation of covariance, namely \code{covar()} from the \textbf{coop} 
+package~\cite{coop}:
+
+\begin{lstlisting}[language=rr]
+benchmark(custcov(s), coop::covar(x), replications=reps, columns=cols)
+##             test replications elapsed relative
+## 2 coop::covar(x)            5   0.358    1.817
+## 1     custcov(s)            5   0.197    1.000
+\end{lstlisting}
+
+This looks more in line with what we would expect moving from double to single 
+precision.
+
+
+\subsection{Principal Components Analysis}
+
+PCA is just SVD with some statistical window dressing:
+
+\begin{lstlisting}[language=rr]
+pca = function(x)
+{
+  p = svd(scale(x, TRUE, FALSE), nu=0)
+  p$d = p$d / max(1, sqrt(nrow(x) - 1))
+  names(p) = c("sdev", "rotation")
+  
+  p
+}
+\end{lstlisting}
+
+Once again, our function will work for both numeric inputs as well as 32-bit 
+floats. We again compare the performance of these two cases against R's 
+internal function (in this case, \code{prcomp()}):
+
+\begin{lstlisting}[language=rr]
+benchmark(pca(x), pca(s), prcomp(x), replications=reps, columns=cols)
+##        test replications elapsed relative
+## 2    pca(s)            5   1.592    1.000
+## 3    pca(x)            5   3.663    2.301
+## 1 prcomp(x)            5   4.293    2.697
+\end{lstlisting}
+
+Again, our improved \code{scale()} implementation is giving an edge (and 
+possibly because \code{prcomp()} is doing more \emph{useful} work, as opposed 
+to \code{cov()}\dots), although it is much less pronounced here since the SVD 
+calculation is dominating.  Indeed, the overall run time is roughly 10x higher 
+here for the single precision PCA case compared to the single precision 
+covariance calculation.
+
+
+\addcontentsline{toc}{section}{References}
+\bibliography{./include/float}
+\bibliographystyle{plain}
+
+\end{document}
