@@ -1,6 +1,7 @@
 library(stats)
 library(float, quietly=TRUE)
 library(rbenchmark)
+set.seed(1234)
 
 reps = 5
 cols <- c("test", "replications", "elapsed", "relative")
