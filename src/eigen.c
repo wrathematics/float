@@ -1,4 +1,5 @@
 // Modified from the band package. Copyright (c) 2016 Drew Schmidt
+
 #include "spm.h"
 #include "safeomp.h"
 

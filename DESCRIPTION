@@ -25,8 +25,9 @@ Imports:
 ByteCompile: yes
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues
-Authors@R: c(person("Drew", "Schmidt", role=c("aut", "cre", "cph"),
-    email="wrathematics@gmail.com"),
-    person("ORNL", role="cph"))
+Authors@R: c(
+    person("Drew", "Schmidt", role=c("aut", "cre", "cph"), email="wrathematics@gmail.com"),
+    person("ORNL", role="cph")
+    )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 RoxygenNote: 5.0.1

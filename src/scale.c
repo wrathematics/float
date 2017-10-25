@@ -1,4 +1,5 @@
 // Modified from the coop package. Copyright (c) 2015-2017 Drew Schmidt
+
 #include <Rdefines.h>
 #include <stdbool.h>
 

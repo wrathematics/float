@@ -1,4 +1,5 @@
 // Modified from the coop package. Copyright (c) 2016-2017 Drew Schmidt
+
 #include <math.h>
 
 #include "NA.h"
