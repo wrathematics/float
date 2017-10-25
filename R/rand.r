@@ -107,14 +107,14 @@ flrnorm = function(m, n, mean=0, sd=1)
 
 
 
-flrand_batch = function(start, data, generator, MAX, ...)
+flrand_batch = function(start, data, generator, len, ...)
 {
-  gen = generator(MAX, ...)
-  if (!is.double(gen))
+  gen = generator(len, ...)
+  if (!is.integer(gen) && !is.double(gen))
     storage.mode(gen) = "double"
   
-  .Call(R_flrand_spm, data, start, MAX, gen)
-  start + MAX
+  .Call(R_flrand_spm, data, start, len, gen)
+  start + len
 }
 
 #' @rdname rand
@@ -131,7 +131,7 @@ flrand = function(generator, n, ...)
     start = flrand_batch(start, data, generator, MAX, ...)
   
   if (rem)
-    start = flrand_batch(start, data, generator, MAX, ...)
+    start = flrand_batch(start, data, generator, rem, ...)
   
   new("float32", Data=data)
 }

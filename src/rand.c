@@ -78,10 +78,19 @@ SEXP R_flrand_spm(SEXP data_, SEXP start, SEXP len_, SEXP gen_)
 {
   const int len = INT(len_);
   float *data = FLOAT(data_) + INT(start) - 1;
-  double *gen = REAL(gen_);
   
-  for (int i=0; i<len; i++)
-    data[i] = (float) gen[i];
+  if (TYPEOF(gen_) == REALSXP)
+  {
+    double *gen = REAL(gen_);
+    for (int i=0; i<len; i++)
+      data[i] = (float) gen[i];
+  }
+  else if (TYPEOF(gen_) == INTSXP)
+  {
+    int *gen = INTEGER(gen_);
+    for (int i=0; i<len; i++)
+      data[i] = (float) gen[i];
+  }
   
   return R_NilValue;
 }
