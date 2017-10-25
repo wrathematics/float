@@ -10,7 +10,7 @@ n = 500
 x = matrix(rnorm(m*n), m, n)
 s = fl(x)
 
-prcomp_spm = function(x)
+pca_spm = function(x)
 {
   p = svd(scale(x, TRUE, FALSE), nu=0)
   p$d = p$d / max(1, sqrt(nrow(x) - 1))
@@ -19,6 +19,6 @@ prcomp_spm = function(x)
   p
 }
 
+pca = function(x) prcomp(x, retx=FALSE)
 
-
-benchmark(prcomp_spm(x), prcomp_spm(s), prcomp(x, retx=FALSE), replications=reps, columns=cols)
+benchmark(pca_spm(x), pca_spm(s), pca(x), replications=reps, columns=cols)
