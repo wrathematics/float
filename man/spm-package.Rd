@@ -3,7 +3,7 @@
 \docType{package}
 \name{spm-package}
 \alias{spm-package}
-\title{Single Precision Matrices}
+\title{Single Precision Floats}
 \description{
 R comes with a suite of utilities for linear algebra with "numeric"
 (integer/double precision) vectors/matrices. However, sometimes single

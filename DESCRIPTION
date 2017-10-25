@@ -1,6 +1,6 @@
 Package: float
 Type: Package
-Title: Single Precision Matrices
+Title: Single Precision Floats
 Version: 0.1-0
 Description: R comes with a suite of utilities for linear algebra with "numeric"
     (integer/double precision) vectors/matrices. However, sometimes single

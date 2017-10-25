@@ -1,4 +1,4 @@
-#' Single Precision Matrices
+#' Single Precision Floats
 #' 
 #' @description
 #' R comes with a suite of utilities for linear algebra with "numeric"
