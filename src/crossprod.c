@@ -13,16 +13,12 @@ void ssyrk_(const char *uplo, const char *trans, const int *n, const int *k,
 // // lower triangle of t(x) %*% x
 static inline void crossprod(const int m, const int n, const float alpha, const float * const restrict x, float *restrict c)
 {
-  char uplo[1] = {'L'};
-  char trans[1] = {'T'};
-  ssyrk_(uplo, trans, &n, &m, &alpha, x, &m, &(float){0.0}, c, &n);
+  ssyrk_(&(char){'L'}, &(char){'T'}, &n, &m, &alpha, x, &m, &(float){0.0}, c, &n);
 }
 
 static inline void tcrossprod(const int m, const int n, const float alpha, const float * const restrict x, float *restrict c)
 {
-  char uplo[1] = {'L'};
-  char trans[1] = {'N'};
-  ssyrk_(uplo, trans, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
+  ssyrk_(&(char){'L'}, &(char){'N'}, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
 }
 
 static inline void symmetrize(const len_t n, float *restrict x)
