@@ -75,7 +75,7 @@ To take advantage of the enhanced run-time performance and reduced compilation
 times of using tuned BLAS/LAPACK with \textbf{float}, you will need to choose 
 an implementation and install it.  Typical implementations include 
 \textbf{OpenBLAS}~\cite{OpenBLAS}, Intel \textbf{MKL}~\cite{mkl}, AMD 
-\textbf{ACML}~\cite{acml}, and \textbf{Atlas}~\cite{atlas}, and Apple's 
+\textbf{ACML}~\cite{acml}, \textbf{Atlas}~\cite{atlas}, and Apple's 
 \textbf{Accelerate}~\cite{accelerate}. You can read more about using different 
 BLAS implementations with R in the R Installation and Administration 
 manual~\cite{Rblas}.
@@ -90,7 +90,8 @@ Once you switch BLAS implementations with R, you will need to rebuild the
 \subsection{Basics}
 
 R does not have a 32-bit float type (hence the package). You can cast your data 
-from integer/numeric to float using \code{fl()}:
+from integer/numeric to float using \code{fl()} (you can also cast a float to a 
+numeric via \code{dbl()}):
 
 \begin{lstlisting}[language=rr]
 library(float)
@@ -111,13 +112,17 @@ s
 ## [3,]    3    6    9
 \end{lstlisting}
 
-This will of course require 1.5x the memory of the input matrix. For workflows 
-requiring many operations, the memory savings will still be substantial. At 
-this time, we do not have a reader, so casting is the best way to go. You can 
-also cast a float to a numeric (double precision) matrix via \code{dbl()}.
+This will of course require 1.5x the memory of the input matrix (storing it as 
+both a double and as a float). For workflows requiring many operations, the 
+memory savings will still be substantial. At this time, we do not have a reader, 
+so casting is the best way to go. However, once you cast the matrix to a float, 
+you can serialize it as usual with \code{save()} and/or \code{saveRDS()}.
 
 For testing or other cases where random matrices are needed (e.g., PCA via 
-random normal projections~\cite{halko2011finding}), 
+random normal projections~\cite{halko2011finding}), we include several random 
+generators. The functions \code{flrunif()} and \code{flrnorm()} are somewhat 
+like R's \code{runif()} and \code{rnorm()} in that they produce vectors (but 
+also matrices) of floating point random uniform/normal values:
 
 \begin{lstlisting}[language=rr]
 set.seed(1234)
@@ -125,14 +130,14 @@ set.seed(1234)
 flrunif(5)
 ## # A float32 vector: 5
 ## [1] 0.1137034 0.6222994 0.6092747 0.6233795 0.8609154
-flrunif(2, 2)
-## # A float32 matrix: 2x2
-##             [,1]      [,2]
-## [1,] 0.640310585 0.2325505
-## [2,] 0.009495757 0.6660838
+flrunif(2, 3)
+## # A float32 matrix: 2x3
+##             [,1]      [,2]      [,3]
+## [1,] 0.640310585 0.2325505 0.5142511
+## [2,] 0.009495757 0.6660838 0.6935913
 flrunif(5, min=10, max=20)
 ## # A float32 vector: 5
-## [1] 15.14251 16.93591 15.44975 12.82734 19.23433
+## [1] 15.44975 12.82734 19.23433 12.92316 18.37296
 \end{lstlisting}
 
 Arbitrary generators can be used with the \code{flrand()} interface. It behaves 
@@ -148,19 +153,20 @@ flrand(function(n) sample(5, size=n, replace=TRUE), 5)
 ## [1] 2 2 2 1 1
 \end{lstlisting}
 
-This is conceptually similar to first creating \code{n} random values and then 
-casting them over to floats, but more memory efficient. The function processes 
-the generator data in 4KiB chunks (for double precision generators).
+This is conceptually similar to first generating \code{n} random values and 
+then casting them over to floats, but more memory efficient. The function 
+processes the generator data in 4KiB chunks (for double precision generators).
 
 \subsection{Arithmetic and Type Promotion}\label{typepromotion}
 
 Perhaps a mistake in hindsight, but floats and numeric vectors/matrices will 
 interoperate with each other in binary arithmetic operations. So you can 
 multiply \code{2L}, \code{2.0}, and \code{fl(2)} in any binary combination you 
-like. But the output will be determined by the highest precision. The arithmetic 
-itself will be carried out in the highest possible precision.  So adding a float 
-matrix with a double matrix is really just adding 2 double matrices and 
-returning a double matrix.
+like. But the output will be determined by the highest precision; in fact, the 
+arithmetic itself will be carried out in the highest possible precision.  So 
+adding a float matrix with a double matrix is really just adding 2 double 
+matrices together after casting the float up (which uses quite a bit of 
+additional memory) and returning a double matrix.
 
 This even works for more complicated functions like \code{\%*\%} (matrix 
 multiplication). For example:
@@ -267,8 +273,9 @@ One can access the data with the following macro:
 \end{lstlisting}
 
 This is the "\code{DATAPTR}" way of doing things, similar to \code{REAL()} for 
-double precision and \code{INTEGER} for ints. There is no Rcpp-like idiom for 
-using floats (\code{NumericVector} and \code{NumericMatrix}) at this time.
+double precision and \code{INTEGER} for ints. There is no Rcpp-like idiom 
+for floats similar to \code{NumericVector} and \code{NumericMatrix} at this 
+time.
 
 Here's a basic example of how one would create a new function \code{add1()} in 
 R (ignoring that we could just do \code{x+1}).
