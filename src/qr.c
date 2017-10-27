@@ -1,35 +1,5 @@
+#include "lapack/wrap.h"
 #include "spm.h"
-
-
-// no pivoting
-void sgeqrf_(const int *const restrict m, const int *const restrict n, 
-  float *const restrict a, const int *const restrict lda,
-  float *const restrict tau, float *const restrict work,
-  const int *const restrict lwork, int *const restrict info);
-
-// with pivoting
-void sgeqp3_(const int *const restrict m, const int *const restrict n, 
-  float *const restrict a, const int *const restrict lda,
-  int *const restrict jpvt, float *const restrict tau,
-  float *const restrict work, const int *const restrict lwork,
-  int *const restrict info);
-
-// recover Q
-void sorgqr_(const int *const restrict m, const int *const restrict n,
-  const int *const restrict k, float *const restrict a, 
-  const int *const restrict lda, float *const restrict tau,
-  float *const restrict work, const int *const restrict lwork,
-  int *const restrict info);
-
-// Q * c
-void sormqr_(const char *const restrict side, const char *const restrict trans,
-  const int *const restrict m, const int *const restrict n,
-  const int *const restrict k, const float *const restrict a,
-  const int *const restrict lda, const float *const restrict tau,
-  float *const restrict c, const int *const restrict ldc,
-  float *const restrict work, const int *const restrict lwork,
-  int *const restrict info);
-
 
 
 static inline int worksize(const int m, const int n)
@@ -37,7 +7,7 @@ static inline int worksize(const int m, const int n)
   int lwork;
   float tmp;
   
-  sgeqp3_(&m, &n, &(float){0}, &m, &(int){0}, &(float){0}, &tmp, &(int){-1}, &(int){0});
+  F77_CALL(sgeqp3)(&m, &n, &(float){0}, &m, &(int){0}, &(float){0}, &tmp, &(int){-1}, &(int){0});
   lwork = (int) tmp;
   
   return MAX(lwork, 1);
@@ -57,18 +27,18 @@ static inline int get_rank(const int m, const int n, const float *const restrict
   return minmn;
 }
 
-static inline int Qty(const char side, const char trans, const int m, const int n, const int nrhs, const float *const restrict qr, const float *const restrict qraux, float *const restrict y)
+static inline int Qty(const int side, const int trans, const int m, const int n, const int nrhs, const float *const restrict qr, const float *const restrict qraux, float *const restrict y)
 {
   int info;
   int lwork = -1;
   float tmp;
   
-  sormqr_(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, &tmp, &lwork, &info);
+  F77_CALL(rormqr)(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, &tmp, &lwork, &info);
   lwork = (int) tmp;
   float *work = malloc(lwork * sizeof(*work));
   CHECKMALLOC(work);
   
-  sormqr_(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, work, &lwork, &info);
+  F77_CALL(rormqr)(&side, &trans, &m, &nrhs, &n, qr, &m, qraux, y, &m, work, &lwork, &info);
   
   if (info != 0)
     error("sormqr() returned info=%d\n", info);
@@ -102,7 +72,7 @@ SEXP R_qr_spm(SEXP x, SEXP tol)
   memcpy(DATA(qr), DATA(x), (size_t)m*n*sizeof(float));
   memset(INTEGER(pivot), 0, n*sizeof(int));
   
-  sgeqp3_(&m, &n, DATA(qr), &m, INTEGER(pivot), DATA(qraux), work, &lwork, &info);
+  F77_CALL(sgeqp3)(&m, &n, DATA(qr), &m, INTEGER(pivot), DATA(qraux), work, &lwork, &info);
   
   free(work);
   
@@ -135,8 +105,8 @@ SEXP R_qr_spm(SEXP x, SEXP tol)
 SEXP R_qrQ_spm(SEXP qr, SEXP qraux, SEXP complete_)
 {
   SEXP ret;
-  const char side = 'L';
-  const char trans = 'N';
+  const int side = SIDE_L;
+  const int trans = TRANS_N;
   const len_t m = NROWS(qr);
   const len_t n = NCOLS(qr);
   const int complete = INTEGER(complete_)[0];
@@ -185,8 +155,8 @@ SEXP R_qrR_spm(SEXP qr, SEXP complete_)
 SEXP R_qrqy_spm(SEXP qr, SEXP qraux, SEXP y, SEXP trans_)
 {
   SEXP ret;
-  const char side = 'L';
-  const char trans = LOGICAL(trans_)[0] ? 'T' : 'N';
+  const int side = SIDE_L;
+  const int trans = LOGICAL(trans_)[0] ? TRANS_T : TRANS_N;
   const len_t m = NROWS(qr);
   const len_t n = NCOLS(qr);
   const len_t nrhs = NCOLS(y);

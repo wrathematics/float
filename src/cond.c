@@ -1,24 +1,8 @@
 #include <math.h>
 
+#include "lapack/wrap.h"
 #include "norm.h"
 #include "spm.h"
-
-
-void strcon_(const char *const restrict norm, const char *const restrict uplo,
-  const char *const restrict diag, const int *const restrict n,
-  const float *const restrict a, const int *const restrict lda,
-  float *const restrict rcond, float *const restrict work,
-  int *const restrict iwork, int *const restrict info);
-
-void sgecon_(const char *const restrict norm, const int *const restrict n,
-  const float *const restrict a, const int *const restrict lda,
-  const float *const restrict anorm, float *const restrict rcond,
-  float *const restrict work, int *const restrict iwork,
-  int *const restrict info);
-
-void sgetrf_(const int *const restrict m, const int *const restrict n,
-  float *const restrict a, const int *const restrict lda,
-  int *const restrict ipiv, int *const restrict info);
 
 
 SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
@@ -29,7 +13,7 @@ SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
   const len_t n = NROWS(x);
   const int triang = INTEGER(triang_)[0];
   const int ws = triang ? 3 : 4;
-  const char norm = CHARPT(norm_, 0)[0];
+  const int norm = CHARPT(norm_, 0)[0] == 'I' ? NORM_I : NORM_O;
   
   
   PROTECT(ret = newvec(1));
@@ -46,7 +30,7 @@ SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
   
   if (triang)
   {
-    strcon_(&norm, &(char){'L'}, &(char){'N'}, &n, DATA(x), &n, &rcond, work, iwork, &info);
+    F77_CALL(rtrcon)(&norm, &(int){UPLO_L}, &(int){DIAG_N}, &n, DATA(x), &n, &rcond, work, iwork, &info);
     free(work);
     free(iwork);
     
@@ -69,12 +53,12 @@ SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
     
     memcpy(tmp, DATA(x), n*n*sizeof(*tmp));
     
-    if (norm == 'O' || norm == '1')
+    if (norm == NORM_O)
       xnorm = norm_macs(n, n, tmp);
-    else if (norm == 'I')
+    else if (norm == NORM_I)
       xnorm = norm_mars(n, n, tmp);
     
-    sgetrf_(&n, &n, tmp, &n, ipiv, &info);
+    F77_CALL(sgetrf)(&n, &n, tmp, &n, ipiv, &info);
     
     if (info != 0)
     {
@@ -82,7 +66,7 @@ SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
       error("sgetrf() returned info=%d\n", info);
     }
     
-    sgecon_(&norm, &n, tmp, &n, &xnorm, &rcond, work, iwork, &info);
+    F77_CALL(rgecon)(&norm, &n, tmp, &n, &xnorm, &rcond, work, iwork, &info);
     
     free(tmp);
     free(ipiv);

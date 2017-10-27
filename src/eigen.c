@@ -1,18 +1,8 @@
 // Modified from the band package. Copyright (c) 2016 Drew Schmidt
 
+#include "lapack/wrap.h"
 #include "spm.h"
 #include "safeomp.h"
-
-
-void ssyevr_(const char * const restrict, const char *const restrict, 
-  const char *const restrict, const int *const restrict, float *const restrict,
-  const int *const restrict, const float *const restrict,
-  const float *const restrict, const int *const restrict,
-  const int *const restrict, const float *const restrict,
-  const int *const restrict, float *const restrict, float *const restrict,
-  const int *const restrict, int *const restrict, float *const restrict,
-  int *const restrict, int *const restrict, int *const restrict,
-  int *const restrict);
 
 
 static inline void reverse_vec(const len_t len, float *const x)
@@ -55,13 +45,11 @@ static inline void reverse_mat(const len_t m, const len_t n, float *const x)
 static inline int eig_sym_rrr(const bool inplace, const bool only_values, const 
 int n, float *restrict x, float *restrict values, float *restrict vectors)
 {
-  char jobz;
-  int info;
+  int jobz, info;
   float *x_cp;
   float worksize;
   int lwork, liwork;
-  int *iwork;
-  int *vec_support;
+  int *iwork, *vec_support;
   float *work;
   int nfound;
   
@@ -81,9 +69,9 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
     x_cp = x;
   
   if (only_values)
-    jobz = 'N';
+    jobz = JOBZ_N;
   else
-    jobz = 'V';
+    jobz = JOBZ_V;
   
   vec_support = malloc(2*n * sizeof(*vec_support));
   if (vec_support == NULL)
@@ -92,7 +80,7 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
     goto cleanup;
   }
   
-  ssyevr_(&jobz, &(char){'A'}, &(char){'U'}, &n, x_cp, &n, 
+  F77_CALL(rsyevr)(&jobz, &(int){RANGE_A}, &(int){UPLO_U}, &n, x_cp, &n, 
     &(float){0.0}, &(float){0.0}, &(int){0}, &(int){0}, &(float){0.0}, 
     &nfound, values, vectors, &n, vec_support, &worksize, &(int){-1}, &liwork,
     &(int){-1}, &info);
@@ -114,7 +102,7 @@ int n, float *restrict x, float *restrict values, float *restrict vectors)
     goto cleanup;
   }
   
-  ssyevr_(&jobz, &(char){'A'}, &(char){'U'}, &n, x_cp, &n, 
+  F77_CALL(rsyevr)(&jobz, &(int){RANGE_A}, &(int){UPLO_U}, &n, x_cp, &n, 
     &(float){0.0}, &(float){0.0}, &(int){0}, &(int){0}, &(float){0.0}, 
     &nfound, values, vectors, &n, vec_support, work, &lwork, iwork,
     &liwork, &info);

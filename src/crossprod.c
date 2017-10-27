@@ -1,24 +1,20 @@
 // Modified from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 
 #include "blocksize.h"
+#include "lapack/wrap.h"
 #include "matmult.h"
 #include "spm.h"
-
-
-void ssyrk_(const char *uplo, const char *trans, const int *n, const int *k,
-  const float *restrict alpha, const float *restrict a, const int *lda,
-  const float *restrict beta, float *restrict c, const int *ldc);
 
 
 // // lower triangle of t(x) %*% x
 static inline void crossprod(const int m, const int n, const float alpha, const float * const restrict x, float *restrict c)
 {
-  ssyrk_(&(char){'L'}, &(char){'T'}, &n, &m, &alpha, x, &m, &(float){0.0}, c, &n);
+  F77_CALL(rsyrk)(&(int){UPLO_L}, &(int){TRANS_T}, &n, &m, &alpha, x, &m, &(float){0.0}, c, &n);
 }
 
 static inline void tcrossprod(const int m, const int n, const float alpha, const float * const restrict x, float *restrict c)
 {
-  ssyrk_(&(char){'L'}, &(char){'N'}, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
+  F77_CALL(rsyrk)(&(int){UPLO_L}, &(int){TRANS_N}, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
 }
 
 static inline void symmetrize(const len_t n, float *restrict x)

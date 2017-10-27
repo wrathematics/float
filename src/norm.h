@@ -2,14 +2,8 @@
 #define SPM_NORM_H_
 
 
+#include "lapack/wrap.h"
 #include "spm.h"
-
-// Don't want to write a slange wrapper; don't make the user compile fortran
-// if at all possible
-
-void slassq_(const int *const restrict n, const float *const restrict x,
-  const int *const restrict incx, float *const restrict scale,
-  float *const restrict sumsq);
 
 
 // norm = maximum absolute column sum
@@ -61,7 +55,7 @@ static inline float norm_euc(const len_t m, const len_t n, const float *const re
   float scale = 0.0f;
   float sumsq = 1.0f;
   for (len_t j=0; j<n; j++)
-    slassq_(&m, x + m*j, &(int){1}, &scale, &sumsq);
+    F77_CALL(slassq)(&m, x + m*j, &(int){1}, &scale, &sumsq);
   
   return scale * sqrtf(sumsq);
 }

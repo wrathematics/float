@@ -1,15 +1,10 @@
+#include "lapack/wrap.h"
 #include "spm.h"
 
 
 // ----------------------------------------------------------------------------
 // triangular system
 // ----------------------------------------------------------------------------
-
-void strtrs_(const char *const restrict uplo, const char *const restrict trans,
-  const char *const restrict diag, const int *const restrict n,
-  const int *const restrict nrhs, const float *const restrict a,
-  const int *const restrict lda, float *const restrict b,
-  const int *const restrict ldb, int *const restrict info);
 
 SEXP R_backsolve_spm(SEXP x, SEXP y, SEXP upper_tri, SEXP xpose, SEXP k_)
 {
@@ -19,9 +14,9 @@ SEXP R_backsolve_spm(SEXP x, SEXP y, SEXP upper_tri, SEXP xpose, SEXP k_)
   const len_t n = NROWS(y);
   const len_t nrhs = NCOLS(y);
   const int k = INTEGER(k_)[0];
-  const char uplo = INTEGER(upper_tri)[0] ? 'U' : 'L';
-  const char trans = INTEGER(xpose)[0] ? 'T' : 'N';
-  const char diag = 'N';
+  const int uplo = INTEGER(upper_tri)[0] ? UPLO_U : UPLO_L;
+  const int trans = INTEGER(xpose)[0] ? TRANS_T : TRANS_N;
+  const int diag = DIAG_N;
   
   
   if (nrhs == 1)
@@ -39,7 +34,7 @@ SEXP R_backsolve_spm(SEXP x, SEXP y, SEXP upper_tri, SEXP xpose, SEXP k_)
     for (int j=0; j<nrhs; j++)
       memcpy(retf + k*j, yf + n*j, (size_t)k*sizeof(float));
   }
-  strtrs_(&uplo, &trans, &diag, &k, &nrhs, DATA(x), &m, retf, &k, &info);
+  F77_CALL(rtrtrs)(&uplo, &trans, &diag, &k, &nrhs, DATA(x), &m, retf, &k, &info);
   
   if (info != 0)
     error("strtrs() returned info=%d\n", info);

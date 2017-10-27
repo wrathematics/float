@@ -1,23 +1,15 @@
 // Modified from the pcapack package. Copyright (c) 2014-2017 Drew Schmidt
 
+#include "lapack/wrap.h"
 #include "spm.h"
 #include "xpose.h"
 
-
-void sgesdd_(const char *const restrict jobz, const int *const restrict m,
-  const int *const restrict n, float *const restrict a,
-  const int *const restrict lda, float *const restrict s,
-  float *const restrict u, const int *const restrict ldu,
-  float *const restrict vt, const int *const restrict ldvt,
-  float *const restrict work, const int *const restrict lwork,
-  int *const restrict iwork, int *const restrict info);
 
 int svd(const int nu, const int nv, const int m, const int n,
   float *const restrict x, float *const restrict s, float *const restrict u,
   float *const restrict vt)
 {
-  char jobz;
-  int info = 0;
+  int jobz, info = 0;
   int lwork, *iwork;
   float tmp, *work;
   int minmn = MIN(m, n);
@@ -25,17 +17,17 @@ int svd(const int nu, const int nv, const int m, const int n,
   
   if (nu == 0 && nv == 0)
   {
-    jobz = 'N';
+    jobz = JOBZ_N;
     ldvt = 1; // value is irrelevant, but must exist!
   }
   else if (nu <= minmn && nv <= minmn)
   {
-    jobz = 'S';
+    jobz = JOBZ_S;
     ldvt = minmn;
   }
   else
   {
-    jobz = 'A';
+    jobz = JOBZ_A;
     ldvt = n;
   }
   
@@ -48,7 +40,7 @@ int svd(const int nu, const int nv, const int m, const int n,
   }
   
   lwork = -1;
-  sgesdd_(&jobz, &m, &n, x, &m, s, u, &m, vt, &ldvt, &tmp, &lwork, iwork, &info);
+  F77_CALL(rgesdd)(&jobz, &m, &n, x, &m, s, u, &m, vt, &ldvt, &tmp, &lwork, iwork, &info);
   lwork = (int) tmp;
   work = malloc(lwork * sizeof(*work));
   if (work == NULL)
@@ -58,7 +50,7 @@ int svd(const int nu, const int nv, const int m, const int n,
     THROW_MEMERR;
   }
   
-  sgesdd_(&jobz, &m, &n, x, &m, s, u, &m, vt, &ldvt, work, &lwork, iwork, &info);
+  F77_CALL(rgesdd)(&jobz, &m, &n, x, &m, s, u, &m, vt, &ldvt, work, &lwork, iwork, &info);
   
   free(work);
   free(iwork);

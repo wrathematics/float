@@ -1,8 +1,6 @@
+#include "lapack/wrap.h"
 #include "spm.h"
 
-
-void spotrf_(const char *const restrict uplo, const int *const restrict n,
-  float *const restrict a, const int *const restrict lda, int *const restrict info);
 
 SEXP R_chol_spm(SEXP x)
 {
@@ -16,7 +14,7 @@ SEXP R_chol_spm(SEXP x)
   float *retf = FLOAT(ret);
   memcpy(retf, DATA(x), (size_t)n*n*sizeof(float));
   
-  spotrf_(&(char){'U'}, &n, retf, &n, &info);
+  F77_CALL(rpotrf)(&(int){UPLO_U}, &n, retf, &n, &info);
   
   if (info != 0)
     error("spotrf() returned info=%d\n", info);

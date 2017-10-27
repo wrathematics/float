@@ -6,11 +6,7 @@
 
 #include <stdbool.h>
 
-
-void sgemm_(const char *transa, const char *transb, const int *m, const int *n,
-  const int *k, const float *restrict alpha, const float *restrict a,
-  const int *lda, const float *restrict b, const int *ldb,
-  const float *beta, float *restrict c, const int *ldc);
+#include "lapack/wrap.h"
 
 // dgemm wrapper
 static inline void matmult(const bool transx, const bool transy,
@@ -21,11 +17,11 @@ static inline void matmult(const bool transx, const bool transy,
   // n = # cols of op(y)
   // k = # cols of op(x)
   int im, in, ik;
-  char ctransx, ctransy;
+  int ctransx, ctransy;
   static const float zero = 0.;
   
-  ctransx = transx ? 'T' : 'N';
-  ctransy = transy ? 'T' : 'N';
+  ctransx = transx ? TRANS_T : TRANS_N;
+  ctransy = transy ? TRANS_T : TRANS_N;
   
   if (transx)
   {
@@ -40,7 +36,7 @@ static inline void matmult(const bool transx, const bool transy,
   
   in = transy ? my : ny;
   
-  sgemm_(&ctransx, &ctransy, &im, &in, &ik, &alpha, x, &mx, y, &my, &zero, ret, &im);
+  F77_CALL(rgemm)(&ctransx, &ctransy, &im, &in, &ik, &alpha, x, &mx, y, &my, &zero, ret, &im);
 }
 
 
