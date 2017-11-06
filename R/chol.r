@@ -1,6 +1,6 @@
 #' chol
 #' 
-#' Extract subsets of a float vector/matrix.
+#' Cholesky factorization for a float vector/matrix.
 #' 
 #' @param x
 #' A float vector/matrix.

@@ -15,7 +15,7 @@
 A float vector/matrix.
 }
 \description{
-Extract subsets of a float vector/matrix.
+Cholesky factorization for a float vector/matrix.
 }
 \examples{
 \dontrun{
