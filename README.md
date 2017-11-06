@@ -87,7 +87,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 |---|---|
 | `%*%` | done |
 | `backsolve()` and `forwardsolve()` | done |
-| `chol()` | done |
+| `chol()`, `chol2inv()` | done |
 | `crossprod()` and `tcrossprod()` | done | 
 | `eigen()` | only for symmetric inputs |
 | `isSymmetric()` | done |

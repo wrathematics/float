@@ -227,3 +227,16 @@ C lapack routines
       CALL SGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
       
       END SUBROUTINE
+
+
+
+      SUBROUTINE RPOTRI( IUPLO, N, A, LDA, INFO )
+      INTEGER IUPLO
+      INTEGER INFO, LDA, N
+      REAL A( LDA, * )
+      CHARACTER UPLO,CUPLO
+      
+      UPLO = CUPLO(IUPLO)
+      CALL SPOTRI(UPLO, N, A, LDA, INFO)
+      
+      END SUBROUTINE

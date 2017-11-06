@@ -17,6 +17,7 @@ extern SEXP R_atanh_spm(SEXP x);
 extern SEXP R_backsolve_spm(SEXP x, SEXP y, SEXP upper_tri, SEXP xpose, SEXP k_);
 extern SEXP R_ceiling_spm(SEXP x);
 extern SEXP R_chol_spm(SEXP x);
+extern SEXP R_chol2inv_spm(SEXP x, SEXP size);
 extern SEXP R_colMeans_spm(SEXP x, SEXP na_rm_);
 extern SEXP R_colSums_spm(SEXP x, SEXP na_rm_);
 extern SEXP R_cos_spm(SEXP x);
@@ -97,6 +98,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_backsolve_spm", (DL_FUNC) &R_backsolve_spm, 5},
   {"R_ceiling_spm", (DL_FUNC) &R_ceiling_spm, 1},
   {"R_chol_spm", (DL_FUNC) &R_chol_spm, 1},
+  {"R_chol2inv_spm", (DL_FUNC) &R_chol2inv_spm, 2},
   {"R_colMeans_spm", (DL_FUNC) &R_colMeans_spm, 2},
   {"R_colSums_spm", (DL_FUNC) &R_colSums_spm, 2},
   {"R_cos_spm", (DL_FUNC) &R_cos_spm, 1},

@@ -7,6 +7,7 @@ R_SOURCES = \
 	backsolve.o \
 	binary.o \
 	chol.o \
+	chol2inv.o \
 	colSums.o \
 	cond.o \
 	converters.o \

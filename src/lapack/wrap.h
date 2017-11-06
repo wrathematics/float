@@ -133,5 +133,10 @@ void F77_NAME(rgemm)(const int *transa, const int *transb, const int *m, const i
   const int *lda, const float *restrict b, const int *ldb,
   const float *beta, float *restrict c, const int *ldc);
 
+// chol2inv
+void F77_NAME(rpotri)(const int *const restrict uplo, const int *const restrict n,
+  float *const restrict a, const int *const restrict lda,
+  int *const restrict info);
+
 
 #endif
