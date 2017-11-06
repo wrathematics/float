@@ -7,19 +7,22 @@ SEXP R_chol2inv_spm(SEXP x, SEXP size_)
 {
   SEXP ret;
   int info;
-  const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   const int size = INTEGER(size_)[0];
-  // if (n != NCOLS(x))
-  //   error("'a' must be a square matrix");
+  if (size > n)
+    error("'size' cannot exceed ncol(x) = %d\n", n);
   
   PROTECT(ret = newmat(size, size));
-  // memcpy(DATA(ret), DATA(x), (size_t)n*n*sizeof(float));
   
-  for (int j=0; j<size; j++)
+  if (size == n)
+    memcpy(DATA(ret), DATA(x), (size_t)n*n*sizeof(float));
+  else
   {
-    for (int i=0; i<size; i++)
-      DATA(ret)[i + size*j] = DATA(x)[i + n*j];
+    for (int j=0; j<size; j++)
+    {
+      for (int i=0; i<size; i++)
+        DATA(ret)[i + size*j] = DATA(x)[i + n*j];
+    }
   }
   
   F77_CALL(rpotri)(&(int){UPLO_U}, &size, DATA(ret), &size, &info);
