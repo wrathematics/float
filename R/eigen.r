@@ -47,6 +47,7 @@ eigen_float32 = function(x, symmetric, only.values=FALSE, EISPACK=FALSE)
   if (!only.values)
     ret$vectors = new("float32", Data=ret$vectors)
   
+  class(ret) = "eigen"
   ret
 }
 
