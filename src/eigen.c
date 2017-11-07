@@ -127,12 +127,16 @@ SEXP R_symeig_spm(SEXP x, SEXP onlyvals_, SEXP descending)
 {
   SEXP ret, ret_names;
   SEXP values, vectors;
-  const int onlyvals = INT(onlyvals_);
   float *vectors_pass;
   int ptct;
   int info;
   
-  const int n = NROWS(x);
+  const int m = NROWS(x);
+  const int n = NCOLS(x);
+  if (m != n)
+    error("non-square matrix in 'eigen'\n");
+  
+  const int onlyvals = INT(onlyvals_);
   
   if (onlyvals)
   {
