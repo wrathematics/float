@@ -33,10 +33,14 @@ setMethod("diag", signature(x="float32"),
   function(x = 1, nrow, ncol)
   {
     if (missing(nrow) && missing(ncol))
-      x@Data = diag(DATA(x))
+      Data = diag(DATA(x))
     else
-      x@Data = diag(DATA(x), nrow, ncol)
+      Data = diag(DATA(x), nrow, ncol)
     
+    if (is.double(Data))
+      storage.mode(Data) = "integer"
+    
+    x@Data = Data
     x
   }
 )
