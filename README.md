@@ -94,6 +94,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 | `La.svd()` and `svd()` | done |
 | `norm()` | done |
 | `qr()`, `qr.Q()`, `qr.R()` | done |
+| `rcond()` | done |
 | `solve()` | done | 
 | `t()` | done |
 
@@ -131,14 +132,13 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 
 Version 0.1-0:
 
-* `rcond()`, and `kappa()`
+* `kappa()`
+* `cbind()` and `rbind()`
 
 Future roadmap:
 
-* `cbind()` and `rbind()`
-* `chol2inv()`
-* A (low-level) reader, like `scan()`.
 * An "in-place" (no copy on modify) API.
+* An RcppArmadillo-like interface using Armadillo's `fmat`.
 
 Maybe eventually:
 
@@ -149,7 +149,7 @@ Maybe eventually:
 
 ## Package Use
 
-The memory consumption is roughly half when using floats:
+Memory consumption is roughly half when using floats:
 
 ```r
 library(float)
@@ -169,7 +169,7 @@ object.size(s)
 ## 100000784 bytes
 ```
 
-And the runtime performance is roughly 2x better:
+And the runtime performance is (generally) roughly 2x better:
 
 ```r
 library(rbenchmark)
@@ -191,7 +191,7 @@ all.equal(cpx, dbl(cps))
 ## [1] "Mean relative difference: 3.478718e-07"
 ```
 
-That difference is fairly small, but for some operations/data, the difference could be significantly larger due to roundoff error.
+For this particular example, the difference is fairly small; but for some operations/data, the difference could be significantly larger due to roundoff error.
 
 
 
