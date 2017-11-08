@@ -15,7 +15,6 @@ static inline void centerscalevec(const len_t j, const len_t m, float *restrict 
   *colmean = 0;
   *colvar = 0;
   
-  SAFE_FOR_SIMD
   for (len_t i=0; i<m; i++)
   {
     float dt = x[i + mj] - *colmean;

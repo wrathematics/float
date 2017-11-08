@@ -9,7 +9,6 @@ static inline void reverse_vec(const len_t len, float *const x)
 {
   len_t j = len-1;
   
-  SAFE_FOR_SIMD
   for (len_t i=0; i<len/2; i++)
   {
     const float tmp = x[i];
@@ -28,7 +27,7 @@ static inline void reverse_mat(const len_t m, const len_t n, float *const x)
   
   for (len_t j=0; j<n/2; j++)
   {
-    #pragma omp parallel for if(m>1000)
+    #pragma omp parallel for if(m>OMP_MIN_SIZE)
     for (len_t i=0; i<m; i++)
     {
       const float tmp = x[i + m*j];
