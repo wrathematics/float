@@ -6,9 +6,9 @@
 \alias{rbind.float32}
 \title{rbind}
 \usage{
-rbind.float32(..., deparse.level = 1)
+\method{rbind}{float32}(..., deparse.level = 1)
 
-cbind.float32(..., deparse.level = 1)
+\method{cbind}{float32}(..., deparse.level = 1)
 }
 \arguments{
 \item{...}{vectors or matrices (numeric or float)}

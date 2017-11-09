@@ -45,6 +45,7 @@ bind_float32 = function(binder, ..., deparse.level)
 
 
 
+#' @method rbind float32
 #' @rdname bind
 #' @export
 rbind.float32 <- function(..., deparse.level=1)
@@ -52,6 +53,7 @@ rbind.float32 <- function(..., deparse.level=1)
   bind_float32(base::rbind, ..., deparse.level=deparse.level)
 }
 
+#' @method cbind float32
 #' @rdname bind
 #' @export
 cbind.float32 <- function(..., deparse.level=1)
