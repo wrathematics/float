@@ -47,6 +47,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 |---|---|
 | `[` | done |
 | `c()` | done |
+| `cbind()` and `rbind()` | done |
 | `diag()` | done |
 | `is.na()` | done |
 | `is.spm()` | done |
@@ -133,7 +134,6 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 Version 0.1-0:
 
 * `kappa()`
-* `cbind()` and `rbind()`
 
 Future roadmap:
 
