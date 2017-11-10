@@ -152,7 +152,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_solve_spm", (DL_FUNC) &R_solve_spm, 1},
   {"R_solve_spmspm", (DL_FUNC) &R_solve_spmspm, 2},
   {"R_spm2mat", (DL_FUNC) &R_spm2mat, 1},
-  {"R_spm2int", (DL_FUNC) &R_spm2int, 2},
+  {"R_spm2int", (DL_FUNC) &R_spm2int, 1},
   {"R_sqrt_spm", (DL_FUNC) &R_sqrt_spm, 1},
   {"R_sub_spm", (DL_FUNC) &R_sub_spm, 2},
   {"R_sum_spm", (DL_FUNC) &R_sum_spm, 2},
