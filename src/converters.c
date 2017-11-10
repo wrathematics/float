@@ -94,3 +94,33 @@ SEXP R_spm2mat(SEXP x_)
   UNPROTECT(1);
   return ret;
 }
+
+
+
+SEXP R_spm2int(SEXP x_)
+{
+  SEXP ret;
+  const len_t m = NROWS(x_);
+  const len_t n = NCOLS(x_);
+  const float *x = (float*) INTEGER(x_);
+  
+  if (n == 1 && ISAVEC(x_))
+    PROTECT(ret = allocVector(INTSXP, m));
+  else
+    PROTECT(ret = allocMatrix(INTSXP, m, n));
+  
+  for (len_t j=0; j<n; j++)
+  {
+    for (len_t i=0; i<m; i++)
+    {
+      const float tmp = x[i + m*j];
+      if (ISNAf(tmp))
+        INTEGER(ret)[i + m*j] = NA_INTEGER;
+      else
+        INTEGER(ret)[i + m*j] = (int) tmp;
+    }
+  }
+  
+  UNPROTECT(1);
+  return ret;
+}

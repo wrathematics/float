@@ -30,7 +30,7 @@
 #'   R_backsolve_spm R_colSums_spm R_rowSums_spm R_colMeans_spm R_rowMeans_spm
 #'   R_isna_spm R_naomit_spm R_anyNA_spm R_sum_spm R_min_spm R_max_spm
 #'   R_whichmin_spm R_whichmax_spm R_qr_spm R_qrQ_spm R_qrR_spm R_qrqy_spm
-#'   R_rcond_spm R_chol2inv_spm
+#'   R_rcond_spm R_chol2inv_spm R_spm2int
 #' 
 #' @docType package
 #' @name spm-package

@@ -7,6 +7,8 @@
 #' @param strict
 #' Should the function error if given the wrong kind of input? Otherwise it just
 #' silently returns the input.
+#' @param mode,...
+#' Ignored.
 #' 
 #' @return
 #' The data stored in the type of whatever was asked for (the opposite of the
@@ -46,8 +48,6 @@ fl = function(x, strict=FALSE)
   new("float32", Data=d)
 }
 
-
-
 #' @rdname converters
 #' @export
 dbl = function(x, strict=FALSE)
@@ -57,8 +57,67 @@ dbl = function(x, strict=FALSE)
     if (isTRUE(strict))
       stop("input 'x' must be float32")
     else
+    {
+      if (!is.double(x))
+        storage.mode(x) = "double"
+      
       return(x)
+    }
   }
   
   .Call(R_spm2mat, DATA(x))
 }
+
+#' @rdname converters
+#' @export
+int = function(x, strict=FALSE)
+{
+  if (!is.spm(x))
+  {
+    if (isTRUE(strict))
+      stop("input 'x' must be float32")
+    else
+    {
+      if (!is.integer(x))
+        storage.mode(x) = "integer"
+      
+      return(x)
+    }
+  }
+  
+  .Call(R_spm2int, DATA(x))
+}
+
+
+
+#' @method as.vector float32
+#' @rdname converters
+#' @export
+as.vector.float32 = function(x, mode="any")
+{
+  if (!isavec(x))
+    dim(x@Data) = NULL
+  
+  x
+}
+
+#' @method as.matrix float32
+#' @rdname converters
+#' @export
+as.matrix.float32 = function(x, ...)
+{
+  if (isavec(x))
+    dim(x@Data) = c(length(DATA(x)), 1L)
+  
+  x
+}
+
+
+
+#' @rdname converters
+#' @export
+setMethod("typeof", signature(x="float32"), function(x) "float32")
+
+#' @rdname converters
+#' @export
+setMethod("storage.mode", signature(x="float32"), function(x) "float32")
