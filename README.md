@@ -58,6 +58,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 | `print()` | done |
 | `scale()` | Available for logical `center` and `scale` |
 | `sweep()` | Available for `FUN`'s `"+"`, `"-"`, `"*"`, and `"/"`. Others impossible(?) | 
+| `typeof()` and `storage.mode()` | No `storage.mode<-` method. |
 | `which.min()` and `which.max()` | done |
 
 ### Binary Operations
@@ -75,12 +76,14 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 | `<` | done |
 | `<=` | done |
 
-### Casters
+### Casters and Converters
 
 | Method | Status |
 |---|---|
-| `fl()` | done |
 | `dbl()` | done |
+| `int()` | done |
+| `fl()` | done |
+| `as.vector()` and `as.matrix()` | done |
 
 ### Linear algebra
 
