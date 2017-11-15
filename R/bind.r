@@ -39,7 +39,7 @@ bind_float32 = function(binder, ..., deparse.level)
   {
     raw = lapply(args, function(x) DATA(fl(x, strict=FALSE)))
     ret = do.call(binder, raw)
-    new("float32", Data=ret)
+    float32(ret)
   }
 }
 

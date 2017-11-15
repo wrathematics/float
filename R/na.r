@@ -29,7 +29,7 @@ is.na_float32 = function(x)
 na.omit_float32 = function(object, ...)
 {
   ret = .Call(R_naomit_spm, DATA(object))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

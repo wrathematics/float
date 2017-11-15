@@ -37,13 +37,13 @@ NULL
 min_float32_ = function(x, na.rm)
 {
   ret = .Call(R_min_spm, DATA(x), na.rm)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 max_float32_ = function(x, na.rm)
 {
   ret = .Call(R_max_spm, DATA(x), na.rm)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 extremer = function(x, na.rm, dFUN, sFUN)

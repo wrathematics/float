@@ -49,7 +49,7 @@ backsolve_float32 = function(r, x, k=ncol(r), upper.tri=TRUE, transpose=FALSE)
       stop("invalid 'k' argument")
     
     ret = .Call(R_backsolve_spm, DATA(r), DATA(x), as.integer(upper.tri), as.integer(transpose), as.integer(k))
-    new("float32", Data=ret)
+    float32(ret)
   }
 }
 

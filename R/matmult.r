@@ -39,7 +39,7 @@ NULL
 mm_float32 = function(x, y)
 {
   ret = .Call(R_matmult_spm, DATA(x), DATA(y))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 mm_float32_mat = function(x, y)

@@ -43,9 +43,9 @@ eigen_float32 = function(x, symmetric, only.values=FALSE, EISPACK=FALSE)
   only.values = as.integer(only.values)
   ret = .Call(R_symeig_spm, DATA(x), only.values, TRUE)
   
-  ret$values = new("float32", Data=ret$values)
+  ret$values = float32(ret$values)
   if (!only.values)
-    ret$vectors = new("float32", Data=ret$vectors)
+    ret$vectors = float32(ret$vectors)
   
   class(ret) = "eigen"
   ret

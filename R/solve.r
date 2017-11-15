@@ -44,7 +44,7 @@ solve_float32 = function(a, b, ...)
       return(solve(dbl(a), b))
   }
   
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

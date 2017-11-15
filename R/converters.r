@@ -45,7 +45,7 @@ fl = function(x, strict=FALSE)
   }
   
   d = .Call(R_mat2spm, x)
-  new("float32", Data=d)
+  float32(d)
 }
 
 #' @rdname converters

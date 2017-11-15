@@ -64,7 +64,7 @@ sweep_float32 = function(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...)
   }
   
   ret = .Call(R_sweep_spm, DATA(x), as.integer(MARGIN), STATS, FUN)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

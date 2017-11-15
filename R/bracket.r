@@ -39,7 +39,7 @@ bracket_float32 = function(x, i, j, drop=TRUE)
   dim(d) = c(nrow(x), ncol(x))
   d = d[i, j, drop=drop]
   
-  new("float32", Data=d)
+  float32(d)
 }
 
 

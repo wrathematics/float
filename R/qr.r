@@ -42,8 +42,8 @@ NULL
 qr_float32 = function(x, tol=1e-7, ...) 
 {
   ret = .Call(R_qr_spm, DATA(x), tol)
-  ret$qr = new("float32", Data=ret$qr)
-  ret$qraux = new("float32", Data=ret$qraux)
+  ret$qr = float32(ret$qr)
+  ret$qraux = float32(ret$qraux)
   
   ret
 }
@@ -62,7 +62,7 @@ qrQ_float32 = function(qr, complete=FALSE, Dvec)
     if (missing(Dvec))
     {
       ret = .Call(R_qrQ_spm, DATA(qr$qr), DATA(qr$qraux), complete)
-      new("float32", Data=ret)
+      float32(ret)
     }
     else
     {
@@ -100,7 +100,7 @@ qrR_float32 = function(qr, complete=FALSE)
   if (is.spm(qr$qr))
   {
     ret = .Call(R_qrR_spm, DATA(qr$qr), as.logical(complete))
-    new("float32", Data=ret)
+    float32(ret)
   }
   else
     base::qr.R(qr, complete)
@@ -128,7 +128,7 @@ qrqy = function(qr, y, trans)
       stop("argument 'y' must be atomic")
     
     ret = .Call(R_qrqy_spm, DATA(qr$qr), DATA(qr$qraux), DATA(y), trans)
-    new("float32", Data=ret)
+    float32(ret)
   }
   else
   {

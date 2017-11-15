@@ -26,7 +26,7 @@ NULL
 chol_float32 = function(x)
 {
   ret = .Call(R_chol_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

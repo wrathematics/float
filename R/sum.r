@@ -37,7 +37,7 @@ NULL
 sum_float32_ = function(x, na.rm)
 {
   ret = .Call(R_sum_spm, DATA(x), na.rm)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 summer = function(x, na.rm)

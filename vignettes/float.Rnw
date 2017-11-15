@@ -213,11 +213,11 @@ The values of that integer matrix will be interpreted as floats in the provided
 methods. If you wish to create your own method, say using C kernels or 
 Rcpp~\cite{Rcpp}, then you will have to play the same game. More on that later.
 
-To create a \code{float32} object, use \code{methods::new()}:
+To create a \code{float32} object, use \code{float::float32()}:
 
 \begin{lstlisting}[language=rr]
 Data = 1:3
-x = new("float32", Data=Data)
+x = float32(Data)
 x
 ## # A float32 vector: 3
 ## [1] 1.401298e-45 2.802597e-45 4.203895e-45
@@ -263,7 +263,7 @@ float \code{x} is:
 data.
   \item Return from \code{.Call()} an integer vector/matrix.
   \item Put the return from \code{.Call()} (say \code{ret}) in the \code{float} 
-S4 class: \code{new("float32", Data=ret)}.
+S4 class: \code{float32(ret)}.
 \end{itemize}
 
 One can access the data with the following macro:
@@ -314,7 +314,7 @@ library(float)
 add1 = function(x)
 {
   ret = .Call("R_add1", x@Data)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 add1(fl(1))

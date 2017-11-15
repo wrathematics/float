@@ -75,7 +75,7 @@ flrunif = function(m, n, min=0, max=1)
     stop("invalid 'n' value (< 0)")
   
   ret = .Call(R_flrunif_spm, m, n, as.double(min), as.double(max), isavec)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 
@@ -102,7 +102,7 @@ flrnorm = function(m, n, mean=0, sd=1)
     stop("invalid 'n' value (< 0)")
   
   ret = .Call(R_flrnorm_spm, m, n, as.double(mean), as.double(sd), isavec)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 
@@ -133,5 +133,5 @@ flrand = function(generator, n, ...)
   if (rem)
     start = flrand_batch(start, data, generator, rem, ...)
   
-  new("float32", Data=data)
+  float32(data)
 }

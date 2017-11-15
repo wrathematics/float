@@ -72,31 +72,31 @@ NULL
 add_spmspm = function(e1, e2)
 {
   ret = .Call(R_add_spm, DATA(e1), DATA(e2))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 mul_spmspm = function(e1, e2)
 {
   ret = .Call(R_mul_spm, DATA(e1), DATA(e2))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 sub_spmspm = function(e1, e2)
 {
   ret = .Call(R_sub_spm, DATA(e1), DATA(e2))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 div_spmspm = function(e1, e2)
 {
   ret = .Call(R_div_spm, DATA(e1), DATA(e2))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 pow_spmspm = function(e1, e2)
 {
   ret = .Call(R_pow_spm, DATA(e1), DATA(e2))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

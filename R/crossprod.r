@@ -45,7 +45,7 @@ cp_float32 = function(x, y=NULL)
   else
     return(base::crossprod(x, y))
   
-  new("float32", Data=d)
+  float32(d)
 }
 
 tcp_float32 = function(x, y=NULL)
@@ -64,7 +64,7 @@ tcp_float32 = function(x, y=NULL)
   else
     return(base::tcrossprod(x, y))
   
-  new("float32", Data=d)
+  float32(d)
 }
 
 

@@ -48,11 +48,11 @@ La.svd_float32 = function(x, nu=min(n, p), nv=min(n, p))
   
   ret = .Call(R_svd_spm, DATA(x), min(n, nu), min(p, nv))
   
-  ret$d = new("float32", Data=ret$d)
+  ret$d = float32(ret$d)
   if (nu)
-    ret$u = new("float32", Data=ret$u)
+    ret$u = float32(ret$u)
   if (nv)
-    ret$vt = new("float32", Data=ret$vt)
+    ret$vt = float32(ret$vt)
   
   ret
 }

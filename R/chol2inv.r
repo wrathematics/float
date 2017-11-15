@@ -31,7 +31,7 @@ NULL
 chol2inv_float32 = function(x, size=NCOL(x), LINPACK=FALSE)
 {
   ret = .Call(R_chol2inv_spm, DATA(x), as.integer(size))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

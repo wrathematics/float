@@ -43,7 +43,7 @@ rcond_float32 = function(x, norm=c("O","I","1"), triangular=FALSE, ...)
   else
   {
     ret = .Call(R_rcond_spm, DATA(x), norm, triangular)
-    new("float32", Data=ret)
+    float32(ret)
   }
 }
 

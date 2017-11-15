@@ -31,13 +31,13 @@ NULL
 exp_float32 = function(x)
 {
   ret = .Call(R_exp_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 expm1_float32 = function(x)
 {
   ret = .Call(R_expm1_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 log_float32 = function(x, base=exp(1))
@@ -46,19 +46,19 @@ log_float32 = function(x, base=exp(1))
     base = dbl(base[1])
   
   ret = .Call(R_log_spm, DATA(x), as.double(base))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 log10_float32 = function(x)
 {
   ret = .Call(R_log10_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 log2_float32 = function(x)
 {
   ret = .Call(R_log2_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 
@@ -116,37 +116,37 @@ NULL
 sin_float32 = function(x)
 {
   ret = .Call(R_sin_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 cos_float32 = function(x)
 {
   ret = .Call(R_cos_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 tan_float32 = function(x)
 {
   ret = .Call(R_tan_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 asin_float32 = function(x)
 {
   ret = .Call(R_asin_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 acos_float32 = function(x)
 {
   ret = .Call(R_acos_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 atan_float32 = function(x)
 {
   ret = .Call(R_atan_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 
@@ -208,37 +208,37 @@ NULL
 sinh_float32 = function(x)
 {
   ret = .Call(R_sinh_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 cosh_float32 = function(x)
 {
   ret = .Call(R_cosh_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 tanh_float32 = function(x)
 {
   ret = .Call(R_tanh_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 asinh_float32 = function(x)
 {
   ret = .Call(R_asinh_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 acosh_float32 = function(x)
 {
   ret = .Call(R_acosh_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 atanh_float32 = function(x)
 {
   ret = .Call(R_atanh_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 
@@ -300,13 +300,13 @@ NULL
 abs_float32 = function(x)
 {
   ret = .Call(R_abs_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 sqrt_float32 = function(x)
 {
   ret = .Call(R_sqrt_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 
@@ -352,13 +352,13 @@ NULL
 gamma_float32 = function(x)
 {
   ret = .Call(R_gamma_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 lgamma_float32 = function(x)
 {
   ret = .Call(R_lgamma_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 
@@ -467,25 +467,25 @@ NULL
 ceiling_float32 = function(x)
 {
   ret = .Call(R_ceiling_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 floor_float32 = function(x)
 {
   ret = .Call(R_floor_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 trunc_float32 = function(x, ...)
 {
   ret = .Call(R_trunc_spm, DATA(x))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 round_float32 = function(x, digits=0)
 {
   ret = .Call(R_round_spm, DATA(x), as.double(digits))
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

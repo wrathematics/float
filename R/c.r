@@ -42,7 +42,7 @@ c_float32 = function(x, ...)
   {
     raw = lapply(additional, function(x) DATA(fl(x, strict=FALSE)))
     ret = c(DATA(x), do.call(c, raw))
-    new("float32", Data=ret)
+    float32(ret)
   }
 }
 

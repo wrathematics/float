@@ -31,25 +31,25 @@ NULL
 colSums_float32 = function(x, na.rm=FALSE, dims=1)
 {
   ret = .Call(R_colSums_spm, DATA(x), na.rm)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 rowSums_float32 = function(x, na.rm=FALSE, dims=1)
 {
   ret = .Call(R_rowSums_spm, DATA(x), na.rm)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 colMeans_float32 = function(x, na.rm=FALSE, dims=1)
 {
   ret = .Call(R_colMeans_spm, DATA(x), na.rm)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 rowMeans_float32 = function(x, na.rm=FALSE, dims=1)
 {
   ret = .Call(R_rowMeans_spm, DATA(x), na.rm)
-  new("float32", Data=ret)
+  float32(ret)
 }
 
 

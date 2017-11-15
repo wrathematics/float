@@ -33,7 +33,7 @@ norm_float32 = function(x, type=c("O", "I", "F", "M", "2"))
   else
   {
     ret = .Call(R_norm_spm, DATA(x), type)
-    new("float32", Data=ret)
+    float32(ret)
   }
 }
 
