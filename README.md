@@ -253,3 +253,7 @@ Type promotion always defaults to the highest type available. If you want the ar
 #### Doesn't that make R's type system even more of a mess?
 
 Yes.
+
+#### How would I create my own methods?
+
+If you can formulate the method in terms of existing functionality from the **float** package, then you're good.  If not, you will likely have to write your own C/C++ code.  See the *For Developers* section of the package vignette.
