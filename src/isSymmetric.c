@@ -1,6 +1,5 @@
 // Modified from the band package. Copyright (c) 2016 Drew Schmidt
 
-#include <float/blocksize.h>
 #include "spm.h"
 
 
@@ -13,13 +12,15 @@ static inline bool samenum(const float x, const float y)
 
 static inline bool isSym(const len_t n, const float *const restrict x)
 {
-  for (len_t j=0; j<n; j+=BLOCKSIZE)
+  const int blocksize = 8; // TODO check cache line explicitly
+  
+  for (len_t j=0; j<n; j+=blocksize)
   {
-    for (len_t i=j; i<n; i+=BLOCKSIZE)
+    for (len_t i=j; i<n; i+=blocksize)
     {
-      for (len_t col=j; col<j+BLOCKSIZE && col<n; ++col)
+      for (len_t col=j; col<j+blocksize && col<n; ++col)
       {
-        for (len_t row=i; row<i+BLOCKSIZE && row<n; ++row)
+        for (len_t row=i; row<i+blocksize && row<n; ++row)
         {
           const bool check = samenum(x[col + n*row], x[row + n*col]);
           if (!check)

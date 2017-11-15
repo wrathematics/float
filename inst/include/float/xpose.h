@@ -4,18 +4,17 @@
 #define SPM_XPOSE_H_
 
 
-#include "blocksize.h"
-
-
 static inline void float_xpose(const int m, const int n, const float *const restrict x, float *restrict tx)
 {
-  for (int j=0; j<n; j+=BLOCKSIZE)
+  const int blocksize = 8; // TODO check cache line explicitly
+  
+  for (int j=0; j<n; j+=blocksize)
   {
-    for (int i=0; i<m; i+=BLOCKSIZE)
+    for (int i=0; i<m; i+=blocksize)
     {
-      for (int col=j; col<j+BLOCKSIZE && col<n; ++col)
+      for (int col=j; col<j+blocksize && col<n; ++col)
       {
-        for (int row=i; row<i+BLOCKSIZE && row<m; ++row)
+        for (int row=i; row<i+blocksize && row<m; ++row)
           tx[col + n*row] = x[row + m*col];
       }
     }
