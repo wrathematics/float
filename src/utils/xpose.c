@@ -1,10 +1,6 @@
 // Taken from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 
-#ifndef SPM_XPOSE_H_
-#define SPM_XPOSE_H_
-
-
-static inline void float_xpose(const int m, const int n, const float *const restrict x, float *restrict tx)
+void float_xpose(const int m, const int n, const float *const restrict x, float *const restrict tx)
 {
   const int blocksize = 8; // TODO check cache line explicitly
   
@@ -20,6 +16,3 @@ static inline void float_xpose(const int m, const int n, const float *const rest
     }
   }
 }
-
-
-#endif

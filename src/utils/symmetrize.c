@@ -1,15 +1,11 @@
 // Modified from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 
-#ifndef SPM_XPOSE_H_
-#define SPM_XPOSE_H_
-
-
-#include "slapack.h"
+#include <float/slapack.h>
 
 // uplo: triangle to copy FROM, i.e. uplo=UPLO_L means copy lower to upper
-static inline void float_symmetrize(const int uplo, const int n, float *restrict x)
+void float_symmetrize(const int uplo, const int n, float *const restrict x)
 {
-  const int blocksize = 8;
+  const int blocksize = 8; // TODO check cache line explicitly
   
   if (uplo == UPLO_L)
   {
@@ -41,6 +37,3 @@ static inline void float_symmetrize(const int uplo, const int n, float *restrict
     }
   }
 }
-
-
-#endif

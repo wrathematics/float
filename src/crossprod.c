@@ -1,8 +1,7 @@
 // Modified from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 
-#include <float/matmult.h>
 #include <float/slapack.h>
-#include <float/symmetrize.h>
+#include <float/float32.h>
 #include "spm.h"
 
 

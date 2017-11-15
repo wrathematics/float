@@ -1,7 +1,7 @@
 // Modified from the pcapack package. Copyright (c) 2014-2017 Drew Schmidt
 
+#include <float/float32.h>
 #include <float/slapack.h>
-#include <float/xpose.h>
 #include "spm.h"
 
 

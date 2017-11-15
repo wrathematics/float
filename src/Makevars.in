@@ -29,7 +29,10 @@ R_SOURCES = \
 	svd.o \
 	sweep.o \
 	xpose.o \
-	lapack/wrap.o
+	lapack/wrap.o \
+	utils/matmult.o \
+	utils/symmetrize.o \
+	utils/xpose.o
 
 OBJECTS = $(R_SOURCES) @ADD_OBJS@
 

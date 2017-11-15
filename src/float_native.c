@@ -5,6 +5,8 @@
 #include <R_ext/Rdynload.h>
 #include <stdlib.h>
 
+#include <float/float32.h>
+
 extern SEXP R_abs_spm(SEXP x);
 extern SEXP R_acos_spm(SEXP x);
 extern SEXP R_acosh_spm(SEXP x);
@@ -174,4 +176,10 @@ void R_init_float(DllInfo *dll)
 {
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
+  
+  R_RegisterCCallable("float", "float_crossprod", (DL_FUNC)float_crossprod);
+  R_RegisterCCallable("float", "float_tcrossprod", (DL_FUNC)float_tcrossprod);
+  R_RegisterCCallable("float", "float_matmult", (DL_FUNC)float_matmult);
+  R_RegisterCCallable("float", "float_symmetrize", (DL_FUNC)float_symmetrize);
+  R_RegisterCCallable("float", "float_xpose", (DL_FUNC)float_xpose);
 }

@@ -1,5 +1,5 @@
 #include "spm.h"
-#include <float/matmult.h>
+#include <float/float32.h>
 
 
 SEXP R_matmult_spm(SEXP x, SEXP y)
