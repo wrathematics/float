@@ -1,6 +1,6 @@
 // Modified from the band package. Copyright (c) 2016 Drew Schmidt
 
-#include "lapack/wrap.h"
+#include <float/slapack.h>
 #include "spm.h"
 #include "safeomp.h"
 

@@ -1,8 +1,8 @@
 // Modified from the pcapack package. Copyright (c) 2014-2017 Drew Schmidt
 
-#include "lapack/wrap.h"
+#include <float/slapack.h>
+#include <float/xpose.h>
 #include "spm.h"
-#include "xpose.h"
 
 
 int svd(const int nu, const int nv, const int m, const int n,

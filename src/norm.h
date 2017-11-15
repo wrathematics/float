@@ -2,7 +2,7 @@
 #define SPM_NORM_H_
 
 
-#include "lapack/wrap.h"
+#include <float/slapack.h>
 #include "spm.h"
 
 

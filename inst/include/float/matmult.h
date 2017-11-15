@@ -6,10 +6,24 @@
 
 #include <stdbool.h>
 
-#include "lapack/wrap.h"
+#include "slapack.h"
+
+
+// lower triangle of t(x) %*% x
+static inline void float_crossprod(const int m, const int n, const float alpha, const float * const restrict x, float *restrict c)
+{
+  F77_CALL(rsyrk)(&(int){UPLO_L}, &(int){TRANS_T}, &n, &m, &alpha, x, &m, &(float){0.0}, c, &n);
+}
+
+static inline void float_tcrossprod(const int m, const int n, const float alpha, const float * const restrict x, float *restrict c)
+{
+  F77_CALL(rsyrk)(&(int){UPLO_L}, &(int){TRANS_N}, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
+}
+
+
 
 // dgemm wrapper
-static inline void matmult(const bool transx, const bool transy,
+static inline void float_matmult(const bool transx, const bool transy,
   const float alpha, const int mx, const int nx, const float *const restrict x,
   const int my, const int ny, const float *const restrict y, float *restrict ret)
 {

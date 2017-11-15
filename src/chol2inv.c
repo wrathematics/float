@@ -1,6 +1,6 @@
-#include "lapack/wrap.h"
+#include <float/slapack.h>
 #include "spm.h"
-#include "symmetrize.h"
+#include <float/symmetrize.h>
 
 
 SEXP R_chol2inv_spm(SEXP x, SEXP size_)
@@ -30,7 +30,7 @@ SEXP R_chol2inv_spm(SEXP x, SEXP size_)
   if (info != 0)
     error("spotri() returned info=%d\n", info);
   
-  symmetrize(UPLO_U, size, DATA(ret));
+  float_symmetrize(UPLO_U, size, DATA(ret));
   
   UNPROTECT(1);
   return ret;

@@ -1,10 +1,13 @@
+#ifndef R_FLOAT_LAPACK_
+#define R_FLOAT_LAPACK_
+
+#include <R_ext/RS.h> // for F77_NAME
+
+
+// -----------------------------------------------------------------------------
 // Wrappers to fix a portability issue with passing characters from C on
 // C windows gfortran. See also wrap.f
-#ifndef R_LAPACK_WRAP_H_
-#define R_LAPACK_WRAP_H_
-
-#include <R_ext/RS.h>
-
+// -----------------------------------------------------------------------------
 
 #define UPLO_L 0 // lower triangular
 #define UPLO_U 1 // upper triangular
@@ -32,15 +35,21 @@
 #define SIDE_R 1 // right
 
 
-// ----------------------   blas   ----------------------
+// ------------------   blas   ------------------
 
 // ssyrk - crossprod
 void F77_NAME(rsyrk)(const int *uplo, const int *trans, const int *n, const int *k,
   const float *restrict alpha, const float *restrict a, const int *lda,
   const float *restrict beta, float *restrict c, const int *ldc);
 
+// matrix multiply
+void F77_NAME(rgemm)(const int *transa, const int *transb, const int *m, const int *n,
+  const int *k, const float *restrict alpha, const float *restrict a,
+  const int *lda, const float *restrict b, const int *ldb,
+  const float *beta, float *restrict c, const int *ldc);
 
-// ----------------------   lapack   ----------------------
+
+// ------------------   lapack   ------------------
 
 // strtrs - solve triangular system
 void F77_NAME(rtrtrs)(const int *const restrict uplo, const int *const restrict trans,
@@ -127,16 +136,15 @@ void F77_NAME(rgesdd)(const int *const restrict jobz, const int *const restrict 
   float *const restrict work, const int *const restrict lwork,
   int *const restrict iwork, int *const restrict info);
 
-// matrix multiply
-void F77_NAME(rgemm)(const int *transa, const int *transb, const int *m, const int *n,
-  const int *k, const float *restrict alpha, const float *restrict a,
-  const int *lda, const float *restrict b, const int *ldb,
-  const float *beta, float *restrict c, const int *ldc);
-
 // chol2inv
 void F77_NAME(rpotri)(const int *const restrict uplo, const int *const restrict n,
   float *const restrict a, const int *const restrict lda,
   int *const restrict info);
 
+
+
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 
 #endif

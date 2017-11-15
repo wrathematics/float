@@ -19,3 +19,4 @@ setClass("float32",
 
 setClassUnion("Mat", c("matrix", "float32"))
 setClassUnion("BaseLinAlg", c("matrix", "vector"))
+

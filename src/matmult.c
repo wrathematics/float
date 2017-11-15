@@ -1,5 +1,5 @@
 #include "spm.h"
-#include "matmult.h"
+#include <float/matmult.h>
 
 
 SEXP R_matmult_spm(SEXP x, SEXP y)
@@ -13,7 +13,7 @@ SEXP R_matmult_spm(SEXP x, SEXP y)
   
   PROTECT(ret = newmat(m, n));
   
-  matmult(false, false, 1.0f, NROWS(x), NCOLS(x), DATA(x), NROWS(y), NCOLS(y), DATA(y), DATA(ret));
+  float_matmult(false, false, 1.0f, NROWS(x), NCOLS(x), DATA(x), NROWS(y), NCOLS(y), DATA(y), DATA(ret));
   
   UNPROTECT(1);
   return ret;

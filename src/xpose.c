@@ -1,5 +1,5 @@
 #include "spm.h"
-#include "xpose.h"
+#include <float/xpose.h>
 
 
 SEXP R_xpose_spm(SEXP x)
@@ -10,7 +10,7 @@ SEXP R_xpose_spm(SEXP x)
   
   PROTECT(ret = newmat(n, m));
   
-  xpose(m, n, DATA(x), DATA(ret));
+  float_xpose(m, n, DATA(x), DATA(ret));
   
   UNPROTECT(1);
   return ret;

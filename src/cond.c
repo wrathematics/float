@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "lapack/wrap.h"
+#include <float/slapack.h>
 #include "norm.h"
 #include "spm.h"
 

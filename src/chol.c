@@ -1,4 +1,4 @@
-#include "lapack/wrap.h"
+#include <float/slapack.h>
 #include "spm.h"
 
 
