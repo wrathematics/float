@@ -266,7 +266,11 @@ data.
 S4 class: \code{float32(ret)}.
 \end{itemize}
 
-One can access the data with the following macro:
+One can access the data with the \code{FLOAT()} macro.  If writing an R package, 
+add \textbf{float} to the \code{LinkingTo} list in the package DESCRIPTION file. 
+Then add \code{\#include <float/float32.h>} and the macro will be available.  
+If you are working outside the construct of a package (not recommended), then 
+you can define the macro as follows:
 
 \begin{lstlisting}[language=cc]
 #define FLOAT(x) ((float*) INTEGER(x))
@@ -277,8 +281,10 @@ double precision and \code{INTEGER} for ints. There is no Rcpp-like idiom
 for floats similar to \code{NumericVector} and \code{NumericMatrix} at this 
 time.
 
-Here's a basic example of how one would create a new function \code{add1()} in 
-R (ignoring that we could just do \code{x+1}).
+Here's a basic example of how one would create a new function \code{add1()} 
+(ignoring that we could just do \code{x+1}) using C.  We will do this outside 
+of a package framework for simplicity of demonstration, but again, it is 
+recommended that you use the \code{LinkingTo} way mentioned above.
 
 \begin{lstlisting}[language=cc, title=add1.c]
 #include <Rinternals.h>
@@ -299,11 +305,12 @@ SEXP R_add1(SEXP x_)
 }
 \end{lstlisting}
 
-Note that using \code{INTEGER(ret)[0]} instead of \code{FLOAT(ret)[0]} is not 
-correct. That would cast the value to an integer, then once put in the 
-\code{float32} class, that integer value would be treated as the memory of a 
-\code{float}. If that doesn't make sense, try modifying the above to the wrong 
-thing and see what happens.
+Note that using \code{INTEGER(ret)[0]} instead of \code{FLOAT(ret)[0]} on line 
+12 above is not correct. That would first cast the value to an integer before 
+storing the data.  Then back at the R level, once put in the \code{float32} 
+class, that integer value would be treated as though it were a \code{float}. If 
+that explanation doesn't make sense, try modifying the above to the wrong thing 
+and see what happens.
 
 We can build that function with \code{R CMD SHLIB add1.c}, and then call it via:
 
