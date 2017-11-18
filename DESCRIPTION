@@ -15,13 +15,11 @@ Description: R comes with a suite of utilities for linear algebra with "numeric"
     single precision 'BLAS' and 'LAPACK', which are automatically built in the
     event they are not available on the system.
 License: BSD 2-clause License + file LICENSE
-Copyright: The copyright for the single precision BLAS/LAPACK distribution
-    located in src/lapack is given in the file src/lapack/LICENSE.
-Depends:
-    R (>= 3.1.0),
-    methods
-Imports:
-    utils
+Copyright: The copyright for the single precision BLAS/LAPACK
+        distribution located in src/lapack is given in the file
+        src/lapack/LICENSE.
+Depends: R (>= 3.1.0), methods
+Imports: utils
 ByteCompile: yes
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues
@@ -31,3 +29,4 @@ Authors@R: c(
     )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
 RoxygenNote: 5.0.1
+NeedsCompilation: yes
