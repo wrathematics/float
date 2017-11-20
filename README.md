@@ -56,7 +56,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 | `cbind()` and `rbind()` | done |
 | `diag()` | done |
 | `is.na()` | done |
-| `is.spm()` | done |
+| `is.float()` | done |
 | `min()` and `max()` | done |
 | `na.omit()`, `na.exclude()` | done |
 | `nrow()`, `ncol()`, `dim()` | done |

@@ -1,22 +1,22 @@
 # apply a binary operation with appropriate type promotion
 binop = function(e1, e2, fun, spmfun)
 {
-  if ((!is.spm(e1) && !is.atomic(e1)) || (!is.spm(e2) && !is.atomic(e2)))
+  if ((!is.float(e1) && !is.atomic(e1)) || (!is.float(e2) && !is.atomic(e2)))
     stop("non-numeric argument to binary operator")
   
-  if (is.spm(e1))
+  if (is.float(e1))
   {
     if (is.integer(e2))
       e2 = fl(e2)
     
-    if (is.spm(e2))
+    if (is.float(e2))
       ret = spmfun(e1, e2)
     else
       ret = fun(dbl(e1), e2)
   }
   else
   {
-    if (is.spm(e2))
+    if (is.float(e2))
     {
       if (is.integer(e1))
         ret = spmfun(fl(e1), e2)

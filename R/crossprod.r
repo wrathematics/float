@@ -31,16 +31,16 @@ NULL
 
 cp_float32 = function(x, y=NULL)
 {
-  if (is.spm(x))
+  if (is.float(x))
   {
     if (is.null(y))
       d = .Call(R_crossprod_spm, DATA(x))
-    else if (is.spm(y))
+    else if (is.float(y))
       d = .Call(R_crossprod_spmspm, DATA(x), DATA(y))
     else
       return(base::crossprod(dbl(x), y))
   }
-  else if (is.matrix(x) && is.spm(y))
+  else if (is.matrix(x) && is.float(y))
     return(base::crossprod(x, dbl(y)))
   else
     return(base::crossprod(x, y))
@@ -50,16 +50,16 @@ cp_float32 = function(x, y=NULL)
 
 tcp_float32 = function(x, y=NULL)
 {
-  if (is.spm(x))
+  if (is.float(x))
   {
     if (is.null(y))
       d = .Call(R_tcrossprod_spm, DATA(x))
-    else if (is.spm(y))
+    else if (is.float(y))
       d = .Call(R_tcrossprod_spmspm, DATA(x), DATA(y))
     else
       return(base::tcrossprod(dbl(x), y))
   }
-  else if (is.matrix(x) && is.spm(y))
+  else if (is.matrix(x) && is.float(y))
     return(base::tcrossprod(x, dbl(y)))
   else
     return(base::tcrossprod(x, y))

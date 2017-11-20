@@ -42,7 +42,7 @@ expm1_float32 = function(x)
 
 log_float32 = function(x, base=exp(1))
 {
-  if (is.spm(base))
+  if (is.float(base))
     base = dbl(base[1])
   
   ret = .Call(R_log_spm, DATA(x), as.double(base))

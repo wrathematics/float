@@ -29,11 +29,7 @@ NULL
 
 #' @rdname is.spm
 #' @export
-is.spm = function(x)
+is.float = function(x)
 {
   is(x, "float32")
 }
-
-#' @rdname is.spm
-#' @export
-is.float = is.spm

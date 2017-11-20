@@ -42,7 +42,7 @@ sum_float32_ = function(x, na.rm)
 
 summer = function(x, na.rm)
 {
-  if (is.spm(x))
+  if (is.float(x))
     dbl(sum_float32_(x, na.rm=na.rm))
   else
     sum(x, na.rm=na.rm)
