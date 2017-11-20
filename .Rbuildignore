@@ -1,7 +1,7 @@
 ^\.travis\.yml$
+.vscode
+
+src/endianness.h
 
 LICENSE.md
-
 TODO
-
-.vscode

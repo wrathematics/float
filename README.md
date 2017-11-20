@@ -18,6 +18,7 @@ Type promotion always defaults to the higher precision.  So if a float matrix op
 
 The package requires the single precision BLAS/LAPACK routines which are not included in the default `libRblas` and `libRlapack` shipped from CRAN.  If your BLAS/LAPACK libraries do not have what is needed, then they will be built (note that a fortran compiler is required in this case).  However, these can take a very long time to compile, and will have much worse performance than optimized libraries.  The topic of which BLAS/LAPACK to use and how to use them has been written about many times.  If this is the first you're hearing of it, I would recommend you use [Microsoft R Open](https://mran.microsoft.com/open/).
 
+<!-- TODO -->
 <!-- To install the R package, run:
 
 ```r
@@ -32,6 +33,11 @@ devtools::install_github("wrathematics/float")
 ghit::install_github("wrathematics/float")
 remotes::install_github("wrathematics/float")
 ```
+
+### Windows
+If you are installing on Windows and wish to get the best performance, then you will need to install from source after editing some files.  After installing high-performance BLAS and LAPACK libraries, delete the text `$(LAPACK_OBJS)` from line in `src/Makevars.win` beginning with `OBJECTS = `.  You will also need to add the appropriate link line.  This will ensure that on building, the package links with your high-performance libraries instead of compiling the reference versions.
+
+Also, if you are using Windows on big endian hardware (I'm not even sure if this is possible), then you will need to change the 0 in `src/windows/endianness.h` to a 1. Failure to do so will cause very bizarre things to happen with the NA handlers.
 
 
 
