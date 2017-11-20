@@ -8,11 +8,11 @@
 #' (float) data.  Float vectors/matrices have half the precision of their
 #' "numeric"-type counterparts, for a performance vs accuracy trade-off.  The
 #' internal representation is an S4 class, which allows us to keep the syntax
-#' identical to that of base R's.  Interaction between base types for binary
-#' operators is generally possible.  In these cases, type promotion always
-#' defaults to the higher precision.  The package ships with copies of the
-#' single precision 'BLAS' and 'LAPACK', which are automatically built in the
-#' event they are not available on the system.
+#' identical to that of base R's.  Interaction between floats and base types
+#' for binary operators is generally possible; in these cases, type promotion
+#' always defaults to the higher precision.  The package ships with copies of
+#' the single precision 'BLAS' and 'LAPACK', which are automatically built in
+#' the event they are not available on the system.
 #' 
 #' @importFrom utils capture.output
 #' @import methods
@@ -33,7 +33,7 @@
 #'   R_rcond_spm R_chol2inv_spm R_spm2int
 #' 
 #' @docType package
-#' @name spm-package
+#' @name float-package
 #' @author Drew Schmidt
 #' @keywords package
 NULL
