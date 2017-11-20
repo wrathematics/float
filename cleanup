@@ -9,3 +9,5 @@ rm -rf ./src/lapack/*.o
 rm -rf ./src/utils/*.o
 
 rm -rf src/Makevars
+
+rm -rf ./src-*
