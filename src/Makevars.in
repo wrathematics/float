@@ -24,12 +24,12 @@ R_SOURCES = \
 	qr.o \
 	rand.o \
 	scale.o \
+	slapack_wrap.o \
 	solve.o \
 	sum.o \
 	svd.o \
 	sweep.o \
 	xpose.o \
-	lapack/wrap.o \
 	utils/matmult.o \
 	utils/symmetrize.o \
 	utils/xpose.o

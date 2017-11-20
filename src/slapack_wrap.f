@@ -1,7 +1,7 @@
 C Wrapper to fix a portability issue with passing characters from C on
 C windows gfortran
 
-C helpers; these map to the definitions in wrap.h
+C helpers; these map to the definitions in ../inst/include/float/slapack.h
 
       CHARACTER FUNCTION CUPLO(IUPLO)
       INTEGER IUPLO

@@ -5,7 +5,7 @@ PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CFLAGS)
 
 R_SOURCES = $(wildcard *.c)
 LAPACK_OBJS = lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o lapack/sblas.o
-OBJECTS = $(R_SOURCES:.c=.o) utils/matmult.o utils/symmetrize.o utils/xpose.o lapack/wrap.o $(LAPACK_OBJS)
+OBJECTS = $(R_SOURCES:.c=.o) utils/matmult.o utils/symmetrize.o utils/xpose.o slapack_wrap.o $(LAPACK_OBJS)
 
 
 ### Start making here.
