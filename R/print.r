@@ -22,7 +22,7 @@ NULL
 
 
 
-print_spm_vec = function(x)
+print_float_vec = function(x)
 {
   n = NROW(x)
   
@@ -52,7 +52,7 @@ print_spm_vec = function(x)
 
 
 
-print_spm_mat = function(x)
+print_float_mat = function(x)
 {
   m = NROW(x)
   n = NCOL(x)
@@ -105,9 +105,9 @@ print_attr = function(x)
 print_float32 = function(x)
 {
   if (isavec(x))
-    print_spm_vec(x)
+    print_float_vec(x)
   else
-    print_spm_mat(x)
+    print_float_mat(x)
   
   print_attr(x)
 }

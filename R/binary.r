@@ -1,5 +1,5 @@
 # apply a binary operation with appropriate type promotion
-binop = function(e1, e2, fun, spmfun)
+binop = function(e1, e2, fun, floatfun)
 {
   if ((!is.float(e1) && !is.atomic(e1)) || (!is.float(e2) && !is.atomic(e2)))
     stop("non-numeric argument to binary operator")
@@ -10,7 +10,7 @@ binop = function(e1, e2, fun, spmfun)
       e2 = fl(e2)
     
     if (is.float(e2))
-      ret = spmfun(e1, e2)
+      ret = floatfun(e1, e2)
     else
       ret = fun(dbl(e1), e2)
   }
@@ -19,7 +19,7 @@ binop = function(e1, e2, fun, spmfun)
     if (is.float(e2))
     {
       if (is.integer(e1))
-        ret = spmfun(fl(e1), e2)
+        ret = floatfun(fl(e1), e2)
       else
         ret = fun(e1, dbl(e2))
     }
@@ -69,31 +69,31 @@ NULL
 
 
 
-add_spmspm = function(e1, e2)
+add_floatfloat = function(e1, e2)
 {
   ret = .Call(R_add_spm, DATA(e1), DATA(e2))
   float32(ret)
 }
 
-mul_spmspm = function(e1, e2)
+mul_floatfloat = function(e1, e2)
 {
   ret = .Call(R_mul_spm, DATA(e1), DATA(e2))
   float32(ret)
 }
 
-sub_spmspm = function(e1, e2)
+sub_floatfloat = function(e1, e2)
 {
   ret = .Call(R_sub_spm, DATA(e1), DATA(e2))
   float32(ret)
 }
 
-div_spmspm = function(e1, e2)
+div_floatfloat = function(e1, e2)
 {
   ret = .Call(R_div_spm, DATA(e1), DATA(e2))
   float32(ret)
 }
 
-pow_spmspm = function(e1, e2)
+pow_floatfloat = function(e1, e2)
 {
   ret = .Call(R_pow_spm, DATA(e1), DATA(e2))
   float32(ret)
@@ -101,96 +101,96 @@ pow_spmspm = function(e1, e2)
 
 
 
-add.spm = function(e1, e2)
+add.float = function(e1, e2)
 {
-  binop(e1, e2, `+`, add_spmspm)
+  binop(e1, e2, `+`, add_floatfloat)
 }
 
-mul.spm = function(e1, e2)
+mul.float = function(e1, e2)
 {
-  binop(e1, e2, `*`, mul_spmspm)
+  binop(e1, e2, `*`, mul_floatfloat)
 }
 
-sub.spm = function(e1, e2)
+sub.float = function(e1, e2)
 {
-  binop(e1, e2, `-`, sub_spmspm)
+  binop(e1, e2, `-`, sub_floatfloat)
 }
 
-div.spm = function(e1, e2)
+div.float = function(e1, e2)
 {
-  binop(e1, e2, `/`, div_spmspm)
+  binop(e1, e2, `/`, div_floatfloat)
 }
 
-pow.spm = function(e1, e2)
+pow.float = function(e1, e2)
 {
-  binop(e1, e2, `^`, pow_spmspm)
+  binop(e1, e2, `^`, pow_floatfloat)
 }
 
 
 
 #' @rdname arithmetic
 #' @export
-setMethod("+", signature(e1="float32", e2="float32"), add.spm)
+setMethod("+", signature(e1="float32", e2="float32"), add.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("*", signature(e1="float32", e2="float32"), mul.spm)
+setMethod("*", signature(e1="float32", e2="float32"), mul.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("-", signature(e1="float32", e2="float32"), sub.spm)
+setMethod("-", signature(e1="float32", e2="float32"), sub.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("/", signature(e1="float32", e2="float32"), div.spm)
+setMethod("/", signature(e1="float32", e2="float32"), div.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("^", signature(e1="float32", e2="float32"), pow.spm)
-
-
-
-#' @rdname arithmetic
-#' @export
-setMethod("+", signature(e1="float32", e2="BaseLinAlg"), add.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod("*", signature(e1="float32", e2="BaseLinAlg"), mul.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod("-", signature(e1="float32", e2="BaseLinAlg"), sub.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod("/", signature(e1="float32", e2="BaseLinAlg"), div.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod("^", signature(e1="float32", e2="BaseLinAlg"), pow.spm)
+setMethod("^", signature(e1="float32", e2="float32"), pow.float)
 
 
 
 #' @rdname arithmetic
 #' @export
-setMethod("+", signature(e1="BaseLinAlg", e2="float32"), add.spm)
+setMethod("+", signature(e1="float32", e2="BaseLinAlg"), add.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("*", signature(e1="BaseLinAlg", e2="float32"), mul.spm)
+setMethod("*", signature(e1="float32", e2="BaseLinAlg"), mul.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("-", signature(e1="BaseLinAlg", e2="float32"), sub.spm)
+setMethod("-", signature(e1="float32", e2="BaseLinAlg"), sub.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("/", signature(e1="BaseLinAlg", e2="float32"), div.spm)
+setMethod("/", signature(e1="float32", e2="BaseLinAlg"), div.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("^", signature(e1="BaseLinAlg", e2="float32"), pow.spm)
+setMethod("^", signature(e1="float32", e2="BaseLinAlg"), pow.float)
+
+
+
+#' @rdname arithmetic
+#' @export
+setMethod("+", signature(e1="BaseLinAlg", e2="float32"), add.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod("*", signature(e1="BaseLinAlg", e2="float32"), mul.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod("-", signature(e1="BaseLinAlg", e2="float32"), sub.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod("/", signature(e1="BaseLinAlg", e2="float32"), div.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod("^", signature(e1="BaseLinAlg", e2="float32"), pow.float)
 
 
 
@@ -224,120 +224,120 @@ NULL
 
 
 
-lt_spmspm = function(e1, e2)
+lt_floatfloat = function(e1, e2)
 {
   .Call(R_lt_spm, DATA(e1), DATA(e2))
 }
 
-le_spmspm = function(e1, e2)
+le_floatfloat = function(e1, e2)
 {
   .Call(R_le_spm, DATA(e1), DATA(e2))
 }
 
-eq_spmspm = function(e1, e2)
+eq_floatfloat = function(e1, e2)
 {
   .Call(R_eq_spm, DATA(e1), DATA(e2))
 }
 
-gt_spmspm = function(e1, e2)
+gt_floatfloat = function(e1, e2)
 {
   .Call(R_gt_spm, DATA(e1), DATA(e2))
 }
 
-ge_spmspm = function(e1, e2)
+ge_floatfloat = function(e1, e2)
 {
   .Call(R_ge_spm, DATA(e1), DATA(e2))
 }
 
 
 
-lt.spm = function(e1, e2)
+lt.float = function(e1, e2)
 {
-  binop(e1, e2, `<`, lt_spmspm)
+  binop(e1, e2, `<`, lt_floatfloat)
 }
 
-le.spm = function(e1, e2)
+le.float = function(e1, e2)
 {
-  binop(e1, e2, `<=`, le_spmspm)
+  binop(e1, e2, `<=`, le_floatfloat)
 }
 
-eq.spm = function(e1, e2)
+eq.float = function(e1, e2)
 {
-  binop(e1, e2, `==`, eq_spmspm)
+  binop(e1, e2, `==`, eq_floatfloat)
 }
 
-gt.spm = function(e1, e2)
+gt.float = function(e1, e2)
 {
-  binop(e1, e2, `>`, gt_spmspm)
+  binop(e1, e2, `>`, gt_floatfloat)
 }
 
-ge.spm = function(e1, e2)
+ge.float = function(e1, e2)
 {
-  binop(e1, e2, `>=`, ge_spmspm)
+  binop(e1, e2, `>=`, ge_floatfloat)
 }
 
 
 
 #' @rdname arithmetic
 #' @export
-setMethod("<", signature(e1="float32", e2="float32"), lt.spm)
+setMethod("<", signature(e1="float32", e2="float32"), lt.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("<=", signature(e1="float32", e2="float32"), le.spm)
+setMethod("<=", signature(e1="float32", e2="float32"), le.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("==", signature(e1="float32", e2="float32"), eq.spm)
+setMethod("==", signature(e1="float32", e2="float32"), eq.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod(">", signature(e1="float32", e2="float32"), gt.spm)
+setMethod(">", signature(e1="float32", e2="float32"), gt.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod(">=", signature(e1="float32", e2="float32"), ge.spm)
-
-
-
-#' @rdname arithmetic
-#' @export
-setMethod("<", signature(e1="float32", e2="BaseLinAlg"), lt.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod("<=", signature(e1="float32", e2="BaseLinAlg"), le.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod("==", signature(e1="float32", e2="BaseLinAlg"), eq.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod(">", signature(e1="float32", e2="BaseLinAlg"), gt.spm)
-
-#' @rdname arithmetic
-#' @export
-setMethod(">=", signature(e1="float32", e2="BaseLinAlg"), ge.spm)
+setMethod(">=", signature(e1="float32", e2="float32"), ge.float)
 
 
 
 #' @rdname arithmetic
 #' @export
-setMethod("<", signature(e1="BaseLinAlg", e2="float32"), lt.spm)
+setMethod("<", signature(e1="float32", e2="BaseLinAlg"), lt.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("<=", signature(e1="BaseLinAlg", e2="float32"), le.spm)
+setMethod("<=", signature(e1="float32", e2="BaseLinAlg"), le.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod("==", signature(e1="BaseLinAlg", e2="float32"), eq.spm)
+setMethod("==", signature(e1="float32", e2="BaseLinAlg"), eq.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod(">", signature(e1="BaseLinAlg", e2="float32"), gt.spm)
+setMethod(">", signature(e1="float32", e2="BaseLinAlg"), gt.float)
 
 #' @rdname arithmetic
 #' @export
-setMethod(">=", signature(e1="BaseLinAlg", e2="float32"), ge.spm)
+setMethod(">=", signature(e1="float32", e2="BaseLinAlg"), ge.float)
+
+
+
+#' @rdname arithmetic
+#' @export
+setMethod("<", signature(e1="BaseLinAlg", e2="float32"), lt.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod("<=", signature(e1="BaseLinAlg", e2="float32"), le.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod("==", signature(e1="BaseLinAlg", e2="float32"), eq.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod(">", signature(e1="BaseLinAlg", e2="float32"), gt.float)
+
+#' @rdname arithmetic
+#' @export
+setMethod(">=", signature(e1="BaseLinAlg", e2="float32"), ge.float)
