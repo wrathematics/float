@@ -1,9 +1,9 @@
-#' is.spm
+#' is.float
 #' 
 #' Tests if argument is a float matrix.
 #' 
 #' @details
-#' \code{is.spm()} and \code{is.float()} are different names for the same
+#' \code{is.float()} and \code{is.float()} are different names for the same
 #' function.
 #' 
 #' @param x
@@ -18,16 +18,10 @@
 #' 
 #' x = matrix(0, 5, 5)
 #' s = flrunif(10, 3)
-#' is.spm(x)
-#' is.spm(s)
+#' is.float(x)
+#' is.float(s)
 #' }
 #' 
-#' @name is.spm
-#' @rdname is.spm
-NULL
-
-
-#' @rdname is.spm
 #' @export
 is.float = function(x)
 {

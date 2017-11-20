@@ -48,7 +48,7 @@ max_float32_ = function(x, na.rm)
 
 extremer = function(x, na.rm, dFUN, sFUN)
 {
-  if (is.spm(x))
+  if (is.float(x))
     dbl(sFUN(x, na.rm=na.rm))
   else
     dFUN(x, na.rm=na.rm)
