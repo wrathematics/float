@@ -56,7 +56,7 @@ qrQ_float32 = function(qr, complete=FALSE, Dvec)
   m = NROW(qr$qr)
   n = NCOL(qr$qr)
   
-  if (is.spm(qr$qr))
+  if (is.float(qr$qr))
   {
     # ret = .Call(R_qrQ_spm, qr$DATA(qr), qr$DATA(qraux))
     if (missing(Dvec))
@@ -85,7 +85,7 @@ qrQ_float32 = function(qr, complete=FALSE, Dvec)
   }
   else
   {
-    if (!missing(Dvec) && is.spm(Dvec))
+    if (!missing(Dvec) && is.float(Dvec))
       Dvec = dbl(Dvec)
     
     base::qr.Q(qr, complete, Dvec)
@@ -97,7 +97,7 @@ qrR_float32 = function(qr, complete=FALSE)
   if (!is.qr(qr)) 
     stop("argument is not a QR decomposition")
   
-  if (is.spm(qr$qr))
+  if (is.float(qr$qr))
   {
     ret = .Call(R_qrR_spm, DATA(qr$qr), as.logical(complete))
     float32(ret)
@@ -114,7 +114,7 @@ qrqy = function(qr, y, trans)
   if (NROW(y) != NROW(qr$qr))
     stop("'qr' and 'y' must have the same number of rows")
   
-  if (is.spm(qr$qr))
+  if (is.float(qr$qr))
   {
     if (is.integer(y))
       y = fl(y)
@@ -124,7 +124,7 @@ qrqy = function(qr, y, trans)
       qr$qraux = dbl(qr$qraux)
       return(base::qr.qy(qr, y))
     }
-    else if (!is.spm(y))
+    else if (!is.float(y))
       stop("argument 'y' must be atomic")
     
     ret = .Call(R_qrqy_spm, DATA(qr$qr), DATA(qr$qraux), DATA(y), trans)
@@ -132,7 +132,7 @@ qrqy = function(qr, y, trans)
   }
   else
   {
-    if (is.spm(y))
+    if (is.float(y))
       y = dbl(y)
     
     base::qr.qy(qr, y)

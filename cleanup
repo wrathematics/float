@@ -4,6 +4,8 @@ rm -rf ./src/*.so*
 rm -rf ./src/*.d
 rm -rf ./src/*.dll
 
+rm -rf ./src/endianness.h
+
 rm -rf ./src/*.o
 rm -rf ./src/lapack/*.o
 rm -rf ./src/utils/*.o

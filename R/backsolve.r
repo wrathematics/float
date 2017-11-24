@@ -24,21 +24,21 @@ backsolve_float32 = function(r, x, k=ncol(r), upper.tri=TRUE, transpose=FALSE)
 {
   if (is.integer(r))
   {
-    if (is.spm(x))
+    if (is.float(x))
       r = fl(r)
   }
   
   if (is.integer(x))
   {
-    if (is.spm(r))
+    if (is.float(r))
       x = fl(x)
   }
   
   if (is.double(r) || is.double(x))
   {
-    if (is.spm(r))
+    if (is.float(r))
       r = dbl(r)
-    if (is.spm(x))
+    if (is.float(x))
       x = dbl(x)
     
     backsolve(r, x, k, upper.tri, transpose)

@@ -43,7 +43,7 @@ sweep_float32 = function(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...)
 {
   if (is.double(STATS))
     return(sweep(dbl(x), MARGIN, STATS, FUN, check.margin, ...))
-  else if (!is.logical(STATS) && !is.integer(STATS) && !is.spm(STATS))
+  else if (!is.logical(STATS) && !is.integer(STATS) && !is.float(STATS))
     stop("non-numeric argument to binary operator")
   
   if (isavec(x))

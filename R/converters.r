@@ -38,7 +38,7 @@ fl = function(x, strict=FALSE)
 {
   if (!is.numeric(x) && !is.logical(x))
   {
-    if (is.spm(x) && !isTRUE(strict))
+    if (is.float(x) && !isTRUE(strict))
       return(x)
     else
       stop("input 'x' must be a numeric or logical vector/matrix")
@@ -52,7 +52,7 @@ fl = function(x, strict=FALSE)
 #' @export
 dbl = function(x, strict=FALSE)
 {
-  if (!is.spm(x))
+  if (!is.float(x))
   {
     if (isTRUE(strict))
       stop("input 'x' must be float32")
@@ -72,7 +72,7 @@ dbl = function(x, strict=FALSE)
 #' @export
 int = function(x, strict=FALSE)
 {
-  if (!is.spm(x))
+  if (!is.float(x))
   {
     if (isTRUE(strict))
       stop("input 'x' must be float32")

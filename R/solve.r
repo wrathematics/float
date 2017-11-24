@@ -38,7 +38,7 @@ solve_float32 = function(a, b, ...)
     if (is.integer(b))
       b = fl(b)
     
-    if (is.spm(b))
+    if (is.float(b))
       ret = .Call(R_solve_spmspm, DATA(a), DATA(b))
     else if (is.numeric(b))
       return(solve(dbl(a), b))

@@ -1,7 +1,5 @@
 ^\.travis\.yml$
+.vscode
 
 LICENSE.md
-
 TODO
-
-.vscode

@@ -1,5 +1,3 @@
-// set during configuration; do not modify by hand
-
 #ifndef SPM_ENDIANNESS_H_
 #define SPM_ENDIANNESS_H_
 
