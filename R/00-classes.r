@@ -2,7 +2,7 @@ setClassUnion("Int", c("integer", "matrix"))
 
 #' Class float32
 #' 
-#' An S4 container for single precision (float) vector/matrix objects.
+#' An S4 container for 32-bit float vector/matrix objects.
 #' 
 #' @slot Data
 #' A vector or matrix of integers.
@@ -19,4 +19,3 @@ setClass("float32",
 
 setClassUnion("Mat", c("matrix", "float32"))
 setClassUnion("BaseLinAlg", c("matrix", "vector"))
-

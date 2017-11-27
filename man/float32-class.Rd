@@ -5,7 +5,7 @@
 \alias{float32-class}
 \title{Class float32}
 \description{
-An S4 container for single precision (float) vector/matrix objects.
+An S4 container for 32-bit float vector/matrix objects.
 }
 \section{Slots}{
 
