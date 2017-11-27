@@ -1,2 +1,28 @@
 Release 0.1-0:
-  * 
+  * Added fl() and dbl() casters.
+  * Added random constructors flrunif(), flrnorm(), and flrand().
+  * Added backsolve() and forwardsolve() methods.
+  * Added binary arithmetic methods.
+  * Added rbind() and cbind() methods.
+  * Added [ method.
+  * Added c() method.
+  * Added chol() and chol2inv() methods.
+  * Added colSums(), rowSums(), colMeans(), and rowMeans() methods.
+  * Added rcond() method.
+  * Added crossprod() and tcrossprod() methods.
+  * Added diag() method.
+  * Added eigen() method (symmetric case only).
+  * Added min(), max(), which.min(), and which.max() methods.
+  * Added isSymmetric() method.
+  * Added math methods.
+  * Added %*% method.
+  * Added is.na() and na.omit() methods.
+  * Added norm() method.
+  * Added qr(), qr.Q(), qr.R(), qr.qy(), and qr.qty() methods.
+  * Added scale() method.
+  * Added solve() method.
+  * Added sum() method.
+  * Added svd() and La.svd() methods.
+  * Added sweep() method (+, -, *, and / only).
+  * Added t() method.
+  * Added float32() constructor for developers.
