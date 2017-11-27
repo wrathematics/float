@@ -1,6 +1,6 @@
 #include <Rdefines.h>
 
-#include "spm.h"
+#include "Rfloat.h"
 #include "unroll.h"
 
 

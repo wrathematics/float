@@ -1,5 +1,6 @@
 #include <float.h>
-#include "spm.h"
+
+#include "Rfloat.h"
 
 
 // we assume IEEE-754 compliance to build the package, so some values are hard-coded

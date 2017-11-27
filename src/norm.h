@@ -4,7 +4,7 @@
 
 #include <float/slapack.h>
 
-#include "spm.h"
+#include "Rfloat.h"
 #include "unroll.h"
 
 

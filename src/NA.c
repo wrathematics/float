@@ -6,7 +6,7 @@
 
 #include "endianness.h"
 #include "NA.h"
-#include "spm.h"
+#include "Rfloat.h"
 #include "unroll.h"
 
 
