@@ -35,7 +35,7 @@ remotes::install_github("wrathematics/float")
 ```
 
 ### Windows
-If you are installing on Windows and wish to get the best performance, then you will need to install from source after editing some files.  After installing high-performance BLAS and LAPACK libraries, delete the text `$(LAPACK_OBJS)` from line in `src/Makevars.win` beginning with `OBJECTS = `.  You will also need to add the appropriate link line.  This will ensure that on building, the package links with your high-performance libraries instead of compiling the reference versions.
+If you are installing on Windows and wish to get the best performance, then you will need to install from source after editing some files.  After installing high-performance BLAS and LAPACK libraries, delete the text `$(LAPACK_OBJS)` from line in `src/Makevars.win` beginning with `OBJECTS = `.  You will also need to add the appropriate link line.  This will ensure that on building, the package links with your high-performance libraries instead of compiling the reference versions.  This is especially important for 32-bit Windows where the internal LAPACK and BLAS libraries are built without compiler optimization because of a compiler bug.
 
 Also, if you are using Windows on big endian hardware (I'm not even sure if this is possible), then you will need to change the 0 in `src/windows/endianness.h` to a 1. Failure to do so will cause very bizarre things to happen with the NA handlers.
 
