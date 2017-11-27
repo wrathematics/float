@@ -1,5 +1,6 @@
 #include "NA.h"
 #include "spm.h"
+#include "unroll.h"
 
 
 SEXP R_mat2spm(SEXP x)

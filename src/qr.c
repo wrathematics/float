@@ -1,5 +1,7 @@
 #include <float/slapack.h>
+
 #include "spm.h"
+#include "unroll.h"
 
 
 static inline int worksize(const int m, const int n)

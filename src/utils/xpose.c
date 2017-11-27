@@ -1,5 +1,6 @@
 // Taken from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 
+// NOTE do not enable loop unrolling
 #include "../blocksize.h"
 
 void float_xpose(const int m, const int n, const float *const restrict x, float *const restrict tx)

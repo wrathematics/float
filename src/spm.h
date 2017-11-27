@@ -2,13 +2,6 @@
 #define SPM_H_
 
 
-#if (defined(__GNUC__) && !defined(__clang__) && !defined(__INTEL_COMPILER))
-#pragma GCC push_options
-#pragma GCC optimize ("unroll-loops")
-#endif
-
-
-
 #include <R.h>
 #include <Rinternals.h>
 
@@ -20,5 +13,6 @@ extern float NA_FLOAT;
 #define INT(x) (INTEGER(x)[0])
 #define LGL(x) (LOGICAL(x)[0])
 #define CHARPT(x,i) ((char*)CHAR(STRING_ELT(x,i)))
+
 
 #endif

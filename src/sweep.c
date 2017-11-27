@@ -1,6 +1,7 @@
 #include <Rdefines.h>
 
 #include "spm.h"
+#include "unroll.h"
 
 
 #define SWEEPER(x,ret,MARGIN,vec,veclen,FUN) \

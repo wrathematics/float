@@ -3,7 +3,9 @@
 
 
 #include <float/slapack.h>
+
 #include "spm.h"
+#include "unroll.h"
 
 
 // norm = maximum absolute column sum

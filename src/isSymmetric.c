@@ -2,6 +2,7 @@
 
 #include "blocksize.h"
 #include "spm.h"
+#include "unroll.h"
 
 
 #define EPS 1000*FLT_EPSILON

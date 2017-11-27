@@ -1,8 +1,10 @@
 // Modified from the band package. Copyright (c) 2016 Drew Schmidt
 
 #include <float/slapack.h>
+
 #include "spm.h"
 #include "safeomp.h"
+#include "unroll.h"
 
 
 static inline void reverse_vec(const len_t len, float *const x)

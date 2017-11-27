@@ -2,6 +2,7 @@
 
 #include "NA.h"
 #include "spm.h"
+#include "unroll.h"
 
 
 SEXP R_sum_spm(SEXP x, SEXP na_rm)

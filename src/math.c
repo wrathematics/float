@@ -2,6 +2,7 @@
 
 #include "NA.h"
 #include "spm.h"
+#include "unroll.h"
 
 
 #define FUN_INIT \

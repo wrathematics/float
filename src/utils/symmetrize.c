@@ -1,7 +1,10 @@
 // Modified from the coop package. Copyright (c) 2016-2017 Drew Schmidt
 
-#include "../blocksize.h"
 #include <float/slapack.h>
+
+#include "../blocksize.h"
+#include "../unroll.h"
+
 
 // uplo: triangle to copy FROM, i.e. uplo=UPLO_L means copy lower to upper
 void float_symmetrize(const int uplo, const int n, float *const restrict x)

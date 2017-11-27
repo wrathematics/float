@@ -2,6 +2,7 @@
 
 #include "NA.h"
 #include "spm.h"
+#include "unroll.h"
 
 
 #define ERR_NONC error("non-conformable arrays")

@@ -2,7 +2,9 @@
 
 #include <float/float32.h>
 #include <float/slapack.h>
+
 #include "spm.h"
+#include "unroll.h"
 
 
 int svd(const int nu, const int nv, const int m, const int n,

@@ -7,6 +7,7 @@
 #include "endianness.h"
 #include "NA.h"
 #include "spm.h"
+#include "unroll.h"
 
 
 // R uses 0x7ff00000000007a2 for NA_REAL, and 0x7f8007a2 is the most reasonable
