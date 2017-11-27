@@ -4,6 +4,8 @@
 * **Status:** [![Build Status](https://travis-ci.org/wrathematics/float.png)](https://travis-ci.org/wrathematics/float)
 * **License:** [BSD 2-Clause](http://opensource.org/licenses/BSD-2-Clause)
 * **Author:** Drew Schmidt
+* **Project home**: https://github.com/wrathematics/float
+* **Bug reports**: https://github.com/wrathematics/float/issues
 
 
 **float** is a single precision (aka float) matrix framework for R.  Base R has no single precision type.  Its "numeric" vectors/matrices are double precision (or possibly integer, but you know what I mean).  Floats have half the precision of double precision data, for a pretty obvious performance vs accuracy tradeoff.
@@ -18,12 +20,11 @@ Type promotion always defaults to the higher precision.  So if a float matrix op
 
 The package requires the single precision BLAS/LAPACK routines which are not included in the default `libRblas` and `libRlapack` shipped from CRAN.  If your BLAS/LAPACK libraries do not have what is needed, then they will be built (note that a fortran compiler is required in this case).  However, these can take a very long time to compile, and will have much worse performance than optimized libraries.  The topic of which BLAS/LAPACK to use and how to use them has been written about many times.  If this is the first you're hearing of it, I would recommend you use [Microsoft R Open](https://mran.microsoft.com/open/).
 
-<!-- TODO -->
-<!-- To install the R package, run:
+To install the R package, run:
 
 ```r
 install.package("float")
-``` -->
+```
 
 The development version is maintained on GitHub, and can easily be installed by any of the packages that offer installations from GitHub:
 
@@ -136,23 +137,6 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 | `rowMeans()` | done |
 | `rowSums()` | done |
 | `sum()` | done |
-
-
-### In progress and Future Plans
-
-Version 0.1-0:
-
-* `kappa()`
-
-Future roadmap:
-
-* An "in-place" (no copy on modify) API.
-* An RcppArmadillo-like interface using Armadillo's `fmat`.
-
-Maybe eventually:
-
-* Support single complex.
-* `fft()`
 
 
 
