@@ -64,6 +64,7 @@ Is something missing?  Please [let me know](https://github.com/wrathematics/floa
 | `object.size()` | done |
 | `print()` | done |
 | `scale()` | Available for logical `center` and `scale` |
+| `str()` | done |
 | `sweep()` | Available for `FUN`'s `"+"`, `"-"`, `"*"`, and `"/"`. Others impossible(?) | 
 | `typeof()` and `storage.mode()` | No `storage.mode<-` method. |
 | `which.min()` and `which.max()` | done |

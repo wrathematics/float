@@ -14,7 +14,7 @@
 #' package ships with copies of the single precision 'BLAS' and 'LAPACK', which
 #' are automatically built in the event they are not available on the system.
 #' 
-#' @importFrom utils capture.output
+#' @importFrom utils capture.output str
 #' @import methods
 #' 
 #' @useDynLib float R_mat2spm R_spm2mat R_init_NA R_machine_spm R_crossprod_spm
