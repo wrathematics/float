@@ -1,7 +1,7 @@
 Package: float
 Type: Package
 Title: 32-Bit Floats
-Version: 0.1-0
+Version: 0.1-1
 Description: R comes with a suite of utilities for linear algebra with "numeric"
     (double precision) vectors/matrices. However, sometimes single precision (or
     less!) is more than enough for a particular task.  This package extends R's

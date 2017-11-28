@@ -1,3 +1,6 @@
+Release 0.1-1:
+  * 
+
 Release 0.1-0:
   * Added fl() and dbl() casters.
   * Added random constructors flrunif(), flrnorm(), and flrand().
