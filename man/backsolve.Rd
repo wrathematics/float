@@ -44,4 +44,13 @@ manually transposing with \code{t()}.}
 \description{
 Solve a triangular system.
 }
+\examples{
+library(float)
+
+s = flrunif(10, 3)
+cp = crossprod(s)
+y = fl(1:3)
+backsolve(cp, y)
+
+}
 

@@ -14,6 +14,14 @@
 #' Should the transposed coefficients matrix be used? More efficient than
 #' manually transposing with \code{t()}.
 #' 
+#' @examples
+#' library(float)
+#' 
+#' s = flrunif(10, 3)
+#' cp = crossprod(s)
+#' y = fl(1:3)
+#' backsolve(cp, y)
+#' 
 #' @name backsolve
 #' @rdname backsolve
 NULL
