@@ -15,7 +15,6 @@
 #' input).
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' x = matrix(1:30, 10, 3)
@@ -24,7 +23,6 @@
 #' y = dbl(s)
 #' 
 #' all.equal(x, y)
-#' }
 #' 
 #' @name converters
 #' @rdname converters

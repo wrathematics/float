@@ -8,13 +8,11 @@
 #' Ignored.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' print(s)
 #' s
-#' }
 #' 
 #' @name print-float32
 #' @rdname print-float32

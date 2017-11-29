@@ -48,7 +48,6 @@ memory most of the time.  So you can think of \code{flrunif()} and
 and normal generators specifically.
 }
 \examples{
-\dontrun{
 library(float)
 
 flrunif(10) # length 10 vector
@@ -59,7 +58,6 @@ flrand(runif, 10) # conceptually the same as flrunif(10)
 
 mygen = function(n) sample(1:5, n, replace=TRUE)
 flrand(mygen, 30)
-}
 
 }
 

@@ -48,7 +48,8 @@ bracket_replace_float32 = function(x, i, j, ..., value)
 {
   if (is.double(value))
   {
-    dbl(x)[i, j] = value
+    x = dbl(x)
+    x[i, j] = value
     return(x)
   }
   else if (is.integer(value))

@@ -38,14 +38,12 @@ The requested integer values.
 Dimension information for a float vector/matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 dim(s)
 nrow(s)
 ncol(s)
-}
 
 }
 

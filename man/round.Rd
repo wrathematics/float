@@ -31,12 +31,10 @@ A float vector/matrix of the same dimensions as the input.
 Rounding functions.
 }
 \examples{
-\dontrun{
 library(float)
 
 x = flrnorm(10)
 floor(x)
-}
 
 }
 

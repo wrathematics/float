@@ -20,13 +20,11 @@
 #' A single value.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' x = flrunif(10, 3)
 #' 
 #' min(x)
 #' min(x, 1)
-#' }
 #' 
 #' @name extremes
 #' @rdname extremes

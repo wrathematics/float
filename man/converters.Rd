@@ -42,7 +42,6 @@ input).
 Convert between a numeric vector/matrix and a float vector/matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 x = matrix(1:30, 10, 3)
@@ -51,7 +50,6 @@ s = fl(x)
 y = dbl(s)
 
 all.equal(x, y)
-}
 
 }
 

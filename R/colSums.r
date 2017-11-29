@@ -13,14 +13,12 @@
 #' A matrix of the same type as the highest precision input.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(5, 3)
 #' 
 #' rowSums(s)
 #' colSums(s)
-#' }
 #' 
 #' @name colsums
 #' @rdname colsums

@@ -34,7 +34,6 @@
 #' passed as \code{generator}, then you might additionally pass \code{max=10}.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' flrunif(10) # length 10 vector
@@ -45,7 +44,6 @@
 #' 
 #' mygen = function(n) sample(1:5, n, replace=TRUE)
 #' flrand(mygen, 30)
-#' }
 #' 
 #' @name rand
 #' @rdname rand

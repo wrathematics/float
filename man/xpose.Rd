@@ -18,14 +18,12 @@ A float vector/matrix.
 Transpose a float vector/matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 dim(s)
 ts = t(s)
 dim(ts)
-}
 
 }
 

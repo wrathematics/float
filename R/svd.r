@@ -13,12 +13,10 @@
 #' Ignored
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' x = flrunif(10, 3)
 #' svd(x)
-#' }
 #' 
 #' @name svd
 #' @rdname svd

@@ -11,12 +11,10 @@
 #' A matrix of the same type as the highest precision input.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' x = flrunif(10, 3)
 #' 
 #' c(x, NA, 1L)
-#' }
 #' 
 #' @name c
 #' @rdname c

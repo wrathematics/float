@@ -20,14 +20,12 @@ Tests if argument is a float matrix.
 function.
 }
 \examples{
-\dontrun{
 library(float)
 
 x = matrix(0, 5, 5)
 s = flrunif(10, 3)
 is.float(x)
 is.float(s)
-}
 
 }
 

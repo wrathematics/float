@@ -20,7 +20,6 @@ A logical value.
 Test if a float matrix is symmetric.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
@@ -28,7 +27,6 @@ isSymmetric(s)
 
 cp = crossprod(s)
 isSymmetric(s)
-}
 
 }
 

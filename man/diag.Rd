@@ -21,14 +21,12 @@ Methods for getting the diagonal of a float matrix, or constructing a float
 matrix given a float vector.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 s
 diag(s)
 diag(diag(s))
-}
 
 }
 

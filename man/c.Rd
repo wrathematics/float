@@ -20,12 +20,10 @@ A matrix of the same type as the highest precision input.
 Combine float/numeric vector(s)/matri[x|ces].
 }
 \examples{
-\dontrun{
 library(float)
 x = flrunif(10, 3)
 
 c(x, NA, 1L)
-}
 
 }
 

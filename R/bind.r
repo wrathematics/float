@@ -11,13 +11,11 @@
 #' A matrix of the same type as the highest precision input.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' x = fl(matrix(1:10, 5))
 #' 
 #' rbind(x, x)
 #' cbind(x, x)
-#' }
 #' 
 #' @name bind
 #' @rdname bind

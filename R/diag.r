@@ -12,14 +12,12 @@
 #' A float vector or matrix, depending on the input.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' s
 #' diag(s)
 #' diag(diag(s))
-#' }
 #' 
 #' @name diag
 #' @rdname diag

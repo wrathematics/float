@@ -451,12 +451,10 @@ setMethod("is.nan", signature(x="float32"), is.nan_float32)
 #' A float vector/matrix of the same dimensions as the input.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' x = flrnorm(10)
 #' floor(x)
-#' }
 #' 
 #' @name round
 #' @rdname round

@@ -25,12 +25,10 @@ A single float.
 Compute matrix norm.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 rcond(s)
-}
 
 }
 

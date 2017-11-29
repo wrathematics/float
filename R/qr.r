@@ -26,12 +26,10 @@
 #' Vector of diagonals to use when re-constructing Q (default is 1's).
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' x = flrunif(10, 3)
 #' qr(x)
-#' }
 #' 
 #' @name qr
 #' @rdname qr

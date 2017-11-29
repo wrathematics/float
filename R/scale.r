@@ -15,12 +15,10 @@
 #' A float matrix.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' scale(s)
-#' }
 #' 
 #' @name scale
 #' @rdname scale

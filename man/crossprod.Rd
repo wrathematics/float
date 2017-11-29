@@ -27,13 +27,11 @@ If \code{y} is a numeric matrix, then \code{x} will be promoted to a numeric
 matrix, and the return will therefore be numeric (not float).
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 crossprod(s)
 tcrossprod(s)
-}
 
 }
 

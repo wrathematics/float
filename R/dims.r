@@ -11,14 +11,12 @@
 #' The requested integer values.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' dim(s)
 #' nrow(s)
 #' ncol(s)
-#' }
 #' 
 #' @name dims
 #' @rdname dims

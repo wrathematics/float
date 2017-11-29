@@ -12,7 +12,6 @@
 #' one "right hand side", and a float matrix otherwise (just like R). 
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
@@ -21,7 +20,6 @@
 #' 
 #' y = fl(1:3)
 #' solve(cp, y)
-#' }
 #' 
 #' @name solve
 #' @rdname solve

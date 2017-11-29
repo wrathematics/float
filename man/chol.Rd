@@ -18,13 +18,11 @@ A float vector/matrix.
 Cholesky factorization for a float vector/matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 cp = crossprod(s)
 chol(cp)
-}
 
 }
 
