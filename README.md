@@ -1,6 +1,6 @@
 # float
 
-* **Version:** 0.1-1
+* **Version:** 0.1-2
 * **Status:** [![Build Status](https://travis-ci.org/wrathematics/float.png)](https://travis-ci.org/wrathematics/float)
 * **License:** [BSD 2-Clause](http://opensource.org/licenses/BSD-2-Clause)
 * **Author:** Drew Schmidt
