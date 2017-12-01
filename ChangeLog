@@ -2,6 +2,7 @@ Release 0.1-1:
   * Added str() method.
   * Added replacer [ method.
   * Remove \dontrun{} blocks from manual.
+  * Fix protect stack imbalance in R_init_NA().
 
 Release 0.1-0:
   * Added fl() and dbl() casters.

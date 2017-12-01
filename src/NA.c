@@ -38,6 +38,7 @@ SEXP R_init_NA()
   NA_FLOAT = get_na_float();
   FLOAT(ret)[0] = NA_FLOAT;
   
+  UNPROTECT(1);
   return ret;
 }
 
