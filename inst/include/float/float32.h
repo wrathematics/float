@@ -2,6 +2,12 @@
 #define R_FLOAT_FLOAT32_
 
 
+#ifdef __cplusplus
+  #ifndef restrict
+    #define restrict
+  #endif
+#endif
+
 #include <stdbool.h>
 
 #define FLOAT(x) ((float*) INTEGER(x))
