@@ -3,6 +3,12 @@
 
 #include <R_ext/RS.h> // for F77_NAME
 
+#ifdef __cplusplus
+  #ifndef restrict
+    #define restrict
+  #endif
+#endif
+
 
 // -----------------------------------------------------------------------------
 // Wrappers to fix a portability issue with passing characters from C on

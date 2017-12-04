@@ -32,4 +32,4 @@ Authors@R: c(
     person("ORNL", role="cph")
     )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
