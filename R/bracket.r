@@ -39,7 +39,17 @@ bracket_float32 = function(x, i, j, drop=TRUE)
   
   d = DATA(x)
   dim(d) = c(nrow(x), ncol(x))
-  d = d[i, j, drop=drop]
+  if (missing(i))
+    d = d[, j, drop=drop]
+  else if (missing(j))
+  {
+    if (is.matrix(i))
+      d = d[i, drop=drop]
+    else
+      d = d[i, , drop=drop]
+  }
+  else
+    d = d[i, j, drop=drop]
   
   float32(d)
 }
@@ -49,7 +59,20 @@ bracket_replace_float32 = function(x, i, j, ..., value)
   if (is.double(value))
   {
     x = dbl(x)
-    x[i, j] = value
+    if (missing(i) && missing(j))
+      x[, ] = value
+    else if (missing(i))
+      x[, j] = value
+    else if (missing(j))
+    {
+      if (!is.matrix(x) || is.matrix(i))
+        x[i] = value
+      else
+        x[i, ] = value
+    }
+    else
+      x[i, j] = value
+    
     return(x)
   }
   else if (is.integer(value))
@@ -62,7 +85,7 @@ bracket_replace_float32 = function(x, i, j, ..., value)
     x@Data[, j] = DATA(value)
   else if (missing(j))
   {
-    if (isavec(x))
+    if (isavec(x) || is.matrix(i))
       x@Data[i] = DATA(value)
     else
       x@Data[i, ] = DATA(value)
