@@ -4,9 +4,11 @@
 
 src/*.o
 src/*.so
+src/*.a
 src/Makevars
 src/endianness.h
 
 inst/doc
+inst/lib
 
 TODO

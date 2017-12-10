@@ -3,6 +3,8 @@ PKG_FFLAGS = $(SHLIB_OPENMP_FFLAGS)
 PKG_FCFLAGS = $(SHLIB_OPENMP_FCFLAGS)
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CFLAGS) $(SHLIB_OPENMP_FCFLAGS)
 
+SLAPACK = utils/matmult.o utils/symmetrize.o utils/xpose.o slapack_wrap.o @ADD_OBJS@
+
 R_SOURCES = \
 	backsolve.o \
 	binary.o \
@@ -24,19 +26,24 @@ R_SOURCES = \
 	qr.o \
 	rand.o \
 	scale.o \
-	slapack_wrap.o \
 	solve.o \
 	sum.o \
 	svd.o \
 	sweep.o \
-	xpose.o \
-	utils/matmult.o \
-	utils/symmetrize.o \
-	utils/xpose.o
+	xpose.o
 
-OBJECTS = $(R_SOURCES) @ADD_OBJS@
+OBJECTS = $(R_SOURCES) $(SLAPACK)
 
 ### Start making here.
-all: $(SHLIB)
+all: $(SHLIB) libslapack.a
+	mkdir -p ../inst/lib$(R_ARCH)
+	cp libslapack.a ../inst/lib$(R_ARCH)
 
 $(SHLIB): $(OBJECTS)
+
+libslapack.a: $(SHLIB)
+	$(AR) cr libslapack.a $(SLAPACK)
+	$(RANLIB) libslapack.a
+
+clean:
+	rm -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib
