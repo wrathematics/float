@@ -37,7 +37,8 @@ extern SEXP R_flrunif_spm(SEXP m_, SEXP n_, SEXP min_, SEXP max_, SEXP isavec);
 extern SEXP R_gamma_spm(SEXP x);
 extern SEXP R_ge_spm(SEXP x, SEXP y);
 extern SEXP R_gt_spm(SEXP x, SEXP y);
-extern SEXP R_init_NA();
+extern SEXP R_init_NAf();
+extern SEXP R_init_NaNf();
 extern SEXP R_isSymmetric_spm(SEXP x);
 extern SEXP R_isfinite_spm(SEXP x);
 extern SEXP R_isinfinite_spm(SEXP x);
@@ -119,7 +120,8 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_gamma_spm", (DL_FUNC) &R_gamma_spm, 1},
   {"R_ge_spm", (DL_FUNC) &R_ge_spm, 2},
   {"R_gt_spm", (DL_FUNC) &R_gt_spm, 2},
-  {"R_init_NA", (DL_FUNC) &R_init_NA, 0},
+  {"R_init_NAf", (DL_FUNC) &R_init_NAf, 0},
+  {"R_init_NaNf", (DL_FUNC) &R_init_NaNf, 0},
   {"R_isSymmetric_spm", (DL_FUNC) &R_isSymmetric_spm, 1},
   {"R_isfinite_spm", (DL_FUNC) &R_isfinite_spm, 1},
   {"R_isinfinite_spm", (DL_FUNC) &R_isinfinite_spm, 1},

@@ -41,6 +41,11 @@
 #define SIDE_R 1 // right
 
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // ------------------   blas   ------------------
 
 // ssyrk - crossprod
@@ -148,9 +153,8 @@ void F77_NAME(rpotri)(const int *const restrict uplo, const int *const restrict 
   int *const restrict info);
 
 
-
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #endif

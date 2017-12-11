@@ -8,6 +8,12 @@
   #endif
 #endif
 
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdbool.h>
 
 #define FLOAT(x) ((float*) INTEGER(x))
@@ -31,5 +37,8 @@ void float_symmetrize(const int uplo, const int n, float *const restrict x);
 // utils/xpose.c
 void float_xpose(const int m, const int n, const float *const restrict x, float *const restrict tx);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif
