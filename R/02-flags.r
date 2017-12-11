@@ -1,16 +1,15 @@
-ldflags=function(arch='')
+ldflags = function()
 {
   if (.Platform$OS.type != "windows")
   {
-    file.path = paste("lib/", arch, sep="")
-    ld.path = tools::file_path_as_absolute(system.file(file.path, package="float"))
-    flags = paste(ld.path, "/libslapack.a", sep="")
+    so.path = tools::file_path_as_absolute(system.file("libs", package="float"))
+    flags = paste0(so.path, "/float.so")
   }
   else
   {
-    file.path = paste("lib/", .Platform$r_arch, sep="")
-    ld.path = tools::file_path_as_absolute(system.file(file.path, package="float"))
-    flags = paste("\"", ld.path, "/libslapack.a", "\"", sep="")
+    path = paste0("lib/", .Platform$r_arch)
+    so.path = tools::file_path_as_absolute(system.file(path, package="float"))
+    flags = paste0("\"", so.path, "/float.so", "\"")
   }
   
   cat(flags)
