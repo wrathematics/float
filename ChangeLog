@@ -1,7 +1,8 @@
 Release 0.1-2:
-  * Fix protect stack imbalance in R_init_NA().
-  * Hide 'restrict' keyword from C++ in inst/include headers.
-  * Move float BLAS/LAPACK functions (if built) and some utilities to static library.
+  * Fixed protect stack imbalance in R_init_NA().
+  * Hid 'restrict' keyword from C++ in inst/include headers.
+  * Fixed control logic in various [ calls.
+  * Created float:::ldflags() for dynamic linking.
 
 Release 0.1-1:
   * Added str() method.
