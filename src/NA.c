@@ -10,11 +10,12 @@
 #include "unroll.h"
 
 
-// R uses 0x7ff00000000007a2 for NA_REAL, and 0x7f8007a2 is the most reasonable
-// float analogue
-float NA_FLOAT; // extern'd in spm.h
 
-static inline float get_na_float()
+// R uses 0x7ff00000000007a2 for NA_REAL, and 0x7f8007a2 is a reasonable float analogue
+float NA_FLOAT; // extern'd in NA.h
+float R_NaNf;
+
+static inline float set_na_float()
 {
   float ret;
   
@@ -24,19 +25,70 @@ static inline float get_na_float()
   int32_t x = 0x7f8007a2;
 #endif
   
-  memcpy((void*) &ret, (void*) &x, sizeof(float));
+  memcpy((void*) &ret, (void*) &x, sizeof(ret));
   
   return ret;
 }
 
+static inline float set_nan_float()
+{
+  float ret;
+  
+#if SPM_BOBE
+  uint32_t NaN = 0x0100807f;
+#else
+  uint32_t NaN = 0x7f800001;
+#endif
+  
+  memcpy((void*) &ret, (void*) &NaN, sizeof(ret));
+  
+  return ret;
+}
+
+
+
+int ISNAf(const float x)
+{
+  if (!isnan(x))
+    return 0;
+  
+  mrb y;
+  y.x = x;
+  
+#if SPM_BOBE
+  return y.y[1] == 1954;
+#else
+  return y.y[0] == 1954;
+#endif
+}
+
+int ISNANf(const float x)
+{
+  return isnan(x) && !ISNAf(x);
+}
+
+
+
 // have to call on package load to set the global NA_FLOAT
-SEXP R_init_NA()
+SEXP R_init_NAf()
 {
   SEXP ret;
   PROTECT(ret = newvec(1));
   
-  NA_FLOAT = get_na_float();
+  NA_FLOAT = set_na_float();
   FLOAT(ret)[0] = NA_FLOAT;
+  
+  UNPROTECT(1);
+  return ret;
+}
+
+SEXP R_init_NaNf()
+{
+  SEXP ret;
+  PROTECT(ret = newvec(1));
+  
+  R_NaNf = set_na_float();
+  FLOAT(ret)[0] = R_NaNf;
   
   UNPROTECT(1);
   return ret;
