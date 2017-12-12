@@ -7,9 +7,9 @@ ldflags = function()
   }
   else
   {
-    path = paste0("lib/", .Platform$r_arch)
-    so.path = tools::file_path_as_absolute(system.file(path, package="float"))
-    flags = paste0("\"", so.path, "/float.so", "\"")
+    path = paste0("libs/", .Platform$r_arch)
+    dll.path = tools::file_path_as_absolute(system.file(path, package="float"))
+    flags = paste0(dll.path, "/float.dll")
   }
   
   cat(flags)
