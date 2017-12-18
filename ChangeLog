@@ -3,6 +3,7 @@ Release 0.1-2:
   * Hid 'restrict' keyword from C++ in inst/include headers.
   * Fixed control logic in various [ calls.
   * Created float:::ldflags() for dynamic linking.
+  * Added some skeleton support for names+row/col-names.
 
 Release 0.1-1:
   * Added str() method.

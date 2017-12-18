@@ -51,6 +51,10 @@ bracket_float32 = function(x, i, j, drop=TRUE)
   else
     d = d[i, j, drop=drop]
   
+  dimnames(d) = dimnames(x)
+  if (!is.null(names(x)))
+    names(d) = names(x)
+  
   float32(d)
 }
 

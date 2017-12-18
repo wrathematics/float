@@ -38,8 +38,6 @@ print_float_vec = function(x)
   else
     submat = dbl(x[1:top])
   
-  dim(submat) = NULL
-  
   if (top < n)
     cat(capture.output(submat), "... \n")
   else
