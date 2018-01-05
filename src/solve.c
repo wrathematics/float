@@ -11,7 +11,7 @@ void sgetrf_(const int *m, const int *n, float *restrict a, const int *lda,
 void sgetri_(const int *n, float *restrict a, const int *lda, 
   int *restrict ipiv, float *work, int *lwork, int *info);
 
-static inline int invert(const int n, float *const restrict x)
+static inline int invert(const len_t n, float *const restrict x)
 {
   int info = 0;
   int *ipiv;
@@ -87,7 +87,7 @@ void sgesv_(const int *const restrict n, const int *const restrict nrhs,
   int *const restrict ipiv, const float *const restrict b,
   const int *const restrict ldb, int *const restrict info);
 
-static inline int solve_system(const int n, const int nrhs, 
+static inline int solve_system(const len_t n, const len_t nrhs, 
   float *const restrict x, const float *const restrict y)
 {
   int info = 0;
