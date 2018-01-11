@@ -38,7 +38,10 @@ bracket_float32 = function(x, i, j, drop=TRUE)
     return(x)
   
   d = DATA(x)
-  dim(d) = c(nrow(x), ncol(x))
+  
+  if (is.vector(d))
+    dim(d) = c(length(x), 1L)
+  
   if (missing(i))
     d = d[, j, drop=drop]
   else if (missing(j))
