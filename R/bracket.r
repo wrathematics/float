@@ -32,27 +32,40 @@ NULL
 
 
 
+bracket_float32_vec = function(x, i, drop=TRUE)
+{
+  DATA(x)[i, drop=drop]
+}
+
+bracket_float32_mat = function(x, i, j, drop=TRUE)
+{
+  if (missing(i))
+    DATA(x)[, j, drop=drop]
+  else if (missing(j))
+  {
+    if (is.matrix(i))
+      DATA(x)[i, drop=drop]
+    else
+      DATA(x)[i, , drop=drop]
+  }
+  else
+    DATA(x)[i, j, drop=drop]
+}
+
 bracket_float32 = function(x, i, j, drop=TRUE)
 {
   if (missing(i) && missing(j))
     return(x)
   
-  d = DATA(x)
-  
-  if (is.vector(d))
-    dim(d) = c(length(x), 1L)
-  
-  if (missing(i))
-    d = d[, j, drop=drop]
-  else if (missing(j))
+  if (isavec(x))
   {
-    if (is.matrix(i))
-      d = d[i, drop=drop]
-    else
-      d = d[i, , drop=drop]
+    if (missing(i))
+      stop("incorrect number of dimensions")
+    
+    d = bracket_float32_vec(x, i, drop=drop)
   }
   else
-    d = d[i, j, drop=drop]
+    d = bracket_float32_mat(x, i, j, drop=drop)
   
   dimnames(d) = dimnames(x)
   if (!is.null(names(x)))
