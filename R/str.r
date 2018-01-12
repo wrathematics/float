@@ -6,7 +6,10 @@ str.float32 = function(object, digits.d=strO$digits.d, ...)
   len = length(object)
   printlen = min(len, MAXLEN)
   
-  vals = dbl(object[1:printlen, 1, drop=TRUE])
+  # this is hideous, but I don't think there's any way to play the same game with S4
+  s = DATA(object)[1:printlen, drop=TRUE]
+  vals = dbl(float32(s))
+  
   cat("Formal class 'float32' [package \"float\"] with 1 slot\n")
   
   if (isavec(object))
