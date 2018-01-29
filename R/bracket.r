@@ -67,9 +67,10 @@ bracket_float32 = function(x, i, j, drop=TRUE)
   else
     d = bracket_float32_mat(x, i, j, drop=drop)
   
-  dimnames(d) = dimnames(x)
+  if (!is.null(rownames(x)))
+    rownames(d) = rownames(x)[i]
   if (!is.null(names(x)))
-    names(d) = names(x)
+    names(d) = names(x)[j]
   
   float32(d)
 }
