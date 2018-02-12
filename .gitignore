@@ -5,10 +5,18 @@
 src/*.o
 src/*.so
 src/*.a
+
+src/utils/*.o
+src/utils/*.so
+src/utils/*.a
+
 src/Makevars
 src/endianness.h
 
 inst/doc
 inst/lib
 
+config.log
+
 TODO
+.Rproj.user
