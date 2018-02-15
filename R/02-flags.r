@@ -9,5 +9,6 @@ ldflags = function()
     path = file.path("libs", .Platform$r_arch)
     flags = tools::file_path_as_absolute(system.file(path, package = "float"))
   }
-  cat("-L", flags,  sep = "")
+  
+  cat(paste0("-L", flags,  " -lfoat"))
 }
