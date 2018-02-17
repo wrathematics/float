@@ -11,12 +11,10 @@
 #' A single float.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
-#' norm(s)
-#' }
+#' norm(s, type="O")
 #' 
 #' @name norm
 #' @rdname norm
@@ -26,7 +24,7 @@ NULL
 
 norm_float32 = function(x, type=c("O", "I", "F", "M", "2"))
 {
-  type = toupper(type)
+  type = toupper(match.arg(type))
   
   if (type == "2")
     La.svd_float32(x, nu=0, nv=0)$d[1L]
@@ -41,4 +39,4 @@ norm_float32 = function(x, type=c("O", "I", "F", "M", "2"))
 
 #' @rdname norm
 #' @export
-setMethod("norm", signature(x="float32"), norm_float32)
+setMethod("norm", signature(x="float32", type="ANY"), norm_float32)

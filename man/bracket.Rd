@@ -3,20 +3,25 @@
 \docType{methods}
 \name{bracket}
 \alias{[,float32-method}
+\alias{[<-,float32-method}
 \alias{bracket}
 \title{Extract}
 \usage{
 \S4method{[}{float32}(x, i, j, drop = TRUE)
+
+\S4method{[}{float32}(x, i, j, ...) <- value
 }
 \arguments{
 \item{x}{A float vector/matrix.}
 
-\item{i, j}{The indices.  Most combinations of integer/double/logical values will be
+\item{i, j, ...}{The indices.  Most combinations of integer/double/logical values will be
 treated the same as R does. One major difference is that \code{NA} values
 will not be tolerated.}
 
 \item{drop}{Logical. If TRUE, single column matrices will be treated as one-dimensional
 vectors.}
+
+\item{value}{The replacement value.}
 }
 \value{
 A float vector/matrix.

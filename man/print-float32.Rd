@@ -20,13 +20,11 @@
 Print methods for float vector/matrices.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 print(s)
 s
-}
 
 }
 

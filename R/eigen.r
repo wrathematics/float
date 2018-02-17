@@ -17,14 +17,12 @@
 #' A list containing the values and optionally vectors, each stored as floats.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' cp = crossprod(s)
 #' 
 #' eigen(cp)
-#' }
 #' 
 #' @name eigen
 #' @rdname eigen

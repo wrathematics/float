@@ -1,5 +1,6 @@
-#include "spm.h"
 #include <float/float32.h>
+
+#include "Rfloat.h"
 
 
 SEXP R_xpose_spm(SEXP x)

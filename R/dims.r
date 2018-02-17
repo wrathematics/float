@@ -11,14 +11,12 @@
 #' The requested integer values.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' dim(s)
 #' nrow(s)
 #' ncol(s)
-#' }
 #' 
 #' @name dims
 #' @rdname dims
@@ -53,7 +51,16 @@ setMethod("dim", signature(x="float32"), function(x) c(nrow(x), ncol(x)))
 
 #' @rdname dims
 #' @export
-setMethod("length", signature(x="float32"), function(x) nrow(x)*ncol(x))
+setMethod("length", signature(x="float32"), 
+  function(x)
+  {
+    len = tryCatch(nrow(x) * ncol(x), warning=identity)
+    if (inherits(len, "warning"))
+      len = as.double(nrow(x)) * as.double(ncol(x))
+    
+    len
+  }
+)
 
 
 

@@ -11,7 +11,6 @@
 #' A logical value.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
@@ -19,7 +18,6 @@
 #' 
 #' cp = crossprod(s)
 #' isSymmetric(s)
-#' }
 #' 
 #' @name isSymmetric
 #' @rdname isSymmetric

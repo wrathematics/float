@@ -1,6 +1,7 @@
 #include <float/float32.h>
 #include <float/slapack.h>
-#include "spm.h"
+
+#include "Rfloat.h"
 
 
 SEXP R_chol2inv_spm(SEXP x, SEXP size_)

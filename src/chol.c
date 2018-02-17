@@ -1,5 +1,6 @@
 #include <float/slapack.h>
-#include "spm.h"
+
+#include "Rfloat.h"
 
 
 SEXP R_chol_spm(SEXP x)

@@ -47,12 +47,10 @@ is much slower) or numerics to calling \code{qr(s)} where 's' is single a
 float matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 x = flrunif(10, 3)
 qr(x)
-}
 
 }
 

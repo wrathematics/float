@@ -4,7 +4,8 @@
 #include <stdbool.h>
 
 #include "safeomp.h"
-#include "spm.h"
+#include "Rfloat.h"
+#include "unroll.h"
 
 
 static inline void centerscalevec(const len_t j, const len_t m, float *restrict x, float *restrict colmean, float *restrict colvar)

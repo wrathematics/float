@@ -3,6 +3,12 @@
 
 #include <R_ext/RS.h> // for F77_NAME
 
+#ifdef __cplusplus
+  #ifndef restrict
+    #define restrict
+  #endif
+#endif
+
 
 // -----------------------------------------------------------------------------
 // Wrappers to fix a portability issue with passing characters from C on
@@ -34,6 +40,11 @@
 #define SIDE_L 0 // left
 #define SIDE_R 1 // right
 
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 // ------------------   blas   ------------------
 
@@ -142,9 +153,8 @@ void F77_NAME(rpotri)(const int *const restrict uplo, const int *const restrict 
   int *const restrict info);
 
 
-
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #endif

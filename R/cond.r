@@ -15,12 +15,10 @@
 #' A single float.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' rcond(s)
-#' }
 #' 
 #' @name rcond
 #' @rdname rcond
@@ -32,6 +30,9 @@ rcond_float32 = function(x, norm=c("O","I","1"), triangular=FALSE, ...)
 {
   if (isavec(x))
     stop("is.matrix(x) is not TRUE")
+  
+  if (missing(norm))
+    norm = "O"
   
   m = nrow(x)
   n = ncol(x)
@@ -51,7 +52,7 @@ rcond_float32 = function(x, norm=c("O","I","1"), triangular=FALSE, ...)
 
 #' @rdname rcond
 #' @export
-setMethod("rcond", signature(x="float32"), rcond_float32)
+setMethod("rcond", signature(x="float32", norm="ANY"), rcond_float32)
 
 
 

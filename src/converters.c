@@ -1,5 +1,6 @@
 #include "NA.h"
-#include "spm.h"
+#include "Rfloat.h"
+#include "unroll.h"
 
 
 SEXP R_mat2spm(SEXP x)
@@ -9,7 +10,7 @@ SEXP R_mat2spm(SEXP x)
   
   if (!isMatrix(x))
   {
-    m = LENGTH(x);
+    m = XLENGTH(x);
     n = 1;
     PROTECT(ret_ = newvec(m));
   }

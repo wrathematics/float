@@ -14,7 +14,6 @@
 #' A matrix of the same type as the highest precision input.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s1 = flrunif(5, 5)
@@ -28,7 +27,6 @@
 #' 
 #' storage.mode(x) = "double"
 #' x %*% s2 # double
-#' }
 #' 
 #' @name matmult
 #' @rdname matmult

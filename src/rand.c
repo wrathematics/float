@@ -1,6 +1,7 @@
 #include <Rmath.h>
  
-#include "spm.h"
+#include "Rfloat.h"
+#include "unroll.h"
 
 
 SEXP R_flrunif_spm(SEXP m_, SEXP n_, SEXP min_, SEXP max_, SEXP isavec)

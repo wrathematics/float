@@ -7,7 +7,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <float/float32.h>
 #include "endianness.h"
+
+
+extern float NA_FLOAT;
+extern float R_NaNf;
 
 
 typedef union
@@ -16,33 +21,11 @@ typedef union
   uint16_t y[2];
 } mrb;
 
-static inline int ISNAf(const float x)
+
+
+static inline bool anyNA(const len_t len, const float *const restrict x)
 {
-  if (!isnan(x))
-    return 0;
-  
-  mrb y;
-  y.x = x;
-  
-#if SPM_BOBE
-  return y.y[1] == 1954;
-#else
-  return y.y[0] == 1954;
-#endif
-}
-
-
-
-static inline int ISNANf(const float x)
-{
-  return isnan(x) && !ISNAf(x);
-}
-
-
-
-static inline bool anyNA(const size_t len, const float *const restrict x)
-{
-  for (size_t i=0; i<len; i++)
+  for (len_t i=0; i<len; i++)
   {
     if (isnan(x[i]) || ISNAf(x[i]))
       return true;

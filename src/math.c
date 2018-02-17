@@ -1,7 +1,8 @@
 #include <math.h>
 
 #include "NA.h"
-#include "spm.h"
+#include "Rfloat.h"
+#include "unroll.h"
 
 
 #define FUN_INIT \
@@ -10,7 +11,7 @@
   const len_t n = NCOLS(x); \
    \
   if (ISAVEC(x)) \
-    PROTECT(ret = newvec(m*n)); \
+    PROTECT(ret = newvec((R_xlen_t)m*n)); \
   else \
     PROTECT(ret = newmat(m, n));
 

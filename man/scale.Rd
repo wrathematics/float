@@ -24,12 +24,10 @@ Only logical \code{center} and \code{scale} parameters are accepted at this
 time.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 scale(s)
-}
 
 }
 

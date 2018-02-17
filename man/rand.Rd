@@ -11,7 +11,7 @@ flrunif(m, n, min = 0, max = 1)
 
 flrnorm(m, n, mean = 0, sd = 1)
 
-flrand(generator, n, ...)
+flrand(generator, m, n, ...)
 }
 \arguments{
 \item{m, n}{The dimensions of the matrix/vector. \code{m} must be specified.  If \code{n}
@@ -48,7 +48,6 @@ memory most of the time.  So you can think of \code{flrunif()} and
 and normal generators specifically.
 }
 \examples{
-\dontrun{
 library(float)
 
 flrunif(10) # length 10 vector
@@ -59,7 +58,6 @@ flrand(runif, 10) # conceptually the same as flrunif(10)
 
 mygen = function(n) sample(1:5, n, replace=TRUE)
 flrand(mygen, 30)
-}
 
 }
 

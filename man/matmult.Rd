@@ -29,7 +29,6 @@ If a numeric matrix is multiplied against a float matrix, then if the
 the float matrix is promoted to doubles.
 }
 \examples{
-\dontrun{
 library(float)
 
 s1 = flrunif(5, 5)
@@ -43,7 +42,6 @@ x \%*\% s2 # float
 
 storage.mode(x) = "double"
 x \%*\% s2 # double
-}
 
 }
 

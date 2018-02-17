@@ -2,7 +2,8 @@
 
 #include <float/slapack.h>
 #include <float/float32.h>
-#include "spm.h"
+
+#include "Rfloat.h"
 
 
 SEXP R_crossprod_spm(SEXP x)

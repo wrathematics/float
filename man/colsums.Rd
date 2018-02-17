@@ -31,14 +31,12 @@ A matrix of the same type as the highest precision input.
 Row and columns sums/means.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(5, 3)
 
 rowSums(s)
 colSums(s)
-}
 
 }
 

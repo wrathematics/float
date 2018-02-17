@@ -23,13 +23,11 @@ Return the inverse of the original matrix using the Cholesky factorization of
 a float vector/matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 cp = crossprod(s)
 cp \%*\% chol2inv(chol(cp))
-}
 
 }
 

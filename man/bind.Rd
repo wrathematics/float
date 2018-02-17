@@ -22,13 +22,11 @@ A matrix of the same type as the highest precision input.
 \code{rbind()} and \code{cbind()} for floats.
 }
 \examples{
-\dontrun{
 library(float)
 x = fl(matrix(1:10, 5))
 
 rbind(x, x)
 cbind(x, x)
-}
 
 }
 

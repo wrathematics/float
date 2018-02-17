@@ -1,13 +1,13 @@
-%\VignetteIndexEntry{Introducing float: Single Precision Floats for R}
+%\VignetteIndexEntry{Introducing the float package: 32-Bit Floats for R}
 \documentclass[]{article}
 
 
 \input{./include/settings}
 
 
-\mytitle{Introducing {float}: Single Precision Floats for R}
+\mytitle{Introducing the {float} package: 32-Bit Floats for {R}}
 \mysubtitle{}
-\myversion{0.1-0}
+\myversion{0.1-2}
 \myauthor{
 \centering
 Drew Schmidt \\ 

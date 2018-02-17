@@ -26,12 +26,10 @@
 #' A matrix of the same type as the highest precision input.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' sweep(s, 2, fl(1))
-#' }
 #' 
 #' @name sweep
 #' @rdname sweep

@@ -36,12 +36,10 @@ Note that if the length of \code{STATS} does not recycle exactly across
 base R.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 sweep(s, 2, fl(1))
-}
 
 }
 

@@ -1,8 +1,9 @@
 #include <math.h>
 
 #include <float/slapack.h>
+
 #include "norm.h"
-#include "spm.h"
+#include "Rfloat.h"
 
 
 SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)

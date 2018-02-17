@@ -1,7 +1,7 @@
 #include <math.h>
 
 #include "norm.h"
-#include "spm.h"
+#include "Rfloat.h"
 
 
 SEXP R_norm_spm(SEXP x, SEXP type_)

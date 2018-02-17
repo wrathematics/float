@@ -21,7 +21,6 @@ one "right hand side", and a float matrix otherwise (just like R).
 Solve a system of equations or invert a float matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
@@ -30,7 +29,6 @@ solve(cp)
 
 y = fl(1:3)
 solve(cp, y)
-}
 
 }
 

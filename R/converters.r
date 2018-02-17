@@ -15,7 +15,6 @@
 #' input).
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' x = matrix(1:30, 10, 3)
@@ -24,7 +23,6 @@
 #' y = dbl(s)
 #' 
 #' all.equal(x, y)
-#' }
 #' 
 #' @name converters
 #' @rdname converters
@@ -45,6 +43,10 @@ fl = function(x, strict=FALSE)
   }
   
   d = .Call(R_mat2spm, x)
+  dimnames(d) = dimnames(x)
+  if (!is.null(names(x)))
+    names(d) = names(x)
+  
   float32(d)
 }
 
@@ -65,7 +67,12 @@ dbl = function(x, strict=FALSE)
     }
   }
   
-  .Call(R_spm2mat, DATA(x))
+  ret = .Call(R_spm2mat, DATA(x))
+  dimnames(ret) = dimnames(x)
+  if (!is.null(names(x)))
+    names(ret) = names(x)
+  
+  ret
 }
 
 #' @rdname converters
@@ -85,7 +92,12 @@ int = function(x, strict=FALSE)
     }
   }
   
-  .Call(R_spm2int, DATA(x))
+  ret = .Call(R_spm2int, DATA(x))
+  dimnames(ret) = dimnames(x)
+  if (!is.null(names(x)))
+    names(ret) = names(x)
+  
+  ret
 }
 
 

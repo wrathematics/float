@@ -20,13 +20,11 @@
 #' A single value.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' x = flrunif(10, 3)
 #' 
 #' sum(x)
 #' sum(x, 1)
-#' }
 #' 
 #' @name sum
 #' @rdname sum

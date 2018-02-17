@@ -8,13 +8,11 @@
 #' Ignored.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' print(s)
 #' s
-#' }
 #' 
 #' @name print-float32
 #' @rdname print-float32
@@ -39,8 +37,6 @@ print_float_vec = function(x)
     submat = dbl(x)
   else
     submat = dbl(x[1:top])
-  
-  dim(submat) = NULL
   
   if (top < n)
     cat(capture.output(submat), "... \n")

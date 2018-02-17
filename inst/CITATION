@@ -3,7 +3,7 @@ note <- sprintf("{R} package version %s", meta$Version)
 
 citEntry(
   entry = "Misc",
-  title = "{float}: Single Precision Floats",
+  title = "{float}: 32-Bit Floats",
   author = person("Drew", "Schmidt"),
   year = year,
   note = note,
@@ -14,7 +14,7 @@ citEntry(
 
 citEntry(
   entry = "Manual",
-  title = "Introducing {float}: Single Precision Floats for R",
+  title = "Introducing the {float} package: 32-Bit Floats for {R}",
   author = person("Drew", "Schmidt"),
   year = "2017",
   note = "{R} Vignette",

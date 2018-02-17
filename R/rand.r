@@ -34,7 +34,6 @@
 #' passed as \code{generator}, then you might additionally pass \code{max=10}.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' flrunif(10) # length 10 vector
@@ -45,7 +44,6 @@
 #' 
 #' mygen = function(n) sample(1:5, n, replace=TRUE)
 #' flrand(mygen, 30)
-#' }
 #' 
 #' @name rand
 #' @rdname rand
@@ -119,8 +117,22 @@ flrand_batch = function(start, data, generator, len, ...)
 
 #' @rdname rand
 #' @export
-flrand = function(generator, n, ...)
+flrand = function(generator, m, n, ...)
 {
+  m = as.integer(m)
+  if (missing(n))
+  {
+    n = 1L
+    isavec = TRUE
+  }
+  else
+  {
+    n = as.integer(n)
+    isavec = FALSE
+  }
+  
+  n = m*n
+  
   MAX = 512L # 4k chunks of doubles
   fullruns = as.integer(n/MAX)
   rem = as.integer(n - fullruns*MAX)

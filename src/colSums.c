@@ -3,7 +3,7 @@
 #include <math.h>
 
 #include "NA.h"
-#include "spm.h"
+#include "Rfloat.h"
 
 
 SEXP R_colSums_spm(SEXP x, SEXP na_rm_)

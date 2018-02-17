@@ -29,13 +29,11 @@ to single precision if \code{...} contains only integer and/or float objects.
 Otherwise, the return will be double precision.
 }
 \examples{
-\dontrun{
 library(float)
 x = flrunif(10, 3)
 
 sum(x)
 sum(x, 1)
-}
 
 }
 

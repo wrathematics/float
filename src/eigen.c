@@ -1,8 +1,10 @@
 // Modified from the band package. Copyright (c) 2016 Drew Schmidt
 
 #include <float/slapack.h>
-#include "spm.h"
+
+#include "Rfloat.h"
 #include "safeomp.h"
+#include "unroll.h"
 
 
 static inline void reverse_vec(const len_t len, float *const x)
@@ -130,8 +132,8 @@ SEXP R_symeig_spm(SEXP x, SEXP onlyvals_, SEXP descending)
   int ptct;
   int info;
   
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   if (m != n)
     error("non-square matrix in 'eigen'\n");
   

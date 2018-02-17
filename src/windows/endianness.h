@@ -2,7 +2,7 @@
 #define SPM_ENDIANNESS_H_
 
 
-// We assume during configure that byte order will be either big or little endian
+// This assumes your windows box is little endian. If big endian, set to 1.
 #define SPM_BOBE 0
 
 

@@ -15,13 +15,11 @@
 #' A float matrix (unless \code{y} is numeric; see details section).
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' crossprod(s)
 #' tcrossprod(s)
-#' }
 #' 
 #' @name crossprod
 #' @rdname crossprod

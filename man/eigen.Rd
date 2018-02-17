@@ -27,14 +27,12 @@ A list containing the values and optionally vectors, each stored as floats.
 Solve a system of equations or invert a float matrix.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 cp = crossprod(s)
 
 eigen(cp)
-}
 
 }
 

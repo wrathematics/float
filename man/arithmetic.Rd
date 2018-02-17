@@ -105,21 +105,19 @@ A matrix of the same type as the highest precision input.
 Binary arithmetic numeric/float matrices.
 }
 \examples{
-\dontrun{
 library(float)
 
 s1 = flrunif(5, 5)
-s2 = flrunif(5, 2)
+s2 = flrunif(5, 5)
 x = matrix(1:25, 5)
 
 s1 + s2 # float
 
-storage.mode(x) # integer
+typeof(x) # integer
 x + s2 # float
 
 storage.mode(x) = "double"
 x + s2 # double
-}
 
 }
 

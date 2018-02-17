@@ -23,12 +23,10 @@
 NA utilities.
 }
 \examples{
-\dontrun{
 library(float)
 
 s = flrunif(10, 3)
 is.na(s)
-}
 
 }
 

@@ -14,13 +14,11 @@
 #' A float vector/matrix.
 #' 
 #' @examples
-#' \dontrun{
 #' library(float)
 #' 
 #' s = flrunif(10, 3)
 #' cp = crossprod(s)
 #' cp %*% chol2inv(chol(cp))
-#' }
 #' 
 #' @name chol2inv
 #' @rdname chol2inv

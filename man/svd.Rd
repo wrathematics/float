@@ -26,12 +26,10 @@ SVD factorization.
 The factorization is performed by the LAPACK routine \code{sgesdd()}.
 }
 \examples{
-\dontrun{
 library(float)
 
 x = flrunif(10, 3)
 svd(x)
-}
 
 }
 
