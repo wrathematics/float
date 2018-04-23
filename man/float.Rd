@@ -9,7 +9,8 @@ float(length = 0, nrow, ncol)
 \arguments{
 \item{length}{Input data of type integer.}
 
-\item{nrow, ncol}{}
+\item{nrow, ncol}{Number of rows/columns if a matrix return is desired. See details section for
+more information.}
 }
 \value{
 A float vector/matrix of 0's.

@@ -39,7 +39,8 @@ float32 = function(x)
 #' @param length
 #' Input data of type integer.
 #' @param nrow,ncol
-#' 
+#' Number of rows/columns if a matrix return is desired. See details section for
+#' more information.
 #' 
 #' @return
 #' A float vector/matrix of 0's.
