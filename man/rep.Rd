@@ -10,19 +10,19 @@
 \arguments{
 \item{x}{A float matrix.}
 
-\item{...}{Additional elements (numeric/float vectors/matrices) to sum.}
+\item{...}{Additional arguments (passed to \code{base::rep}).}
 }
 \value{
-A matrix of the same type as the highest precision input.
+A float vector.
 }
 \description{
-Combine float/numeric vector(s)/matri[x|ces].
+Replicate elements of a float vector/matrix.
 }
 \examples{
 library(float)
-x = flrunif(10, 3)
+x = fl(matrix(1:6, 3, 2))
 
-c(x, NA, 1L)
+rep(x, 5)
 
 }
 
