@@ -22,7 +22,8 @@ Depends:
     R (>= 3.1.0),
     methods
 Imports:
-    utils
+    utils,
+    tools
 ByteCompile: yes
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues
