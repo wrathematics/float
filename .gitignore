@@ -12,3 +12,5 @@ inst/doc
 inst/lib
 
 TODO
+.Rproj.user
+.Rbuildignore
