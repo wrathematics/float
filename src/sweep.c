@@ -39,7 +39,8 @@
 SEXP R_sweep_spm(SEXP x, SEXP MARGIN_, SEXP STATS, SEXP FUN_)
 {
   SEXP ret;
-  int *ivec = NULL, veclen;
+  int *ivec = NULL;
+  len_t veclen;
   float *fvec = NULL;
   SEXP tmp;
   const len_t m = NROWS(x);
@@ -54,13 +55,13 @@ SEXP R_sweep_spm(SEXP x, SEXP MARGIN_, SEXP STATS, SEXP FUN_)
   if (TYPEOF(STATS) == INTSXP)
   {
     ivec = INTEGER(STATS);
-    veclen = LENGTH(STATS);
+    veclen = XLENGTH(STATS);
   }
   else
   {
     tmp = GET_SLOT(STATS, install("Data"));
     fvec = FLOAT(tmp);
-    veclen = LENGTH(tmp);
+    veclen = XLENGTH(tmp);
   }
   
   if (FUN == '+')

@@ -11,7 +11,7 @@
   const len_t n = NCOLS(x); \
    \
   if (ISAVEC(x)) \
-    PROTECT(ret = newvec(m*n)); \
+    PROTECT(ret = newvec((R_xlen_t)m*n)); \
   else \
     PROTECT(ret = newmat(m, n));
 

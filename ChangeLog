@@ -4,6 +4,12 @@ Release 0.1-2:
   * Fixed control logic in various [ calls.
   * Created float:::ldflags() for dynamic linking.
   * Added some skeleton support for names+row/col-names.
+  * Fixed performance bug with [.
+  * Fixed NA overflow bug with length() for large matrices.
+  * Fixed str() printing bug for matrices.
+  * Added rep() method.
+  * Added as.numeric(), as.double() and as.integer() methods.
+  * Added float() (like double(), integer(), and numeric()).
 
 Release 0.1-1:
   * Added str() method.

@@ -8,13 +8,14 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include <float/float32.h>
+
 extern float NA_FLOAT;
-typedef int len_t;
 
 #define newmat(m, n) allocMatrix(INTSXP, m, n)
 #define newvec(n) allocVector(INTSXP, n)
 
-#define NROWS(x) (isMatrix(x) ? nrows(x) : LENGTH(x))
+#define NROWS(x) (isMatrix(x) ? nrows(x) : XLENGTH(x))
 #define NCOLS(x) (isMatrix(x) ? ncols(x) : 1)
 #define ISAVEC(x) (!isMatrix(x))
 

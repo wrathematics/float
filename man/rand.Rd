@@ -11,7 +11,7 @@ flrunif(m, n, min = 0, max = 1)
 
 flrnorm(m, n, mean = 0, sd = 1)
 
-flrand(generator, n, ...)
+flrand(generator, m, n, ...)
 }
 \arguments{
 \item{m, n}{The dimensions of the matrix/vector. \code{m} must be specified.  If \code{n}

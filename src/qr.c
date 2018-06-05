@@ -4,7 +4,7 @@
 #include "unroll.h"
 
 
-static inline int worksize(const int m, const int n)
+static inline int worksize(const len_t m, const len_t n)
 {
   int lwork;
   float tmp;
@@ -15,12 +15,12 @@ static inline int worksize(const int m, const int n)
   return MAX(lwork, 1);
 }
 
-static inline int get_rank(const int m, const int n, const float *const restrict qr, const double tol)
+static inline int get_rank(const len_t m, const len_t n, const float *const restrict qr, const double tol)
 {
   const float minval = fabsf((float) tol*qr[0]);
-  const int minmn = MIN(m, n);
+  const len_t minmn = MIN(m, n);
   
-  for (int i=1; i<minmn; i++)
+  for (len_t i=1; i<minmn; i++)
   {
     if (fabsf(qr[i + m*i]) < minval)
       return i;
@@ -29,7 +29,7 @@ static inline int get_rank(const int m, const int n, const float *const restrict
   return minmn;
 }
 
-static inline int Qty(const int side, const int trans, const int m, const int n, const int nrhs, const float *const restrict qr, const float *const restrict qraux, float *const restrict y)
+static inline int Qty(const int side, const int trans, const len_t m, const len_t n, const len_t nrhs, const float *const restrict qr, const float *const restrict qraux, float *const restrict y)
 {
   int info;
   int lwork = -1;
@@ -113,12 +113,12 @@ SEXP R_qrQ_spm(SEXP qr, SEXP qraux, SEXP complete_)
   const len_t n = NCOLS(qr);
   const int complete = INTEGER(complete_)[0];
   
-  const int nrhs = complete ? m : MIN(m, n);
+  const len_t nrhs = complete ? m : MIN(m, n);
   PROTECT(ret = newmat(m, nrhs));
   float *retf = FLOAT(ret);
   
-  memset(retf, 0, m*nrhs*sizeof(float));
-  for (int i=0; i<m*nrhs; i+=m+1)
+  memset(retf, 0, (size_t)m*nrhs*sizeof(float));
+  for (len_t i=0; i<m*nrhs; i+=m+1)
     retf[i] = 1.0f;
   
   Qty(side, trans, m, n, nrhs, DATA(qr), DATA(qraux), retf);

@@ -132,8 +132,8 @@ SEXP R_symeig_spm(SEXP x, SEXP onlyvals_, SEXP descending)
   int ptct;
   int info;
   
-  const int m = NROWS(x);
-  const int n = NCOLS(x);
+  const len_t m = NROWS(x);
+  const len_t n = NCOLS(x);
   if (m != n)
     error("non-square matrix in 'eigen'\n");
   

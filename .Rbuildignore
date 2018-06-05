@@ -1,4 +1,6 @@
 ^\.travis\.yml$
+^appveyor.yml$
+
 .vscode
 
 LICENSE.md
