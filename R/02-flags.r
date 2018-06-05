@@ -28,8 +28,13 @@ ldflags_string = function()
   # FIXME we use -Wl,-rpath for linux, which is sufficient for CRAN but not necessarily safe; needs more checks
   if (os == "linux" || os == "freebsd")
     flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
-  else
-    flags = paste0(float_libs_dir, "/float.*")
+  else{
+    {
+      dll.path <- normalizePath(float_libs_dir)
+      dll.path <- utils::shortPathName(dll.path)
+      flags <- gsub("\\\\", "/", dll.path)
+    }
+  }
   
   
   flags

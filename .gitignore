@@ -5,10 +5,13 @@
 src/*.o
 src/*.so
 src/*.a
+src/*.dll
 
 src/utils/*.o
 src/utils/*.so
 src/utils/*.a
+
+src/lapack/*.o
 
 src/Makevars
 src/endianness.h
@@ -20,3 +23,4 @@ config.log
 
 TODO
 .Rproj.user
+.Rbuildignore
