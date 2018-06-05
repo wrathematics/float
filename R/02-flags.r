@@ -32,8 +32,7 @@ ldflags_string = function()
     {
       dll.path <- normalizePath(float_libs_dir)
       dll.path <- utils::shortPathName(dll.path)
-      dll.path <- gsub("\\\\", "/", dll.path)
-      flags = paste0(dll.path, "/float.dll")
+      flags <- gsub("\\\\", "/", dll.path)
     }
   }
   
