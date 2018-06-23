@@ -7,6 +7,9 @@ Release 0.1-2:
   * Fixed performance bug with [.
   * Fixed NA overflow bug with length() for large matrices.
   * Fixed str() printing bug for matrices.
+  * Added rep() method.
+  * Added as.numeric(), as.double() and as.integer() methods.
+  * Added float() (like double(), integer(), and numeric()).
 
 Release 0.1-1:
   * Added str() method.

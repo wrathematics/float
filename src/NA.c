@@ -30,6 +30,7 @@ static inline float set_na_float()
   return ret;
 }
 
+/*
 static inline float set_nan_float()
 {
   float ret;
@@ -44,7 +45,7 @@ static inline float set_nan_float()
   
   return ret;
 }
-
+*/
 
 
 int ISNAf(const float x)
