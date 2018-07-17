@@ -22,13 +22,15 @@ Depends:
     R (>= 3.1.0),
     methods
 Imports:
-    utils
+    utils,
+    tools
 ByteCompile: yes
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues
 Authors@R: c(
     person("Drew", "Schmidt", role=c("aut", "cre", "cph"), email="wrathematics@gmail.com"),
     person("Wei-Chen", "Chen", role="ctb", comment="win32 fixes"),
+    person("Dmitriy", "Selivanov", role="ctb", comment="improvements in external package linking"),
     person("ORNL", role="cph")
     )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>

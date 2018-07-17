@@ -7,7 +7,7 @@
 #include "unroll.h"
 
 
-int svd(const int nu, const int nv, const int m, const int n,
+int svd(const int nu, const int nv, const len_t m, const len_t n,
   float *const restrict x, float *const restrict s, float *const restrict u,
   float *const restrict vt)
 {
@@ -148,7 +148,7 @@ SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
     if (nu != minmn && nu != m)
     {
       float *uf = FLOAT(u);
-      for (int j=0; j<nu; j++)
+      for (len_t j=0; j<nu; j++)
       {
         for (len_t i=0; i<m; i++)
           uf[i + m*j] = u_data[i + m*j];
@@ -168,7 +168,7 @@ SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
       len_t top = nv>minmn?n:minmn;
       for (len_t j=0; j<n; j++)
       {
-        for (int i=0; i<nv; i++)
+        for (len_t i=0; i<nv; i++)
           vtf[i + nv*j] = vt_data[i + top*j];
       }
     }

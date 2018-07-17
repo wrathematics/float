@@ -30,6 +30,7 @@ static inline float set_na_float()
   return ret;
 }
 
+/*
 static inline float set_nan_float()
 {
   float ret;
@@ -44,7 +45,7 @@ static inline float set_nan_float()
   
   return ret;
 }
-
+*/
 
 
 int ISNAf(const float x)
@@ -131,7 +132,7 @@ SEXP R_isna_spm(SEXP x)
 SEXP R_anyNA_spm(SEXP x)
 {
   SEXP ret;
-  const size_t len = (size_t) NROWS(x)*NCOLS(x);
+  const R_xlen_t len = (R_xlen_t) NROWS(x)*NCOLS(x);
   
   PROTECT(ret = allocVector(LGLSXP, 1));
   LOGICAL(ret)[0] = anyNA(len, DATA(x));

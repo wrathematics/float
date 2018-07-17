@@ -2,7 +2,11 @@
 % Please edit documentation in R/converters.r
 \docType{methods}
 \name{converters}
+\alias{as.double.float32}
+\alias{as.float}
+\alias{as.integer.float32}
 \alias{as.matrix.float32}
+\alias{as.numeric,float32-method}
 \alias{as.vector.float32}
 \alias{converters}
 \alias{dbl}
@@ -17,6 +21,14 @@ fl(x, strict = FALSE)
 dbl(x, strict = FALSE)
 
 int(x, strict = FALSE)
+
+as.float(x, strict = FALSE)
+
+\method{as.double}{float32}(x, ...)
+
+\method{as.integer}{float32}(x, ...)
+
+\S4method{as.numeric}{float32}(x, ...)
 
 \method{as.vector}{float32}(x, mode = "any")
 
@@ -40,6 +52,10 @@ input).
 }
 \description{
 Convert between a numeric vector/matrix and a float vector/matrix.
+}
+\details{
+\code{fl()}, \code{int()}, and \code{dbl()} are shorthand for
+\code{as.float()}, \code{as.integer()}, and \code{as.double()}, respectively.
 }
 \examples{
 library(float)

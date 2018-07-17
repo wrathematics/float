@@ -2,6 +2,10 @@
 #' 
 #' Convert between a numeric vector/matrix and a float vector/matrix.
 #' 
+#' @details
+#' \code{fl()}, \code{int()}, and \code{dbl()} are shorthand for
+#' \code{as.float()}, \code{as.integer()}, and \code{as.double()}, respectively.
+#' 
 #' @param x
 #' A numeric or float vector/matrix.
 #' @param strict
@@ -99,6 +103,26 @@ int = function(x, strict=FALSE)
   
   ret
 }
+
+
+
+#' @rdname converters
+#' @export
+as.float = fl
+
+#' @rdname converters
+#' @method as.double float32
+#' @export
+as.double.float32 = function(x, ...) dbl(x)
+
+#' @rdname converters
+#' @method as.integer float32
+#' @export
+as.integer.float32 = function(x, ...) int(x)
+
+#' @rdname converters
+#' @export
+setMethod("as.numeric", signature(x="float32"), function(x, ...) dbl(x))
 
 
 
