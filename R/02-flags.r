@@ -1,6 +1,6 @@
 # linux: "linux"
 # mac: "darwin"
-# windows: 
+# windows:
 # freebsd: "freebsd"
 get_os <- function()
 {
@@ -12,10 +12,10 @@ get_os <- function()
 
 
 
-ldflags_string = function()
+ldflags_string = function(static=FALSE)
 {
   os = get_os()
-  install_path = "libs"
+  install_path = "lib"
   
   if (nchar(.Platform$r_arch) > 0)
     path = file.path(install_path, .Platform$r_arch)
@@ -25,21 +25,19 @@ ldflags_string = function()
   float_libs_dir_rel = system.file(path, package="float")
   float_libs_dir = tools::file_path_as_absolute(float_libs_dir_rel)
   
-  # FIXME we use -Wl,-rpath for linux, which is sufficient for CRAN but not necessarily safe; needs more checks
-  if (os == "linux" || os == "freebsd")
+  if ((os == "linux" || os == "freebsd")  &&  !isTRUE(static))
     flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
   else
-    flags = paste0(float_libs_dir, "/float.*")
-  
+    flags = paste0(float_libs_dir, "/libfloat.a")
   
   flags
 }
 
 
 
-ldflags = function()
+ldflags = function(static=FALSE)
 {
-  flags = ldflags_string()
+  flags = ldflags_string(static=static)
   
   cat(flags)
   invisible()

@@ -1,5 +1,7 @@
 #! /bin/sh
 
+rm -rf ./inst/lib
+
 rm -rf ./src/*.so*
 rm -rf ./src/*.d
 rm -rf ./src/*.dll

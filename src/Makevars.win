@@ -9,9 +9,19 @@ OBJECTS = $(R_SOURCES:.c=.o) utils/matmult.o utils/symmetrize.o utils/xpose.o sl
 
 
 ### Start making here.
-all: $(SHLIB)
+all: $(SHLIB) buildStaticLib
 
 $(SHLIB): $(OBJECTS)
+
+
+
+LIBPATH = ../inst/lib$(R_ARCH)
+STATICLIB =	libfloat.a
+
+buildStaticLib: $(STATICLIB)
+	-mkdir -p $(LIBPATH)
+	-mv $(STATICLIB) $(LIBPATH)
+
 
 
 ### For 32-bit gfortran of Rtools (version 3.4.0.1962) on a 64-bit Windows.
