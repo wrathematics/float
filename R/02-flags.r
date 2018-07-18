@@ -16,7 +16,7 @@ ldflags_string = function(static=FALSE)
 {
   os = get_os()
   
-  dynamic_link = (os == "linux" || os == "freebsd")  &&  !isTRUE(static)
+  dynamic_link = (os == "linux" || os == "freebsd" || os == "darwin")  &&  !isTRUE(static)
   if (dynamic_link)
     install_path = "libs"
   else
@@ -31,7 +31,12 @@ ldflags_string = function(static=FALSE)
   float_libs_dir = tools::file_path_as_absolute(float_libs_dir_rel)
   
   if (dynamic_link)
-    flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
+  {
+    if (os == "darwin")
+      flags = paste0("-L", float_libs_dir, " ", float_libs_dir, "/float.so -Wl,-rpath ", float_libs_dir)
+    else
+      flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
+  }
   else
     flags = paste0(float_libs_dir, "/libfloat.a")
   
