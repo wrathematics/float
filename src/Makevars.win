@@ -22,6 +22,9 @@ buildStaticLib: $(STATICLIB)
 	-mkdir -p $(LIBPATH)
 	-mv $(STATICLIB) $(LIBPATH)
 
+$(STATICLIB): $(OBJECTS)
+	$(AR) qc $(STATICLIB) $^
+
 
 
 ### For 32-bit gfortran of Rtools (version 3.4.0.1962) on a 64-bit Windows.

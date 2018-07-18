@@ -49,8 +49,7 @@ STATICLIB =	libfloat.a
 
 buildStaticLib: $(STATICLIB)
 	-@if test ! -e $(LIBPATH)$(R_ARCH); then mkdir -p $(LIBPATH)$(R_ARCH); fi
-	cp $(STATICLIB) $(LIBPATH)$(R_ARCH)
-	rm $(STATICLIB)
+	mv $(STATICLIB) $(LIBPATH)$(R_ARCH)
 
 $(STATICLIB): $(OBJECTS)
 		$(AR) qc $(STATICLIB) $^
