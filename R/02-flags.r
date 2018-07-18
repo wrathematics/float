@@ -15,7 +15,12 @@ get_os <- function()
 ldflags_string = function(static=FALSE)
 {
   os = get_os()
-  install_path = "lib"
+  
+  dynamic_link = (os == "linux" || os == "freebsd")  &&  !isTRUE(static)
+  if (dynamic_link)
+    install_path = "libs"
+  else
+    install_path = "lib"
   
   if (nchar(.Platform$r_arch) > 0)
     path = file.path(install_path, .Platform$r_arch)
@@ -25,7 +30,7 @@ ldflags_string = function(static=FALSE)
   float_libs_dir_rel = system.file(path, package="float")
   float_libs_dir = tools::file_path_as_absolute(float_libs_dir_rel)
   
-  if ((os == "linux" || os == "freebsd")  &&  !isTRUE(static))
+  if (dynamic_link)
     flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
   else
     flags = paste0(float_libs_dir, "/libfloat.a")
