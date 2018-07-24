@@ -1,16 +1,42 @@
 AC_PREREQ([2.69])
 AC_INIT(DESCRIPTION)
 
+# Get C compiler from R
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+CC=`"${R_HOME}/bin/R" CMD config CC`
+CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+CXX=`"${R_HOME}/bin/R" CMD config CXX`
+FC=`"${R_HOME}/bin/R" CMD config FC`
+LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
+
+
+AC_PROG_CC
 AC_PROG_CC_C99
+AC_PROG_CXX
+AC_PROG_FC
 AC_CHECK_LIB(m, [sinf], [], 
   [AC_MSG_ERROR([float math functions unavailable])]
 )
 
 
 
+# 1=big endian, 0=little endian
 AC_C_BIGENDIAN([BOBE=1], [BOBE=0], 
   [AC_MSG_ERROR([unable to determine endianness; not dealing with you])]
 )
+
+if test "X${BOBE}" = "X1"; then
+  BOBE_REPORT="byte order: big endian"
+else
+  BOBE_REPORT="byte order: little endian"
+fi
+
 
 
 AC_CHECK_SIZEOF(int)
@@ -20,20 +46,25 @@ AC_PREPROC_IFELSE([AC_LANG_SOURCE([
   #endif
 ])], [INTSTORAGE=true], [INTSTORAGE=false])
 if test "X${INTSTORAGE}" = "Xtrue"; then
-  BACKEND_REPORT="using 'int' for internal float storage"
+  BACKEND_REPORT="float internals storage: int"
 else
   AC_MSG_ERROR([sizeof(int) != 4. no other backend available at this time.])
 fi
 
 
 
-dnl Determine R_HOME.
-: ${R_HOME=`R RHOME`}
-if test -z "${R_HOME}"; then
-  AC_MSG_ERROR([could not determine R_HOME])
+AC_OPENMP
+if test -n "${OPENMP_CFLAGS}"; then
+  OMPFLAGS_C="\$(SHLIB_OPENMP_CFLAGS)"
+  OMPFLAGS_FC="\$(SHLIB_OPENMP_FCFLAGS)"
+else
+  OMPFLAGS_C=""
+  OMPFLAGS_FC=""
 fi
 
-# Obtain from R.
+
+
+# Obtain BLAS/LAPACK libs from R.
 R_SCMD="${R_HOME}/bin/R CMD config"
 BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
 LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
@@ -41,6 +72,7 @@ LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
 # Check tools.
 AC_CHECK_PROG([echo_ok], [echo], [yes], [no], ,)
 AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
+
 
 
 ### Check for single precision BLAS/LAPACK symbols. These can be present/absent
@@ -121,8 +153,9 @@ fi
 
 # Report
 echo " "
-echo "******************** Results of spm package configure *******************"
+echo "******************* Results of float package configure *******************"
 echo " "
+echo "* ${BOBE_REPORT}"
 echo "* ${BACKEND_REPORT}"
 echo "* ${BLAS_REPORT}"
 echo "  >> BLAS_LIBS=${BLAS_LIBS}"
@@ -137,4 +170,6 @@ AC_SUBST(BOBE)
 AC_OUTPUT(src/endianness.h)
 
 AC_SUBST(ADD_OBJS)
+AC_SUBST(OMPFLAGS_C)
+AC_SUBST(OMPFLAGS_FC)
 AC_OUTPUT(src/Makevars)
