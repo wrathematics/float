@@ -39,16 +39,15 @@ fi
 
 
 
+### Prof Ripley: "R cannot be built on a platform with sizeof(int) != 4."
 AC_CHECK_SIZEOF(int)
 AC_PREPROC_IFELSE([AC_LANG_SOURCE([
   #if SIZEOF_INT != 4
   #error
   #endif
 ])], [INTSTORAGE=true], [INTSTORAGE=false])
-if test "X${INTSTORAGE}" = "Xtrue"; then
-  BACKEND_REPORT="float internals storage: int"
-else
-  AC_MSG_ERROR([sizeof(int) != 4. no other backend available at this time.])
+if test "X${INTSTORAGE}" != "Xtrue"; then
+  AC_MSG_ERROR([sizeof(int) != 4, this should be impossible...])
 fi
 
 
@@ -119,30 +118,27 @@ fi
 ADD_OBJS=""
 
 if test "X${HAVESBLAS}" = "Xno"; then
-  BLAS_REPORT="NOTE: using package's single precision blas"
+  BLAS_REPORT="NOTE: no single precision BLAS symbols found. Building reference version"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
 else
-  BLAS_REPORT="using system single precision blas"
+  BLAS_REPORT="using system BLAS library"
 fi
 
 if test "X${HAVESLAPACK}" = "Xno"; then
-  LAPACK_REPORT="NOTE: using package's single precision lapack"
+  LAPACK_REPORT="NOTE: no single precision LAPACK symbols found. Building reference version"
   ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
 else
-  LAPACK_REPORT="using system single precision lapack"
+  LAPACK_REPORT="using system LAPACK library"
 fi
 
 if test "X${HAVESBLAS}" = "Xno"; then
   AC_PROG_F77
   
   WARN_EXTRA="
-The internal single precision BLAS are inefficient. Please \
-consider installing high performance implementations, such as OpenBLAS \
-(open source software) or MKL (available for free from the Microsoft R \
-Open R distribution).
-
-If you believe you are seeing this message in error, please contact the \
-package maintainer.
+No single precision BLAS functions detected in your R BLAS library, so \
+we are using the reference implementation shipped with the float \
+package. If you believe you are seeing this message in error, please contact \
+the package maintainer.
   "
 else
   WARN_EXTRA=" "
@@ -156,7 +152,6 @@ echo " "
 echo "******************* Results of float package configure *******************"
 echo " "
 echo "* ${BOBE_REPORT}"
-echo "* ${BACKEND_REPORT}"
 echo "* ${BLAS_REPORT}"
 echo "  >> BLAS_LIBS=${BLAS_LIBS}"
 echo "* ${LAPACK_REPORT}"
