@@ -1,7 +1,7 @@
+# freebsd: "freebsd"
 # linux: "linux"
 # mac: "darwin"
-# windows: 
-# freebsd: "freebsd"
+# windows: "windows"
 get_os <- function()
 {
   os = tolower(Sys.info()["sysname"])
