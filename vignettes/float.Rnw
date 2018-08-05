@@ -50,9 +50,6 @@ The development version is maintained on GitHub. You can install this
 version using any of the well-known installer packages available to R:
 
 \begin{lstlisting}[language=rr]
-### Pick your preference
-devtools::install_github("wrathematics/float")
-ghit::install_github("wrathematics/float")
 remotes::install_github("wrathematics/float")
 \end{lstlisting}
 
