@@ -1,4 +1,4 @@
-Release 0.1-2:
+Release 0.2-0:
   * Fixed protect stack imbalance in R_init_NA().
   * Hid 'restrict' keyword from C++ in inst/include headers.
   * Fixed control logic in various [ calls.
@@ -10,6 +10,7 @@ Release 0.1-2:
   * Added rep() method.
   * Added as.numeric(), as.double() and as.integer() methods.
   * Added float() (like double(), integer(), and numeric()).
+  * Added build fix for some clang/OpenMP configurations.
 
 Release 0.1-1:
   * Added str() method.
