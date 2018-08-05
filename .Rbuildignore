@@ -2,6 +2,7 @@
 ^appveyor.yml$
 
 .vscode
+tools
 
 LICENSE.md
 TODO

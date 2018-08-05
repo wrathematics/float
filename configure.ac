@@ -1,39 +1,69 @@
 AC_PREREQ([2.69])
 AC_INIT(DESCRIPTION)
 
+# Get C compiler from R
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+CC=`"${R_HOME}/bin/R" CMD config CC`
+CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+CXX=`"${R_HOME}/bin/R" CMD config CXX`
+FC=`"${R_HOME}/bin/R" CMD config FC`
+LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
+
+
+AC_PROG_CC
 AC_PROG_CC_C99
+AC_PROG_CXX
+AC_PROG_FC
 AC_CHECK_LIB(m, [sinf], [], 
   [AC_MSG_ERROR([float math functions unavailable])]
 )
 
 
 
+# 1=big endian, 0=little endian
 AC_C_BIGENDIAN([BOBE=1], [BOBE=0], 
   [AC_MSG_ERROR([unable to determine endianness; not dealing with you])]
 )
 
+if test "X${BOBE}" = "X1"; then
+  BOBE_REPORT="byte order: big endian"
+else
+  BOBE_REPORT="byte order: little endian"
+fi
 
+
+
+### Prof Ripley: "R cannot be built on a platform with sizeof(int) != 4."
 AC_CHECK_SIZEOF(int)
 AC_PREPROC_IFELSE([AC_LANG_SOURCE([
   #if SIZEOF_INT != 4
   #error
   #endif
 ])], [INTSTORAGE=true], [INTSTORAGE=false])
-if test "X${INTSTORAGE}" = "Xtrue"; then
-  BACKEND_REPORT="using 'int' for internal float storage"
+if test "X${INTSTORAGE}" != "Xtrue"; then
+  AC_MSG_ERROR([sizeof(int) != 4, this should be impossible...])
+fi
+
+
+
+AC_OPENMP
+if test -n "${OPENMP_CFLAGS}"; then
+  OMPFLAGS_C="\$(SHLIB_OPENMP_CFLAGS)"
+  OMPFLAGS_FC="\$(SHLIB_OPENMP_FCFLAGS)"
 else
-  AC_MSG_ERROR([sizeof(int) != 4. no other backend available at this time.])
+  OMPFLAGS_C=""
+  OMPFLAGS_FC=""
 fi
 
 
 
-dnl Determine R_HOME.
-: ${R_HOME=`R RHOME`}
-if test -z "${R_HOME}"; then
-  AC_MSG_ERROR([could not determine R_HOME])
-fi
-
-# Obtain from R.
+# Obtain BLAS/LAPACK libs from R.
 R_SCMD="${R_HOME}/bin/R CMD config"
 BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
 LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
@@ -41,6 +71,7 @@ LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
 # Check tools.
 AC_CHECK_PROG([echo_ok], [echo], [yes], [no], ,)
 AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
+
 
 
 ### Check for single precision BLAS/LAPACK symbols. These can be present/absent
@@ -87,30 +118,27 @@ fi
 ADD_OBJS=""
 
 if test "X${HAVESBLAS}" = "Xno"; then
-  BLAS_REPORT="NOTE: using package's single precision blas"
+  BLAS_REPORT="NOTE: no single precision BLAS symbols found. Building reference version"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
 else
-  BLAS_REPORT="using system single precision blas"
+  BLAS_REPORT="using system BLAS library"
 fi
 
 if test "X${HAVESLAPACK}" = "Xno"; then
-  LAPACK_REPORT="NOTE: using package's single precision lapack"
+  LAPACK_REPORT="NOTE: no single precision LAPACK symbols found. Building reference version"
   ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
 else
-  LAPACK_REPORT="using system single precision lapack"
+  LAPACK_REPORT="using system LAPACK library"
 fi
 
 if test "X${HAVESBLAS}" = "Xno"; then
   AC_PROG_F77
   
   WARN_EXTRA="
-The internal single precision BLAS are inefficient. Please \
-consider installing high performance implementations, such as OpenBLAS \
-(open source software) or MKL (available for free from the Microsoft R \
-Open R distribution).
-
-If you believe you are seeing this message in error, please contact the \
-package maintainer.
+No single precision BLAS functions detected in your R BLAS library, so \
+we are using the reference implementation shipped with the float \
+package. If you believe you are seeing this message in error, please contact \
+the package maintainer.
   "
 else
   WARN_EXTRA=" "
@@ -121,9 +149,9 @@ fi
 
 # Report
 echo " "
-echo "******************** Results of spm package configure *******************"
+echo "******************* Results of float package configure *******************"
 echo " "
-echo "* ${BACKEND_REPORT}"
+echo "* ${BOBE_REPORT}"
 echo "* ${BLAS_REPORT}"
 echo "  >> BLAS_LIBS=${BLAS_LIBS}"
 echo "* ${LAPACK_REPORT}"
@@ -137,4 +165,6 @@ AC_SUBST(BOBE)
 AC_OUTPUT(src/endianness.h)
 
 AC_SUBST(ADD_OBJS)
+AC_SUBST(OMPFLAGS_C)
+AC_SUBST(OMPFLAGS_FC)
 AC_OUTPUT(src/Makevars)
