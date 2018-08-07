@@ -36,10 +36,17 @@ R_SOURCES = \
 
 OBJECTS = $(R_SOURCES) $(SLAPACK)
 
+STATICLIB = libfloat.a
+
 ### Start making here.
-all: $(SHLIB)
+all: $(SHLIB) $(STATICLIB)
 
 $(SHLIB): $(OBJECTS)
+
+$(STATICLIB): $(OBJECTS)
+	@$(RM) $@
+	$(AR) crs $@ $^
+	$(RANLIB) $@
 
 clean:
 	rm -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib
