@@ -9,3 +9,9 @@ branches:
   only:
     - master
     - osx
+
+notifications:
+  email:
+  on_success: no
+  on_failure: no
+
