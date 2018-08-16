@@ -1,6 +1,6 @@
 # float
 
-* **Version:** 0.2-0
+* **Version:** 0.2-1
 * **Status:** [![Linux Build Status via Travis-CI](https://travis-ci.org/wrathematics/float.png)](https://travis-ci.org/wrathematics/float) [![Windows build status via AppVeyor](https://ci.appveyor.com/api/projects/status/github/wrathematics/float?branch=master&svg=true)](https://ci.appveyor.com/project/wrathematics/float/branch/master)
 * **License:** [BSD 2-Clause](http://opensource.org/licenses/BSD-2-Clause)
 * **Author:** Drew Schmidt
