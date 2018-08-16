@@ -1,7 +1,7 @@
-# freebsd: "freebsd"
 # linux: "linux"
 # mac: "darwin"
-# windows: "windows"
+# windows:
+# freebsd: "freebsd"
 get_os <- function()
 {
   os = tolower(Sys.info()["sysname"])
@@ -12,10 +12,12 @@ get_os <- function()
 
 
 
-ldflags_string = function()
+ldflags_string = function(static=FALSE)
 {
-  os = get_os()
   install_path = "libs"
+  
+  os = get_os()
+  dynamic_link = (os == "linux" || os == "freebsd" || os == "darwin")  &&  !isTRUE(static)
   
   if (nchar(.Platform$r_arch) > 0)
     path = file.path(install_path, .Platform$r_arch)
@@ -25,21 +27,24 @@ ldflags_string = function()
   float_libs_dir_rel = system.file(path, package="float")
   float_libs_dir = tools::file_path_as_absolute(float_libs_dir_rel)
   
-  # FIXME we use -Wl,-rpath for linux, which is sufficient for CRAN but not necessarily safe; needs more checks
-  if (os == "linux" || os == "freebsd")
-    flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
+  if (dynamic_link)
+  {
+    if (os == "darwin")
+      flags = paste0("-L", float_libs_dir, " ", float_libs_dir, "/float.so -Wl,-rpath ", float_libs_dir)
+    else
+      flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
+  }
   else
-    flags = paste0(float_libs_dir, "/float.*")
-  
+    flags = paste0(float_libs_dir, "/libfloat.a")
   
   flags
 }
 
 
 
-ldflags = function()
+ldflags = function(static=FALSE)
 {
-  flags = ldflags_string()
+  flags = ldflags_string(static=static)
   
   cat(flags)
   invisible()
