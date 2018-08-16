@@ -1,18 +1,23 @@
 PKG_CFLAGS = $(SHLIB_OPENMP_CFLAGS) -I../inst/include/ -I./windows/
 PKG_FFLAGS = $(SHLIB_OPENMP_FFLAGS)
 PKG_FCFLAGS = $(SHLIB_OPENMP_FCFLAGS)
-PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CFLAGS)
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_FCFLAGS)
 
 R_SOURCES = $(wildcard *.c)
 LAPACK_OBJS = lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o lapack/sblas.o
 OBJECTS = $(R_SOURCES:.c=.o) utils/matmult.o utils/symmetrize.o utils/xpose.o slapack_wrap.o $(LAPACK_OBJS)
 
+STATICLIB = libfloat.a
 
 ### Start making here.
-all: $(SHLIB)
+all: $(SHLIB) $(STATICLIB)
 
 $(SHLIB): $(OBJECTS)
 
+$(STATICLIB): $(OBJECTS)
+	@$(RM) $@
+	$(AR) crs $@ $^
+	$(RANLIB) $@
 
 ### For 32-bit gfortran of Rtools (version 3.4.0.1962) on a 64-bit Windows.
 ### None of "-O1", "-O2", "-O3" can work correctly with float version of

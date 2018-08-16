@@ -4,3 +4,14 @@ warnings_are_errors: true
 env:
   global:
     - MAKEFLAGS="-j 2"
+
+branches:
+  only:
+    - master
+    - osx
+
+notifications:
+  email:
+  on_success: no
+  on_failure: no
+
