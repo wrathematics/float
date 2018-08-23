@@ -28,11 +28,25 @@ NULL
 
 scale_float32 = function(x, center=TRUE, scale=TRUE) 
 {
-  if (!is.logical(center) || !is.logical(scale))
-    stop("only logical 'center' and 'scale' implemented at this time")
-  
   if (is.na(center) || is.na(scale))
     stop("missing value where TRUE/FALSE needed")
+  
+  if (!is.logical(center))
+  {
+    if (length(center) != ncol(x))
+      stop("length of 'center' must equal the number of columns of 'x'")
+    
+    x = sweep(x, MARGIN=2, STATS=center, FUN="-")
+    center = FALSE
+  }
+  if (!is.logical(scale))
+  {
+    if (length(scale) != ncol(x))
+      stop("length of 'scale' must equal the number of columns of 'x'")
+    
+    x = sweep(x, MARGIN=2, STATS=scale, FUN="-")
+    scale = FALSE
+  }
   
   if (!isTRUE(center) && !isTRUE(scale))
     return(x)
