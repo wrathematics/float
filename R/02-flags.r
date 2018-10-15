@@ -49,3 +49,39 @@ ldflags = function(static=FALSE)
   cat(flags)
   invisible()
 }
+
+
+
+
+
+
+
+
+
+
+
+cppflags_string = function()
+{
+  install_path = "include"
+  
+  if (nchar(.Platform$r_arch) > 0)
+    path = file.path(install_path, .Platform$r_arch)
+  else
+    path = install_path
+  
+  float_include_dir_rel = system.file(path, package="float")
+  float_include_dir = tools::file_path_as_absolute(float_include_dir_rel)
+  
+  flags = paste0("-I", float_include_dir)
+  flags
+}
+
+
+
+cppflags = function()
+{
+  flags = cppflags_string()
+  
+  cat(flags)
+  invisible()
+}
