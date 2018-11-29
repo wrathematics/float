@@ -123,6 +123,7 @@ static inline int scaler(const bool centerx, const bool scalex, const len_t m, c
 SEXP R_scale_spm(SEXP x, SEXP center_, SEXP scale_)
 {
   SEXP ret;
+  SEXP ret_s4_class, cm_s4_class, cv_s4_class;
   SEXP ret_s4, cm_s4, cv_s4;
   SEXP cm, cv;
   const len_t m = NROWS(x);
@@ -163,22 +164,25 @@ SEXP R_scale_spm(SEXP x, SEXP center_, SEXP scale_)
   
   scaler(center, scale, m, n, DATA(ret), colmeans, colvars);
   
-  ret_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("float32")));
-  ptct++;
+  PROTECT(ret_s4_class = MAKE_CLASS("float32"));
+  PROTECT(ret_s4 = NEW_OBJECT(ret_s4_class));
+  ptct += 2;
   SET_SLOT(ret_s4, install("Data"), ret);
   
   if (center)
   {
-    cm_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("float32")));
-    ptct++;
+    PROTECT(cm_s4_class = MAKE_CLASS("float32"));
+    PROTECT(cm_s4 = NEW_OBJECT(cm_s4_class));
+    ptct += 2;
     SET_SLOT(cm_s4, install("Data"), cm);
     setAttrib(ret_s4, install("scaled:center"), cm_s4);
   }
   
   if (scale)
   {
-    cv_s4 = PROTECT(NEW_OBJECT(MAKE_CLASS("float32")));
-    ptct++;
+    PROTECT(cv_s4_class = MAKE_CLASS("float32"));
+    PROTECT(cv_s4 = NEW_OBJECT(cv_s4_class));
+    ptct += 2;
     SET_SLOT(cv_s4, install("Data"), cv);
     setAttrib(ret_s4, install("scaled:scale"), cv_s4);
   }
