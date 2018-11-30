@@ -12,14 +12,12 @@ CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
 CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
 CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 CXX=`"${R_HOME}/bin/R" CMD config CXX`
-FC=`"${R_HOME}/bin/R" CMD config FC`
 LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
 
 
 AC_PROG_CC
 AC_PROG_CC_C99
 AC_PROG_CXX
-AC_PROG_FC
 AC_CHECK_LIB(m, [sinf], [], 
   [AC_MSG_ERROR([float math functions unavailable])]
 )
@@ -55,10 +53,8 @@ fi
 AC_OPENMP
 if test -n "${OPENMP_CFLAGS}"; then
   OMPFLAGS_C="\$(SHLIB_OPENMP_CFLAGS)"
-  OMPFLAGS_FC="\$(SHLIB_OPENMP_FCFLAGS)"
 else
   OMPFLAGS_C=""
-  OMPFLAGS_FC=""
 fi
 
 
@@ -132,8 +128,6 @@ else
 fi
 
 if test "X${HAVESBLAS}" = "Xno"; then
-  AC_PROG_F77
-  
   WARN_EXTRA="
 No single precision BLAS functions detected in your R BLAS library, so \
 we are using the reference implementation shipped with the float \
@@ -154,7 +148,6 @@ echo " "
 echo "* OpenMP Report:"
 echo "  >> OPENMP_CFLAGS=${OPENMP_CFLAGS}"
 echo "  >> OMPFLAGS_C=${OMPFLAGS_C}"
-echo "  >> OMPFLAGS_FC=${OMPFLAGS_FC}"
 echo "* ${BOBE_REPORT}"
 echo "* ${BLAS_REPORT}"
 echo "  >> BLAS_LIBS=${BLAS_LIBS}"
@@ -170,5 +163,4 @@ AC_OUTPUT(src/endianness.h)
 
 AC_SUBST(ADD_OBJS)
 AC_SUBST(OMPFLAGS_C)
-AC_SUBST(OMPFLAGS_FC)
 AC_OUTPUT(src/Makevars)
