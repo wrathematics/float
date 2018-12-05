@@ -40,8 +40,6 @@ ldflags_string = function(static=FALSE)
   flags
 }
 
-
-
 ldflags = function(static=FALSE)
 {
   flags = ldflags_string(static=static)
@@ -49,14 +47,6 @@ ldflags = function(static=FALSE)
   cat(flags)
   invisible()
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -75,8 +65,6 @@ cppflags_string = function()
   flags = paste0("-I", float_include_dir)
   flags
 }
-
-
 
 cppflags = function()
 {
