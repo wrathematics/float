@@ -20,6 +20,7 @@
 #' s = flrunif(10, 3)
 #' scale(s)
 #' 
+#' @useDynLib float R_scale_spm
 #' @name scale
 #' @rdname scale
 NULL

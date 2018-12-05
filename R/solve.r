@@ -21,6 +21,7 @@
 #' y = fl(1:3)
 #' solve(cp, y)
 #' 
+#' @useDynLib float R_solve_spm R_solve_spmspm
 #' @name solve
 #' @rdname solve
 NULL

@@ -20,6 +20,7 @@
 #' rowSums(s)
 #' colSums(s)
 #' 
+#' @useDynLib float R_colSums_spm R_rowSums_spm R_colMeans_spm R_rowMeans_spm
 #' @name colsums
 #' @rdname colsums
 NULL

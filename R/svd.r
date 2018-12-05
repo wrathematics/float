@@ -18,6 +18,7 @@
 #' x = flrunif(10, 3)
 #' svd(x)
 #' 
+#' @useDynLib float R_svd_spm
 #' @name svd
 #' @rdname svd
 NULL

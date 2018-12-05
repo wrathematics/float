@@ -22,6 +22,7 @@
 #' log(x)
 #' }
 #' 
+#' @useDynLib float R_exp_spm R_expm1_spm R_log_spm R_log10_spm R_log2_spm
 #' @name log
 #' @rdname log
 NULL
@@ -107,6 +108,7 @@ setMethod("log2", signature(x="float32"), log2_float32)
 #' sin(x)
 #' }
 #' 
+#' @useDynLib float R_sin_spm R_cos_spm R_tan_spm R_asin_spm R_acos_spm R_atan_spm 
 #' @name trig
 #' @rdname trig
 NULL
@@ -199,6 +201,7 @@ setMethod("atan", signature(x="float32"), atan_float32)
 #' sinh(x)
 #' }
 #' 
+#' @useDynLib float R_sinh_spm R_cosh_spm R_tanh_spm R_asinh_spm R_acosh_spm R_atanh_spm
 #' @name hyperbolic
 #' @rdname hyperbolic
 NULL
@@ -291,6 +294,7 @@ setMethod("atanh", signature(x="float32"), atanh_float32)
 #' sqrt(x)
 #' }
 #' 
+#' @useDynLib float R_abs_spm R_sqrt_spm
 #' @name miscmath
 #' @rdname miscmath
 NULL
@@ -343,6 +347,7 @@ setMethod("sqrt", signature(x="float32"), sqrt_float32)
 #' lgamma(x)
 #' }
 #' 
+#' @useDynLib float R_gamma_spm R_lgamma_spm
 #' @name specialmath
 #' @rdname specialmath
 NULL
@@ -395,6 +400,7 @@ setMethod("lgamma", signature(x="float32"), lgamma_float32)
 #' is.nan(sqrt(x))
 #' }
 #' 
+#' @useDynLib float R_isfinite_spm R_isinfinite_spm R_isnan_spm
 #' @name mathis
 #' @rdname mathis
 NULL
@@ -456,6 +462,7 @@ setMethod("is.nan", signature(x="float32"), is.nan_float32)
 #' x = flrnorm(10)
 #' floor(x)
 #' 
+#' @useDynLib float R_ceiling_spm R_floor_spm R_trunc_spm R_round_spm
 #' @name round
 #' @rdname round
 NULL

@@ -28,6 +28,7 @@
 #' 
 #' all.equal(x, y)
 #' 
+#' @useDynLib float R_mat2spm R_spm2mat R_spm2int
 #' @name converters
 #' @rdname converters
 NULL
