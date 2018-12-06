@@ -13,13 +13,18 @@
     if(length(which_install_name_tool) == 0)
       stop(sprintf("you need to have '%s' installed", install_name_tool))
     
-    path = system.file("libs", package = "float")
-    path = file.path(path, "float.*")
-    install_name_tool_args = sprintf('-id "@rpath%s" %s', path, path)
-    # https://stackoverflow.com/a/44796734/1069256
-    # run something like:
-    # install_name_tool -id "@rpath/usr/local/lib/R/3.4/site-library/float/libs/float.*" /usr/local/lib/R/3.4/site-library/float/libs/float.*
-    system2(install_name_tool, install_name_tool_args)
+    path.libs = system.file("libs", package = "float")
+    files = c("float.so", "float.dylib")
+    for(i.file in files){
+      path = file.path(path.libs, i.file)
+      if(file.exists(path)){
+        install_name_tool_args = sprintf('-id "@rpath%s" %s', path, path)
+        # https://stackoverflow.com/a/44796734/1069256
+        # run something like:
+        # install_name_tool -id "@rpath/usr/local/lib/R/3.4/site-library/float/libs/float.*" /usr/local/lib/R/3.4/site-library/float/libs/float.*
+        system2(install_name_tool, install_name_tool_args)
+      }
+    }
   }
   invisible()
 }
