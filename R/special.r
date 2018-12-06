@@ -21,4 +21,28 @@
 #' }
 #' 
 #' @docType data
-"Machine_float" # initialized in zzz.r
+"Machine_float"
+
+
+
+#' NaNf
+#' 
+#' 32-bit float \code{NaN}
+#' 
+#' @format 
+#' A 32-bit float.
+#' 
+#' @docType data
+"NaNf"
+
+
+
+#' NA_float_
+#' 
+#' 32-bit float \code{NA}
+#' 
+#' @format 
+#' A 32-bit float.
+#' 
+#' @docType data
+"NA_float_" # initialized in zzz.r
