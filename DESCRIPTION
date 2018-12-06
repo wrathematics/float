@@ -24,6 +24,7 @@ Depends:
 Imports:
     utils,
     tools
+LazyData: true
 ByteCompile: yes
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues
