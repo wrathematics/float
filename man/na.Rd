@@ -2,10 +2,10 @@
 % Please edit documentation in R/na.r
 \docType{methods}
 \name{na}
-\alias{is.na,float32-method}
 \alias{na}
-\alias{na.exclude,float32-method}
+\alias{is.na,float32-method}
 \alias{na.omit,float32-method}
+\alias{na.exclude,float32-method}
 \title{NA}
 \usage{
 \S4method{is.na}{float32}(x)
@@ -29,4 +29,3 @@ s = flrunif(10, 3)
 is.na(s)
 
 }
-

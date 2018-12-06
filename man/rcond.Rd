@@ -6,8 +6,8 @@
 \alias{rcond,float32-method}
 \title{rcond}
 \usage{
-\S4method{rcond}{float32}(x, norm = c("O", "I", "1"), triangular = FALSE,
-  ...)
+\S4method{rcond}{float32}(x, norm = c("O", "I", "1"),
+  triangular = FALSE, ...)
 }
 \arguments{
 \item{x}{A float vector/matrix.}
@@ -31,4 +31,3 @@ s = flrunif(10, 3)
 rcond(s)
 
 }
-

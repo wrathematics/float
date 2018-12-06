@@ -2,11 +2,11 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{round}
+\alias{round}
 \alias{ceiling,float32-method}
 \alias{floor,float32-method}
-\alias{round}
-\alias{round,float32-method}
 \alias{trunc,float32-method}
+\alias{round,float32-method}
 \title{Round}
 \usage{
 \S4method{ceiling}{float32}(x)
@@ -37,4 +37,3 @@ x = flrnorm(10)
 floor(x)
 
 }
-

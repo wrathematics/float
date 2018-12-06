@@ -6,8 +6,8 @@
 \alias{sweep,float32-method}
 \title{sweep}
 \usage{
-\S4method{sweep}{float32}(x, MARGIN, STATS, FUN = "-", check.margin = TRUE,
-  ...)
+\S4method{sweep}{float32}(x, MARGIN, STATS, FUN = "-",
+  check.margin = TRUE, ...)
 }
 \arguments{
 \item{x}{A float vector/matrix.}
@@ -42,4 +42,3 @@ s = flrunif(10, 3)
 sweep(s, 2, fl(1))
 
 }
-

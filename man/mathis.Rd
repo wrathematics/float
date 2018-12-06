@@ -2,10 +2,10 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{mathis}
+\alias{mathis}
 \alias{is.finite,float32-method}
 \alias{is.infinite,float32-method}
 \alias{is.nan,float32-method}
-\alias{mathis}
 \title{Finite, infinite, and NaNs}
 \usage{
 \S4method{is.finite}{float32}(x)
@@ -32,4 +32,3 @@ is.nan(sqrt(x))
 }
 
 }
-

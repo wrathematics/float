@@ -2,11 +2,11 @@
 % Please edit documentation in R/colSums.r
 \docType{methods}
 \name{colsums}
-\alias{colMeans,float32-method}
-\alias{colSums,float32-method}
 \alias{colsums}
-\alias{rowMeans,float32-method}
+\alias{colSums,float32-method}
 \alias{rowSums,float32-method}
+\alias{colMeans,float32-method}
+\alias{rowMeans,float32-method}
 \title{colSums}
 \usage{
 \S4method{colSums}{float32}(x, na.rm = FALSE, dims = 1)
@@ -39,4 +39,3 @@ rowSums(s)
 colSums(s)
 
 }
-

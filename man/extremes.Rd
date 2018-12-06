@@ -3,10 +3,10 @@
 \docType{methods}
 \name{extremes}
 \alias{extremes}
-\alias{max,float32-method}
 \alias{min,float32-method}
-\alias{which.max,float32-method}
+\alias{max,float32-method}
 \alias{which.min,float32-method}
+\alias{which.max,float32-method}
 \title{extremes}
 \usage{
 \S4method{min}{float32}(x, ..., na.rm = FALSE)
@@ -45,4 +45,3 @@ min(x)
 min(x, 1)
 
 }
-

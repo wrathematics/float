@@ -25,4 +25,3 @@ cp = crossprod(s)
 chol(cp)
 
 }
-

@@ -29,4 +29,3 @@ cp = crossprod(s)
 isSymmetric(s)
 
 }
-

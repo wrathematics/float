@@ -26,4 +26,3 @@ s = flrunif(10, 3)
 norm(s, type="O")
 
 }
-

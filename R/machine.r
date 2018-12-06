@@ -7,7 +7,7 @@
 #' 
 #' @format 
 #' A list containing:
-#' \describe{
+#' \itemize{
 #'   \item \code{float.eps} epsilon
 #'   \item \code{float.xmin} smallest non-zero float
 #'   \item \code{float.xmax} largest non-inf float
@@ -21,4 +21,4 @@
 #' }
 #' 
 #' @docType data
-"Machine_float"
+"Machine_float" # initialized in zzz.r

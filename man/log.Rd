@@ -2,9 +2,9 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{log}
+\alias{log}
 \alias{exp,float32-method}
 \alias{expm1,float32-method}
-\alias{log}
 \alias{log,float32-method}
 \alias{log10,float32-method}
 \alias{log2,float32-method}
@@ -40,4 +40,3 @@ log(x)
 }
 
 }
-

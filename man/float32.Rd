@@ -22,4 +22,3 @@ will be interpreted as 32-bit floats.
 If instead you merely want to convert numeric/double data to float type,
 instead you should call \code{fl(x)}.
 }
-

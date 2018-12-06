@@ -2,14 +2,14 @@
 % Please edit documentation in R/dims.r
 \docType{methods}
 \name{dims}
-\alias{NCOL,float32-method}
-\alias{NROW,float32-method}
-\alias{dim,float32-method}
-\alias{dim<-,float32-method}
 \alias{dims}
-\alias{length,float32-method}
-\alias{ncol,float32-method}
 \alias{nrow,float32-method}
+\alias{ncol,float32-method}
+\alias{NROW,float32-method}
+\alias{NCOL,float32-method}
+\alias{dim,float32-method}
+\alias{length,float32-method}
+\alias{dim<-,float32-method}
 \title{dim}
 \usage{
 \S4method{nrow}{float32}(x)
@@ -46,4 +46,3 @@ nrow(s)
 ncol(s)
 
 }
-

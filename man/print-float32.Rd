@@ -2,8 +2,8 @@
 % Please edit documentation in R/print.r
 \docType{methods}
 \name{print-float32}
-\alias{print,float32-method}
 \alias{print-float32}
+\alias{print,float32-method}
 \alias{show,float32-method}
 \title{print-float32}
 \usage{
@@ -14,10 +14,14 @@
 \arguments{
 \item{x, object}{A float vector/matrix.}
 
-\item{...}{Ignored.}
+\item{...}{Additional arguments to \code{print()} (see details section for more
+information).}
 }
 \description{
 Print methods for float vector/matrices.
+}
+\details{
+The printer works by
 }
 \examples{
 library(float)
@@ -27,4 +31,3 @@ print(s)
 s
 
 }
-

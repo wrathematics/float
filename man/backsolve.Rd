@@ -3,16 +3,16 @@
 \docType{methods}
 \name{backsolve}
 \alias{backsolve}
-\alias{backsolve,BaseLinAlg,float32-method}
-\alias{backsolve,float32,BaseLinAlg-method}
 \alias{backsolve,float32,float32-method}
-\alias{forwardsolve,BaseLinAlg,float32-method}
-\alias{forwardsolve,float32,BaseLinAlg-method}
+\alias{backsolve,float32,BaseLinAlg-method}
+\alias{backsolve,BaseLinAlg,float32-method}
 \alias{forwardsolve,float32,float32-method}
+\alias{forwardsolve,float32,BaseLinAlg-method}
+\alias{forwardsolve,BaseLinAlg,float32-method}
 \title{backsolve}
 \usage{
-\S4method{backsolve}{float32,float32}(r, x, k = ncol(r), upper.tri = TRUE,
-  transpose = FALSE)
+\S4method{backsolve}{float32,float32}(r, x, k = ncol(r),
+  upper.tri = TRUE, transpose = FALSE)
 
 \S4method{backsolve}{float32,BaseLinAlg}(r, x, k = ncol(r),
   upper.tri = TRUE, transpose = FALSE)
@@ -53,4 +53,3 @@ y = fl(1:3)
 backsolve(cp, y)
 
 }
-
