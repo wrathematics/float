@@ -7,7 +7,7 @@
 
 \mytitle{Introducing the {float} package: 32-Bit Floats for {R}}
 \mysubtitle{}
-\myversion{0.2-0}
+\myversion{0.2-1}
 \myauthor{
 \centering
 Drew Schmidt \\ 
