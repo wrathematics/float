@@ -30,7 +30,22 @@ ldflags_string = function(static=FALSE)
   if (dynamic_link)
   {
     if (os == "darwin")
+    {
+      libfiles = c("float.so", "float.dylib")
+      libfile = NULL
+      for (libfile_test in libfiles)
+      {
+        if (!file.exists(paste0(float_libs_dir, "/", libfile_test)))
+        {
+          libfile = libfile_test
+          break
+        }
+      }
+      if (is.null(libfile))
+        stop(paste("unable to dynamically link: can't find any of:", paste(libfiles, collapse=", ")))
+      
       flags = paste0("-L", float_libs_dir, " ", float_libs_dir, "/float.so -Wl,-rpath ", float_libs_dir)
+    }
     else
       flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
   }
