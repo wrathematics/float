@@ -16,6 +16,7 @@
 #' ts = t(s)
 #' dim(ts)
 #' 
+#' @useDynLib float R_xpose_spm
 #' @name xpose
 #' @rdname xpose
 NULL

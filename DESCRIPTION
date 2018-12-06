@@ -1,7 +1,7 @@
 Package: float
 Type: Package
 Title: 32-Bit Floats
-Version: 0.2-0
+Version: 0.2-1
 Description: R comes with a suite of utilities for linear algebra with "numeric"
     (double precision) vectors/matrices. However, sometimes single precision (or
     less!) is more than enough for a particular task.  This package extends R's
@@ -24,14 +24,15 @@ Depends:
 Imports:
     utils,
     tools
+LazyData: true
 ByteCompile: yes
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues
 Authors@R: c(
     person("Drew", "Schmidt", role=c("aut", "cre", "cph"), email="wrathematics@gmail.com"),
-    person("Wei-Chen", "Chen", role="ctb", comment="win32 fixes"),
+    person("Wei-Chen", "Chen", role="aut"),
     person("Dmitriy", "Selivanov", role="ctb", comment="improvements in external package linking"),
     person("ORNL", role="cph")
     )
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.0

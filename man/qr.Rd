@@ -6,8 +6,8 @@
 \alias{qr,float32-method}
 \alias{qr.Q,ANY-method}
 \alias{qr.R,ANY-method}
-\alias{qr.qty,ANY-method}
 \alias{qr.qy,ANY-method}
+\alias{qr.qty,ANY-method}
 \title{QR}
 \usage{
 \S4method{qr}{float32}(x, tol = 1e-07, ...)
@@ -53,4 +53,3 @@ x = flrunif(10, 3)
 qr(x)
 
 }
-

@@ -61,6 +61,7 @@ binop = function(e1, e2, fun, floatfun)
 #' storage.mode(x) = "double"
 #' x + s2 # double
 #' 
+#' @useDynLib float R_add_spm R_mul_spm R_sub_spm R_div_spm R_pow_spm
 #' @name arithmetic
 #' @rdname arithmetic
 NULL
@@ -216,6 +217,7 @@ setMethod("^", signature(e1="BaseLinAlg", e2="float32"), pow.float)
 #' s <= 0
 #' }
 #' 
+#' @useDynLib float R_lt_spm R_le_spm R_eq_spm R_gt_spm R_ge_spm
 #' @name comparison
 #' @rdname comparison
 NULL

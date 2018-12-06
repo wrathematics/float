@@ -2,15 +2,15 @@
 % Please edit documentation in R/names.r
 \docType{methods}
 \name{names}
-\alias{colnames,float32-method}
-\alias{colnames<-,float32-method}
-\alias{dimnames,float32-method}
-\alias{dimnames<-,float32-method}
 \alias{names}
 \alias{names,float32-method}
 \alias{names<-,float32-method}
 \alias{rownames,float32-method}
 \alias{rownames<-,float32-method}
+\alias{colnames,float32-method}
+\alias{colnames<-,float32-method}
+\alias{dimnames,float32-method}
+\alias{dimnames<-,float32-method}
 \title{names}
 \usage{
 \S4method{names}{float32}(x)
@@ -37,4 +37,3 @@
 \description{
 "name" setter/getters.
 }
-

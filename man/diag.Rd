@@ -29,4 +29,3 @@ diag(s)
 diag(diag(s))
 
 }
-

@@ -30,4 +30,3 @@ s = flrunif(10, 3)
 scale(s)
 
 }
-

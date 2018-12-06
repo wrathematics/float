@@ -28,6 +28,7 @@
 #' storage.mode(x) = "double"
 #' x %*% s2 # double
 #' 
+#' @useDynLib float R_matmult_spm
 #' @name matmult
 #' @rdname matmult
 NULL

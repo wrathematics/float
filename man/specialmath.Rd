@@ -2,9 +2,9 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{specialmath}
+\alias{specialmath}
 \alias{gamma,float32-method}
 \alias{lgamma,float32-method}
-\alias{specialmath}
 \title{Special mathematical functions}
 \usage{
 \S4method{gamma}{float32}(x)
@@ -29,4 +29,3 @@ lgamma(x)
 }
 
 }
-

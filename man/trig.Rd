@@ -2,13 +2,13 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{trig}
-\alias{acos,float32-method}
-\alias{asin,float32-method}
-\alias{atan,float32-method}
-\alias{cos,float32-method}
-\alias{sin,float32-method}
-\alias{tan,float32-method}
 \alias{trig}
+\alias{sin,float32-method}
+\alias{cos,float32-method}
+\alias{tan,float32-method}
+\alias{asin,float32-method}
+\alias{acos,float32-method}
+\alias{atan,float32-method}
 \title{Trigonometric functions}
 \usage{
 \S4method{sin}{float32}(x)
@@ -41,4 +41,3 @@ sin(x)
 }
 
 }
-

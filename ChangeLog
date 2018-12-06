@@ -1,3 +1,9 @@
+Release 0.2-1:
+  * Better linking/flags.
+  * Use static library on Windows.
+  * Add support for non-logical center/scale arguments in scale().
+  * Fixed protection issue flagged by rchk in R_scale_spm().
+
 Release 0.2-0:
   * Fixed protect stack imbalance in R_init_NA().
   * Hid 'restrict' keyword from C++ in inst/include headers.

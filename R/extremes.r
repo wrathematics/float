@@ -26,6 +26,7 @@
 #' min(x)
 #' min(x, 1)
 #' 
+#' @useDynLib float R_min_spm R_max_spm R_whichmin_spm R_whichmax_spm
 #' @name extremes
 #' @rdname extremes
 NULL

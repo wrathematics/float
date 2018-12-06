@@ -19,6 +19,7 @@
 #' cp = crossprod(s)
 #' isSymmetric(s)
 #' 
+#' @useDynLib float R_isSymmetric_spm
 #' @name isSymmetric
 #' @rdname isSymmetric
 NULL

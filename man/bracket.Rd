@@ -2,9 +2,9 @@
 % Please edit documentation in R/bracket.r
 \docType{methods}
 \name{bracket}
+\alias{bracket}
 \alias{[,float32-method}
 \alias{[<-,float32-method}
-\alias{bracket}
 \title{Extract}
 \usage{
 \S4method{[}{float32}(x, i, j, drop = TRUE)
@@ -39,4 +39,3 @@ s[c(1, 3, 5, 7), 1:2]
 }
 
 }
-

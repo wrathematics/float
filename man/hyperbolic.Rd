@@ -2,13 +2,13 @@
 % Please edit documentation in R/math.r
 \docType{methods}
 \name{hyperbolic}
-\alias{acosh,float32-method}
-\alias{asinh,float32-method}
-\alias{atanh,float32-method}
-\alias{cosh,float32-method}
 \alias{hyperbolic}
 \alias{sinh,float32-method}
+\alias{cosh,float32-method}
 \alias{tanh,float32-method}
+\alias{asinh,float32-method}
+\alias{acosh,float32-method}
+\alias{atanh,float32-method}
 \title{Hyperbolic functions}
 \usage{
 \S4method{sinh}{float32}(x)
@@ -41,4 +41,3 @@ sinh(x)
 }
 
 }
-

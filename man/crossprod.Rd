@@ -34,4 +34,3 @@ crossprod(s)
 tcrossprod(s)
 
 }
-

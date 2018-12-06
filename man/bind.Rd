@@ -2,8 +2,8 @@
 % Please edit documentation in R/bind.r
 \name{bind}
 \alias{bind}
-\alias{cbind.float32}
 \alias{rbind.float32}
+\alias{cbind.float32}
 \title{rbind}
 \usage{
 \method{rbind}{float32}(..., deparse.level = 1)
@@ -29,4 +29,3 @@ rbind(x, x)
 cbind(x, x)
 
 }
-

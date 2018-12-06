@@ -2,10 +2,10 @@
 % Please edit documentation in R/matmult.r
 \docType{methods}
 \name{matmult}
+\alias{matmult}
 \alias{\%*\%,float32,float32-method}
 \alias{\%*\%,float32,matrix-method}
 \alias{\%*\%,matrix,float32-method}
-\alias{matmult}
 \title{matmult}
 \usage{
 \S4method{\%*\%}{float32,float32}(x, y)
@@ -44,4 +44,3 @@ storage.mode(x) = "double"
 x \%*\% s2 # double
 
 }
-

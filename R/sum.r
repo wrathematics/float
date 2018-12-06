@@ -26,6 +26,7 @@
 #' sum(x)
 #' sum(x, 1)
 #' 
+#' @useDynLib float R_sum_spm
 #' @name sum
 #' @rdname sum
 NULL

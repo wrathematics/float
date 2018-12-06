@@ -13,6 +13,7 @@
 #' s = flrunif(10, 3)
 #' is.na(s)
 #' 
+#' @useDynLib float R_isna_spm R_naomit_spm R_anyNA_spm
 #' @name na
 #' @rdname na
 NULL

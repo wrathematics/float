@@ -35,4 +35,3 @@ cp = crossprod(s)
 eigen(cp)
 
 }
-

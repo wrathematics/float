@@ -2,8 +2,8 @@
 % Please edit documentation in R/xpose.r
 \docType{methods}
 \name{xpose}
-\alias{t,float32-method}
 \alias{xpose}
+\alias{t,float32-method}
 \title{xpose}
 \usage{
 \S4method{t}{float32}(x)
@@ -26,4 +26,3 @@ ts = t(s)
 dim(ts)
 
 }
-

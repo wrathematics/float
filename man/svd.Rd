@@ -2,8 +2,8 @@
 % Please edit documentation in R/svd.r
 \docType{methods}
 \name{svd}
-\alias{La.svd,float32-method}
 \alias{svd}
+\alias{La.svd,float32-method}
 \alias{svd,float32-method}
 \title{SVD}
 \usage{
@@ -32,4 +32,3 @@ x = flrunif(10, 3)
 svd(x)
 
 }
-

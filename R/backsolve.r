@@ -22,6 +22,7 @@
 #' y = fl(1:3)
 #' backsolve(cp, y)
 #' 
+#' @useDynLib float R_backsolve_spm
 #' @name backsolve
 #' @rdname backsolve
 NULL

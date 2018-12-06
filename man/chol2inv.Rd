@@ -30,4 +30,3 @@ cp = crossprod(s)
 cp \%*\% chol2inv(chol(cp))
 
 }
-

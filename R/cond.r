@@ -20,6 +20,7 @@
 #' s = flrunif(10, 3)
 #' rcond(s)
 #' 
+#' @useDynLib float R_rcond_spm
 #' @name rcond
 #' @rdname rcond
 NULL

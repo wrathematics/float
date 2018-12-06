@@ -2,10 +2,14 @@
 #' 
 #' Print methods for float vector/matrices.
 #' 
+#' @details
+#' The printer works by 
+#' 
 #' @param x,object
 #' A float vector/matrix.
 #' @param ...
-#' Ignored.
+#' Additional arguments to \code{print()} (see details section for more
+#' information).
 #' 
 #' @examples
 #' library(float)
@@ -20,7 +24,22 @@ NULL
 
 
 
-print_float_vec = function(x)
+NUM_PRINT_DIGITS = 5L
+
+get_printer = function(x, ...)
+{
+  l = list(...)
+  if (!is.null(names(l)) && ("digits" %in% names(l)))
+    printer = function(x, ...) base::print(x, ...)
+  else
+    printer = function(x, ...) base::print(x, digits=NUM_PRINT_DIGITS, ...)
+  
+  printer
+}
+
+
+
+print_float_vec = function(x, ...)
 {
   n = NROW(x)
   
@@ -38,17 +57,19 @@ print_float_vec = function(x)
   else
     submat = dbl(x[1:top])
   
+  printer = get_printer(x, ...)
+  
   if (top < n)
-    cat(capture.output(submat), "... \n")
+    cat(capture.output(printer(submat, ...)), "... \n")
   else
-    print(submat) # NOTE intentional
+    printer(submat, ...)
   
   invisible()
 }
 
 
 
-print_float_mat = function(x)
+print_float_mat = function(x, ...)
 {
   m = NROW(x)
   n = NCOL(x)
@@ -70,7 +91,8 @@ print_float_mat = function(x)
   
   submat = submat[1:toprow, 1:topcol, drop=FALSE]
   
-  print(submat) # NOTE intentional
+  printer = get_printer(x, ...)
+  printer(submat, ...)
   
   if (toprow < m || topcol < n)
     cat("# ...\n\n")
@@ -98,19 +120,19 @@ print_attr = function(x)
 
 
 
-print_float32 = function(x)
+print_float32 = function(x, ...)
 {
   if (isavec(x))
-    print_float_vec(x)
+    print_float_vec(x, ...)
   else
-    print_float_mat(x)
+    print_float_mat(x, ...)
   
   print_attr(x)
 }
 
 #' @rdname print-float32
 #' @export
-setMethod("print", signature(x="float32"), function(x, ...) print_float32(x))
+setMethod("print", signature(x="float32"), print_float32)
 
 #' @rdname print-float32
 #' @export

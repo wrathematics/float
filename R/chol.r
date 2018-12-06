@@ -15,6 +15,7 @@
 #' cp = crossprod(s)
 #' chol(cp)
 #' 
+#' @useDynLib float R_chol_spm
 #' @name chol
 #' @rdname chol
 NULL

@@ -21,6 +21,7 @@
 #' crossprod(s)
 #' tcrossprod(s)
 #' 
+#' @useDynLib float R_crossprod_spm R_crossprod_spmspm R_tcrossprod_spm R_tcrossprod_spmspm
 #' @name crossprod
 #' @rdname crossprod
 NULL

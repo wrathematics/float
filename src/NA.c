@@ -226,7 +226,7 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
   CHECKMALLOC(rows);
   
   // get indices of NA's
-  #pragma omp parallel for default(none) shared(rows)
+  #pragma omp parallel for default(shared) shared(rows)
   for (len_t j=0; j<n; j++)
   {
     const len_t mj = m*j;
@@ -252,7 +252,7 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
   float *ptr = DATA(ret);
   
   // build reduced matrix
-  #pragma omp parallel for default(none) shared(rows, ptr, m_fin)
+  #pragma omp parallel for default(shared) shared(rows, ptr, m_fin)
   for (len_t j=0; j<n; j++)
   {
     const len_t mj = m*j;

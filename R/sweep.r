@@ -31,6 +31,7 @@
 #' s = flrunif(10, 3)
 #' sweep(s, 2, fl(1))
 #' 
+#' @useDynLib float R_sweep_spm
 #' @name sweep
 #' @rdname sweep
 NULL

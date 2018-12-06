@@ -24,6 +24,7 @@
 #' 
 #' eigen(cp)
 #' 
+#' @useDynLib float R_symeig_spm
 #' @name eigen
 #' @rdname eigen
 NULL

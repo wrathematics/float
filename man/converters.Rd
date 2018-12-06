@@ -2,18 +2,18 @@
 % Please edit documentation in R/converters.r
 \docType{methods}
 \name{converters}
-\alias{as.double.float32}
+\alias{converters}
+\alias{fl}
+\alias{dbl}
+\alias{int}
 \alias{as.float}
+\alias{as.double.float32}
 \alias{as.integer.float32}
-\alias{as.matrix.float32}
 \alias{as.numeric,float32-method}
 \alias{as.vector.float32}
-\alias{converters}
-\alias{dbl}
-\alias{fl}
-\alias{int}
-\alias{storage.mode,float32-method}
+\alias{as.matrix.float32}
 \alias{typeof,float32-method}
+\alias{storage.mode,float32-method}
 \title{converters}
 \usage{
 fl(x, strict = FALSE)
@@ -68,4 +68,3 @@ y = dbl(s)
 all.equal(x, y)
 
 }
-

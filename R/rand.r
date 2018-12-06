@@ -45,6 +45,7 @@
 #' mygen = function(n) sample(1:5, n, replace=TRUE)
 #' flrand(mygen, 30)
 #' 
+#' @useDynLib float R_flrunif_spm R_flrnorm_spm R_flrand_spm
 #' @name rand
 #' @rdname rand
 NULL

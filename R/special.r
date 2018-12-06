@@ -1,18 +1,11 @@
-#' .Machine_float
+#' Machine_float
 #' 
-#' @title Numerical characteristics of the machine for floats.
+#' Numerical characteristics of the machine for floats. Contains analogues of
+#' much of the double precision details of \code{.Machine}.
 #' 
-#' @description
-#' A global variable containing the float (single precision) analogues of much
-#' of the double precision details of \code{.Machine}.
-#' 
-#' @details
 #' Values are taken directly from \code{float.h}.
 #' 
-#' @usage
-#' .Machine
-#' 
-#' @section Value:
+#' @format 
 #' A list containing:
 #' \itemize{
 #'   \item \code{float.eps} epsilon
@@ -27,8 +20,29 @@
 #'       exponent that generates a normalized floating-point number
 #' }
 #' 
-#' @name .Machine_float
-#' @rdname machine_float
 #' @docType data
-#' @export
-NULL # set in zzz.r
+"Machine_float"
+
+
+
+#' NaNf
+#' 
+#' 32-bit float \code{NaN}
+#' 
+#' @format 
+#' A 32-bit float.
+#' 
+#' @docType data
+"NaNf"
+
+
+
+#' NA_float_
+#' 
+#' 32-bit float \code{NA}
+#' 
+#' @format 
+#' A 32-bit float.
+#' 
+#' @docType data
+"NA_float_" # initialized in zzz.r

@@ -1,13 +1,13 @@
+#' @useDynLib float R_init_NAf R_machine_spm R_init_NaNf
+
 .onLoad <- function(libname, pkgname)
 {
-  ret = .Call(R_init_NAf, PACKAGE="float")
-  NA_float_ <<- float32(ret)
+  NA_float_ = float32(.Call(R_init_NAf, PACKAGE="float"))
+  # NaNf = float32(.Call(R_init_NaNf, PACKAGE="float"))
+  # .Machine_float = .Call(R_machine_spm)
   
-  ret = .Call(R_init_NaNf, PACKAGE="float")
-  NaNf <<- float32(ret)
-  
-  .Machine_float <<- .Call(R_machine_spm)
-  if(Sys.info()[["sysname"]] == "Darwin") {
+  if (Sys.info()[["sysname"]] == "Darwin")
+  {
     install_name_tool = "install_name_tool"
     which_install_name_tool = suppressWarnings(system2("which", install_name_tool, stdout = T))
     if(length(which_install_name_tool) == 0)

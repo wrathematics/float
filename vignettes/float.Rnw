@@ -7,13 +7,14 @@
 
 \mytitle{Introducing the {float} package: 32-Bit Floats for {R}}
 \mysubtitle{}
-\myversion{0.1-2}
+\myversion{0.2-1}
 \myauthor{
 \centering
 Drew Schmidt \\ 
 \texttt{wrathematics@gmail.com} 
 }
 
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 
 \begin{document}
 \makefirstfew
@@ -25,7 +26,7 @@ Drew Schmidt \\
 R has a "numeric" type for vectors and matrices. This type must be either 
 integer or double precision. As such, R has no real ability to work with 
 32-bit floats. However, sometimes single precision (or less!) is more than 
-enough for a particular task.  The \textbf{float} package~\cite{float} 
+enough for a particular task.  The \pkg{float} package~\cite{float} 
 extends R's linear algebra facilities to include single precision
 (float) data.  Float vectors/matrices have half the precision of their
 "numeric"-type counterparts, for a performance vs accuracy trade-off.
@@ -61,7 +62,7 @@ recommended.
 
 \subsection{BLAS and LAPACK Libraries}\label{blasnlapack}
 
-The linear algebra operations in the \textbf{float} package are handled by the 
+The linear algebra operations in the \pkg{float} package are handled by the 
 BLAS and LAPACK~\cite{lawson1979basic,anderson1999lapack}.  By default, R will 
 not ship with the single precision versions of these functions, so we include 
 a source code distribution within the package.  This is the "reference" or 
@@ -69,16 +70,16 @@ NetLib implementation, which is not particularly efficient. Additionally,
 compiling these can take a very long time.
 
 To take advantage of the enhanced run-time performance and reduced compilation 
-times of using tuned BLAS/LAPACK with \textbf{float}, you will need to choose 
+times of using tuned BLAS/LAPACK with \pkg{float}, you will need to choose 
 an implementation and install it.  Typical implementations include 
-\textbf{OpenBLAS}~\cite{OpenBLAS}, Intel \textbf{MKL}~\cite{mkl}, AMD 
-\textbf{ACML}~\cite{acml}, \textbf{Atlas}~\cite{atlas}, and Apple's 
-\textbf{Accelerate}~\cite{accelerate}. You can read more about using different 
+\pkg{OpenBLAS}~\cite{OpenBLAS}, Intel \pkg{MKL}~\cite{mkl}, AMD 
+\pkg{ACML}~\cite{acml}, \pkg{Atlas}~\cite{atlas}, and Apple's 
+\pkg{Accelerate}~\cite{accelerate}. You can read more about using different 
 BLAS implementations with R in the R Installation and Administration 
 manual~\cite{Rblas}.
 
 Once you switch BLAS implementations with R, you will need to rebuild the 
-\textbf{float} package from source.
+\pkg{float} package from source.
 
 
 
@@ -244,13 +245,13 @@ x@Data + x@Data
 ## In x@Data + x@Data : NAs produced by integer overflow
 \end{lstlisting}
 
-So when creating new functionality not provided by existing \textbf{float} 
+So when creating new functionality not provided by existing \pkg{float} 
 package methods, you will probably have to move to compiled code.
 
 
 \subsection{Compiled Code}
 
-Using 32-bit floats from \textbf{float} in compiled code is not terribly 
+Using 32-bit floats from \pkg{float} in compiled code is not terribly 
 difficult, but maybe a bit annoying.  The general way to proceed for a 32-bit 
 float \code{x} is:
 
@@ -264,7 +265,7 @@ S4 class: \code{float32(ret)}.
 \end{itemize}
 
 One can access the data with the \code{FLOAT()} macro.  If writing an R package, 
-add \textbf{float} to the \code{LinkingTo} list in the package DESCRIPTION file. 
+add \pkg{float} to the \code{LinkingTo} list in the package DESCRIPTION file. 
 Then add \code{\#include <float/float32.h>} and the macro will be available.  
 If you are working outside the construct of a package (not recommended), then 
 you can define the macro as follows:
@@ -331,6 +332,37 @@ add1(fl(pi))
 
 Like I said, not really difficult, but annoying.
 
+
+\subsection{Linking and Additional Functions}
+
+If you are writing C/C++ code on single precision vectors and matrices, there 
+is a good chance that you will need to link with the \pkg{float} package.  For 
+sure if you want to efficiently do linear algebra (say via BLAS/LAPACK or you 
+are using the float interface from Armadillo via 
+\pkg{RcppArmadillo}~\cite{RcppArmadillo}), you will need to do this for CRAN 
+safety\footnote{If you are just working on your own machine and linking with 
+high-performance BLAS/LAPACK, then no linking is necessary. For portability, 
+you need to link.}.  To do this, you will need to set the \code{LDFLAGS} line 
+of your \code{src/Makevars} file to include something like this:
+
+\begin{lstlisting}
+SLAPACK_LIB = `${R_HOME}/bin${R_ARCH_BIN}/Rscript -e "float:::ldflags()"`
+
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SLAPACK_LIB)
+\end{lstlisting}
+
+This will ensure that 
+
+In addition to BLAS and LAPACK symbols, there are a few helpers available.  
+First, we include float values \code{NA_FLOAT} and \code{R_NaNf}, which are 
+32-bit analogues to \code{NA_REAL} and \code{R_NaN}.  
+
+\begin{lstlisting}[language=c]
+int ISNAf(const float x);
+int ISNANf(const float x);
+\end{lstlisting}
+
+which you can find in the \code{float/float32.h} header
 
 
 
@@ -407,7 +439,7 @@ performance difference between the \code{custcov(s)} (float) and
 \code{custcov(x)} (double) calls should only be about 2x. The higher 
 performance we see is likely due to the fact that our implementation of 
 \code{scale()} is better than R's.  We can compare this to a highly optimized 
-implementation of covariance, namely \code{covar()} from the \textbf{coop} 
+implementation of covariance, namely \code{covar()} from the \pkg{coop} 
 package~\cite{coop}:
 
 \begin{lstlisting}[language=rr]

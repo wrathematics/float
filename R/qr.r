@@ -31,6 +31,7 @@
 #' x = flrunif(10, 3)
 #' qr(x)
 #' 
+#' @useDynLib float R_qr_spm R_qrQ_spm R_qrR_spm R_qrqy_spm
 #' @name qr
 #' @rdname qr
 NULL

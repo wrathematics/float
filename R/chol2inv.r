@@ -20,6 +20,7 @@
 #' cp = crossprod(s)
 #' cp %*% chol2inv(chol(cp))
 #' 
+#' @useDynLib float R_chol2inv_spm
 #' @name chol2inv
 #' @rdname chol2inv
 NULL

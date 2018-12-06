@@ -28,4 +28,3 @@ is.float(x)
 is.float(s)
 
 }
-
