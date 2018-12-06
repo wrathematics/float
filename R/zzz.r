@@ -17,11 +17,13 @@
     files = c("float.so", "float.dylib")
     for(i.file in files){
       path = file.path(path.libs, i.file)
-      install_name_tool_args = sprintf('-id "@rpath%s" %s', path, path)
-      # https://stackoverflow.com/a/44796734/1069256
-      # run something like:
-      # install_name_tool -id "@rpath/usr/local/lib/R/3.4/site-library/float/libs/float.*" /usr/local/lib/R/3.4/site-library/float/libs/float.*
-      system2(install_name_tool, install_name_tool_args)
+      if(file.exists(path)){
+        install_name_tool_args = sprintf('-id "@rpath%s" %s', path, path)
+        # https://stackoverflow.com/a/44796734/1069256
+        # run something like:
+        # install_name_tool -id "@rpath/usr/local/lib/R/3.4/site-library/float/libs/float.*" /usr/local/lib/R/3.4/site-library/float/libs/float.*
+        system2(install_name_tool, install_name_tool_args)
+      }
     }
   }
   invisible()
