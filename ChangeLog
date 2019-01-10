@@ -1,3 +1,6 @@
+Release 0.2-2:
+  * Added sign().
+
 Release 0.2-1:
   * Better linking/flags.
   * Use static library on Windows.
