@@ -68,6 +68,7 @@ extern SEXP R_round_spm(SEXP x, SEXP digits);
 extern SEXP R_rowMeans_spm(SEXP x, SEXP na_rm_);
 extern SEXP R_rowSums_spm(SEXP x, SEXP na_rm_);
 extern SEXP R_scale_spm(SEXP x, SEXP center_, SEXP scale_);
+extern SEXP R_sign_spm(SEXP x);
 extern SEXP R_sin_spm(SEXP x);
 extern SEXP R_sinh_spm(SEXP x);
 extern SEXP R_solve_spm(SEXP x);
@@ -151,6 +152,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"R_rowMeans_spm", (DL_FUNC) &R_rowMeans_spm, 2},
   {"R_rowSums_spm", (DL_FUNC) &R_rowSums_spm, 2},
   {"R_scale_spm", (DL_FUNC) &R_scale_spm, 3},
+  {"R_sign_spm", (DL_FUNC) &R_sign_spm, 1},
   {"R_sin_spm", (DL_FUNC) &R_sin_spm, 1},
   {"R_sinh_spm", (DL_FUNC) &R_sinh_spm, 1},
   {"R_solve_spm", (DL_FUNC) &R_solve_spm, 1},
