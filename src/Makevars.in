@@ -24,6 +24,7 @@ R_SOURCES = \
 	qr.o \
 	rand.o \
 	scale.o \
+	sign.o \
 	solve.o \
 	sum.o \
 	svd.o \

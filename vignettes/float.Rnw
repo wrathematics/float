@@ -334,6 +334,7 @@ Like I said, not really difficult, but annoying.
 
 
 \subsection{Linking and Additional Functions}
+\label{sec:linking}
 
 If you are writing C/C++ code on single precision vectors and matrices, there 
 is a good chance that you will need to link with the \pkg{float} package.  For 
@@ -346,12 +347,16 @@ you need to link.}.  To do this, you will need to set the \code{LDFLAGS} line
 of your \code{src/Makevars} file to include something like this:
 
 \begin{lstlisting}
-SLAPACK_LIB = `${R_HOME}/bin${R_ARCH_BIN}/Rscript -e "float:::ldflags()"`
+FLOAT_LIBS = `${R_HOME}/bin${R_ARCH_BIN}/Rscript -e "float:::ldflags()"`
 
-PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SLAPACK_LIB)
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(FLOAT_LIBS)
 \end{lstlisting}
 
-This will ensure that 
+By default, \code{float:::ldflags()} will try to dynamically link on Linux and
+Mac, but you can force static linking via \code{float:::ldflags(static=TRUE)}.
+In my opinion, dynamic linking is preferential, but you are free to make up your
+own mind about that. However, dynamic linking to an R package shared library is
+(I think?) impossible on Windows. So Windows will always statically link.
 
 In addition to BLAS and LAPACK symbols, there are a few helpers available.  
 First, we include float values \code{NA_FLOAT} and \code{R_NaNf}, which are 
@@ -362,7 +367,13 @@ int ISNAf(const float x);
 int ISNANf(const float x);
 \end{lstlisting}
 
-which you can find in the \code{float/float32.h} header
+which you can find in the \code{float/float32.h} header.
+
+Finally, we also provide \code{float:::cppflags()} for the \code{PKG_CPPFLAGS}
+include flags. But using the \code{LinkingTo} field should usually be sufficient
+(i.e., you don't need it most of the time). One notable exception is if you are
+doing something goofy with a different compiler, like \code{nvcc} where you may
+need to explicitly pass the include flags.
 
 
 
