@@ -1,5 +1,6 @@
 Release 0.2-2:
   * Added sign().
+  * Fixed bug with linking on OS X.
 
 Release 0.2-1:
   * Better linking/flags.
