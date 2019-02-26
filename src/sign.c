@@ -8,7 +8,6 @@
 SEXP R_sign_spm(SEXP x)
 {
   SEXP ret;
-  int info;
   const len_t m = NROWS(x);
   const len_t n = NCOLS(x);
   
