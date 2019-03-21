@@ -11,9 +11,9 @@ SEXP R_backsolve_spm(SEXP x, SEXP y, SEXP upper_tri, SEXP xpose, SEXP k_)
 {
   int info = 0;
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NROWS(y);
-  const len_t nrhs = NCOLS(y);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NROWS(y);
+  const float_len_t nrhs = NCOLS(y);
   const int k = INTEGER(k_)[0];
   const int uplo = INTEGER(upper_tri)[0] ? UPLO_U : UPLO_L;
   const int trans = INTEGER(xpose)[0] ? TRANS_T : TRANS_N;

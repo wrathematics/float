@@ -6,7 +6,7 @@
 SEXP R_mat2spm(SEXP x)
 {
   SEXP ret_;
-  len_t m, n;
+  float_len_t m, n;
   
   if (!isMatrix(x))
   {
@@ -26,9 +26,9 @@ SEXP R_mat2spm(SEXP x)
   switch (TYPEOF(x))
   {
     case REALSXP:
-      for (len_t j=0; j<n; j++)
+      for (float_len_t j=0; j<n; j++)
       {
-        for (len_t i=0; i<m; i++)
+        for (float_len_t i=0; i<m; i++)
         {
           const double tmp = REAL(x)[i + m*j];
           if (ISNA(tmp))
@@ -43,9 +43,9 @@ SEXP R_mat2spm(SEXP x)
     
     case LGLSXP:
     case INTSXP:
-      for (len_t j=0; j<n; j++)
+      for (float_len_t j=0; j<n; j++)
       {
-        for (len_t i=0; i<m; i++)
+        for (float_len_t i=0; i<m; i++)
         {
           const int tmp = INTEGER(x)[i + m*j];
           if (tmp == NA_INTEGER)
@@ -71,8 +71,8 @@ SEXP R_mat2spm(SEXP x)
 SEXP R_spm2mat(SEXP x_)
 {
   SEXP ret;
-  const len_t m = NROWS(x_);
-  const len_t n = NCOLS(x_);
+  const float_len_t m = NROWS(x_);
+  const float_len_t n = NCOLS(x_);
   const float *x = (float*) INTEGER(x_);
   
   if (n == 1 && ISAVEC(x_))
@@ -80,9 +80,9 @@ SEXP R_spm2mat(SEXP x_)
   else
     PROTECT(ret = allocMatrix(REALSXP, m, n));
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       const float tmp = x[i + m*j];
       if (ISNAf(tmp))
@@ -101,8 +101,8 @@ SEXP R_spm2mat(SEXP x_)
 SEXP R_spm2int(SEXP x_)
 {
   SEXP ret;
-  const len_t m = NROWS(x_);
-  const len_t n = NCOLS(x_);
+  const float_len_t m = NROWS(x_);
+  const float_len_t n = NCOLS(x_);
   const float *x = (float*) INTEGER(x_);
   
   if (n == 1 && ISAVEC(x_))
@@ -110,9 +110,9 @@ SEXP R_spm2int(SEXP x_)
   else
     PROTECT(ret = allocMatrix(INTSXP, m, n));
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       const float tmp = x[i + m*j];
       if (ISNAf(tmp))

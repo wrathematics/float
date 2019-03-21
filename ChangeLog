@@ -1,3 +1,7 @@
+Release 0.2-3:
+  * Renamed 'len_t' in float/float32.h to 'float_len_t'.
+  * Fixed several compiler warnings.
+
 Release 0.2-2:
   * Added sign().
   * Fixed bug with linking on OS X.

@@ -7,11 +7,11 @@
 #include "unroll.h"
 
 
-static inline void reverse_vec(const len_t len, float *const x)
+static inline void reverse_vec(const float_len_t len, float *const x)
 {
-  len_t j = len-1;
+  float_len_t j = len-1;
   
-  for (len_t i=0; i<len/2; i++)
+  for (float_len_t i=0; i<len/2; i++)
   {
     const float tmp = x[i];
     x[i] = x[j];
@@ -23,14 +23,14 @@ static inline void reverse_vec(const len_t len, float *const x)
 
 
 // reverse columns of a column-major matrix
-static inline void reverse_mat(const len_t m, const len_t n, float *const x)
+static inline void reverse_mat(const float_len_t m, const float_len_t n, float *const x)
 {
-  len_t last = n - 1;
+  float_len_t last = n - 1;
   
-  for (len_t j=0; j<n/2; j++)
+  for (float_len_t j=0; j<n/2; j++)
   {
     #pragma omp parallel for if(m>OMP_MIN_SIZE)
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       const float tmp = x[i + m*j];
       x[i + m*j] = x[i + m*last];
@@ -132,8 +132,8 @@ SEXP R_symeig_spm(SEXP x, SEXP onlyvals_, SEXP descending)
   int ptct;
   int info;
   
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   if (m != n)
     error("non-square matrix in 'eigen'\n");
   

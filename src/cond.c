@@ -11,7 +11,7 @@ SEXP R_rcond_spm(SEXP x, SEXP norm_, SEXP triang_)
   SEXP ret;
   int info;
   float rcond;
-  const len_t n = NROWS(x);
+  const float_len_t n = NROWS(x);
   const int triang = INTEGER(triang_)[0];
   const int ws = triang ? 3 : 4;
   const int norm = CHARPT(norm_, 0)[0] == 'I' ? NORM_I : NORM_O;

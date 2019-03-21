@@ -23,9 +23,9 @@ typedef union
 
 
 
-static inline bool anyNA(const len_t len, const float *const restrict x)
+static inline bool anyNA(const float_len_t len, const float *const restrict x)
 {
-  for (len_t i=0; i<len; i++)
+  for (float_len_t i=0; i<len; i++)
   {
     if (isnan(x[i]) || ISNAf(x[i]))
       return true;

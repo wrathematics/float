@@ -9,8 +9,8 @@ SEXP R_sum_spm(SEXP x, SEXP na_rm)
 {
   SEXP ret;
   float sum = 0.0f;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   
   float *xf = FLOAT(x);
   
@@ -18,9 +18,9 @@ SEXP R_sum_spm(SEXP x, SEXP na_rm)
   
   if (LOGICAL(na_rm)[0])
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
         if (!ISNAf(tmp) && !isnan(tmp))
@@ -30,9 +30,9 @@ SEXP R_sum_spm(SEXP x, SEXP na_rm)
   }
   else
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
         sum += xf[i + m*j];
     }
   }

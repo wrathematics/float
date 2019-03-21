@@ -11,8 +11,8 @@
 
 #define BINOP_MATMAT(x,y,FUN) \
   SEXP ret; \
-  const len_t m = NROWS(x); \
-  const len_t n = NCOLS(x); \
+  const float_len_t m = NROWS(x); \
+  const float_len_t n = NCOLS(x); \
   if (m != NROWS(y) || n != NCOLS(y)) \
     ERR_NONC; \
   \
@@ -21,9 +21,9 @@
   float *yf = FLOAT(y); \
   float *retf = FLOAT(ret); \
   \
-  for (len_t j=0; j<n; j++) \
+  for (float_len_t j=0; j<n; j++) \
   { \
-    for (len_t i=0; i<m; i++) \
+    for (float_len_t i=0; i<m; i++) \
       retf[i + m*j] = xf[i + m*j] FUN yf[i + m*j]; \
   } \
   \
@@ -32,8 +32,8 @@
 
 #define BINOP_MATVEC(x,y,FUN) \
   SEXP ret; \
-  const len_t m = NROWS(x); \
-  const len_t n = NCOLS(x); \
+  const float_len_t m = NROWS(x); \
+  const float_len_t n = NCOLS(x); \
   const size_t ny = NROWS(y); \
   const size_t dimprod = (size_t)m*n; \
   PROTECT(ret = newmat(m, n)); \
@@ -54,8 +54,8 @@
 
 #define BINOP_VECMAT(x,y,FUN) \
   SEXP ret; \
-  const len_t m = NROWS(y); \
-  const len_t n = NCOLS(y); \
+  const float_len_t m = NROWS(y); \
+  const float_len_t n = NCOLS(y); \
   const size_t nx = NROWS(x); \
   const size_t dimprod = (size_t)m*n; \
   PROTECT(ret = newmat(m, n)); \
@@ -97,8 +97,8 @@
 
 
 #define COMPARE_MATMAT(x,y,FUN) \
-  const len_t m = NROWS(x); \
-  const len_t n = NCOLS(x); \
+  const float_len_t m = NROWS(x); \
+  const float_len_t n = NCOLS(x); \
   if (m != NROWS(y) || n != NCOLS(y)) \
     ERR_NONC; \
   \
@@ -107,9 +107,9 @@
   float *xf = FLOAT(x); \
   float *yf = FLOAT(y); \
   \
-  for (len_t j=0; j<n; j++) \
+  for (float_len_t j=0; j<n; j++) \
   { \
-    for (len_t i=0; i<m; i++) \
+    for (float_len_t i=0; i<m; i++) \
     { \
       const float tmp1 = xf[i + m*j]; \
       const float tmp2 = yf[i + m*j]; \
@@ -124,8 +124,8 @@
   return ret;
 
 #define COMPARE_MATVEC(x,y,FUN) \
-  const len_t m = NROWS(x); \
-  const len_t n = NCOLS(x); \
+  const float_len_t m = NROWS(x); \
+  const float_len_t n = NCOLS(x); \
   const size_t ny = NROWS(y); \
   const size_t dimprod = (size_t)m*n; \
   SEXP ret; \
@@ -152,8 +152,8 @@
   return ret;
 
 #define COMPARE_VECMAT(x,y,FUN) \
-  const len_t m = NROWS(y); \
-  const len_t n = NCOLS(y); \
+  const float_len_t m = NROWS(y); \
+  const float_len_t n = NCOLS(y); \
   const size_t nx = NROWS(x); \
   const size_t dimprod = (size_t)m*n; \
   SEXP ret; \
@@ -391,8 +391,8 @@ SEXP R_div_spm(SEXP x, SEXP y)
 static inline SEXP pow_matmat(SEXP x, SEXP y)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   if (m != NROWS(y) || n != NCOLS(y))
     ERR_NONC;
   
@@ -401,9 +401,9 @@ static inline SEXP pow_matmat(SEXP x, SEXP y)
   float *yf = FLOAT(y);
   float *retf = FLOAT(ret);
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
       retf[i + m*j] = pow(xf[i + m*j], yf[i + m*j]);
   }
   
@@ -414,8 +414,8 @@ static inline SEXP pow_matmat(SEXP x, SEXP y)
 static inline SEXP pow_matvec(SEXP x, SEXP y)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   const size_t ny = NROWS(y);
   const size_t dimprod = (size_t)m*n;
   PROTECT(ret = newmat(m, n));
@@ -438,8 +438,8 @@ static inline SEXP pow_matvec(SEXP x, SEXP y)
 static inline SEXP pow_vecmat(SEXP x, SEXP y)
 {
   SEXP ret;
-  const len_t m = NROWS(y);
-  const len_t n = NCOLS(y);
+  const float_len_t m = NROWS(y);
+  const float_len_t n = NCOLS(y);
   const size_t nx = NROWS(x);
   const size_t dimprod = (size_t)m*n;
   PROTECT(ret = newmat(m, n));

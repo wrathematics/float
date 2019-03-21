@@ -9,8 +9,8 @@
 SEXP R_colSums_spm(SEXP x, SEXP na_rm_)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   PROTECT(ret = newvec(n));
@@ -19,10 +19,10 @@ SEXP R_colSums_spm(SEXP x, SEXP na_rm_)
   
   if (na_rm)
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
       float sum = 0.0f;
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
         if (! isnan(tmp) && !ISNAf(tmp))
@@ -34,10 +34,10 @@ SEXP R_colSums_spm(SEXP x, SEXP na_rm_)
   }
   else
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
       float sum = 0.0f;
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
         sum += xf[i + m*j];
       
       retf[j] = sum;
@@ -54,8 +54,8 @@ SEXP R_colSums_spm(SEXP x, SEXP na_rm_)
 SEXP R_rowSums_spm(SEXP x, SEXP na_rm_)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   PROTECT(ret = newvec(m));
@@ -66,9 +66,9 @@ SEXP R_rowSums_spm(SEXP x, SEXP na_rm_)
   
   if (na_rm)
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
         if (! isnan(tmp) && !ISNAf(tmp))
@@ -78,9 +78,9 @@ SEXP R_rowSums_spm(SEXP x, SEXP na_rm_)
   }
   else
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
         retf[i] += xf[i + m*j];
     }
   }
@@ -95,8 +95,8 @@ SEXP R_rowSums_spm(SEXP x, SEXP na_rm_)
 SEXP R_colMeans_spm(SEXP x, SEXP na_rm_)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   PROTECT(ret = newvec(n));
@@ -105,11 +105,11 @@ SEXP R_colMeans_spm(SEXP x, SEXP na_rm_)
   
   if (na_rm)
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
-      len_t num = m;
+      float_len_t num = m;
       float sum = 0.0f;
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
         if (! isnan(tmp) && !ISNAf(tmp))
@@ -126,10 +126,10 @@ SEXP R_colMeans_spm(SEXP x, SEXP na_rm_)
   }
   else
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
       float sum = 0.0f;
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
         sum += xf[i + m*j];
       
       retf[j] = sum / ((float) m);
@@ -146,8 +146,8 @@ SEXP R_colMeans_spm(SEXP x, SEXP na_rm_)
 SEXP R_rowMeans_spm(SEXP x, SEXP na_rm_)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   PROTECT(ret = newvec(m));
@@ -158,13 +158,13 @@ SEXP R_rowMeans_spm(SEXP x, SEXP na_rm_)
   
   if (na_rm)
   {
-    len_t *num = malloc(m * sizeof(*num));
-    for (len_t i=0; i<m; i++)
+    float_len_t *num = malloc(m * sizeof(*num));
+    for (float_len_t i=0; i<m; i++)
       num[i] = n;
     
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
       {
         const float tmp = xf[i + m*j];
         if (! isnan(tmp) && !ISNAf(tmp))
@@ -174,7 +174,7 @@ SEXP R_rowMeans_spm(SEXP x, SEXP na_rm_)
       }
     }
     
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       if (num[i])
         retf[i] /= ((float) num[i]);
@@ -186,13 +186,13 @@ SEXP R_rowMeans_spm(SEXP x, SEXP na_rm_)
   }
   else
   {
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
-      for (len_t i=0; i<m; i++)
+      for (float_len_t i=0; i<m; i++)
         retf[i] += xf[i + m*j];
     }
     
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
       retf[i] /= ((float) n);
   }
   

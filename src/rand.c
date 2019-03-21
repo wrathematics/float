@@ -7,8 +7,8 @@
 SEXP R_flrunif_spm(SEXP m_, SEXP n_, SEXP min_, SEXP max_, SEXP isavec)
 {
   SEXP ret;
-  const len_t m = INTEGER(m_)[0];
-  const len_t n = INTEGER(n_)[0];
+  const float_len_t m = INTEGER(m_)[0];
+  const float_len_t n = INTEGER(n_)[0];
   
   const float min = (float) REAL(min_)[0];
   const float max = (float) REAL(max_)[0];
@@ -49,8 +49,8 @@ SEXP R_flrunif_spm(SEXP m_, SEXP n_, SEXP min_, SEXP max_, SEXP isavec)
 SEXP R_flrnorm_spm(SEXP m_, SEXP n_, SEXP mean_, SEXP sd_, SEXP isavec)
 {
   SEXP ret;
-  const len_t m = INTEGER(m_)[0];
-  const len_t n = INTEGER(n_)[0];
+  const float_len_t m = INTEGER(m_)[0];
+  const float_len_t n = INTEGER(n_)[0];
   
   const float mean = (float) REAL(mean_)[0];
   const float sd = (float) REAL(sd_)[0];
