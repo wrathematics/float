@@ -154,7 +154,7 @@ void F77_NAME(rpotri)(const int *const restrict uplo, const int *const restrict 
 
 
 #ifdef __cplusplus
-extern "C" {
+}
 #endif
 
 #endif
