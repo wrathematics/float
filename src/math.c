@@ -7,8 +7,8 @@
 
 #define FUN_INIT \
   SEXP ret; \
-  const len_t m = NROWS(x); \
-  const len_t n = NCOLS(x); \
+  const float_len_t m = NROWS(x); \
+  const float_len_t n = NCOLS(x); \
    \
   if (ISAVEC(x)) \
     PROTECT(ret = newvec((R_xlen_t)m*n)); \
@@ -183,8 +183,8 @@ SEXP R_lgamma_spm(SEXP x)
 SEXP R_isfinite_spm(SEXP x)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
@@ -194,9 +194,9 @@ SEXP R_isfinite_spm(SEXP x)
   float *xf = FLOAT(x);
   int *reti = LOGICAL(ret);
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       const float tmp =  xf[i + m*j];
       reti[i + m*j] = !isinf(tmp) && !isnan(tmp);
@@ -210,8 +210,8 @@ SEXP R_isfinite_spm(SEXP x)
 SEXP R_isinfinite_spm(SEXP x)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
@@ -221,9 +221,9 @@ SEXP R_isinfinite_spm(SEXP x)
   float *xf = FLOAT(x);
   int *reti = LOGICAL(ret);
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       const float tmp =  xf[i + m*j];
       reti[i + m*j] = abs(isinf(tmp));
@@ -237,8 +237,8 @@ SEXP R_isinfinite_spm(SEXP x)
 SEXP R_isnan_spm(SEXP x)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
@@ -248,9 +248,9 @@ SEXP R_isnan_spm(SEXP x)
   float *xf = FLOAT(x);
   int *reti = LOGICAL(ret);
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       const float tmp = xf[i + m*j];
       reti[i + m*j] = ISNANf(tmp);

@@ -7,7 +7,7 @@ SEXP R_chol_spm(SEXP x)
 {
   SEXP ret;
   int info;
-  const len_t n = NROWS(x);
+  const float_len_t n = NROWS(x);
   if (n != NCOLS(x))
     error("'a' must be a square matrix");
   
@@ -20,9 +20,9 @@ SEXP R_chol_spm(SEXP x)
   if (info != 0)
     error("spotrf() returned info=%d\n", info);
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=j+1; i<n; i++)
+    for (float_len_t i=j+1; i<n; i++)
       retf[i + n*j] = 0.0f;
   }
   

@@ -11,7 +11,7 @@ void sgetrf_(const int *m, const int *n, float *restrict a, const int *lda,
 void sgetri_(const int *n, float *restrict a, const int *lda, 
   int *restrict ipiv, float *work, int *lwork, int *info);
 
-static inline int invert(const len_t n, float *const restrict x)
+static inline int invert(const float_len_t n, float *const restrict x)
 {
   int info = 0;
   int *ipiv;
@@ -63,7 +63,7 @@ static inline int invert(const len_t n, float *const restrict x)
 SEXP R_solve_spm(SEXP x)
 {
   SEXP ret;
-  const len_t n = NROWS(x);
+  const float_len_t n = NROWS(x);
   if (n != NCOLS(x))
     error("'a' must be a square matrix");
   
@@ -87,7 +87,7 @@ void sgesv_(const int *const restrict n, const int *const restrict nrhs,
   int *const restrict ipiv, const float *const restrict b,
   const int *const restrict ldb, int *const restrict info);
 
-static inline int solve_system(const len_t n, const len_t nrhs, 
+static inline int solve_system(const float_len_t n, const float_len_t nrhs, 
   float *const restrict x, const float *const restrict y)
 {
   int info = 0;
@@ -111,9 +111,9 @@ SEXP R_solve_spmspm(SEXP x, SEXP y)
 {
   
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
-  const len_t nrhs = NCOLS(y);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
+  const float_len_t nrhs = NCOLS(y);
   if (m != n)
     error("'a' (%d x %d) must be square\n", m, n);
   
