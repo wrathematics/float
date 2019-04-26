@@ -2,31 +2,32 @@
 
 #include <stdbool.h>
 
+#include <float/float32.h>
 #include <float/slapack.h>
 
 
 // lower triangle of t(x) %*% x
-void float_crossprod(const int m, const int n, const float alpha, const float * const restrict x, float *const restrict c)
+void float_crossprod(const float_len_t m, const float_len_t n, const float alpha, const float * const restrict x, float *const restrict c)
 {
-  F77_CALL(rsyrk)(&(int){UPLO_L}, &(int){TRANS_T}, &n, &m, &alpha, x, &m, &(float){0.0}, c, &n);
+  F77_CALL(rsyrk)(&(float_len_t){UPLO_L}, &(float_len_t){TRANS_T}, &n, &m, &alpha, x, &m, &(float){0.0}, c, &n);
 }
 
-void float_tcrossprod(const int m, const int n, const float alpha, const float * const restrict x, float *const restrict c)
+void float_tcrossprod(const float_len_t m, const float_len_t n, const float alpha, const float * const restrict x, float *const restrict c)
 {
-  F77_CALL(rsyrk)(&(int){UPLO_L}, &(int){TRANS_N}, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
+  F77_CALL(rsyrk)(&(float_len_t){UPLO_L}, &(float_len_t){TRANS_N}, &m, &n, &alpha, x, &m, &(float){0.0}, c, &m);
 }
 
 
 
 void float_matmult(const bool transx, const bool transy,
-  const float alpha, const int mx, const int nx, const float *const restrict x,
-  const int my, const int ny, const float *const restrict y, float *const restrict ret)
+  const float alpha, const float_len_t mx, const float_len_t nx, const float *const restrict x,
+  const float_len_t my, const float_len_t ny, const float *const restrict y, float *const restrict ret)
 {
   // m = # rows of op(x)
   // n = # cols of op(y)
   // k = # cols of op(x)
-  int im, in, ik;
-  int ctransx, ctransy;
+  float_len_t im, in, ik;
+  float_len_t ctransx, ctransy;
   static const float zero = 0.;
   
   ctransx = transx ? TRANS_T : TRANS_N;

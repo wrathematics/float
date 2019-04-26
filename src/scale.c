@@ -8,15 +8,15 @@
 #include "unroll.h"
 
 
-static inline void centerscalevec(const len_t j, const len_t m, float *restrict x, float *restrict colmean, float *restrict colvar)
+static inline void centerscalevec(const float_len_t j, const float_len_t m, float *restrict x, float *restrict colmean, float *restrict colvar)
 {
   const float tmp = 1. / ((float) m-1);
   
-  const len_t mj = m*j;
+  const float_len_t mj = m*j;
   *colmean = 0;
   *colvar = 0;
   
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
   {
     float dt = x[i + mj] - *colmean;
     *colmean += dt/((float) i+1);
@@ -27,27 +27,27 @@ static inline void centerscalevec(const len_t j, const len_t m, float *restrict 
   
   // Remove mean and variance
   SAFE_FOR_SIMD
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
     x[i + mj] = (x[i + mj] - *colmean) / *colvar;
 }
 
 
 
-static inline float centervec(const len_t j, const len_t m, float *x)
+static inline float centervec(const float_len_t j, const float_len_t m, float *x)
 {
   const float div = 1. / ((float) m);
   
-  const len_t mj = m*j;
+  const float_len_t mj = m*j;
   float colmean = 0;
   
   // Get column mean
   SAFE_FOR_SIMD
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
     colmean += x[i + mj] * div;
   
   // Remove mean from column
   SAFE_FOR_SIMD
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
     x[i + mj] -= colmean;
   
   return colmean;
@@ -55,16 +55,16 @@ static inline float centervec(const len_t j, const len_t m, float *x)
 
 
 
-static inline float scalevec(const len_t j, const len_t m, float *x)
+static inline float scalevec(const float_len_t j, const float_len_t m, float *x)
 {
   const float div = 1./((float) m-1);
   
-  const len_t mj = m*j;
+  const float_len_t mj = m*j;
   float colvar = 0;
   
   // Get column variance
   SAFE_FOR_SIMD
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
   {
     float tmp = x[i + mj];
     colvar += tmp*tmp*div;
@@ -74,7 +74,7 @@ static inline float scalevec(const len_t j, const len_t m, float *x)
   
   // Remove variance from column
   SAFE_FOR_SIMD
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
     x[i + mj] /= colvar;
   
   return colvar;
@@ -82,7 +82,7 @@ static inline float scalevec(const len_t j, const len_t m, float *x)
 
 
 
-static inline int scaler(const bool centerx, const bool scalex, const len_t m, const len_t n, float *restrict x, float *restrict colmeans, float *restrict colvars)
+static inline int scaler(const bool centerx, const bool scalex, const float_len_t m, const float_len_t n, float *restrict x, float *restrict colmeans, float *restrict colvars)
 {
   if (m == 0 || n == 0)
     return 0;
@@ -93,7 +93,7 @@ static inline int scaler(const bool centerx, const bool scalex, const len_t m, c
     float colmean;
     float colvar;
     #pragma omp parallel for shared(x) if (m*n > OMP_MIN_SIZE)
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
     {
       centerscalevec(j, m, x, &colmean, &colvar);
       
@@ -105,13 +105,13 @@ static inline int scaler(const bool centerx, const bool scalex, const len_t m, c
   else if (centerx)
   {
     #pragma omp parallel for shared(x) if (m*n > OMP_MIN_SIZE)
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
       colmeans[j] = centervec(j, m, x);
   }
   else if (scalex) // RMSE
   {
     #pragma omp parallel for shared(x) if (m*n > OMP_MIN_SIZE)
-    for (len_t j=0; j<n; j++)
+    for (float_len_t j=0; j<n; j++)
       colvars[j] = scalevec(j, m, x);
   }
   
@@ -126,8 +126,8 @@ SEXP R_scale_spm(SEXP x, SEXP center_, SEXP scale_)
   SEXP ret_s4_class, cm_s4_class, cv_s4_class;
   SEXP ret_s4, cm_s4, cv_s4;
   SEXP cm, cv;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   const bool center = INTEGER(center_)[0];
   const bool scale = INTEGER(scale_)[0];
   int ptct = 0;

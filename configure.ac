@@ -132,10 +132,9 @@ if test "X${HAVESBLAS}" = "Xno"; then
 No single precision BLAS functions detected in your R BLAS library, so \
 we are using the reference implementation shipped with the float \
 package. If you believe you are seeing this message in error, please contact \
-the package maintainer.
-  "
+the package maintainer."
 else
-  WARN_EXTRA=" "
+  WARN_EXTRA=""
 fi
 
 
@@ -144,7 +143,6 @@ fi
 # Report
 echo " "
 echo "******************* Results of float package configure *******************"
-echo " "
 echo "* OpenMP Report:"
 echo "  >> OPENMP_CFLAGS=${OPENMP_CFLAGS}"
 echo "  >> OMPFLAGS_C=${OMPFLAGS_C}"
@@ -153,7 +151,9 @@ echo "* ${BLAS_REPORT}"
 echo "  >> BLAS_LIBS=${BLAS_LIBS}"
 echo "* ${LAPACK_REPORT}"
 echo "  >> LAPACK_LIBS=${LAPACK_LIBS}"
-echo "${WARN_EXTRA}"
+if test "X${WARN_EXTRA}" != "X"; then
+  echo "${WARN_EXTRA}"
+fi
 echo "*************************************************************************"
 echo " "
 

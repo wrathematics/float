@@ -100,8 +100,8 @@ SEXP R_init_NaNf()
 SEXP R_isna_spm(SEXP x)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   
   float *xf = FLOAT(x);
   
@@ -110,9 +110,9 @@ SEXP R_isna_spm(SEXP x)
   else
     PROTECT(ret = allocMatrix(LGLSXP, m, n));
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       const float tmp = xf[i + m*j];
       LOGICAL(ret)[i + m*j] = isnan(tmp) || ISNAf(tmp);
@@ -153,11 +153,11 @@ SEXP R_anyNA_spm(SEXP x)
 // faster to index each element and operate accordingly, but
 // this is too memory expensive for most applications
 // note: R does this anyway because, well, R...
-static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const x)
+static SEXP R_naomit_spm_small(const float_len_t m, const float_len_t n, const float *const x)
 {
   SEXP ret;
   const size_t len = m*n;
-  len_t m_fin = m;
+  float_len_t m_fin = m;
   int *na_vec_ind = (int*) calloc(len, sizeof(*na_vec_ind));
   CHECKMALLOC(na_vec_ind);
   
@@ -171,11 +171,11 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
   
   // adjust col index; turn first column of the NA indices
   // to track which rows should go
-  for (len_t j=1; j<n; j++)
+  for (float_len_t j=1; j<n; j++)
   {
-    const len_t mj = m*j;
+    const float_len_t mj = m*j;
     
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       if (na_vec_ind[i + mj])
         na_vec_ind[i] = 1;
@@ -183,7 +183,7 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
   }
   
   // get number of rows of output
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
     m_fin -= na_vec_ind[i];
   
   if (m_fin == m)
@@ -196,12 +196,12 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
   PROTECT(ret = newmat(m_fin, n));
   float *ptr = DATA(ret);
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    const len_t mj = m*j;
-    len_t row = 0;
+    const float_len_t mj = m*j;
+    float_len_t row = 0;
     
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       if (!na_vec_ind[i%m])
       {
@@ -218,20 +218,20 @@ static SEXP R_naomit_spm_small(const len_t m, const len_t n, const float *const 
 
 
 
-static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
+static SEXP R_naomit_spm_big(const float_len_t m, const float_len_t n, const float *const x)
 {
   SEXP ret;
-  len_t m_fin = m;
+  float_len_t m_fin = m;
   int *rows = (int*) calloc(m, sizeof(*rows));
   CHECKMALLOC(rows);
   
   // get indices of NA's
   #pragma omp parallel for default(shared) shared(rows)
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    const len_t mj = m*j;
+    const float_len_t mj = m*j;
     
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       if (ISNAf(x[i + m*j]) || isnan(x[i + mj]))
         rows[i] = 1;
@@ -239,7 +239,7 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
   }
   
   // get number of rows of output
-  for (len_t i=0; i<m; i++)
+  for (float_len_t i=0; i<m; i++)
     m_fin -= rows[i];
   
   if (m_fin == m)
@@ -253,12 +253,12 @@ static SEXP R_naomit_spm_big(const len_t m, const len_t n, const float *const x)
   
   // build reduced matrix
   #pragma omp parallel for default(shared) shared(rows, ptr, m_fin)
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    const len_t mj = m*j;
-    len_t row = 0;
+    const float_len_t mj = m*j;
+    float_len_t row = 0;
     
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
     {
       if (!rows[i])
       {
@@ -305,8 +305,8 @@ static SEXP R_naomit_spm_vec(size_t n, const float *const x)
 SEXP R_naomit_spm(SEXP x)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     return R_naomit_spm_vec(m, DATA(x));

@@ -4,7 +4,7 @@
 #include "unroll.h"
 
 
-static inline int worksize(const len_t m, const len_t n)
+static inline int worksize(const float_len_t m, const float_len_t n)
 {
   int lwork;
   float tmp;
@@ -15,12 +15,12 @@ static inline int worksize(const len_t m, const len_t n)
   return MAX(lwork, 1);
 }
 
-static inline int get_rank(const len_t m, const len_t n, const float *const restrict qr, const double tol)
+static inline int get_rank(const float_len_t m, const float_len_t n, const float *const restrict qr, const double tol)
 {
   const float minval = fabsf((float) tol*qr[0]);
-  const len_t minmn = MIN(m, n);
+  const float_len_t minmn = MIN(m, n);
   
-  for (len_t i=1; i<minmn; i++)
+  for (float_len_t i=1; i<minmn; i++)
   {
     if (fabsf(qr[i + m*i]) < minval)
       return i;
@@ -29,7 +29,7 @@ static inline int get_rank(const len_t m, const len_t n, const float *const rest
   return minmn;
 }
 
-static inline int Qty(const int side, const int trans, const len_t m, const len_t n, const len_t nrhs, const float *const restrict qr, const float *const restrict qraux, float *const restrict y)
+static inline int Qty(const int side, const int trans, const float_len_t m, const float_len_t n, const float_len_t nrhs, const float *const restrict qr, const float *const restrict qraux, float *const restrict y)
 {
   int info;
   int lwork = -1;
@@ -56,9 +56,9 @@ SEXP R_qr_spm(SEXP x, SEXP tol)
   SEXP qrlist, qrlist_names;
   SEXP qr, rank, qraux, pivot;
   int info;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
-  const len_t minmn = MIN(m, n);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
+  const float_len_t minmn = MIN(m, n);
   
   PROTECT(rank = allocVector(INTSXP, 1));
   PROTECT(pivot = allocVector(INTSXP, n));
@@ -109,16 +109,16 @@ SEXP R_qrQ_spm(SEXP qr, SEXP qraux, SEXP complete_)
   SEXP ret;
   const int side = SIDE_L;
   const int trans = TRANS_N;
-  const len_t m = NROWS(qr);
-  const len_t n = NCOLS(qr);
+  const float_len_t m = NROWS(qr);
+  const float_len_t n = NCOLS(qr);
   const int complete = INTEGER(complete_)[0];
   
-  const len_t nrhs = complete ? m : MIN(m, n);
+  const float_len_t nrhs = complete ? m : MIN(m, n);
   PROTECT(ret = newmat(m, nrhs));
   float *retf = FLOAT(ret);
   
   memset(retf, 0, (size_t)m*nrhs*sizeof(float));
-  for (len_t i=0; i<m*nrhs; i+=m+1)
+  for (float_len_t i=0; i<m*nrhs; i+=m+1)
     retf[i] = 1.0f;
   
   Qty(side, trans, m, n, nrhs, DATA(qr), DATA(qraux), retf);
@@ -132,19 +132,19 @@ SEXP R_qrQ_spm(SEXP qr, SEXP qraux, SEXP complete_)
 SEXP R_qrR_spm(SEXP qr, SEXP complete_)
 {
   SEXP R;
-  const len_t m = NROWS(qr);
-  const len_t n = NCOLS(qr);
+  const float_len_t m = NROWS(qr);
+  const float_len_t n = NCOLS(qr);
   const int complete = INTEGER(complete_)[0];
-  const len_t nrows = complete ? m : MIN(m, n);
+  const float_len_t nrows = complete ? m : MIN(m, n);
   
   PROTECT(R = newmat(nrows, n));
   float *qrf = FLOAT(qr);
   float *Rf = FLOAT(R);
   
   memset(Rf, 0, (size_t)nrows*n*sizeof(float));
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<=j && i<nrows; i++)
+    for (float_len_t i=0; i<=j && i<nrows; i++)
       Rf[i + nrows*j] = qrf[i + m*j];
   }
   
@@ -159,9 +159,9 @@ SEXP R_qrqy_spm(SEXP qr, SEXP qraux, SEXP y, SEXP trans_)
   SEXP ret;
   const int side = SIDE_L;
   const int trans = LOGICAL(trans_)[0] ? TRANS_T : TRANS_N;
-  const len_t m = NROWS(qr);
-  const len_t n = NCOLS(qr);
-  const len_t nrhs = NCOLS(y);
+  const float_len_t m = NROWS(qr);
+  const float_len_t n = NCOLS(qr);
+  const float_len_t nrhs = NCOLS(y);
   
   PROTECT(ret = newmat(m, nrhs));
   Qty(side, trans, m, n, nrhs, DATA(qr), DATA(qraux), DATA(ret));

@@ -1,7 +1,7 @@
 Package: float
 Type: Package
 Title: 32-Bit Floats
-Version: 0.2-2
+Version: 0.2-3
 Description: R comes with a suite of utilities for linear algebra with "numeric"
     (double precision) vectors/matrices. However, sometimes single precision (or
     less!) is more than enough for a particular task.  This package extends R's
@@ -19,7 +19,7 @@ License: BSD 2-clause License + file LICENSE
 Copyright: The copyright for the single precision BLAS/LAPACK distribution
     located in src/lapack is given in the file src/lapack/LICENSE.
 Depends:
-    R (>= 3.1.0),
+    R (>= 3.6.0),
     methods
 Imports:
     utils,

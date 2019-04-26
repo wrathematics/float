@@ -1,3 +1,9 @@
+Release 0.2-3:
+  * Renamed 'len_t' in float/float32.h to 'float_len_t'.
+  * Fixed several compiler warnings.
+  * Fixed header issue in float/slapack.h that affects C++.
+  * Changed F77 to FC in Makevars.win at CRAN request (requires R >= 3.6.0).
+
 Release 0.2-2:
   * Added sign().
   * Fixed bug with linking on OS X.

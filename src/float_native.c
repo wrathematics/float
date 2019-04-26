@@ -178,12 +178,13 @@ static const R_CallMethodDef CallEntries[] = {
 
 void R_init_float(DllInfo *dll)
 {
+  R_RegisterCCallable("float", "float_crossprod", (DL_FUNC) &float_crossprod);
+  R_RegisterCCallable("float", "float_tcrossprod", (DL_FUNC) &float_tcrossprod);
+  R_RegisterCCallable("float", "float_matmult", (DL_FUNC) &float_matmult);
+  R_RegisterCCallable("float", "float_symmetrize", (DL_FUNC) &float_symmetrize);
+  R_RegisterCCallable("float", "float_xpose", (DL_FUNC) &float_xpose);
+  
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
-  
-  R_RegisterCCallable("float", "float_crossprod", (DL_FUNC)float_crossprod);
-  R_RegisterCCallable("float", "float_tcrossprod", (DL_FUNC)float_tcrossprod);
-  R_RegisterCCallable("float", "float_matmult", (DL_FUNC)float_matmult);
-  R_RegisterCCallable("float", "float_symmetrize", (DL_FUNC)float_symmetrize);
-  R_RegisterCCallable("float", "float_xpose", (DL_FUNC)float_xpose);
+  R_forceSymbols(dll, TRUE);
 }

@@ -7,7 +7,7 @@
 #include "unroll.h"
 
 
-int svd(const int nu, const int nv, const len_t m, const len_t n,
+int svd(const int nu, const int nv, const float_len_t m, const float_len_t n,
   float *const restrict x, float *const restrict s, float *const restrict u,
   float *const restrict vt)
 {
@@ -73,9 +73,9 @@ SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
   int nret = 1;
   const int nu = INTEGER(nu_)[0];
   const int nv = INTEGER(nv_)[0];
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
-  const len_t minmn = MIN(m, n);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
+  const float_len_t minmn = MIN(m, n);
   
   PROTECT(s = newvec(minmn));
   
@@ -148,9 +148,9 @@ SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
     if (nu != minmn && nu != m)
     {
       float *uf = FLOAT(u);
-      for (len_t j=0; j<nu; j++)
+      for (float_len_t j=0; j<nu; j++)
       {
-        for (len_t i=0; i<m; i++)
+        for (float_len_t i=0; i<m; i++)
           uf[i + m*j] = u_data[i + m*j];
       }
     }
@@ -165,10 +165,10 @@ SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
     if (nv != minmn && nv != n)
     {
       float *vtf = FLOAT(vt);
-      len_t top = nv>minmn?n:minmn;
-      for (len_t j=0; j<n; j++)
+      float_len_t top = nv>minmn?n:minmn;
+      for (float_len_t j=0; j<n; j++)
       {
-        for (len_t i=0; i<nv; i++)
+        for (float_len_t i=0; i<nv; i++)
           vtf[i + nv*j] = vt_data[i + top*j];
       }
     }

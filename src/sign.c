@@ -8,8 +8,8 @@
 SEXP R_sign_spm(SEXP x)
 {
   SEXP ret;
-  const len_t m = NROWS(x);
-  const len_t n = NCOLS(x);
+  const float_len_t m = NROWS(x);
+  const float_len_t n = NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(INTSXP, m));
@@ -19,9 +19,9 @@ SEXP R_sign_spm(SEXP x)
   const float *xp = FLOAT(x);
   int *retp = INTEGER(ret);
   
-  for (len_t j=0; j<n; j++)
+  for (float_len_t j=0; j<n; j++)
   {
-    for (len_t i=0; i<m; i++)
+    for (float_len_t i=0; i<m; i++)
       retp[i + m*j] = SGN(xp[i + m*j]);
   }
   

@@ -28,16 +28,16 @@ ifneq "$(WIN)" "64"
 endif
 
 lapack/slapack1.o: lapack/slapack1.f
-	$(F77) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/slapack2.o: lapack/slapack2.f
-	$(F77) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/slapack3.o: lapack/slapack3.f
-	$(F77) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/slapack4.o: lapack/slapack4.f
-	$(F77) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/slamchf77.o: lapack/slamchf77.f
-	$(F77) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/ilas.o: lapack/ilas.f
-	$(F77) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/sblas.o: lapack/sblas.f
-	$(F77) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
