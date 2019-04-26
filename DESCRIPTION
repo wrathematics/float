@@ -19,7 +19,7 @@ License: BSD 2-clause License + file LICENSE
 Copyright: The copyright for the single precision BLAS/LAPACK distribution
     located in src/lapack is given in the file src/lapack/LICENSE.
 Depends:
-    R (>= 3.1.0),
+    R (>= 3.6.0),
     methods
 Imports:
     utils,
