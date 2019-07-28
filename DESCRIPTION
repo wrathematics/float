@@ -26,6 +26,7 @@ Imports:
     tools
 LazyData: true
 ByteCompile: yes
+StagedInstall: TRUE
 URL: https://github.com/wrathematics/float
 BugReports: https://github.com/wrathematics/float/issues
 Authors@R: c(

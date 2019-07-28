@@ -6,7 +6,8 @@
   # NaNf = float32(.Call(R_init_NaNf, PACKAGE="float"))
   # .Machine_float = .Call(R_machine_spm)
   
-  if (Sys.info()[["sysname"]] == "Darwin")
+  ### Disable the following since R-3.6.0
+  if (Sys.info()[["sysname"]] == "Darwin" && getRversion() < "3.6.0")
   {
     install_name_tool = "install_name_tool"
     which_install_name_tool = suppressWarnings(system2("which", install_name_tool, stdout = T))
