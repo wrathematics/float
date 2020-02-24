@@ -12415,6 +12415,8 @@
       REAL               CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22,
      $                   T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2,
      $                   WR1, WR2, XNORM
+*WCC
+      REAL               TAU_A( 1 ), TAU1_A( 1 ), TAU2_A( 1 )
 *     ..
 *     .. Local Arrays ..
       REAL               D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ),
@@ -12554,7 +12556,10 @@
          U( 1 ) = -X( 1, 1 )
          U( 2 ) = -X( 2, 1 )
          U( 3 ) = SCALE
-         CALL SLARFG( 3, U( 1 ), U( 2 ), 1, TAU )
+*WCC         CALL SLARFG( 3, U( 1 ), U( 2 ), 1, TAU )
+         TAU_A( 1 ) = TAU
+         CALL SLARFG( 3, U( 1 ), U( 2 ), 1, TAU_A )
+         TAU = TAU_A( 1 )
          U( 1 ) = ONE
          T33 = T( J3, J3 )
 *
@@ -12598,14 +12603,20 @@
          U1( 1 ) = -X( 1, 1 )
          U1( 2 ) = -X( 2, 1 )
          U1( 3 ) = SCALE
-         CALL SLARFG( 3, U1( 1 ), U1( 2 ), 1, TAU1 )
+*WCC         CALL SLARFG( 3, U1( 1 ), U1( 2 ), 1, TAU1 )
+         TAU1_A( 1 ) = TAU1
+         CALL SLARFG( 3, U1( 1 ), U1( 2 ), 1, TAU1_A )
+         TAU1 = TAU1_A( 1 )
          U1( 1 ) = ONE
 *
          TEMP = -TAU1*( X( 1, 2 )+U1( 2 )*X( 2, 2 ) )
          U2( 1 ) = -TEMP*U1( 2 ) - X( 2, 2 )
          U2( 2 ) = -TEMP*U1( 3 )
          U2( 3 ) = SCALE
-         CALL SLARFG( 3, U2( 1 ), U2( 2 ), 1, TAU2 )
+*WCC         CALL SLARFG( 3, U2( 1 ), U2( 2 ), 1, TAU2 )
+         TAU2_A( 1 ) = TAU2
+         CALL SLARFG( 3, U2( 1 ), U2( 2 ), 1, TAU2_A )
+         TAU2 = TAU2_A( 1 )
          U2( 1 ) = ONE
 *
 *        Perform swap provisionally on diagonal block in D.
@@ -15918,6 +15929,8 @@
       REAL               ALPHA, BETA, H11, H12, H21, H22, REFSUM,
      $                   SAFMAX, SAFMIN, SCL, SMLNUM, SWAP, TST1, TST2,
      $                   ULP
+*WCC
+      REAL               ALPHA_A( 1 ), BETA_A( 1 )
       INTEGER            I, I2, I4, INCOL, J, J2, J4, JBOT, JCOL, JLEN,
      $                   JROW, JTOP, K, K1, KDU, KMS, KNZ, KRCOL, KZS,
      $                   M, M22, MBOT, MEND, MSTART, MTOP, NBMPS, NDCOL,
@@ -16053,12 +16066,18 @@
      $                         SI( 2*M-1 ), SR( 2*M ), SI( 2*M ),
      $                         V( 1, M ) )
                   ALPHA = V( 1, M )
-                  CALL SLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
+*WCC                  CALL SLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
+                  ALPHA_A( 1 ) = ALPHA
+                  CALL SLARFG( 3, ALPHA_A, V( 2, M ), 1, V( 1, M ) )
+                  ALPHA = ALPHA_A( 1 )
                ELSE
                   BETA = H( K+1, K )
                   V( 2, M ) = H( K+2, K )
                   V( 3, M ) = H( K+3, K )
-                  CALL SLARFG( 3, BETA, V( 2, M ), 1, V( 1, M ) )
+*WCC                  CALL SLARFG( 3, BETA, V( 2, M ), 1, V( 1, M ) )
+                  BETA_A( 1 ) = BETA
+                  CALL SLARFG( 3, BETA_A, V( 2, M ), 1, V( 1, M ) )
+                  BETA = BETA_A( 1 )
 *
 *                 ==== A Bulge may collapse because of vigilant
 *                 .    deflation or destructive underflow.  In the
@@ -16085,7 +16104,10 @@
      $                            SI( 2*M-1 ), SR( 2*M ), SI( 2*M ),
      $                            VT )
                      ALPHA = VT( 1 )
-                     CALL SLARFG( 3, ALPHA, VT( 2 ), 1, VT( 1 ) )
+*WCC                     CALL SLARFG( 3, ALPHA, VT( 2 ), 1, VT( 1 ) )
+                     ALPHA_A( 1 ) = ALPHA
+                     CALL SLARFG( 3, ALPHA_A, VT( 2 ), 1, VT( 1 ) )
+                     ALPHA = ALPHA_A( 1 )
                      REFSUM = VT( 1 )*( H( K+1, K )+VT( 2 )*
      $                        H( K+2, K ) )
 *
@@ -16128,11 +16150,17 @@
      $                         SI( 2*M22-1 ), SR( 2*M22 ), SI( 2*M22 ),
      $                         V( 1, M22 ) )
                   BETA = V( 1, M22 )
-                  CALL SLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+*WCC                  CALL SLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+                  BETA_A( 1 ) = BETA
+                  CALL SLARFG( 2, BETA_A, V( 2, M22 ), 1, V( 1, M22 ) )
+                  BETA = BETA_A( 1 )
                ELSE
                   BETA = H( K+1, K )
                   V( 2, M22 ) = H( K+2, K )
-                  CALL SLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+*WCC                  CALL SLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+                  BETA_A( 1 ) = BETA
+                  CALL SLARFG( 2, BETA_A, V( 2, M22 ), 1, V( 1, M22 ) )
+                  BETA = BETA_A( 1 )
                   H( K+1, K ) = BETA
                   H( K+2, K ) = ZERO
                END IF
@@ -39511,6 +39539,8 @@
       LOGICAL            UPPER
       INTEGER            I
       REAL               ALPHA, TAUI
+*WCC
+      REAL               TAUI_A( 1 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SAXPY, SLARFG, SSYMV, SSYR2, XERBLA
@@ -39555,7 +39585,10 @@
 *           Generate elementary reflector H(i) = I - tau * v * v**T
 *           to annihilate A(1:i-1,i+1)
 *
-            CALL SLARFG( I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI )
+*WCC            CALL SLARFG( I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI )
+            TAUI_A( 1 ) = TAUI
+            CALL SLARFG( I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI_A )
+            TAUI = TAUI_A( 1 )
             E( I ) = A( I, I+1 )
 *
             IF( TAUI.NE.ZERO ) THEN
@@ -39595,8 +39628,12 @@
 *           Generate elementary reflector H(i) = I - tau * v * v**T
 *           to annihilate A(i+2:n,i)
 *
+*WCC            CALL SLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1,
+*WCC     $                   TAUI )
+            TAUI_A( 1 ) = TAUI
             CALL SLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1,
-     $                   TAUI )
+     $                   TAUI_A )
+            TAUI = TAUI_A( 1 )
             E( I ) = A( I+1, I )
 *
             IF( TAUI.NE.ZERO ) THEN
