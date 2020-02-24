@@ -1,12 +1,13 @@
+Release 0.2-4:
+  * Fix codes warned by "-Wargument-mismatch" because gcc10 gives warning/error
+  with "-fallow-argument-mismatch" or not. The file includes
+  "src/lapack/slapack3.f".
+
 Release 0.2-3:
   * Renamed 'len_t' in float/float32.h to 'float_len_t'.
   * Fixed several compiler warnings.
   * Fixed header issue in float/slapack.h that affects C++.
   * Changed F77 to FC in Makevars.win for R >= 3.6.0.
-  * Fix codes warned by "-Wargument-mismatch" because gcc10 gives warning/error
-    with "-fallow-argument-mismatch" or not. The file includes
-    "src/lapack/slapack3.f".
-
 
 Release 0.2-2:
   * Added sign().

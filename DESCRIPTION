@@ -16,11 +16,14 @@ Description: R comes with a suite of utilities for linear algebra with "numeric"
     'LAPACK', which are automatically built in the event they are not available
     on the system.
 License: BSD 2-clause License + file LICENSE
-Copyright: The copyright for the single precision BLAS/LAPACK
-        distribution located in src/lapack is given in the file
-        src/lapack/LICENSE.
-Depends: R (>= 3.6.0), methods
-Imports: utils, tools
+Copyright: The copyright for the single precision BLAS/LAPACK distribution
+    located in src/lapack is given in the file src/lapack/LICENSE.
+Depends:
+    R (>= 3.6.0),
+    methods
+Imports:
+    utils,
+    tools
 LazyData: true
 ByteCompile: yes
 StagedInstall: TRUE
