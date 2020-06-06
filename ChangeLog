@@ -1,3 +1,6 @@
+Release 0.2-5:
+  * Fixed bug in norm() with type=="F" (max modulus).
+
 Release 0.2-4:
   * Fix codes warned by "-Wargument-mismatch" because gcc10 gives warning/error
   with "-fallow-argument-mismatch" or not. The file includes

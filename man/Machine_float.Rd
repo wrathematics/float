@@ -4,7 +4,8 @@
 \name{Machine_float}
 \alias{Machine_float}
 \title{Machine_float}
-\format{A list containing:
+\format{
+A list containing:
 \itemize{
   \item \code{float.eps} epsilon
   \item \code{float.xmin} smallest non-zero float
@@ -16,7 +17,8 @@
       exponent that generates a normalized floating-point number
   \item \code{float.max.exp} largest integer for the
       exponent that generates a normalized floating-point number
-}}
+}
+}
 \usage{
 Machine_float
 }
