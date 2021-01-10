@@ -11,6 +11,7 @@
 \alias{as.numeric,float32-method}
 \alias{as.vector.float32}
 \alias{as.matrix.float32}
+\alias{as.data.frame.float32}
 \alias{typeof,float32-method}
 \alias{storage.mode,float32-method}
 \title{converters}
@@ -32,6 +33,8 @@ as.float(x, strict = FALSE)
 \method{as.vector}{float32}(x, mode = "any")
 
 \method{as.matrix}{float32}(x, ...)
+
+\method{as.data.frame}{float32}(x, ...)
 
 \S4method{typeof}{float32}(x)
 
