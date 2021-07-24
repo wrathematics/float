@@ -44,7 +44,7 @@ ldflags_string = function(static=FALSE)
       if (is.null(libfile))
         stop(paste("unable to dynamically link: can't find any of:", paste(libfiles, collapse=", ")))
 
-      flags = paste0("-L", float_libs_dir, " ", float_libs_dir, "/", libfile, " -Wl,-rpath ", float_libs_dir)
+      flags = paste0("-L", float_libs_dir, " -l", gsub("\\.\\w+$", "", libfile), " -Wl,-rpath,", float_libs_dir)
     }
     else
       flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
