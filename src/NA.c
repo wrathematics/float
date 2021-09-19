@@ -1,6 +1,8 @@
 // Elements taken from the coop package (src/R_naomit.c)
 // Copyright (c) 2016-2017 Drew Schmidt
 
+#include "safeomp.h"
+
 #include <stdint.h>
 #include <string.h>
 
@@ -148,7 +150,6 @@ SEXP R_anyNA_spm(SEXP x)
 // ----------------------------------------------------------------------------
 
 #include <stdlib.h>
-#include "safeomp.h"
 
 // faster to index each element and operate accordingly, but
 // this is too memory expensive for most applications

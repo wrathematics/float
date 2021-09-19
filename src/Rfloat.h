@@ -2,13 +2,14 @@
 #define R_FLOAT_PACKAGE_H_
 
 
-#include <R.h>
-#include <Rinternals.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 
 #include <float/float32.h>
+
+#include <R.h>
+#include <Rinternals.h>
 
 extern float NA_FLOAT;
 
