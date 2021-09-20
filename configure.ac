@@ -1,6 +1,7 @@
 AC_PREREQ([2.69])
 AC_INIT
 AC_CONFIG_SRCDIR([DESCRIPTION])
+AC_CONFIG_HEADERS(src/config.h)
 
 # Get C compiler from R
 : ${R_HOME=`R RHOME`}
@@ -156,10 +157,7 @@ echo " "
 
 
 AC_SUBST(BOBE)
-AC_CONFIG_FILES([src/endianness.h])
-AC_OUTPUT
-
 AC_SUBST(ADD_OBJS)
 AC_SUBST(OMPFLAGS_C)
-AC_CONFIG_FILES([src/Makevars])
+AC_CONFIG_FILES([src/Makevars src/endianness.h])
 AC_OUTPUT
