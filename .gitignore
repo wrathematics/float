@@ -2,13 +2,10 @@
 *.swp
 *.status
 
-src/*.o
-src/*.so
-src/*.a
-
-src/utils/*.o
-src/utils/*.so
-src/utils/*.a
+*.o
+*.so
+*.a
+*.mod
 
 src/Makevars
 src/endianness.h

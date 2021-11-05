@@ -9,6 +9,7 @@ rm -rf ./src/endianness.h
 
 rm -rf ./src/*.o
 rm -rf ./src/lapack/*.o
+rm -rf ./src/lapack/*.mod
 rm -rf ./src/utils/*.o
 
 rm -rf src/Makevars

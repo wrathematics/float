@@ -51,8 +51,10 @@ fi
 AC_OPENMP
 if test -n "${OPENMP_CFLAGS}"; then
   OMPFLAGS_C="\$(SHLIB_OPENMP_CFLAGS)"
+  OMPFLAGS_F="\$(SHLIB_OPENMP_FFLAGS)"
 else
   OMPFLAGS_C=""
+  OMPFLAGS_F=""
 fi
 
 
@@ -110,6 +112,7 @@ fi
 
 # Set additional object files and messages
 ADD_OBJS=""
+ADD_DEPS=""
 
 if test "X${HAVESBLAS}" = "Xno"; then
   BLAS_REPORT="NOTE: no single precision BLAS symbols found. Building reference version"
@@ -120,7 +123,12 @@ fi
 
 if test "X${HAVESLAPACK}" = "Xno"; then
   LAPACK_REPORT="NOTE: no single precision LAPACK symbols found. Building reference version"
-  ADD_OBJS="lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
+  ADD_OBJS="lapack/la_xisnan.o lapack/la_constants.o lapack/sf90.o lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
+  ADD_DEPS="
+lapack/la_xisnan.o: lapack/la_constants.o
+lapack/sf90.o: lapack/la_constants.o
+lapack/slapack3.o: lapack/sf90.o
+"
 else
   LAPACK_REPORT="using system LAPACK library"
 fi
@@ -144,6 +152,7 @@ echo "******************* Results of float package configure *******************
 echo "* OpenMP Report:"
 echo "  >> OPENMP_CFLAGS=${OPENMP_CFLAGS}"
 echo "  >> OMPFLAGS_C=${OMPFLAGS_C}"
+echo "  >> OMPFLAGS_F=${OMPFLAGS_F}"
 echo "* ${BOBE_REPORT}"
 echo "* ${BLAS_REPORT}"
 echo "  >> BLAS_LIBS=${BLAS_LIBS}"
@@ -158,6 +167,8 @@ echo " "
 
 AC_SUBST(BOBE)
 AC_SUBST(ADD_OBJS)
+AC_SUBST(ADD_DEPS)
 AC_SUBST(OMPFLAGS_C)
+AC_SUBST(OMPFLAGS_F)
 AC_CONFIG_FILES([src/Makevars src/endianness.h])
 AC_OUTPUT

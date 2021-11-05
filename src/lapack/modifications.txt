@@ -1,0 +1,16 @@
+11/05/2021
+
+Source based on LAPACK 3.10.0
+
+Single precision (and some support routines not available in the stock R
+blas/lapack) are combined into:
+
+* sblas.f
+* slapack1-4.f
+* sf90.f90
+
+See combiner.sh for full details.
+
+Additionally, the following routines have been modified for CRAN compliance:
+* SSYTRD_SB2ST: pre-processor blocks commented out (no omp)
+* LA_XISNAN: pre-processor blocks commented out (use ieee_arithmetic)
