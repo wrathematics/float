@@ -1,5 +1,7 @@
 Release 0.3-0:
   * Updated internals to LAPACK 3.10.0.
+  * Package does a better job of searching for single precision BLAS/LAPACK
+  symbols on the system on *NIX systems.
 
 Release 0.2-6:
   * Fixed build for clang 13.
