@@ -1,0 +1,3 @@
+blas_ldflags_nix = function() "@BLAS_LIBFLAGS@"
+
+lapack_ldflags_nix = function() "@LAPACK_LIBFLAGS@"

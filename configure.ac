@@ -3,17 +3,11 @@ AC_INIT
 AC_CONFIG_SRCDIR([DESCRIPTION])
 AC_CONFIG_HEADERS(src/config.h)
 
-# Get C compiler from R
-: ${R_HOME=`R RHOME`}
-if test -z "${R_HOME}"; then
-  echo "could not determine R_HOME"
-  exit 1
-fi
-CC=`"${R_HOME}/bin/R" CMD config CC`
-CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
-CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
-LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
 
+
+# ------------------------------------------------------------------------------
+# Check for various system deps/requirements
+# ------------------------------------------------------------------------------
 
 AC_PROG_CC
 AC_CHECK_LIB(m, [sinf], [], 
@@ -59,52 +53,134 @@ fi
 
 
 
-# Obtain BLAS/LAPACK libs from R.
-R_SCMD="${R_HOME}/bin/R CMD config"
-BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
-LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
-
-# Check tools.
 AC_CHECK_PROG([echo_ok], [echo], [yes], [no], ,)
 AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
 
 
 
-### Check for single precision BLAS/LAPACK symbols. These can be present/absent
-### in almost any imaginable combination. For example, OpenBLAS (and others?)
-### ship LAPACK symbols in the blas.[so|dylib|dll] file.
+# ------------------------------------------------------------------------------
+# Look for BLAS/LAPCK that support single precision
+# ------------------------------------------------------------------------------
 
-# Check Rblas.
+# These can be present/absent in almost any imaginable combination. For example,
+# OpenBLAS (and others?) ship LAPACK symbols in the blas.[so|dylib|dll] file.
+
+# Get C compiler from R
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+CC=`"${R_HOME}/bin/R" CMD config CC`
+CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
+
+
+# Obtain BLAS/LAPACK libs from R.
+R_SCMD="${R_HOME}/bin/R CMD config"
+BLAS_LIBFLAGS=`${R_SCMD} BLAS_LIBFLAGS`
+LAPACK_LIBFLAGS=`${R_SCMD} LAPACK_LIBFLAGS`
+
+# Check libRblas and libRlapack first
+HAVE_SP_BLAS="no"
 if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
-  useRblas=`echo ${BLAS_LIBS} | grep "\-lRblas"`
-  if test "X${useRblas}" = "X"; then
-    AC_CHECK_LIB(blas, [sgemm_], [HAVESBLAS=yes], [HAVESBLAS=no])
-    AC_CHECK_LIB(blas, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
-  else
+  USE_R_BLAS=`echo ${BLAS_LIBFLAGS} | grep "\-lRblas"`
+  if test "X${USE_R_BLAS}" != "X"; then
     LDFLAGS_OLD="${LDFLAGS}"
-    LDFLAGS="${LDFLAGS} ${BLAS_LIBS}"
-    AC_CHECK_LIB(Rblas, [sgemm_], [HAVESBLAS=yes], [HAVESBLAS=no])
-    AC_CHECK_LIB(Rblas, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
+    LDFLAGS="${LDFLAGS} ${BLAS_LIBFLAGS}"
+    AC_CHECK_LIB(Rblas, [sgemm_], [HAVE_SP_BLAS=yes], [HAVE_SP_BLAS=no])
+    AC_CHECK_LIB(Rblas, [sgetrf_], [HAVE_SP_LAPACK=yes], [HAVE_SP_LAPACK=no])
     LDFLAGS="${LDFLAGS_OLD}"
+    
+    if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+      LAPACK_REPORT="using R BLAS library"
+      BLAS_LIBFLAGS="$(BLAS_LIBS)"
+      
+    fi
+    if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+      LAPACK_REPORT="using R LAPACK library"
+      LAPACK_LIBFLAGS="$(LAPACK_LIBS)"
+    fi
   fi
-else
-  HAVESBLAS="no"
 fi
 
-# Check for single precision LAPACK symbols.
-if test "X${HAVESLAPACK}" = "X" -o "X${HAVESLAPACK}" = "Xno"; then
+HAVE_SP_LAPACK="no"
+if test "X${HAVE_SP_LAPACK}" = "X" -o "X${HAVE_SP_LAPACK}" = "Xno"; then
   if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
-    useRlapack=`echo ${LAPACK_LIBS} | grep "\-lRlapack"`
-    if test "X${useRlapack}" = "X"; then
-      AC_CHECK_LIB(lapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
-    else
+    USE_R_LAPACK=`echo ${LAPACK_LIBFLAGS} | grep "\-lRlapack"`
+    if test "X${USE_R_LAPACK}" != "X"; then
       LDFLAGS_OLD="${LDFLAGS}"
-      LDFLAGS="${LDFLAGS} ${LAPACK_LIBS}"
-      AC_CHECK_LIB(Rlapack, [sgetrf_], [HAVESLAPACK=yes], [HAVESLAPACK=no])
+      LDFLAGS="${LDFLAGS} ${LAPACK_LIBFLAGS}"
+      AC_CHECK_LIB(Rlapack, [sgetrf_], [HAVE_SP_LAPACK=yes], [HAVE_SP_LAPACK=no])
       LDFLAGS="${LDFLAGS_OLD}"
+      
+      if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+        LAPACK_REPORT="using R LAPACK library"
+        LAPACK_LIBFLAGS="$(LAPACK_LIBS)"
+      fi
     fi
-  else
-    HAVESLAPACK="no"
+  fi
+fi
+
+# Check the system if checking R failed
+BLAS_LIBFLAGS=""
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  AC_CHECK_LIB(openblas, [sgemm_], [HAVE_SP_BLAS=yes], [HAVE_SP_BLAS=no])
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-lopenblas"
+    BLAS_REPORT="using system OpenBLAS library"
+  fi
+fi
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  AC_CHECK_LIB(mkl, [sgemm_], [HAVE_SP_BLAS=yes], [HAVE_SP_BLAS=no])
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-lmkl"
+    BLAS_REPORT="using system MKL library"
+  fi
+fi
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  AC_CHECK_LIB(atlas, [sgemm_], [HAVE_SP_BLAS=yes], [HAVE_SP_BLAS=no])
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-latlas"
+    BLAS_REPORT="using system Atlas library"
+  fi
+fi
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  AC_CHECK_LIB(blas, [sgemm_], [HAVE_SP_BLAS=yes], [HAVE_SP_BLAS=no])
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-lblas"
+    BLAS_REPORT="using system BLAS library"
+  fi
+fi
+
+LAPACK_LIBFLAGS=""
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  AC_CHECK_LIB(openblas, [sgetrf_], [HAVE_SP_LAPACK=yes], [HAVE_SP_LAPACK=no])
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-lopenblas"
+    LAPACK_REPORT="using system OpenBLAS library"
+  fi
+fi
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  AC_CHECK_LIB(mkl, [sgetrf_], [HAVE_SP_LAPACK=yes], [HAVE_SP_LAPACK=no])
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-lmkl"
+    LAPACK_REPORT="using system MKL library"
+  fi
+fi
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  AC_CHECK_LIB(atlas, [sgetrf_], [HAVE_SP_LAPACK=yes], [HAVE_SP_LAPACK=no])
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-latlas"
+    LAPACK_REPORT="using system Atlas library"
+  fi
+fi
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  AC_CHECK_LIB(lapack, [sgetrf_], [HAVE_SP_LAPACK=yes], [HAVE_SP_LAPACK=no])
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-llapack"
+    LAPACK_REPORT="using system LAPACK library"
   fi
 fi
 
@@ -114,14 +190,12 @@ fi
 ADD_OBJS=""
 ADD_DEPS=""
 
-if test "X${HAVESBLAS}" = "Xno"; then
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
   BLAS_REPORT="NOTE: no single precision BLAS symbols found. Building reference version"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
-else
-  BLAS_REPORT="using system BLAS library"
 fi
 
-if test "X${HAVESLAPACK}" = "Xno"; then
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
   LAPACK_REPORT="NOTE: no single precision LAPACK symbols found. Building reference version"
   ADD_OBJS="lapack/la_xisnan.o lapack/la_constants.o lapack/sf90.o lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
   ADD_DEPS="
@@ -129,11 +203,9 @@ lapack/la_xisnan.o: lapack/la_constants.o
 lapack/sf90.o: lapack/la_constants.o
 lapack/slapack3.o: lapack/sf90.o
 "
-else
-  LAPACK_REPORT="using system LAPACK library"
 fi
 
-if test "X${HAVESBLAS}" = "Xno"; then
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
   WARN_EXTRA="
 No single precision BLAS functions detected in your R BLAS library, so \
 we are using the reference implementation shipped with the float \
@@ -145,19 +217,21 @@ fi
 
 
 
-
+# ------------------------------------------------------------------------------
 # Report
+# ------------------------------------------------------------------------------
+
 echo " "
 echo "******************* Results of float package configure *******************"
 echo "* OpenMP Report:"
-echo "  >> OPENMP_CFLAGS=${OPENMP_CFLAGS}"
-echo "  >> OMPFLAGS_C=${OMPFLAGS_C}"
-echo "  >> OMPFLAGS_F=${OMPFLAGS_F}"
+echo "    >> OPENMP_CFLAGS=${OPENMP_CFLAGS}"
+echo "    >> OMPFLAGS_C=${OMPFLAGS_C}"
+echo "    >> OMPFLAGS_F=${OMPFLAGS_F}"
 echo "* ${BOBE_REPORT}"
 echo "* ${BLAS_REPORT}"
-echo "  >> BLAS_LIBS=${BLAS_LIBS}"
+echo "    >> BLAS_LIBFLAGS=${BLAS_LIBFLAGS}"
 echo "* ${LAPACK_REPORT}"
-echo "  >> LAPACK_LIBS=${LAPACK_LIBS}"
+echo "    >> LAPACK_LIBFLAGS=${LAPACK_LIBFLAGS}"
 if test "X${WARN_EXTRA}" != "X"; then
   echo "${WARN_EXTRA}"
 fi
@@ -166,9 +240,11 @@ echo " "
 
 
 AC_SUBST(BOBE)
+AC_SUBST(BLAS_LIBFLAGS)
+AC_SUBST(LAPACK_LIBFLAGS)
 AC_SUBST(ADD_OBJS)
 AC_SUBST(ADD_DEPS)
 AC_SUBST(OMPFLAGS_C)
 AC_SUBST(OMPFLAGS_F)
-AC_CONFIG_FILES([src/Makevars src/endianness.h])
+AC_CONFIG_FILES([src/Makevars src/endianness.h R/02-libflags.r])
 AC_OUTPUT

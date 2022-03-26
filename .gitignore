@@ -9,6 +9,7 @@
 
 src/Makevars
 src/endianness.h
+R/02-libflags.r
 
 inst/doc
 inst/lib

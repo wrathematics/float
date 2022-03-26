@@ -625,6 +625,8 @@ OMPFLAGS_F
 OMPFLAGS_C
 ADD_DEPS
 ADD_OBJS
+LAPACK_LIBFLAGS
+BLAS_LIBFLAGS
 BOBE
 grep_ok
 echo_ok
@@ -2134,17 +2136,11 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 ac_config_headers="$ac_config_headers src/config.h"
 
 
-# Get C compiler from R
-: ${R_HOME=`R RHOME`}
-if test -z "${R_HOME}"; then
-  echo "could not determine R_HOME"
-  exit 1
-fi
-CC=`"${R_HOME}/bin/R" CMD config CC`
-CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
-CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
-LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
 
+
+# ------------------------------------------------------------------------------
+# Check for various system deps/requirements
+# ------------------------------------------------------------------------------
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -3747,12 +3743,6 @@ fi
 
 
 
-# Obtain BLAS/LAPACK libs from R.
-R_SCMD="${R_HOME}/bin/R CMD config"
-BLAS_LIBS=`${R_SCMD} BLAS_LIBS`
-LAPACK_LIBS=`${R_SCMD} LAPACK_LIBS`
-
-# Check tools.
 # Extract the first word of "echo", so it can be a program name with args.
 set dummy echo; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -3832,101 +3822,37 @@ fi
 
 
 
-### Check for single precision BLAS/LAPACK symbols. These can be present/absent
-### in almost any imaginable combination. For example, OpenBLAS (and others?)
-### ship LAPACK symbols in the blas.[so|dylib|dll] file.
+# ------------------------------------------------------------------------------
+# Look for BLAS/LAPCK that support single precision
+# ------------------------------------------------------------------------------
 
-# Check Rblas.
+# These can be present/absent in almost any imaginable combination. For example,
+# OpenBLAS (and others?) ship LAPACK symbols in the blas.[so|dylib|dll] file.
+
+# Get C compiler from R
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+CC=`"${R_HOME}/bin/R" CMD config CC`
+CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
+
+
+# Obtain BLAS/LAPACK libs from R.
+R_SCMD="${R_HOME}/bin/R CMD config"
+BLAS_LIBFLAGS=`${R_SCMD} BLAS_LIBFLAGS`
+LAPACK_LIBFLAGS=`${R_SCMD} LAPACK_LIBFLAGS`
+
+# Check libRblas and libRlapack first
+HAVE_SP_BLAS="no"
 if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
-  useRblas=`echo ${BLAS_LIBS} | grep "\-lRblas"`
-  if test "X${useRblas}" = "X"; then
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lblas" >&5
-$as_echo_n "checking for sgemm_ in -lblas... " >&6; }
-if ${ac_cv_lib_blas_sgemm_+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lblas  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char sgemm_ ();
-int
-main ()
-{
-return sgemm_ ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_blas_sgemm_=yes
-else
-  ac_cv_lib_blas_sgemm_=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blas_sgemm_" >&5
-$as_echo "$ac_cv_lib_blas_sgemm_" >&6; }
-if test "x$ac_cv_lib_blas_sgemm_" = xyes; then :
-  HAVESBLAS=yes
-else
-  HAVESBLAS=no
-fi
-
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -lblas" >&5
-$as_echo_n "checking for sgetrf_ in -lblas... " >&6; }
-if ${ac_cv_lib_blas_sgetrf_+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lblas  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char sgetrf_ ();
-int
-main ()
-{
-return sgetrf_ ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_blas_sgetrf_=yes
-else
-  ac_cv_lib_blas_sgetrf_=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blas_sgetrf_" >&5
-$as_echo "$ac_cv_lib_blas_sgetrf_" >&6; }
-if test "x$ac_cv_lib_blas_sgetrf_" = xyes; then :
-  HAVESLAPACK=yes
-else
-  HAVESLAPACK=no
-fi
-
-  else
+  USE_R_BLAS=`echo ${BLAS_LIBFLAGS} | grep "\-lRblas"`
+  if test "X${USE_R_BLAS}" != "X"; then
     LDFLAGS_OLD="${LDFLAGS}"
-    LDFLAGS="${LDFLAGS} ${BLAS_LIBS}"
+    LDFLAGS="${LDFLAGS} ${BLAS_LIBFLAGS}"
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lRblas" >&5
 $as_echo_n "checking for sgemm_ in -lRblas... " >&6; }
 if ${ac_cv_lib_Rblas_sgemm_+:} false; then :
@@ -3964,9 +3890,9 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Rblas_sgemm_" >&5
 $as_echo "$ac_cv_lib_Rblas_sgemm_" >&6; }
 if test "x$ac_cv_lib_Rblas_sgemm_" = xyes; then :
-  HAVESBLAS=yes
+  HAVE_SP_BLAS=yes
 else
-  HAVESBLAS=no
+  HAVE_SP_BLAS=no
 fi
 
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -lRblas" >&5
@@ -4006,67 +3932,32 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Rblas_sgetrf_" >&5
 $as_echo "$ac_cv_lib_Rblas_sgetrf_" >&6; }
 if test "x$ac_cv_lib_Rblas_sgetrf_" = xyes; then :
-  HAVESLAPACK=yes
+  HAVE_SP_LAPACK=yes
 else
-  HAVESLAPACK=no
+  HAVE_SP_LAPACK=no
 fi
 
     LDFLAGS="${LDFLAGS_OLD}"
+
+    if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+      LAPACK_REPORT="using R BLAS library"
+      BLAS_LIBFLAGS="$(BLAS_LIBS)"
+
+    fi
+    if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+      LAPACK_REPORT="using R LAPACK library"
+      LAPACK_LIBFLAGS="$(LAPACK_LIBS)"
+    fi
   fi
-else
-  HAVESBLAS="no"
 fi
 
-# Check for single precision LAPACK symbols.
-if test "X${HAVESLAPACK}" = "X" -o "X${HAVESLAPACK}" = "Xno"; then
+HAVE_SP_LAPACK="no"
+if test "X${HAVE_SP_LAPACK}" = "X" -o "X${HAVE_SP_LAPACK}" = "Xno"; then
   if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
-    useRlapack=`echo ${LAPACK_LIBS} | grep "\-lRlapack"`
-    if test "X${useRlapack}" = "X"; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -llapack" >&5
-$as_echo_n "checking for sgetrf_ in -llapack... " >&6; }
-if ${ac_cv_lib_lapack_sgetrf_+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-llapack  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char sgetrf_ ();
-int
-main ()
-{
-return sgetrf_ ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_lapack_sgetrf_=yes
-else
-  ac_cv_lib_lapack_sgetrf_=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_lapack_sgetrf_" >&5
-$as_echo "$ac_cv_lib_lapack_sgetrf_" >&6; }
-if test "x$ac_cv_lib_lapack_sgetrf_" = xyes; then :
-  HAVESLAPACK=yes
-else
-  HAVESLAPACK=no
-fi
-
-    else
+    USE_R_LAPACK=`echo ${LAPACK_LIBFLAGS} | grep "\-lRlapack"`
+    if test "X${USE_R_LAPACK}" != "X"; then
       LDFLAGS_OLD="${LDFLAGS}"
-      LDFLAGS="${LDFLAGS} ${LAPACK_LIBS}"
+      LDFLAGS="${LDFLAGS} ${LAPACK_LIBFLAGS}"
       { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -lRlapack" >&5
 $as_echo_n "checking for sgetrf_ in -lRlapack... " >&6; }
 if ${ac_cv_lib_Rlapack_sgetrf_+:} false; then :
@@ -4104,15 +3995,407 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Rlapack_sgetrf_" >&5
 $as_echo "$ac_cv_lib_Rlapack_sgetrf_" >&6; }
 if test "x$ac_cv_lib_Rlapack_sgetrf_" = xyes; then :
-  HAVESLAPACK=yes
+  HAVE_SP_LAPACK=yes
 else
-  HAVESLAPACK=no
+  HAVE_SP_LAPACK=no
 fi
 
       LDFLAGS="${LDFLAGS_OLD}"
+
+      if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+        LAPACK_REPORT="using R LAPACK library"
+        LAPACK_LIBFLAGS="$(LAPACK_LIBS)"
+      fi
     fi
-  else
-    HAVESLAPACK="no"
+  fi
+fi
+
+# Check the system if checking R failed
+BLAS_LIBFLAGS=""
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lopenblas" >&5
+$as_echo_n "checking for sgemm_ in -lopenblas... " >&6; }
+if ${ac_cv_lib_openblas_sgemm_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lopenblas  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgemm_ ();
+int
+main ()
+{
+return sgemm_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_openblas_sgemm_=yes
+else
+  ac_cv_lib_openblas_sgemm_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_openblas_sgemm_" >&5
+$as_echo "$ac_cv_lib_openblas_sgemm_" >&6; }
+if test "x$ac_cv_lib_openblas_sgemm_" = xyes; then :
+  HAVE_SP_BLAS=yes
+else
+  HAVE_SP_BLAS=no
+fi
+
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-lopenblas"
+    BLAS_REPORT="using system OpenBLAS library"
+  fi
+fi
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lmkl" >&5
+$as_echo_n "checking for sgemm_ in -lmkl... " >&6; }
+if ${ac_cv_lib_mkl_sgemm_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lmkl  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgemm_ ();
+int
+main ()
+{
+return sgemm_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_mkl_sgemm_=yes
+else
+  ac_cv_lib_mkl_sgemm_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_mkl_sgemm_" >&5
+$as_echo "$ac_cv_lib_mkl_sgemm_" >&6; }
+if test "x$ac_cv_lib_mkl_sgemm_" = xyes; then :
+  HAVE_SP_BLAS=yes
+else
+  HAVE_SP_BLAS=no
+fi
+
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-lmkl"
+    BLAS_REPORT="using system MKL library"
+  fi
+fi
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -latlas" >&5
+$as_echo_n "checking for sgemm_ in -latlas... " >&6; }
+if ${ac_cv_lib_atlas_sgemm_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-latlas  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgemm_ ();
+int
+main ()
+{
+return sgemm_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_atlas_sgemm_=yes
+else
+  ac_cv_lib_atlas_sgemm_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_atlas_sgemm_" >&5
+$as_echo "$ac_cv_lib_atlas_sgemm_" >&6; }
+if test "x$ac_cv_lib_atlas_sgemm_" = xyes; then :
+  HAVE_SP_BLAS=yes
+else
+  HAVE_SP_BLAS=no
+fi
+
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-latlas"
+    BLAS_REPORT="using system Atlas library"
+  fi
+fi
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgemm_ in -lblas" >&5
+$as_echo_n "checking for sgemm_ in -lblas... " >&6; }
+if ${ac_cv_lib_blas_sgemm_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lblas  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgemm_ ();
+int
+main ()
+{
+return sgemm_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_blas_sgemm_=yes
+else
+  ac_cv_lib_blas_sgemm_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blas_sgemm_" >&5
+$as_echo "$ac_cv_lib_blas_sgemm_" >&6; }
+if test "x$ac_cv_lib_blas_sgemm_" = xyes; then :
+  HAVE_SP_BLAS=yes
+else
+  HAVE_SP_BLAS=no
+fi
+
+  if test "X${HAVE_SP_BLAS}" = "Xyes"; then
+    BLAS_LIBFLAGS="-lblas"
+    BLAS_REPORT="using system BLAS library"
+  fi
+fi
+
+LAPACK_LIBFLAGS=""
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -lopenblas" >&5
+$as_echo_n "checking for sgetrf_ in -lopenblas... " >&6; }
+if ${ac_cv_lib_openblas_sgetrf_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lopenblas  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgetrf_ ();
+int
+main ()
+{
+return sgetrf_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_openblas_sgetrf_=yes
+else
+  ac_cv_lib_openblas_sgetrf_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_openblas_sgetrf_" >&5
+$as_echo "$ac_cv_lib_openblas_sgetrf_" >&6; }
+if test "x$ac_cv_lib_openblas_sgetrf_" = xyes; then :
+  HAVE_SP_LAPACK=yes
+else
+  HAVE_SP_LAPACK=no
+fi
+
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-lopenblas"
+    LAPACK_REPORT="using system OpenBLAS library"
+  fi
+fi
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -lmkl" >&5
+$as_echo_n "checking for sgetrf_ in -lmkl... " >&6; }
+if ${ac_cv_lib_mkl_sgetrf_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lmkl  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgetrf_ ();
+int
+main ()
+{
+return sgetrf_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_mkl_sgetrf_=yes
+else
+  ac_cv_lib_mkl_sgetrf_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_mkl_sgetrf_" >&5
+$as_echo "$ac_cv_lib_mkl_sgetrf_" >&6; }
+if test "x$ac_cv_lib_mkl_sgetrf_" = xyes; then :
+  HAVE_SP_LAPACK=yes
+else
+  HAVE_SP_LAPACK=no
+fi
+
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-lmkl"
+    LAPACK_REPORT="using system MKL library"
+  fi
+fi
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -latlas" >&5
+$as_echo_n "checking for sgetrf_ in -latlas... " >&6; }
+if ${ac_cv_lib_atlas_sgetrf_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-latlas  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgetrf_ ();
+int
+main ()
+{
+return sgetrf_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_atlas_sgetrf_=yes
+else
+  ac_cv_lib_atlas_sgetrf_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_atlas_sgetrf_" >&5
+$as_echo "$ac_cv_lib_atlas_sgetrf_" >&6; }
+if test "x$ac_cv_lib_atlas_sgetrf_" = xyes; then :
+  HAVE_SP_LAPACK=yes
+else
+  HAVE_SP_LAPACK=no
+fi
+
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-latlas"
+    LAPACK_REPORT="using system Atlas library"
+  fi
+fi
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sgetrf_ in -llapack" >&5
+$as_echo_n "checking for sgetrf_ in -llapack... " >&6; }
+if ${ac_cv_lib_lapack_sgetrf_+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-llapack  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char sgetrf_ ();
+int
+main ()
+{
+return sgetrf_ ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_lapack_sgetrf_=yes
+else
+  ac_cv_lib_lapack_sgetrf_=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_lapack_sgetrf_" >&5
+$as_echo "$ac_cv_lib_lapack_sgetrf_" >&6; }
+if test "x$ac_cv_lib_lapack_sgetrf_" = xyes; then :
+  HAVE_SP_LAPACK=yes
+else
+  HAVE_SP_LAPACK=no
+fi
+
+  if test "X${HAVE_SP_LAPACK}" = "Xyes"; then
+    LAPACK_LIBFLAGS="-llapack"
+    LAPACK_REPORT="using system LAPACK library"
   fi
 fi
 
@@ -4122,14 +4405,12 @@ fi
 ADD_OBJS=""
 ADD_DEPS=""
 
-if test "X${HAVESBLAS}" = "Xno"; then
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
   BLAS_REPORT="NOTE: no single precision BLAS symbols found. Building reference version"
   ADD_OBJS="${ADD_OBJS} lapack/sblas.o"
-else
-  BLAS_REPORT="using system BLAS library"
 fi
 
-if test "X${HAVESLAPACK}" = "Xno"; then
+if test "X${HAVE_SP_LAPACK}" = "Xno"; then
   LAPACK_REPORT="NOTE: no single precision LAPACK symbols found. Building reference version"
   ADD_OBJS="lapack/la_xisnan.o lapack/la_constants.o lapack/sf90.o lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o ${ADD_OBJS}"
   ADD_DEPS="
@@ -4137,11 +4418,9 @@ lapack/la_xisnan.o: lapack/la_constants.o
 lapack/sf90.o: lapack/la_constants.o
 lapack/slapack3.o: lapack/sf90.o
 "
-else
-  LAPACK_REPORT="using system LAPACK library"
 fi
 
-if test "X${HAVESBLAS}" = "Xno"; then
+if test "X${HAVE_SP_BLAS}" = "Xno"; then
   WARN_EXTRA="
 No single precision BLAS functions detected in your R BLAS library, so \
 we are using the reference implementation shipped with the float \
@@ -4153,19 +4432,21 @@ fi
 
 
 
-
+# ------------------------------------------------------------------------------
 # Report
+# ------------------------------------------------------------------------------
+
 echo " "
 echo "******************* Results of float package configure *******************"
 echo "* OpenMP Report:"
-echo "  >> OPENMP_CFLAGS=${OPENMP_CFLAGS}"
-echo "  >> OMPFLAGS_C=${OMPFLAGS_C}"
-echo "  >> OMPFLAGS_F=${OMPFLAGS_F}"
+echo "    >> OPENMP_CFLAGS=${OPENMP_CFLAGS}"
+echo "    >> OMPFLAGS_C=${OMPFLAGS_C}"
+echo "    >> OMPFLAGS_F=${OMPFLAGS_F}"
 echo "* ${BOBE_REPORT}"
 echo "* ${BLAS_REPORT}"
-echo "  >> BLAS_LIBS=${BLAS_LIBS}"
+echo "    >> BLAS_LIBFLAGS=${BLAS_LIBFLAGS}"
 echo "* ${LAPACK_REPORT}"
-echo "  >> LAPACK_LIBS=${LAPACK_LIBS}"
+echo "    >> LAPACK_LIBFLAGS=${LAPACK_LIBFLAGS}"
 if test "X${WARN_EXTRA}" != "X"; then
   echo "${WARN_EXTRA}"
 fi
@@ -4178,7 +4459,9 @@ echo " "
 
 
 
-ac_config_files="$ac_config_files src/Makevars src/endianness.h"
+
+
+ac_config_files="$ac_config_files src/Makevars src/endianness.h R/02-libflags.r"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -4873,6 +5156,7 @@ do
     "src/config.h") CONFIG_HEADERS="$CONFIG_HEADERS src/config.h" ;;
     "src/Makevars") CONFIG_FILES="$CONFIG_FILES src/Makevars" ;;
     "src/endianness.h") CONFIG_FILES="$CONFIG_FILES src/endianness.h" ;;
+    "R/02-libflags.r") CONFIG_FILES="$CONFIG_FILES R/02-libflags.r" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
