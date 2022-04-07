@@ -15,7 +15,14 @@ get_os <- function()
 blas_ldflags_string = function()
 {
   if (get_os() == "windows")
-    ""
+  {
+    maj = as.numeric(version$major)
+    min = floor(as.numeric(version$minor))
+    if (maj < 4 || min <= 1)
+      ""
+    else
+      "-lblas"
+  }
   else
     blas_ldflags_nix() # defined by configure in R/02-libflags.r
 }
@@ -23,7 +30,14 @@ blas_ldflags_string = function()
 lapack_ldflags_string = function()
 {
   if (get_os() == "windows")
-    ""
+  {
+    maj = as.numeric(version$major)
+    min = floor(as.numeric(version$minor))
+    if (maj < 4 || min <= 1)
+      ""
+    else
+      "-llapack"
+  }
   else
     lapack_ldflags_nix() # defined by configure in R/02-libflags.r
 }
