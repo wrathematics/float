@@ -17,7 +17,7 @@
 float NA_FLOAT; // extern'd in NA.h
 float R_NaNf;
 
-static inline float set_na_float()
+static inline float set_na_float(void)
 {
   float ret;
   
@@ -73,7 +73,7 @@ int ISNANf(const float x)
 
 
 // have to call on package load to set the global NA_FLOAT
-SEXP R_init_NAf()
+SEXP R_init_NAf(void)
 {
   SEXP ret;
   PROTECT(ret = newvec(1));
@@ -85,7 +85,7 @@ SEXP R_init_NAf()
   return ret;
 }
 
-SEXP R_init_NaNf()
+SEXP R_init_NaNf(void)
 {
   SEXP ret;
   PROTECT(ret = newvec(1));
