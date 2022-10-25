@@ -1,8 +1,9 @@
 PKG_CFLAGS = $(SHLIB_OPENMP_CFLAGS) -I../inst/include/ -I./windows/
+PKG_FFLAGS = $(SHLIB_OPENMP_FFLAGS) $(SAFE_FFLAGS)
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CFLAGS)
 
 R_SOURCES = $(wildcard *.c)
-LAPACK_OBJS = lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o lapack/sblas.o
+LAPACK_OBJS = lapack/la_constants.o lapack/la_xisnan.o lapack/sf90.o lapack/slapack1.o lapack/slapack2.o lapack/slapack3.o lapack/slapack4.o lapack/slamchf77.o lapack/ilas.o lapack/sblas.o
 OBJECTS = $(R_SOURCES:.c=.o) utils/matmult.o utils/symmetrize.o utils/xpose.o slapack_wrap.o $(LAPACK_OBJS)
 
 STATICLIB = libfloat.a
@@ -27,11 +28,20 @@ ifneq "$(WIN)" "64"
   OPM_FFLAGS = -O0
 endif
 
+
+
+lapack/la_constants.o: lapack/la_constants.f90
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+lapack/la_xisnan.o: lapack/la_xisnan.f90 lapack/la_constants.o
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+lapack/sf90.o: lapack/sf90.f90 lapack/la_constants.o
+	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
+
 lapack/slapack1.o: lapack/slapack1.f
 	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/slapack2.o: lapack/slapack2.f
 	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
-lapack/slapack3.o: lapack/slapack3.f
+lapack/slapack3.o: lapack/slapack3.f lapack/sf90.o
 	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@
 lapack/slapack4.o: lapack/slapack4.f
 	$(FC) $(ALL_FFLAGS) $(OPM_FFLAGS) -c $< -o $@

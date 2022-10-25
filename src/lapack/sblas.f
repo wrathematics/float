@@ -55,8 +55,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -72,10 +70,9 @@
 *  =====================================================================
       REAL FUNCTION SASUM(N,SX,INCX)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,N
@@ -129,6 +126,9 @@
       END IF
       SASUM = STEMP
       RETURN
+*
+*     End of SASUM
+*
       END
 
 *> \brief \b SAXPY
@@ -206,8 +206,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -222,10 +220,9 @@
 *  =====================================================================
       SUBROUTINE SAXPY(N,SA,SX,INCX,SY,INCY)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL SA
@@ -282,6 +279,9 @@
          END DO
       END IF
       RETURN
+*
+*     End of SAXPY
+*
       END
 
 *> \brief \b SCABS1
@@ -325,17 +325,14 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *  =====================================================================
       REAL FUNCTION SCABS1(Z)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       COMPLEX Z
@@ -348,6 +345,9 @@
 *     ..
       SCABS1 = ABS(REAL(Z)) + ABS(AIMAG(Z))
       RETURN
+*
+*     End of SCABS1
+*
       END
 
 *> \brief \b SCASUM
@@ -407,8 +407,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -424,10 +422,9 @@
 *  =====================================================================
       REAL FUNCTION SCASUM(N,CX,INCX)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,N
@@ -466,146 +463,8 @@
       END IF
       SCASUM = STEMP
       RETURN
-      END
-
-*> \brief \b SCNRM2
 *
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*       REAL FUNCTION SCNRM2(N,X,INCX)
-*
-*       .. Scalar Arguments ..
-*       INTEGER INCX,N
-*       ..
-*       .. Array Arguments ..
-*       COMPLEX X(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*> SCNRM2 returns the euclidean norm of a vector via the function
-*> name, so that
-*>
-*>    SCNRM2 := sqrt( x**H*x )
-*> \endverbatim
-*
-*  Arguments:
-*  ==========
-*
-*> \param[in] N
-*> \verbatim
-*>          N is INTEGER
-*>         number of elements in input vector(s)
-*> \endverbatim
-*>
-*> \param[in] X
-*> \verbatim
-*>          X is COMPLEX array, dimension (N)
-*>         complex vector with N elements
-*> \endverbatim
-*>
-*> \param[in] INCX
-*> \verbatim
-*>          INCX is INTEGER
-*>         storage spacing between elements of X
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \date December 2016
-*
-*> \ingroup single_blas_level1
-*
-*> \par Further Details:
-*  =====================
-*>
-*> \verbatim
-*>
-*>  -- This version written on 25-October-1982.
-*>     Modified on 14-October-1993 to inline the call to CLASSQ.
-*>     Sven Hammarling, Nag Ltd.
-*> \endverbatim
-*>
-*  =====================================================================
-      REAL FUNCTION SCNRM2(N,X,INCX)
-*
-*  -- Reference BLAS level1 routine (version 3.7.0) --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
-*
-*     .. Scalar Arguments ..
-      INTEGER INCX,N
-*     ..
-*     .. Array Arguments ..
-      COMPLEX X(*)
-*     ..
-*
-*  =====================================================================
-*
-*     .. Parameters ..
-      REAL ONE,ZERO
-      PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
-*     ..
-*     .. Local Scalars ..
-      REAL NORM,SCALE,SSQ,TEMP
-      INTEGER IX
-*     ..
-*     .. Intrinsic Functions ..
-      INTRINSIC ABS,AIMAG,REAL,SQRT
-*     ..
-      IF (N.LT.1 .OR. INCX.LT.1) THEN
-          NORM = ZERO
-      ELSE
-          SCALE = ZERO
-          SSQ = ONE
-*        The following loop is equivalent to this call to the LAPACK
-*        auxiliary routine:
-*        CALL CLASSQ( N, X, INCX, SCALE, SSQ )
-*
-          DO 10 IX = 1,1 + (N-1)*INCX,INCX
-              IF (REAL(X(IX)).NE.ZERO) THEN
-                  TEMP = ABS(REAL(X(IX)))
-                  IF (SCALE.LT.TEMP) THEN
-                      SSQ = ONE + SSQ* (SCALE/TEMP)**2
-                      SCALE = TEMP
-                  ELSE
-                      SSQ = SSQ + (TEMP/SCALE)**2
-                  END IF
-              END IF
-              IF (AIMAG(X(IX)).NE.ZERO) THEN
-                  TEMP = ABS(AIMAG(X(IX)))
-                  IF (SCALE.LT.TEMP) THEN
-                      SSQ = ONE + SSQ* (SCALE/TEMP)**2
-                      SCALE = TEMP
-                  ELSE
-                      SSQ = SSQ + (TEMP/SCALE)**2
-                  END IF
-              END IF
-   10     CONTINUE
-          NORM = SCALE*SQRT(SSQ)
-      END IF
-*
-      SCNRM2 = NORM
-      RETURN
-*
-*     End of SCNRM2.
+*     End of SCASUM
 *
       END
 
@@ -677,8 +536,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -693,10 +550,9 @@
 *  =====================================================================
       SUBROUTINE SCOPY(N,SX,INCX,SY,INCY)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,INCY,N
@@ -754,6 +610,9 @@
          END DO
       END IF
       RETURN
+*
+*     End of SCOPY
+*
       END
 
 *> \brief \b SDOT
@@ -824,8 +683,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -840,10 +697,9 @@
 *  =====================================================================
       REAL FUNCTION SDOT(N,SX,INCX,SY,INCY)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,INCY,N
@@ -903,6 +759,9 @@
       END IF
       SDOT = STEMP
       RETURN
+*
+*     End of SDOT
+*
       END
 
 *> \brief \b SDSDOT
@@ -930,13 +789,13 @@
 *>
 *> \verbatim
 *>
-*    Compute the inner product of two vectors with extended
-*    precision accumulation.
-*
-*    Returns S.P. result with dot product accumulated in D.P.
-*    SDSDOT = SB + sum for I = 0 to N-1 of SX(LX+I*INCX)*SY(LY+I*INCY),
-*    where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and LY is
-*    defined in a similar way using INCY.
+*>   Compute the inner product of two vectors with extended
+*>   precision accumulation.
+*>
+*>   Returns S.P. result with dot product accumulated in D.P.
+*>   SDSDOT = SB + sum for I = 0 to N-1 of SX(LX+I*INCX)*SY(LY+I*INCY),
+*>   where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and LY is
+*>   defined in a similar way using INCY.
 *> \endverbatim
 *
 *  Arguments:
@@ -984,7 +843,12 @@
 *> \author Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
 *> \author Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
 *
-*> \ingroup complex_blas_level1
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup single_blas_level1
 *
 *> \par Further Details:
 *  =====================
@@ -1009,72 +873,13 @@
 *>    920501  Reformatted the REFERENCES section.  (WRB)
 *>    070118  Reformat to LAPACK coding style
 *> \endverbatim
-*
-*    =====================================================================
-*
-*       .. Local Scalars ..
-*       DOUBLE PRECISION DSDOT
-*       INTEGER I,KX,KY,NS
-*       ..
-*       .. Intrinsic Functions ..
-*       INTRINSIC DBLE
-*       ..
-*       DSDOT = SB
-*       IF (N.LE.0) THEN
-*          SDSDOT = DSDOT
-*          RETURN
-*       END IF
-*       IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
-*
-*       Code for equal and positive increments.
-*
-*          NS = N*INCX
-*          DO I = 1,NS,INCX
-*             DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I))
-*          END DO
-*       ELSE
-*
-*       Code for unequal or nonpositive increments.
-*
-*          KX = 1
-*          KY = 1
-*          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
-*          IF (INCY.LT.0) KY = 1 + (1-N)*INCY
-*          DO I = 1,N
-*             DSDOT = DSDOT + DBLE(SX(KX))*DBLE(SY(KY))
-*             KX = KX + INCX
-*             KY = KY + INCY
-*          END DO
-*       END IF
-*       SDSDOT = DSDOT
-*       RETURN
-*       END
-*
-*> \par Purpose:
-*  =============
 *>
-*> \verbatim
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \date December 2016
-*
-*> \ingroup single_blas_level1
-*
 *  =====================================================================
       REAL FUNCTION SDSDOT(N,SB,SX,INCX,SY,INCY)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL SB
@@ -1082,71 +887,6 @@
 *     ..
 *     .. Array Arguments ..
       REAL SX(*),SY(*)
-*     ..
-*
-*  PURPOSE
-*  =======
-*
-*  Compute the inner product of two vectors with extended
-*  precision accumulation.
-*
-*  Returns S.P. result with dot product accumulated in D.P.
-*  SDSDOT = SB + sum for I = 0 to N-1 of SX(LX+I*INCX)*SY(LY+I*INCY),
-*  where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and LY is
-*  defined in a similar way using INCY.
-*
-*  AUTHOR
-*  ======
-*  Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
-*  Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
-*
-*  ARGUMENTS
-*  =========
-*
-*  N      (input) INTEGER
-*         number of elements in input vector(s)
-*
-*  SB     (input) REAL
-*         single precision scalar to be added to inner product
-*
-*  SX     (input) REAL array, dimension (N)
-*         single precision vector with N elements
-*
-*  INCX   (input) INTEGER
-*         storage spacing between elements of SX
-*
-*  SY     (input) REAL array, dimension (N)
-*         single precision vector with N elements
-*
-*  INCY   (input) INTEGER
-*         storage spacing between elements of SY
-*
-*  SDSDOT (output) REAL
-*         single precision dot product (SB if N .LE. 0)
-*
-*  Further Details
-*  ===============
-*
-*  REFERENCES
-*
-*  C. L. Lawson, R. J. Hanson, D. R. Kincaid and F. T.
-*  Krogh, Basic linear algebra subprograms for Fortran
-*  usage, Algorithm No. 539, Transactions on Mathematical
-*  Software 5, 3 (September 1979), pp. 308-323.
-*
-*  REVISION HISTORY  (YYMMDD)
-*
-*  791001  DATE WRITTEN
-*  890531  Changed all specific intrinsics to generic.  (WRB)
-*  890831  Modified array declarations.  (WRB)
-*  890831  REVISION DATE from Version 3.2
-*  891214  Prologue converted to Version 4.0 format.  (BAB)
-*  920310  Corrected definition of LX in DESCRIPTION.  (WRB)
-*  920501  Reformatted the REFERENCES section.  (WRB)
-*  070118  Reformat to LAPACK coding style
-*
-*  =====================================================================
-*
 *     .. Local Scalars ..
       DOUBLE PRECISION DSDOT
       INTEGER I,KX,KY,NS
@@ -1183,6 +923,9 @@
       END IF
       SDSDOT = DSDOT
       RETURN
+*
+*     End of SDSDOT
+*
       END
 
 *> \brief \b SGBMV
@@ -1350,8 +1093,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -1372,10 +1113,9 @@
 *  =====================================================================
       SUBROUTINE SGBMV(TRANS,M,N,KL,KU,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -1552,7 +1292,7 @@
 *
       RETURN
 *
-*     End of SGBMV .
+*     End of SGBMV
 *
       END
 
@@ -1724,8 +1464,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level3
 *
 *> \par Further Details:
@@ -1745,10 +1483,9 @@
 *  =====================================================================
       SUBROUTINE SGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
 *
-*  -- Reference BLAS level3 routine (version 3.7.0) --
+*  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -1773,7 +1510,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL TEMP
-      INTEGER I,INFO,J,L,NCOLA,NROWA,NROWB
+      INTEGER I,INFO,J,L,NROWA,NROWB
       LOGICAL NOTA,NOTB
 *     ..
 *     .. Parameters ..
@@ -1782,17 +1519,15 @@
 *     ..
 *
 *     Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
-*     transposed and set  NROWA, NCOLA and  NROWB  as the number of rows
-*     and  columns of  A  and the  number of  rows  of  B  respectively.
+*     transposed and set  NROWA and NROWB  as the number of rows of  A
+*     and  B  respectively.
 *
       NOTA = LSAME(TRANSA,'N')
       NOTB = LSAME(TRANSB,'N')
       IF (NOTA) THEN
           NROWA = M
-          NCOLA = K
       ELSE
           NROWA = K
-          NCOLA = M
       END IF
       IF (NOTB) THEN
           NROWB = K
@@ -1937,7 +1672,7 @@
 *
       RETURN
 *
-*     End of SGEMM .
+*     End of SGEMM
 *
       END
 
@@ -2077,8 +1812,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -2099,10 +1832,9 @@
 *  =====================================================================
       SUBROUTINE SGEMV(TRANS,M,N,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -2268,7 +2000,7 @@
 *
       RETURN
 *
-*     End of SGEMV .
+*     End of SGEMV
 *
       END
 
@@ -2383,8 +2115,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -2404,10 +2134,9 @@
 *  =====================================================================
       SUBROUTINE SGER(M,N,ALPHA,X,INCX,Y,INCY,A,LDA)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
@@ -2496,140 +2225,7 @@
 *
       RETURN
 *
-*     End of SGER  .
-*
-      END
-
-*> \brief \b SNRM2
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*       REAL FUNCTION SNRM2(N,X,INCX)
-*
-*       .. Scalar Arguments ..
-*       INTEGER INCX,N
-*       ..
-*       .. Array Arguments ..
-*       REAL X(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*> SNRM2 returns the euclidean norm of a vector via the function
-*> name, so that
-*>
-*>    SNRM2 := sqrt( x'*x ).
-*> \endverbatim
-*
-*  Arguments:
-*  ==========
-*
-*> \param[in] N
-*> \verbatim
-*>          N is INTEGER
-*>         number of elements in input vector(s)
-*> \endverbatim
-*>
-*> \param[in] X
-*> \verbatim
-*>          X is REAL array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
-*> \endverbatim
-*>
-*> \param[in] INCX
-*> \verbatim
-*>          INCX is INTEGER
-*>         storage spacing between elements of SX
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \date December 2016
-*
-*> \ingroup single_blas_level1
-*
-*> \par Further Details:
-*  =====================
-*>
-*> \verbatim
-*>
-*>  -- This version written on 25-October-1982.
-*>     Modified on 14-October-1993 to inline the call to SLASSQ.
-*>     Sven Hammarling, Nag Ltd.
-*> \endverbatim
-*>
-*  =====================================================================
-      REAL FUNCTION SNRM2(N,X,INCX)
-*
-*  -- Reference BLAS level1 routine (version 3.7.0) --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
-*
-*     .. Scalar Arguments ..
-      INTEGER INCX,N
-*     ..
-*     .. Array Arguments ..
-      REAL X(*)
-*     ..
-*
-*  =====================================================================
-*
-*     .. Parameters ..
-      REAL ONE,ZERO
-      PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
-*     ..
-*     .. Local Scalars ..
-      REAL ABSXI,NORM,SCALE,SSQ
-      INTEGER IX
-*     ..
-*     .. Intrinsic Functions ..
-      INTRINSIC ABS,SQRT
-*     ..
-      IF (N.LT.1 .OR. INCX.LT.1) THEN
-          NORM = ZERO
-      ELSE IF (N.EQ.1) THEN
-          NORM = ABS(X(1))
-      ELSE
-          SCALE = ZERO
-          SSQ = ONE
-*        The following loop is equivalent to this call to the LAPACK
-*        auxiliary routine:
-*        CALL SLASSQ( N, X, INCX, SCALE, SSQ )
-*
-          DO 10 IX = 1,1 + (N-1)*INCX,INCX
-              IF (X(IX).NE.ZERO) THEN
-                  ABSXI = ABS(X(IX))
-                  IF (SCALE.LT.ABSXI) THEN
-                      SSQ = ONE + SSQ* (SCALE/ABSXI)**2
-                      SCALE = ABSXI
-                  ELSE
-                      SSQ = SSQ + (ABSXI/SCALE)**2
-                  END IF
-              END IF
-   10     CONTINUE
-          NORM = SCALE*SQRT(SSQ)
-      END IF
-*
-      SNRM2 = NORM
-      RETURN
-*
-*     End of SNRM2.
+*     End of SGER
 *
       END
 
@@ -2711,8 +2307,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -2727,10 +2321,9 @@
 *  =====================================================================
       SUBROUTINE SROT(N,SX,INCX,SY,INCY,C,S)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL C,S
@@ -2774,116 +2367,9 @@
          END DO
       END IF
       RETURN
-      END
-
-*> \brief \b SROTG
 *
-*  =========== DOCUMENTATION ===========
+*     End of SROT
 *
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE SROTG(SA,SB,C,S)
-*
-*       .. Scalar Arguments ..
-*       REAL C,S,SA,SB
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>    SROTG construct givens plane rotation.
-*> \endverbatim
-*
-*  Arguments:
-*  ==========
-*
-*> \param[in] SA
-*> \verbatim
-*>          SA is REAL
-*> \endverbatim
-*>
-*> \param[in] SB
-*> \verbatim
-*>          SB is REAL
-*> \endverbatim
-*>
-*> \param[out] C
-*> \verbatim
-*>          C is REAL
-*> \endverbatim
-*>
-*> \param[out] S
-*> \verbatim
-*>          S is REAL
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \date December 2016
-*
-*> \ingroup single_blas_level1
-*
-*> \par Further Details:
-*  =====================
-*>
-*> \verbatim
-*>
-*>     jack dongarra, linpack, 3/11/78.
-*> \endverbatim
-*>
-*  =====================================================================
-      SUBROUTINE SROTG(SA,SB,C,S)
-*
-*  -- Reference BLAS level1 routine (version 3.7.0) --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
-*
-*     .. Scalar Arguments ..
-      REAL C,S,SA,SB
-*     ..
-*
-*  =====================================================================
-*
-*     .. Local Scalars ..
-      REAL R,ROE,SCALE,Z
-*     ..
-*     .. Intrinsic Functions ..
-      INTRINSIC ABS,SIGN,SQRT
-*     ..
-      ROE = SB
-      IF (ABS(SA).GT.ABS(SB)) ROE = SA
-      SCALE = ABS(SA) + ABS(SB)
-      IF (SCALE.EQ.0.0) THEN
-         C = 1.0
-         S = 0.0
-         R = 0.0
-         Z = 0.0
-      ELSE
-         R = SCALE*SQRT((SA/SCALE)**2+ (SB/SCALE)**2)
-         R = SIGN(1.0,ROE)*R
-         C = SA/R
-         S = SB/R
-         Z = 1.0
-         IF (ABS(SA).GT.ABS(SB)) Z = S
-         IF (ABS(SB).GE.ABS(SA) .AND. C.NE.0.0) Z = 1.0/C
-      END IF
-      SA = R
-      SB = Z
-      RETURN
       END
 
 *> \brief \b SROTM
@@ -2978,17 +2464,14 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *  =====================================================================
       SUBROUTINE SROTM(N,SX,INCX,SY,INCY,SPARAM)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,INCY,N
@@ -3086,6 +2569,9 @@
          END IF
       END IF
       RETURN
+*
+*     End of SROTM
+*
       END
 
 *> \brief \b SROTMG
@@ -3173,17 +2659,14 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *  =====================================================================
       SUBROUTINE SROTMG(SD1,SD2,SX1,SY1,SPARAM)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL SD1,SD2,SX1,SY1
@@ -3242,6 +2725,19 @@
              SD1 = SD1/SU
              SD2 = SD2/SU
              SX1 = SX1*SU
+           ELSE
+*            This code path if here for safety. We do not expect this
+*            condition to ever hold except in edge cases with rounding
+*            errors. See DOI: 10.1145/355841.355847
+             SFLAG = -ONE
+             SH11 = ZERO
+             SH12 = ZERO
+             SH21 = ZERO
+             SH22 = ZERO
+*
+             SD1 = ZERO
+             SD2 = ZERO
+             SX1 = ZERO
            END IF
          ELSE
 
@@ -3268,7 +2764,7 @@
             END IF
          END IF
 
-*     PROCESURE..SCALE-CHECK
+*     PROCEDURE..SCALE-CHECK
          IF (SD1.NE.ZERO) THEN
             DO WHILE ((SD1.LE.RGAMSQ) .OR. (SD1.GE.GAMSQ))
                IF (SFLAG.EQ.ZERO) THEN
@@ -3334,11 +2830,10 @@
 
       SPARAM(1) = SFLAG
       RETURN
+*
+*     End of SROTMG
+*
       END
-
-
-
-
 
 *> \brief \b SSBMV
 *
@@ -3504,8 +2999,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -3526,10 +3019,9 @@
 *  =====================================================================
       SUBROUTINE SSBMV(UPLO,N,K,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -3712,7 +3204,7 @@
 *
       RETURN
 *
-*     End of SSBMV .
+*     End of SSBMV
 *
       END
 
@@ -3780,8 +3272,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -3797,10 +3287,9 @@
 *  =====================================================================
       SUBROUTINE SSCAL(N,SA,SX,INCX)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL SA
@@ -3851,6 +3340,9 @@
          END DO
       END IF
       RETURN
+*
+*     End of SSCAL
+*
       END
 
 *> \brief \b SSPMV
@@ -3980,8 +3472,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -4002,10 +3492,9 @@
 *  =====================================================================
       SUBROUTINE SSPMV(UPLO,N,ALPHA,AP,X,INCX,BETA,Y,INCY)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -4181,7 +3670,7 @@
 *
       RETURN
 *
-*     End of SSPMV .
+*     End of SSPMV
 *
       END
 
@@ -4308,8 +3797,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -4329,10 +3816,9 @@
 *  =====================================================================
       SUBROUTINE SSPR2(UPLO,N,ALPHA,X,INCX,Y,INCY,AP)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
@@ -4478,7 +3964,7 @@
 *
       RETURN
 *
-*     End of SSPR2 .
+*     End of SSPR2
 *
       END
 
@@ -4590,8 +4076,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -4611,10 +4095,9 @@
 *  =====================================================================
       SUBROUTINE SSPR(UPLO,N,ALPHA,X,INCX,AP)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
@@ -4740,7 +4223,7 @@
 *
       RETURN
 *
-*     End of SSPR  .
+*     End of SSPR
 *
       END
 
@@ -4812,8 +4295,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level1
 *
 *> \par Further Details:
@@ -4828,10 +4309,9 @@
 *  =====================================================================
       SUBROUTINE SSWAP(N,SX,INCX,SY,INCY)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,INCY,N
@@ -4896,6 +4376,9 @@
          END DO
       END IF
       RETURN
+*
+*     End of SSWAP
+*
       END
 
 *> \brief \b SSYMM
@@ -5068,8 +4551,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level3
 *
 *> \par Further Details:
@@ -5089,10 +4570,9 @@
 *  =====================================================================
       SUBROUTINE SSYMM(SIDE,UPLO,M,N,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
 *
-*  -- Reference BLAS level3 routine (version 3.7.0) --
+*  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -5262,7 +4742,7 @@
 *
       RETURN
 *
-*     End of SSYMM .
+*     End of SSYMM
 *
       END
 
@@ -5398,8 +4878,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -5420,10 +4898,9 @@
 *  =====================================================================
       SUBROUTINE SSYMV(UPLO,N,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -5596,7 +5073,7 @@
 *
       RETURN
 *
-*     End of SSYMV .
+*     End of SSYMV
 *
       END
 
@@ -5728,8 +5205,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -5749,10 +5224,9 @@
 *  =====================================================================
       SUBROUTINE SSYR2(UPLO,N,ALPHA,X,INCX,Y,INCY,A,LDA)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
@@ -5895,7 +5369,7 @@
 *
       RETURN
 *
-*     End of SSYR2 .
+*     End of SSYR2
 *
       END
 
@@ -6071,8 +5545,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level3
 *
 *> \par Further Details:
@@ -6093,10 +5565,9 @@
 *  =====================================================================
       SUBROUTINE SSYR2K(UPLO,TRANS,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
 *
-*  -- Reference BLAS level3 routine (version 3.7.0) --
+*  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -6295,7 +5766,7 @@
 *
       RETURN
 *
-*     End of SSYR2K.
+*     End of SSYR2K
 *
       END
 
@@ -6412,8 +5883,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -6433,10 +5902,9 @@
 *  =====================================================================
       SUBROUTINE SSYR(UPLO,N,ALPHA,X,INCX,A,LDA)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
@@ -6559,7 +6027,7 @@
 *
       RETURN
 *
-*     End of SSYR  .
+*     End of SSYR
 *
       END
 
@@ -6713,8 +6181,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level3
 *
 *> \par Further Details:
@@ -6734,10 +6200,9 @@
 *  =====================================================================
       SUBROUTINE SSYRK(UPLO,TRANS,N,K,ALPHA,A,LDA,BETA,C,LDC)
 *
-*  -- Reference BLAS level3 routine (version 3.7.0) --
+*  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
@@ -6924,7 +6389,7 @@
 *
       RETURN
 *
-*     End of SSYRK .
+*     End of SSYRK
 *
       END
 
@@ -7094,8 +6559,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -7116,10 +6579,9 @@
 *  =====================================================================
       SUBROUTINE STBMV(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,K,LDA,N
@@ -7323,7 +6785,7 @@
 *
       RETURN
 *
-*     End of STBMV .
+*     End of STBMV
 *
       END
 
@@ -7497,8 +6959,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -7518,10 +6978,9 @@
 *  =====================================================================
       SUBROUTINE STBSV(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,K,LDA,N
@@ -7725,7 +7184,7 @@
 *
       RETURN
 *
-*     End of STBSV .
+*     End of STBSV
 *
       END
 
@@ -7851,8 +7310,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -7873,10 +7330,9 @@
 *  =====================================================================
       SUBROUTINE STPMV(UPLO,TRANS,DIAG,N,AP,X,INCX)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,N
@@ -8078,7 +7534,7 @@
 *
       RETURN
 *
-*     End of STPMV .
+*     End of STPMV
 *
       END
 
@@ -8207,8 +7663,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -8228,10 +7682,9 @@
 *  =====================================================================
       SUBROUTINE STPSV(UPLO,TRANS,DIAG,N,AP,X,INCX)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,N
@@ -8433,7 +7886,7 @@
 *
       RETURN
 *
-*     End of STPSV .
+*     End of STPSV
 *
       END
 
@@ -8595,8 +8048,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level3
 *
 *> \par Further Details:
@@ -8616,10 +8067,9 @@
 *  =====================================================================
       SUBROUTINE STRMM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB)
 *
-*  -- Reference BLAS level3 routine (version 3.7.0) --
+*  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
@@ -8849,7 +8299,7 @@
 *
       RETURN
 *
-*     End of STRMM .
+*     End of STRMM
 *
       END
 
@@ -8980,8 +8430,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -9002,10 +8450,9 @@
 *  =====================================================================
       SUBROUTINE STRMV(UPLO,TRANS,DIAG,N,A,LDA,X,INCX)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,LDA,N
@@ -9192,7 +8639,7 @@
 *
       RETURN
 *
-*     End of STRMV .
+*     End of STRMV
 *
       END
 
@@ -9357,8 +8804,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level3
 *
 *> \par Further Details:
@@ -9379,10 +8824,9 @@
 *  =====================================================================
       SUBROUTINE STRSM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB)
 *
-*  -- Reference BLAS level3 routine (version 3.7.0) --
+*  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
@@ -9636,7 +9080,7 @@
 *
       RETURN
 *
-*     End of STRSM .
+*     End of STRSM
 *
       END
 
@@ -9770,8 +9214,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup single_blas_level2
 *
 *> \par Further Details:
@@ -9791,10 +9233,9 @@
 *  =====================================================================
       SUBROUTINE STRSV(UPLO,TRANS,DIAG,N,A,LDA,X,INCX)
 *
-*  -- Reference BLAS level2 routine (version 3.7.0) --
+*  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,LDA,N
@@ -9981,7 +9422,7 @@
 *
       RETURN
 *
-*     End of STRSV .
+*     End of STRSV
 *
       END
 
@@ -10041,8 +9482,6 @@
 *> \author Univ. of Colorado Denver
 *> \author NAG Ltd.
 *
-*> \date December 2016
-*
 *> \ingroup aux_blas
 *
 *> \par Further Details:
@@ -10058,10 +9497,9 @@
 *  =====================================================================
       INTEGER FUNCTION ISAMAX(N,SX,INCX)
 *
-*  -- Reference BLAS level1 routine (version 3.7.0) --
+*  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*     December 2016
 *
 *     .. Scalar Arguments ..
       INTEGER INCX,N
@@ -10110,5 +9548,8 @@
          END DO
       END IF
       RETURN
+*
+*     End of ISAMAX
+*
       END
 

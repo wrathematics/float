@@ -1,9 +1,10 @@
 // Modified from the band package. Copyright (c) 2016 Drew Schmidt
 
+#include "safeomp.h"
+
 #include <float/slapack.h>
 
 #include "Rfloat.h"
-#include "safeomp.h"
 #include "unroll.h"
 
 

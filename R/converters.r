@@ -39,6 +39,8 @@ NULL
 #' @export
 fl = function(x, strict=FALSE)
 {
+  if (inherits(x, "data.frame"))
+    x = as.matrix(x)
   if (!is.numeric(x) && !is.logical(x))
   {
     if (is.float(x) && !isTRUE(strict))
@@ -149,6 +151,14 @@ as.matrix.float32 = function(x, ...)
   x
 }
 
+#' @method as.data.frame float32
+#' @rdname converters
+#' @export
+as.data.frame.float32 = function(x, ...)
+{
+  as.data.frame(dbl(as.matrix(x)))
+}
+
 
 
 #' @rdname converters
@@ -158,3 +168,8 @@ setMethod("typeof", signature(x="float32"), function(x) "float32")
 #' @rdname converters
 #' @export
 setMethod("storage.mode", signature(x="float32"), function(x) "float32")
+
+
+setAs("float32", "matrix", function(from) dbl(as.matrix(from)))
+
+setAs("float32", "data.frame", function(from) as.data.frame.float32(from))

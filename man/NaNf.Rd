@@ -4,7 +4,9 @@
 \name{NaNf}
 \alias{NaNf}
 \title{NaNf}
-\format{A 32-bit float.}
+\format{
+A 32-bit float.
+}
 \usage{
 NaNf
 }

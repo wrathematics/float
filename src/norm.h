@@ -71,8 +71,9 @@ static inline float norm_maxmod(const float_len_t m, const float_len_t n, const 
   {
     for (float_len_t i=0; i<m; i++)
     {
-      if (x[i + m*j] > norm)
-        norm = x[i + m*j];
+      float tmp = fabsf(x[i + m*j]);
+      if (tmp > norm)
+        norm = tmp;
     }
   }
   

@@ -1,5 +1,6 @@
 PKG_CFLAGS = @OMPFLAGS_C@ -I../inst/include/
-PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) @OMPFLAGS_C@
+PKG_FFLAGS = @OMPFLAGS_F@ $(SAFE_FFLAGS)
+PKG_LIBS = @LAPACK_LIBFLAGS@ @BLAS_LIBFLAGS@ $(FLIBS) @OMPFLAGS_C@
 
 SLAPACK = slapack_wrap.o @ADD_OBJS@
 
@@ -40,6 +41,8 @@ STATICLIB = libfloat.a
 
 ### Start making here.
 all: $(SHLIB) $(STATICLIB)
+
+@ADD_DEPS@
 
 $(SHLIB): $(OBJECTS)
 

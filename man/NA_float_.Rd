@@ -4,7 +4,9 @@
 \name{NA_float_}
 \alias{NA_float_}
 \title{NA_float_}
-\format{A 32-bit float.}
+\format{
+A 32-bit float.
+}
 \usage{
 NA_float_
 }

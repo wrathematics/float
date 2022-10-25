@@ -1,8 +1,8 @@
 # float
 
+* **Version:** 0.3-0
 * **Status:** [![Linux Build Status via Travis-CI](https://travis-ci.org/wrathematics/float.png)](https://travis-ci.org/wrathematics/float) [![Windows build status via AppVeyor](https://ci.appveyor.com/api/projects/status/github/wrathematics/float?branch=master&svg=true)](https://ci.appveyor.com/project/wrathematics/float/branch/master)
-* **License:** [BSD 2-Clause](http://opensource.org/licenses/BSD-2-Clause)
-* **Author:** Drew Schmidt
+* **License:** [BSD 2-Clause](https://opensource.org/licenses/BSD-2-Clause)
 * **Project home**: https://github.com/wrathematics/float
 * **Bug reports**: https://github.com/wrathematics/float/issues
 
@@ -25,7 +25,7 @@ To install the R package, run:
 install.package("float")
 ```
 
-The development version is maintained on GitHub, and can easily be installed by any of the packages that offer installations from GitHub:
+The development version is maintained on GitHub:
 
 ```r
 remotes::install_github("wrathematics/float")

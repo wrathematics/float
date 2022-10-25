@@ -1,0 +1,18 @@
+PKG_CFLAGS = $(SHLIB_OPENMP_CFLAGS) -I../inst/include/ -I./windows/
+PKG_FFLAGS = $(SHLIB_OPENMP_FFLAGS) $(SAFE_FFLAGS)
+PKG_LIBS = -llapack -lblas $(FLIBS) $(SHLIB_OPENMP_CFLAGS)
+
+R_SOURCES = $(wildcard *.c)
+OBJECTS = $(R_SOURCES:.c=.o) utils/matmult.o utils/symmetrize.o utils/xpose.o slapack_wrap.o
+
+STATICLIB = libfloat.a
+
+### Start making here.
+all: $(SHLIB) $(STATICLIB)
+
+$(SHLIB): $(OBJECTS)
+
+$(STATICLIB): $(OBJECTS)
+	@$(RM) $@
+	$(AR) crs $@ $^
+	$(RANLIB) $@

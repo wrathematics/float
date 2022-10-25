@@ -1,9 +1,10 @@
 // Modified from the coop package. Copyright (c) 2015-2017 Drew Schmidt
 
+#include "safeomp.h"
+
 #include <Rdefines.h>
 #include <stdbool.h>
 
-#include "safeomp.h"
 #include "Rfloat.h"
 #include "unroll.h"
 
