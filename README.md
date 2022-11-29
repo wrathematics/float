@@ -22,7 +22,7 @@ The package requires the single precision BLAS/LAPACK routines which are not inc
 To install the R package, run:
 
 ```r
-install.package("float")
+install.packages("float")
 ```
 
 The development version is maintained on GitHub:
