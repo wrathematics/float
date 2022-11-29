@@ -82,7 +82,7 @@ ldflags_string = function(static=FALSE)
       flags = paste0("-L", float_libs_dir, " -l:float.so -Wl,-rpath=", float_libs_dir)
   }
   else
-    flags = paste0(float_libs_dir, "/libfloat.a")
+    flags = paste0('"', file.path(float_libs_dir, "libfloat.a"), '"')
   
   flags
 }
