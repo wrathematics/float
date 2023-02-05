@@ -4,7 +4,7 @@
 
 
 // we assume IEEE-754 compliance to build the package, so some values are hard-coded
-SEXP R_machine_spm()
+SEXP R_machine_spm(void)
 {
   int i;
   SEXP ret, ret_names;
