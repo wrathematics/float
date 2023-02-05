@@ -2515,6 +2515,9 @@ CFLAGS=`${R_SCMD} CFLAGS`
 CPPFLAGS=`${R_SCMD} CPPFLAGS`
 LDFLAGS=`${R_SCMD} LDFLAGS`
 
+FC=`${R_SCMD} FC`
+FLIBS=`${R_SCMD} FLIBS`
+
 # Obtain BLAS/LAPACK libs from R.
 BLAS_LIBFLAGS=`${R_SCMD} BLAS_LIBS`
 LAPACK_LIBFLAGS=`${R_SCMD} LAPACK_LIBS`
@@ -4226,7 +4229,7 @@ then :
   printf %s "(cached) " >&6
 else $as_nop
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lRblas  $LIBS"
+LIBS="-lRblas ${FLIBS} $LIBS"
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -4268,7 +4271,7 @@ then :
   printf %s "(cached) " >&6
 else $as_nop
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lRblas  $LIBS"
+LIBS="-lRblas ${FLIBS} $LIBS"
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -4331,7 +4334,7 @@ then :
   printf %s "(cached) " >&6
 else $as_nop
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lRlapack  $LIBS"
+LIBS="-lRlapack ${FLIBS} $LIBS"
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -4375,6 +4378,7 @@ fi
     fi
   fi
 fi
+
 
 # Check the system if checking R failed
 BLAS_LIBFLAGS=""
@@ -4530,7 +4534,7 @@ then :
   printf %s "(cached) " >&6
 else $as_nop
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lblas  $LIBS"
+LIBS="-lblas ${FLIBS} $LIBS"
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -4724,7 +4728,7 @@ then :
   printf %s "(cached) " >&6
 else $as_nop
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-llapack  $LIBS"
+LIBS="-llapack ${FLIBS} $LIBS"
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
