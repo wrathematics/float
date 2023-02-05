@@ -1,3 +1,9 @@
+Release 0.3-1:
+  * Fixed compiler check in autoconf.
+  * Added iparam2stage to internal LAPACK build.
+  * Fixed remaining non-void declared parameterless functions.
+  * Fixed link flags in system BLAS/LAPACK configure tests.
+
 Release 0.3-0:
   * Updated internals to LAPACK 3.10.0.
   * Fixed LAPACK bug on gcc-12.
