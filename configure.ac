@@ -3,13 +3,30 @@ AC_INIT
 AC_CONFIG_SRCDIR([DESCRIPTION])
 AC_CONFIG_HEADERS(src/config.h)
 
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+
+R_SCMD="${R_HOME}/bin/R CMD config"
+
+# Get C compiler from R
+CC=`${R_SCMD} CC`
+CFLAGS=`${R_SCMD} CFLAGS`
+CPPFLAGS=`${R_SCMD} CPPFLAGS`
+LDFLAGS=`${R_SCMD} LDFLAGS`
+
+# Obtain BLAS/LAPACK libs from R.
+BLAS_LIBFLAGS=`${R_SCMD} BLAS_LIBS`
+LAPACK_LIBFLAGS=`${R_SCMD} LAPACK_LIBS`
+
 
 
 # ------------------------------------------------------------------------------
 # Check for various system deps/requirements
 # ------------------------------------------------------------------------------
 
-AC_PROG_CC
 AC_CHECK_LIB(m, [sinf], [], 
   [AC_MSG_ERROR([float math functions unavailable])]
 )
@@ -64,23 +81,6 @@ AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
 
 # These can be present/absent in almost any imaginable combination. For example,
 # OpenBLAS (and others?) ship LAPACK symbols in the blas.[so|dylib|dll] file.
-
-# Get C compiler from R
-: ${R_HOME=`R RHOME`}
-if test -z "${R_HOME}"; then
-  echo "could not determine R_HOME"
-  exit 1
-fi
-CC=`"${R_HOME}/bin/R" CMD config CC`
-CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
-CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
-LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
-
-
-# Obtain BLAS/LAPACK libs from R.
-R_SCMD="${R_HOME}/bin/R CMD config"
-BLAS_LIBFLAGS=`${R_SCMD} BLAS_LIBS`
-LAPACK_LIBFLAGS=`${R_SCMD} LAPACK_LIBS`
 
 # Check libRblas and libRlapack first
 HAVE_SP_BLAS="no"
