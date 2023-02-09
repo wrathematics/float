@@ -1,8 +1,8 @@
 year <- sub("-.*", "", meta$Date)
 note <- sprintf("{R} package version %s", meta$Version)
 
-citEntry(
-  entry = "Misc",
+bibentry(
+  bibtype = "Misc",
   title = "{float}: 32-Bit Floats",
   author = person("Drew", "Schmidt"),
   year = year,
@@ -12,8 +12,8 @@ citEntry(
   key = "float2017"
 )
 
-citEntry(
-  entry = "Manual",
+bibentry(
+  bibtype = "Manual",
   title = "Introducing the {float} package: 32-Bit Floats for {R}",
   author = person("Drew", "Schmidt"),
   year = "2017",
