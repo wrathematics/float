@@ -6,6 +6,7 @@ rm -rf ./src/*.dll
 rm -rf ./src/*.a
 
 rm -rf ./src/endianness.h
+rm -rf ./src/config.h
 
 rm -rf ./src/*.o
 rm -rf ./src/lapack/*.o
