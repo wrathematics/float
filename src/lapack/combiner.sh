@@ -25,8 +25,7 @@ blas="${blas} isamax.f"
 lapack=`ls SRC/*.f | sed -e "s/SRC\///g" | grep "^s"`
 lapack="${lapack} ssytrd_sb2st.F"
 
-ilas=`ls SRC | grep "^ilas"`
-ilas="${ilas} ilaenv2stage.f"
+ilas=`ls SRC | grep "^ila"`
 
 sf90_blas=`ls BLAS/SRC/*.f90 | grep "^BLAS/SRC/s"`
 sf90_lapack=`ls SRC/*.f90 | grep "^SRC/s"`

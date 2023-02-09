@@ -100,15 +100,15 @@ function SCNRM2( n, x, incx )
    real(wp), parameter :: one  = 1.0_wp
    real(wp), parameter :: maxN = huge(0.0_wp)
 !  ..
-!  .. Blue's ccaling constants ..
+!  .. Blue's scaling constants ..
    real(wp), parameter :: tsml = real(radix(0._wp), wp)**ceiling( &
        (minexponent(0._wp) - 1) * 0.5_wp)
    real(wp), parameter :: tbig = real(radix(0._wp), wp)**floor( &
        (maxexponent(0._wp) - digits(0._wp) + 1) * 0.5_wp)
    real(wp), parameter :: ssml = real(radix(0._wp), wp)**( - floor( &
-       (minexponent(0._wp) - 1) * 0.5_wp))
+       (minexponent(0._wp) - digits(0._wp)) * 0.5_wp))
    real(wp), parameter :: sbig = real(radix(0._wp), wp)**( - ceiling( &
-       (maxexponent(0._wp) - digits(0._wp) + 1) * 0.5_wp))
+       (maxexponent(0._wp) + digits(0._wp) - 1) * 0.5_wp))
 !  ..
 !  .. Scalar Arguments ..
    integer :: incx, n
@@ -309,15 +309,15 @@ function SNRM2( n, x, incx )
    real(wp), parameter :: one  = 1.0_wp
    real(wp), parameter :: maxN = huge(0.0_wp)
 !  ..
-!  .. Blue's ccaling constants ..
+!  .. Blue's scaling constants ..
    real(wp), parameter :: tsml = real(radix(0._wp), wp)**ceiling( &
        (minexponent(0._wp) - 1) * 0.5_wp)
    real(wp), parameter :: tbig = real(radix(0._wp), wp)**floor( &
        (maxexponent(0._wp) - digits(0._wp) + 1) * 0.5_wp)
    real(wp), parameter :: ssml = real(radix(0._wp), wp)**( - floor( &
-       (minexponent(0._wp) - 1) * 0.5_wp))
+       (minexponent(0._wp) - digits(0._wp)) * 0.5_wp))
    real(wp), parameter :: sbig = real(radix(0._wp), wp)**( - ceiling( &
-       (maxexponent(0._wp) - digits(0._wp) + 1) * 0.5_wp))
+       (maxexponent(0._wp) + digits(0._wp) - 1) * 0.5_wp))
 !  ..
 !  .. Scalar Arguments ..
    integer :: incx, n
@@ -597,7 +597,7 @@ end subroutine
 !> square root of the sum of squares.
 !>
 !> This version is discontinuous in R at F = 0 but it returns the same
-!> C and S as SLARTG for complex inputs (F,0) and (G,0).
+!> C and S as CLARTG for complex inputs (F,0) and (G,0).
 !>
 !> This is a more accurate version of the BLAS1 routine SROTG,
 !> with the following other differences:
@@ -606,8 +606,6 @@ end subroutine
 !>    If F=0 and (G .ne. 0), then C=0 and S=sign(1,G) without doing any
 !>       floating point operations (saves work in SBDSQR when
 !>       there are zeros on the diagonal).
-!>
-!> If F exceeds G in magnitude, C will be positive.
 !>
 !> Below, wp=>sp stands for single precision from LA_CONSTANTS module.
 !> \endverbatim
@@ -674,9 +672,9 @@ end subroutine
 subroutine SLARTG( f, g, c, s, r )
    use LA_CONSTANTS, &
    only: wp=>sp, zero=>szero, half=>shalf, one=>sone, &
-         rtmin=>srtmin, rtmax=>srtmax, safmin=>ssafmin, safmax=>ssafmax
+         safmin=>ssafmin, safmax=>ssafmax
 !
-!  -- LAPACK auxiliary routine (version 3.10.0) --
+!  -- LAPACK auxiliary routine --
 !  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 !  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 !     February 2021
@@ -685,10 +683,14 @@ subroutine SLARTG( f, g, c, s, r )
    real(wp) :: c, f, g, r, s
 !  ..
 !  .. Local Scalars ..
-   real(wp) :: d, f1, fs, g1, gs, p, u, uu
+   real(wp) :: d, f1, fs, g1, gs, u, rtmin, rtmax
 !  ..
 !  .. Intrinsic Functions ..
    intrinsic :: abs, sign, sqrt
+!  ..
+!  .. Constants ..
+   rtmin = sqrt( safmin )
+   rtmax = sqrt( safmax/2 )
 !  ..
 !  .. Executable Statements ..
 !
@@ -705,20 +707,18 @@ subroutine SLARTG( f, g, c, s, r )
    else if( f1 > rtmin .and. f1 < rtmax .and. &
             g1 > rtmin .and. g1 < rtmax ) then
       d = sqrt( f*f + g*g )
-      p = one / d
-      c = f1*p
-      s = g*sign( p, f )
+      c = f1 / d
       r = sign( d, f )
+      s = g / r
    else
       u = min( safmax, max( safmin, f1, g1 ) )
-      uu = one / u
-      fs = f*uu
-      gs = g*uu
+      fs = f / u
+      gs = g / u
       d = sqrt( fs*fs + gs*gs )
-      p = one / d
-      c = abs( fs )*p
-      s = gs*sign( p, f )
-      r = sign( d, f )*u
+      c = abs( fs ) / d
+      r = sign( d, f )
+      s = gs / r
+      r = r*u
    end if
    return
 end subroutine
@@ -764,12 +764,23 @@ end subroutine
 !>    ( scl**2 )*smsq = x( 1 )**2 +...+ x( n )**2 + ( scale**2 )*sumsq,
 !>
 !> where  x( i ) = X( 1 + ( i - 1 )*INCX ). The value of  sumsq  is
-!> assumed to be non-negative and  scl  returns the value
-!>
-!>    scl = max( scale, abs( x( i ) ) ).
+!> assumed to be non-negative.
 !>
 !> scale and sumsq must be supplied in SCALE and SUMSQ and
 !> scl and smsq are overwritten on SCALE and SUMSQ respectively.
+!>
+!> If scale * sqrt( sumsq ) > tbig then
+!>    we require:   scale >= sqrt( TINY*EPS ) / sbig   on entry,
+!> and if 0 < scale * sqrt( sumsq ) < tsml then
+!>    we require:   scale <= sqrt( HUGE ) / ssml       on entry,
+!> where
+!>    tbig -- upper threshold for values whose square is representable;
+!>    sbig -- scaling constant for big numbers; \see la_constants.f90
+!>    tsml -- lower threshold for values whose square is representable;
+!>    ssml -- scaling constant for small numbers; \see la_constants.f90
+!> and
+!>    TINY*EPS -- tiniest representable number;
+!>    HUGE     -- biggest representable number.
 !>
 !> \endverbatim
 !
@@ -914,12 +925,13 @@ subroutine SLASSQ( n, x, incx, scl, sumsq )
    if( sumsq > zero ) then
       ax = scl*sqrt( sumsq )
       if (ax > tbig) then
-         abig = abig + (ax*sbig)**2
-         notbig = .false.
+!        We assume scl >= sqrt( TINY*EPS ) / sbig
+         abig = abig + (scl*sbig)**2 * sumsq
       else if (ax < tsml) then
-         if (notbig) asml = asml + (ax*ssml)**2
+!        We assume scl <= sqrt( HUGE ) / ssml
+         if (notbig) asml = asml + (scl*ssml)**2 * sumsq
       else
-         amed = amed + ax**2
+         amed = amed + scl**2 * sumsq
       end if
    end if
 !

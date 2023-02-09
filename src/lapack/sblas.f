@@ -896,7 +896,7 @@
 *     ..
       DSDOT = SB
       IF (N.LE.0) THEN
-         SDSDOT = DSDOT
+         SDSDOT = REAL(DSDOT)
          RETURN
       END IF
       IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
@@ -921,7 +921,7 @@
             KY = KY + INCY
          END DO
       END IF
-      SDSDOT = DSDOT
+      SDSDOT = REAL(DSDOT)
       RETURN
 *
 *     End of SDSDOT
@@ -3304,10 +3304,14 @@
 *     .. Local Scalars ..
       INTEGER I,M,MP1,NINCX
 *     ..
+*     .. Parameters ..
+      REAL ONE
+      PARAMETER (ONE=1.0E+0)
+*     ..
 *     .. Intrinsic Functions ..
       INTRINSIC MOD
 *     ..
-      IF (N.LE.0 .OR. INCX.LE.0) RETURN
+      IF (N.LE.0 .OR. INCX.LE.0 .OR. SA.EQ.ONE) RETURN
       IF (INCX.EQ.1) THEN
 *
 *        code for increment equal to 1
