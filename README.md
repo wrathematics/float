@@ -1,7 +1,7 @@
 # float
 
 * **Version:** 0.3-1
-* **License:** [BSD 2-Clause](https://opensource.org/license/bsd-license-php/)
+* **License:** [BSD 2-Clause](https://opensource.org/license/bsd-2-clause/)
 * **Project home**: https://github.com/wrathematics/float
 * **Bug reports**: https://github.com/wrathematics/float/issues
 
