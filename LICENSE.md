@@ -1,5 +1,5 @@
 Copyright 2017 ORNL
-Copyright 2014-2017 Drew Schmidt
+Copyright 2014-2023 Drew Schmidt
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
