@@ -1,6 +1,6 @@
 Release 0.3-1:
   * Fixed compiler check in autoconf.
-  * Added iparam2stage to internal LAPACK build.
+  * Added iparam2stage and others to internal LAPACK build.
   * Fixed remaining non-void declared parameterless functions.
   * Fixed link flags in system BLAS/LAPACK configure tests.
   * Updated citation file to use bibentry().
