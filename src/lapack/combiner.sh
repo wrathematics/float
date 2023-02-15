@@ -20,13 +20,13 @@ cd ..
 
 # There are mixed F77 and F90 subroutines now...
 blas=`ls BLAS/SRC/*.f | sed -e "s/BLAS\/SRC\///g" | grep "^s"`
-blas="${blas} isamax.f ieeeck.f"
+blas="${blas} isamax.f"
 
 lapack=`ls SRC/*.f | sed -e "s/SRC\///g" | grep "^s"`
 lapack="${lapack} ssytrd_sb2st.F"
 
 ilas=`ls SRC | grep "^ila"`
-ilas="${ilas} iparmq.f"
+ilas="${ilas} iparmq.f ieeeck.f iparam2stage.F"
 
 sf90_blas=`ls BLAS/SRC/*.f90 | grep "^BLAS/SRC/s"`
 sf90_lapack=`ls SRC/*.f90 | grep "^SRC/s"`
