@@ -67,9 +67,9 @@ bracket_float32 = function(x, i, j, drop=TRUE)
   else
     d = bracket_float32_mat(x, i, j, drop=drop)
   
-  if (!is.null(rownames(x)))
+  if (!is.null(rownames(x)) & NROW(d) > 1 & NCOL(d) > 1)
     rownames(d) = rownames(x)[i]
-  if (!is.null(names(x)))
+  if (!is.null(names(x)) & length(d) > 1)
     names(d) = names(x)[j]
   
   float32(d)
