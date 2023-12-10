@@ -117,7 +117,7 @@ SEXP R_solve_spmspm(SEXP x, SEXP y)
     error("'a' (%d x %d) must be square\n", m, n);
   
   if (n != NROWS(y))
-    error("'b' (%ld x %d) must be compatible with 'a' (%d x %d)\n", NROWS(y), nrhs, m, n);
+    error("'b' (%ld x %d) must be compatible with 'a' (%d x %d)\n", ((long int)NROWS(y)), nrhs, m, n);
   
   if (nrhs == 1)
     PROTECT(ret = newvec(n));
