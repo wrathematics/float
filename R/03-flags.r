@@ -10,40 +10,6 @@ get_os <- function()
   os
 }
 
-
-
-blas_ldflags_string = function()
-{
-  if (get_os() == "windows")
-  {
-    maj = as.numeric(version$major)
-    min = floor(as.numeric(version$minor))
-    if (maj < 4 || min <= 1)
-      ""
-    else
-      "-lblas"
-  }
-  else
-    blas_ldflags_nix() # defined by configure in R/02-libflags.r
-}
-
-lapack_ldflags_string = function()
-{
-  if (get_os() == "windows")
-  {
-    maj = as.numeric(version$major)
-    min = floor(as.numeric(version$minor))
-    if (maj < 4 || min <= 1)
-      ""
-    else
-      "-llapack"
-  }
-  else
-    lapack_ldflags_nix() # defined by configure in R/02-libflags.r
-}
-
-
-
 ldflags_string = function(static=FALSE)
 {
   install_path = "libs"
@@ -89,7 +55,7 @@ ldflags_string = function(static=FALSE)
 
 ldflags = function(static=FALSE)
 {
-  linalg_flags = paste(lapack_ldflags_string(), blas_ldflags_string())
+  linalg_flags = "$(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)"
   float_flags = ldflags_string(static=static)
   flags = paste(float_flags, linalg_flags)
   
