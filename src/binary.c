@@ -6,7 +6,7 @@
 
 
 #define ERR_NONC error("non-conformable arrays")
-#define ERR_DIMS(dimprod,nr) error("dims [product %zu] do not match the length of object [%d]\n", dimprod, nr)
+#define ERR_DIMS(dimprod,nr) error("dims [product %zu] do not match the length of object [%ld]\n", dimprod, (long int) nr)
 #define WARN_LEN warning("longer object length is not a multiple of shorter object length\n")
 
 #define BINOP_MATMAT(x,y,FUN) \

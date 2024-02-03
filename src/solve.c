@@ -109,7 +109,6 @@ static inline int solve_system(const float_len_t n, const float_len_t nrhs,
 
 SEXP R_solve_spmspm(SEXP x, SEXP y)
 {
-  
   SEXP ret;
   const float_len_t m = NROWS(x);
   const float_len_t n = NCOLS(x);
@@ -118,7 +117,7 @@ SEXP R_solve_spmspm(SEXP x, SEXP y)
     error("'a' (%d x %d) must be square\n", m, n);
   
   if (n != NROWS(y))
-    error("'b' (%d x %d) must be compatible with 'a' (%d x %d)\n", NROWS(y), nrhs, m, n);
+    error("'b' (%ld x %d) must be compatible with 'a' (%d x %d)\n", ((long int)NROWS(y)), nrhs, m, n);
   
   if (nrhs == 1)
     PROTECT(ret = newvec(n));

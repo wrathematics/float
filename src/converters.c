@@ -59,7 +59,7 @@ SEXP R_mat2spm(SEXP x)
     
     
     default:
-      error("");
+      error("Unable to convert");
   }
   
   UNPROTECT(1);
