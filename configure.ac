@@ -87,7 +87,7 @@ AC_CHECK_PROG([grep_ok], [grep], [yes], [no], ,)
 
 # Check libRblas and libRlapack first
 HAVE_SP_BLAS="no"
-if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
+if test "X${echo_ok}" = "Xyes" && test "X${grep_ok}" = "Xyes"; then
   USE_R_BLAS=`echo ${BLAS_LIBFLAGS} | grep "\-lRblas"`
   if test "X${USE_R_BLAS}" != "X"; then
     LDFLAGS_OLD="${LDFLAGS}"
@@ -109,8 +109,8 @@ if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
 fi
 
 HAVE_SP_LAPACK="no"
-if test "X${HAVE_SP_LAPACK}" = "X" -o "X${HAVE_SP_LAPACK}" = "Xno"; then
-  if test "X${echo_ok}" = "Xyes" -a "X${grep_ok}" = "Xyes"; then
+if test "X${HAVE_SP_LAPACK}" = "X" || test "X${HAVE_SP_LAPACK}" = "Xno"; then
+  if test "X${echo_ok}" = "Xyes" && test "X${grep_ok}" = "Xyes"; then
     USE_R_LAPACK=`echo ${LAPACK_LIBFLAGS} | grep "\-lRlapack"`
     if test "X${USE_R_LAPACK}" != "X"; then
       LDFLAGS_OLD="${LDFLAGS}"

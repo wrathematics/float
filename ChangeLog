@@ -1,3 +1,6 @@
+Release 0.3-3:
+  * Remove bash-isms from configure.ac
+
 Release 0.3-2:
   * Minor change for CRAN.
 
