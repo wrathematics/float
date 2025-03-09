@@ -11,8 +11,8 @@
 
 #define BINOP_MATMAT(x,y,FUN) \
   SEXP ret; \
-  const float_len_t m = NROWS(x); \
-  const float_len_t n = NCOLS(x); \
+  const float_len_t m = (float_len_t) NROWS(x); \
+  const float_len_t n = (float_len_t) NCOLS(x); \
   if (m != NROWS(y) || n != NCOLS(y)) \
     ERR_NONC; \
   \
@@ -32,9 +32,9 @@
 
 #define BINOP_MATVEC(x,y,FUN) \
   SEXP ret; \
-  const float_len_t m = NROWS(x); \
-  const float_len_t n = NCOLS(x); \
-  const size_t ny = NROWS(y); \
+  const float_len_t m = (float_len_t) NROWS(x); \
+  const float_len_t n = (float_len_t) NCOLS(x); \
+  const size_t ny = (size_t) NROWS(y); \
   const size_t dimprod = (size_t)m*n; \
   PROTECT(ret = newmat(m, n)); \
   float *xf = FLOAT(x); \
@@ -54,9 +54,9 @@
 
 #define BINOP_VECMAT(x,y,FUN) \
   SEXP ret; \
-  const float_len_t m = NROWS(y); \
-  const float_len_t n = NCOLS(y); \
-  const size_t nx = NROWS(x); \
+  const float_len_t m = (float_len_t) NROWS(y); \
+  const float_len_t n = (float_len_t) NCOLS(y); \
+  const size_t nx = (size_t) NROWS(x); \
   const size_t dimprod = (size_t)m*n; \
   PROTECT(ret = newmat(m, n)); \
   float *xf = FLOAT(x); \
@@ -97,9 +97,9 @@
 
 
 #define COMPARE_MATMAT(x,y,FUN) \
-  const float_len_t m = NROWS(x); \
-  const float_len_t n = NCOLS(x); \
-  if (m != NROWS(y) || n != NCOLS(y)) \
+  const float_len_t m = (float_len_t) NROWS(x); \
+  const float_len_t n = (float_len_t) NCOLS(x); \
+  if (m != ((float_len_t) NROWS(y)) || n != ((float_len_t) NCOLS(y))) \
     ERR_NONC; \
   \
   SEXP ret; \
@@ -124,9 +124,9 @@
   return ret;
 
 #define COMPARE_MATVEC(x,y,FUN) \
-  const float_len_t m = NROWS(x); \
-  const float_len_t n = NCOLS(x); \
-  const size_t ny = NROWS(y); \
+  const float_len_t m = (float_len_t) NROWS(x); \
+  const float_len_t n = (float_len_t) NCOLS(x); \
+  const size_t ny = (size_t) NROWS(y); \
   const size_t dimprod = (size_t)m*n; \
   SEXP ret; \
   PROTECT(ret = allocMatrix(LGLSXP, m, n)); \
@@ -152,9 +152,9 @@
   return ret;
 
 #define COMPARE_VECMAT(x,y,FUN) \
-  const float_len_t m = NROWS(y); \
-  const float_len_t n = NCOLS(y); \
-  const size_t nx = NROWS(x); \
+  const float_len_t m = (float_len_t) NROWS(y); \
+  const float_len_t n = (float_len_t) NCOLS(y); \
+  const size_t nx = (size_t) NROWS(x); \
   const size_t dimprod = (size_t)m*n; \
   SEXP ret; \
   PROTECT(ret = allocMatrix(LGLSXP, m, n)); \

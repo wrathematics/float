@@ -14,8 +14,8 @@
 SEXP R_min_spm(SEXP x, SEXP na_rm)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   float min = (float) INFINITY;
   
   PROTECT(ret = newvec(1));
@@ -57,8 +57,8 @@ SEXP R_min_spm(SEXP x, SEXP na_rm)
 SEXP R_max_spm(SEXP x, SEXP na_rm)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   float max = (float) -INFINITY;
   
   PROTECT(ret = newvec(1));
@@ -104,8 +104,8 @@ SEXP R_max_spm(SEXP x, SEXP na_rm)
 SEXP R_whichmin_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   float min = (float) INFINITY;
   size_t which;
   bool empty = true;
@@ -150,8 +150,8 @@ SEXP R_whichmin_spm(SEXP x)
 SEXP R_whichmax_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   float max = (float) -INFINITY;
   size_t which;
   bool empty = true;

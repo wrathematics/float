@@ -73,8 +73,8 @@ SEXP R_svd_spm(SEXP x, SEXP nu_, SEXP nv_)
   int nret = 1;
   const int nu = INTEGER(nu_)[0];
   const int nv = INTEGER(nv_)[0];
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   const float_len_t minmn = MIN(m, n);
   
   PROTECT(s = newvec(minmn));

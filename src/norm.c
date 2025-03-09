@@ -8,8 +8,8 @@ SEXP R_norm_spm(SEXP x, SEXP type_)
 {
   SEXP ret;
   float norm;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   const char type = CHARPT(type_, 0)[0];
   
   PROTECT(ret = newvec(1));

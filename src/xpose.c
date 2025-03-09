@@ -6,8 +6,8 @@
 SEXP R_xpose_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   PROTECT(ret = newmat(n, m));
   

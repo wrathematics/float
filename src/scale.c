@@ -127,8 +127,8 @@ SEXP R_scale_spm(SEXP x, SEXP center_, SEXP scale_)
   SEXP ret_s4_class, cm_s4_class, cv_s4_class;
   SEXP ret_s4, cm_s4, cv_s4;
   SEXP cm, cv;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   const bool center = INTEGER(center_)[0];
   const bool scale = INTEGER(scale_)[0];
   int ptct = 0;

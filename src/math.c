@@ -7,8 +7,8 @@
 
 #define FUN_INIT \
   SEXP ret; \
-  const float_len_t m = NROWS(x); \
-  const float_len_t n = NCOLS(x); \
+  const float_len_t m = (float_len_t) NROWS(x); \
+  const float_len_t n = (float_len_t) NCOLS(x); \
    \
   if (ISAVEC(x)) \
     PROTECT(ret = newvec((R_xlen_t)m*n)); \
@@ -183,8 +183,8 @@ SEXP R_lgamma_spm(SEXP x)
 SEXP R_isfinite_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
@@ -210,8 +210,8 @@ SEXP R_isfinite_spm(SEXP x)
 SEXP R_isinfinite_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));
@@ -237,8 +237,8 @@ SEXP R_isinfinite_spm(SEXP x)
 SEXP R_isnan_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   if (ISAVEC(x))
     PROTECT(ret = allocVector(LGLSXP, ((size_t)m*n)));

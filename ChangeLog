@@ -1,5 +1,6 @@
 Release 0.3-3:
   * Remove bash-isms from configure.ac
+  * Add integer type casts for clang 16
 
 Release 0.3-2:
   * Minor change for CRAN.

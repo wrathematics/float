@@ -56,8 +56,8 @@ SEXP R_qr_spm(SEXP x, SEXP tol)
   SEXP qrlist, qrlist_names;
   SEXP qr, rank, qraux, pivot;
   int info;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   const float_len_t minmn = MIN(m, n);
   
   PROTECT(rank = allocVector(INTSXP, 1));
@@ -109,8 +109,8 @@ SEXP R_qrQ_spm(SEXP qr, SEXP qraux, SEXP complete_)
   SEXP ret;
   const int side = SIDE_L;
   const int trans = TRANS_N;
-  const float_len_t m = NROWS(qr);
-  const float_len_t n = NCOLS(qr);
+  const float_len_t m = (float_len_t) NROWS(qr);
+  const float_len_t n = (float_len_t) NCOLS(qr);
   const int complete = INTEGER(complete_)[0];
   
   const float_len_t nrhs = complete ? m : MIN(m, n);
@@ -132,8 +132,8 @@ SEXP R_qrQ_spm(SEXP qr, SEXP qraux, SEXP complete_)
 SEXP R_qrR_spm(SEXP qr, SEXP complete_)
 {
   SEXP R;
-  const float_len_t m = NROWS(qr);
-  const float_len_t n = NCOLS(qr);
+  const float_len_t m = (float_len_t) NROWS(qr);
+  const float_len_t n = (float_len_t) NCOLS(qr);
   const int complete = INTEGER(complete_)[0];
   const float_len_t nrows = complete ? m : MIN(m, n);
   
@@ -159,9 +159,9 @@ SEXP R_qrqy_spm(SEXP qr, SEXP qraux, SEXP y, SEXP trans_)
   SEXP ret;
   const int side = SIDE_L;
   const int trans = LOGICAL(trans_)[0] ? TRANS_T : TRANS_N;
-  const float_len_t m = NROWS(qr);
-  const float_len_t n = NCOLS(qr);
-  const float_len_t nrhs = NCOLS(y);
+  const float_len_t m = (float_len_t) NROWS(qr);
+  const float_len_t n = (float_len_t) NCOLS(qr);
+  const float_len_t nrhs = (float_len_t) NCOLS(y);
   
   PROTECT(ret = newmat(m, nrhs));
   Qty(side, trans, m, n, nrhs, DATA(qr), DATA(qraux), DATA(ret));

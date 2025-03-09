@@ -6,8 +6,8 @@
 SEXP R_matmult_spm(SEXP x, SEXP y)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(y);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(y);
   
   if (NCOLS(x) != NROWS(y))
     error("non-conformable arguments");

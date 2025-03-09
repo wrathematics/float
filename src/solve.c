@@ -63,7 +63,7 @@ static inline int invert(const float_len_t n, float *const restrict x)
 SEXP R_solve_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t n = NROWS(x);
+  const float_len_t n = (float_len_t) NROWS(x);
   if (n != NCOLS(x))
     error("'a' must be a square matrix");
   
@@ -110,9 +110,9 @@ static inline int solve_system(const float_len_t n, const float_len_t nrhs,
 SEXP R_solve_spmspm(SEXP x, SEXP y)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
-  const float_len_t nrhs = NCOLS(y);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
+  const float_len_t nrhs = (float_len_t) NCOLS(y);
   if (m != n)
     error("'a' (%d x %d) must be square\n", m, n);
   

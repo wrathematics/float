@@ -9,8 +9,8 @@ SEXP R_sum_spm(SEXP x, SEXP na_rm)
 {
   SEXP ret;
   float sum = 0.0f;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   float *xf = FLOAT(x);
   

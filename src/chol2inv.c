@@ -8,7 +8,7 @@ SEXP R_chol2inv_spm(SEXP x, SEXP size_)
 {
   SEXP ret;
   int info;
-  const float_len_t n = NCOLS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   const int size = INTEGER(size_)[0];
   if (size > n)
     error("'size' cannot exceed ncol(x) = %d\n", n);

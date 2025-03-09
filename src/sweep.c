@@ -43,8 +43,8 @@ SEXP R_sweep_spm(SEXP x, SEXP MARGIN_, SEXP STATS, SEXP FUN_)
   float_len_t veclen;
   float *fvec = NULL;
   SEXP tmp;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   const int MARGIN = INTEGER(MARGIN_)[0];
   const char FUN = CHARPT(FUN_, 0)[0];
   

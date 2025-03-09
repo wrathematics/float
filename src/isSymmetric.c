@@ -38,8 +38,8 @@ static inline bool isSym(const float_len_t n, const float *const restrict x)
 SEXP R_isSymmetric_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   PROTECT(ret = allocVector(LGLSXP, 1));
   

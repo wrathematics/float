@@ -9,8 +9,8 @@
 SEXP R_colSums_spm(SEXP x, SEXP na_rm_)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   const bool na_rm = LOGICAL(na_rm_)[0];
   
   PROTECT(ret = newvec(n));

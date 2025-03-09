@@ -10,14 +10,14 @@ SEXP R_mat2spm(SEXP x)
   
   if (!isMatrix(x))
   {
-    m = XLENGTH(x);
-    n = 1;
+    m = (float_len_t) XLENGTH(x);
+    n = (float_len_t) 1;
     PROTECT(ret_ = newvec(m));
   }
   else
   {
-    m = NROWS(x);
-    n = NCOLS(x);
+    m = (float_len_t) NROWS(x);
+    n = (float_len_t) NCOLS(x);
     PROTECT(ret_ = newmat(m, n));
   }
   
@@ -71,8 +71,8 @@ SEXP R_mat2spm(SEXP x)
 SEXP R_spm2mat(SEXP x_)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x_);
-  const float_len_t n = NCOLS(x_);
+  const float_len_t m = (float_len_t) NROWS(x_);
+  const float_len_t n = (float_len_t) NCOLS(x_);
   const float *x = (float*) INTEGER(x_);
   
   if (n == 1 && ISAVEC(x_))
@@ -101,8 +101,8 @@ SEXP R_spm2mat(SEXP x_)
 SEXP R_spm2int(SEXP x_)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x_);
-  const float_len_t n = NCOLS(x_);
+  const float_len_t m = (float_len_t) NROWS(x_);
+  const float_len_t n = (float_len_t) NCOLS(x_);
   const float *x = (float*) INTEGER(x_);
   
   if (n == 1 && ISAVEC(x_))

@@ -102,8 +102,8 @@ SEXP R_init_NaNf(void)
 SEXP R_isna_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   float *xf = FLOAT(x);
   
@@ -306,8 +306,8 @@ static SEXP R_naomit_spm_vec(size_t n, const float *const x)
 SEXP R_naomit_spm(SEXP x)
 {
   SEXP ret;
-  const float_len_t m = NROWS(x);
-  const float_len_t n = NCOLS(x);
+  const float_len_t m = (float_len_t) NROWS(x);
+  const float_len_t n = (float_len_t) NCOLS(x);
   
   if (ISAVEC(x))
     return R_naomit_spm_vec(m, DATA(x));

@@ -7,7 +7,7 @@ SEXP R_chol_spm(SEXP x)
 {
   SEXP ret;
   int info;
-  const float_len_t n = NROWS(x);
+  const float_len_t n = (float_len_t) NROWS(x);
   if (n != NCOLS(x))
     error("'a' must be a square matrix");
   
